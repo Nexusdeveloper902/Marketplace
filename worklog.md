@@ -49,3 +49,55 @@ Stage Summary:
 - Stack: Next.js 16 + TypeScript + Tailwind 4 + shadcn/ui + Framer Motion + Zustand (persist localStorage).
 - 3 pantallas funcionales, 12 vehículos reales con specs e imágenes reales, todo en español, tema oscuro premium.
 - Cero errores de lint, cero errores en runtime.
+
+---
+Task ID: MP-1..MP-11
+Agent: Main (Z.ai Code)
+Task: Transformar la SPA en un sitio multi-página con enrutado real (App Router), manteniendo la identidad visual
+
+Work Log:
+- Simplificado `use-store.ts`: eliminada la navegación (vista/vehiculoSeleccionado/irA*), ahora solo gestiona el garaje (comprar/estaComprado/remover) con persistencia en localStorage.
+- Actualizado `types/vehicle.ts`: quitado el tipo `Vista` (ya no se necesita).
+- Reorganizada la estructura de componentes:
+  * `src/components/layout/` → header.tsx, footer.tsx, site-shell.tsx (nuevo wrapper reutilizable)
+  * `src/components/marketplace/` → vehicle-card, marketplace-view, vehicle-detail-view, garage-view
+  * `src/components/landing/` → landing-hero, featured-vehicles, why-choose-us, brands-section (todos nuevos)
+- Header refactorizado con `next/link` + `usePathname`: resalta la página activa (Inicio/Marketplace/Mi Garaje), y `/vehiculos/*` se considera parte de Marketplace. Badge del garaje persiste.
+- Footer refactorizado con `next/link` a Inicio/Marketplace/Mi Garaje.
+- VehicleCard refactorizado: imagen y botón ahora son `<Link href="/vehiculos/[id]">` (navegación real).
+- VehicleDetailView: ahora recibe `id` como prop (de la página dinámica) y usa `Link` para volver y para "Ver en mi garaje".
+- GarageView: usa `Link` para "Explorar marketplace" y reutiliza VehicleCard (que ya navega al detalle).
+- Landing page completa (nueva):
+  * Hero con Porsche 911 destacado, título "Donde la pasión se convierte en velocidad", subtítulo, botón "Explorar vehículos" → /marketplace, métricas (12 modelos, 12 marcas, 100% curado).
+  * "Vehículos destacados" → 6 tarjetas curadas + link "Ver todo el catálogo".
+  * "¿Por qué elegir Digital Marketplace?" → 4 ventajas con iconos (autenticidad, rendimiento, selección curada, experiencia premium).
+  * "Marcas disponibles" → cuadrícula de 12 marcas + CTA.
+- Páginas creadas (rutas reales):
+  * `/` → src/app/page.tsx (landing)
+  * `/marketplace` → src/app/marketplace/page.tsx
+  * `/vehiculos/[id]` → src/app/vehiculos/[id]/page.tsx (server component con generateStaticParams + notFound, pasa id al client component)
+  * `/garaje` → src/app/garaje/page.tsx
+- `src/app/template.tsx` (nuevo): transición de entrada sutil (opacity+y) en cada navegación.
+- `bun run lint`: 0 errores, 0 advertencias.
+- Verificación con Agent Browser en TODAS las rutas:
+  * `/` → landing completa renderiza (hero, destacados, ventajas, marcas).
+  * Clic "Explorar vehículos" → URL cambia a `/marketplace` (navegación real, no SPA).
+  * `/marketplace` → catálogo, búsqueda y filtros funcionan; "Marketplace" resaltado en header.
+  * Clic "Ver detalles" → `/vehiculos/porsche-911-carrera` (ruta dinámica).
+  * Compra → "Comprado" + toast + badge +1 + "Ver en mi garaje".
+  * Clic "Ver en mi garaje" → `/garaje` con el vehículo.
+  * Clic "Inspeccionar" → vuelve al detalle con estado "Comprado" persistido.
+  * Recarga de `/garaje` → el vehículo persiste (localStorage).
+  * Storage clear → estado vacío elegante del garaje.
+  * `/vehiculos/no-existe` → 404.
+  * Header resalta correctamente en cada página (incluido detalle → Marketplace activo).
+  * Móvil 390px: landing y navegación usables, sin overflow.
+  * VLM califica el hero desktop 9/10 vs porsche.com/tesla.com.
+  * Sin errores en consola ni en dev.log.
+
+Stage Summary:
+- Proyecto transformado de SPA a sitio multi-página con enrutado real.
+- Misma identidad visual premium (tema oscuro, paleta, tipografía, animaciones, tarjetas).
+- Estructura limpia y escalable: separación de páginas, componentes de layout, componentes de marketplace, componentes de landing, datos y store.
+- 4 rutas: /, /marketplace, /vehiculos/[id], /garaje. Navegación con next/link, página activa resaltada, transiciones suaves.
+- Cero errores de lint, cero errores en runtime, todas las rutas verificadas end-to-end.

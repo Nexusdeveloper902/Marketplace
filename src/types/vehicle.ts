@@ -12,5 +12,3 @@ export interface Vehicle {
   descripcion: string
   imagenes: string[]
 }
-
-export type Vista = "marketplace" | "detalle" | "garaje"

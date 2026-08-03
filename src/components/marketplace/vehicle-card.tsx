@@ -1,10 +1,10 @@
 "use client"
 
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { ChevronRight, Zap } from "lucide-react"
 import type { Vehicle } from "@/types/vehicle"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
-import { useTienda } from "@/store/use-store"
 import { cn } from "@/lib/utils"
 
 interface VehicleCardProps {
@@ -22,7 +22,7 @@ export function VehicleCard({
   variante = "marketplace",
   index = 0,
 }: VehicleCardProps) {
-  const irADetalle = useTienda((s) => s.irADetalle)
+  const href = `/vehiculos/${vehiculo.id}`
 
   return (
     <motion.article
@@ -36,8 +36,8 @@ export function VehicleCard({
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[0_1px_0_0_oklch(1_0_0/0.04)_inset,0_8px_30px_-12px_oklch(0_0_0/0.6)] transition-all duration-500 hover:border-border hover:shadow-[0_1px_0_0_oklch(1_0_0/0.06)_inset,0_20px_50px_-12px_oklch(0_0_0/0.7)]"
     >
       {/* Imagen */}
-      <button
-        onClick={() => irADetalle(vehiculo.id)}
+      <Link
+        href={href}
         className="relative block aspect-[16/10] w-full overflow-hidden bg-secondary"
         aria-label={`Ver detalles del ${vehiculo.marca} ${vehiculo.modelo}`}
       >
@@ -70,7 +70,7 @@ export function VehicleCard({
             {vehiculo.año} · {vehiculo.combustible}
           </p>
         </div>
-      </button>
+      </Link>
 
       {/* Cuerpo */}
       <div className="flex flex-1 flex-col gap-4 p-4 sm:p-5">
@@ -93,8 +93,8 @@ export function VehicleCard({
           </div>
         </div>
 
-        <button
-          onClick={() => irADetalle(vehiculo.id)}
+        <Link
+          href={href}
           className={cn(
             "group/btn mt-auto flex items-center justify-between gap-2 rounded-xl border px-4 py-3 text-sm font-semibold transition-all duration-300",
             variante === "garaje"
@@ -104,7 +104,7 @@ export function VehicleCard({
         >
           {etiquetaBoton}
           <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
-        </button>
+        </Link>
       </div>
     </motion.article>
   )

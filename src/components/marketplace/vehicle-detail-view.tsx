@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   ArrowLeft,
@@ -33,10 +34,11 @@ const especificaciones = [
   },
 ] as const
 
-export function VehicleDetailView() {
-  const id = useTienda((s) => s.vehiculoSeleccionado)
-  const irAMarketplace = useTienda((s) => s.irAMarketplace)
-  const irAGaraje = useTienda((s) => s.irAGaraje)
+interface VehicleDetailViewProps {
+  id: string
+}
+
+export function VehicleDetailView({ id }: VehicleDetailViewProps) {
   const garaje = useTienda((s) => s.garaje)
   const comprar = useTienda((s) => s.comprar)
   const { toast } = useToast()
@@ -50,12 +52,12 @@ export function VehicleDetailView() {
         <p className="text-lg font-medium text-foreground">
           Vehículo no encontrado
         </p>
-        <button
-          onClick={irAMarketplace}
+        <Link
+          href="/marketplace"
           className="mt-5 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
         >
           Volver al marketplace
-        </button>
+        </Link>
       </div>
     )
   }
@@ -74,13 +76,13 @@ export function VehicleDetailView() {
   return (
     <div className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
       {/* Botón volver */}
-      <button
-        onClick={irAMarketplace}
+      <Link
+        href="/marketplace"
         className="group mt-5 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
         Volver al marketplace
-      </button>
+      </Link>
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
         {/* Columna izquierda: galería */}
@@ -231,12 +233,12 @@ export function VehicleDetailView() {
             </button>
 
             {yaComprado && (
-              <button
-                onClick={irAGaraje}
-                className="rounded-xl border border-border bg-card px-6 py-4 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+              <Link
+                href="/garaje"
+                className="rounded-xl border border-border bg-card px-6 py-4 text-center text-sm font-semibold text-foreground transition-colors hover:bg-accent"
               >
                 Ver en mi garaje
-              </button>
+              </Link>
             )}
           </div>
         </div>

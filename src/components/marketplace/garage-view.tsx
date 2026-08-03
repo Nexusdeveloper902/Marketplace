@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { CarFront, ArrowRight } from "lucide-react"
 import { vehiculos } from "@/data/vehicles"
@@ -8,7 +9,6 @@ import { VehicleCard } from "./vehicle-card"
 
 export function GarageView() {
   const garaje = useTienda((s) => s.garaje)
-  const irAMarketplace = useTienda((s) => s.irAMarketplace)
 
   const vehiculosGaraje = garaje
     .map((id) => vehiculos.find((v) => v.id === id))
@@ -96,13 +96,13 @@ export function GarageView() {
             Los vehículos que adquieras aparecerán aquí para que puedas
             inspeccionarlos cuando quieras.
           </p>
-          <button
-            onClick={irAMarketplace}
+          <Link
+            href="/marketplace"
             className="group mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
           >
             Explorar marketplace
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-          </button>
+          </Link>
         </motion.section>
       )}
     </div>
