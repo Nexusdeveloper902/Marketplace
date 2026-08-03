@@ -6,14 +6,14 @@ import { ArrowRight } from "lucide-react"
 import { vehiculos } from "@/data/vehicles"
 import { VehicleCard } from "@/components/marketplace/vehicle-card"
 
-// Selección curada de 6 vehículos destacados.
+// Selección curada de 6 vehículos destacados (mezcla de modelos clásicos y nuevos).
 const destacados = [
-  "ferrari-296-gtb",
-  "lamborghini-huracan-evo",
-  "tesla-model-s-plaid",
-  "chevrolet-corvette-z06",
-  "mercedes-amg-gt-63",
-  "nissan-gtr-nismo",
+  "ferrari-sf90-stradale",
+  "lamborghini-revuelto",
+  "porsche-taycan-turbos",
+  "bmw-m5-cs",
+  "audi-r8-v10",
+  "ford-gt",
 ]
   .map((id) => vehiculos.find((v) => v.id === id))
   .filter((v): v is NonNullable<typeof v> => Boolean(v))

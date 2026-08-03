@@ -101,3 +101,64 @@ Stage Summary:
 - Estructura limpia y escalable: separación de páginas, componentes de layout, componentes de marketplace, componentes de landing, datos y store.
 - 4 rutas: /, /marketplace, /vehiculos/[id], /garaje. Navegación con next/link, página activa resaltada, transiciones suaves.
 - Cero errores de lint, cero errores en runtime, todas las rutas verificadas end-to-end.
+
+---
+Task ID: IMG-1
+Agent: image-search-subagent
+Task: Buscar imágenes reales para 36 modelos de autos nuevos (3 por marca × 12 marcas) usando `z-ai image-search` CLI
+
+Work Log:
+- Leído `worklog.md` para contexto: proyecto marketplace de vehículos, 12 modelos existentes (Porsche 911, Ferrari 296 GTB, Lamborghini Huracán EVO, BMW M4, Mercedes-AMG GT 63, Audi RS6, Tesla Model S Plaid, Toyota GR Supra, Honda Civic Type R, Ford Mustang GT, Chevrolet Corvette Z06, Nissan GT-R Nismo). Ahora toca agregar 36 modelos nuevos (3 por marca) para ampliar el catálogo a 48.
+- Creado directorio de salida `/home/z/my-project/img-search/`.
+- Verificado `z-ai image-search --help`: confirma opciones `-q`, `--count`, `--gl`, `--no-rank`. Servicio re-hostea imágenes en OSS (`z-cdn.chatglm.cn/image-search-mcp/...`), URLs embebibles.
+- Búsqueda piloto (porsche-taycan-turbos): EXIT=0, 4 URLs obtenidas. Confirmado formato de salida: líneas de estado seguidas de un bloque JSON con `results[].original_url`.
+- Ejecutadas las 36 búsquedas **secuencialmente** con `sleep 7` entre cada una, en 4 lotes para mantenerse dentro del timeout por invocación de herramienta:
+  * Lote 1 (12 modelos): Porsche 2-3, Ferrari 3, Lamborghini 3, BMW 3, Mercedes S63. La herramienta reportó "context deadline exceeded" pero al inspeccionar el FS, los 12 archivos (más el piloto) ya estaban completos con 4 URLs cada uno. No fue necesario re-ejecutar nada de este lote.
+  * Lote 2 (7 modelos): Mercedes G63/C63, Audi R8/RS7/SQ8, Tesla Model 3 Performance/Model X Plaid. Todas OK en primer intento.
+  * Lote 3 (7 modelos): Tesla Cybertruck, Toyota GR Corolla/Land Cruiser/Camry TRD, Honda NSX Type S/Accord/Integra Type S. Todas OK en primer intento.
+  * Lote 4 (9 modelos): Ford GT/F-150 Raptor R/Bronco Raptor, Chevrolet Camaro ZL1/Silverado ZR2/Tahoe RST, Nissan Z Nismo/Ariya/Frontier. Todas OK en primer intento.
+- **Cero búsquedas fallaron con HTTP 429**: la cadencia `sleep 7` fue suficiente. La lógica de reintento con `sleep 20` no tuvo que usarse.
+- Verificación de archivos: 36 archivos `.txt` generados, cada uno con exactamente 4 ocurrencias de `"original_url"` (verificado con `grep -c`).
+- Escrito `img-search/build_results.py` (Python): parsea cada `.txt`, extrae el bloque JSON (scan brace-matching con manejo de strings/escapes), recoge `original_url` de cada uno de los 4 resultados, y emite `results.json` con claves en el orden del enunciado.
+- `results.json` generado (12.145 bytes, indent=2). Validación con Python:
+  * JSON válido: True
+  * Cantidad de claves: 36
+  * Cada clave tiene un array de exactamente 4 URLs `https://z-cdn.chatglm.cn/...`
+  * Cero modelos con !=4 URLs
+
+Stage Summary:
+- 36 modelos nuevos con 4 imágenes reales cada uno = 144 URLs OSS-hosted adicionales.
+- Catálogo total potencial: 48 modelos (12 existentes + 36 nuevos).
+- Archivo consolidado: `/home/z/my-project/img-search/results.json` (36 claves, 4 URLs c/u).
+- Archivos crudos por modelo: `/home/z/my-project/img-search/<model-name>.txt` (36 archivos).
+- Script de construcción reutilizable: `/home/z/my-project/img-search/build_results.py`.
+- Marcas cubiertas (3 modelos nuevos c/u): Porsche, Ferrari, Lamborghini, BMW, Mercedes-Benz, Audi, Tesla, Toyota, Honda, Ford, Chevrolet, Nissan.
+- Listo para que el agente principal integre estos modelos en `src/data/vehicles.ts`.
+
+---
+Task ID: EXP-1..EXP-5
+Agent: Main (Z.ai Code) + image-search-subagent (IMG-1)
+Task: Expandir el catálogo a 4 modelos por marca (12 marcas × 4 = 48 vehículos)
+
+Work Log:
+- Subagente IMG-1 buscó imágenes reales para 36 modelos nuevos (3 por marca, secuencial con sleep 7 para evitar 429). Resultado: 36/36 exitosos, 144 URLs OSS-hosted en img-search/results.json.
+- Preparadas especificaciones reales para los 36 modelos nuevos (motor, potencia, transmisión, combustible, velocidad máxima, precio, descripción) usando datos reales de fábrica.
+- Reescrito src/data/vehicles.ts con 48 vehículos (12 marcas × 4 modelos). Los 12 existentes conservaron sus URLs; los 36 nuevos usan las URLs reales de results.json.
+- Script Python reemplazó las URLs placeholder por las URLs reales del JSON de resultados (36 reemplazos verificados).
+- Corregido un typo en la entrada de Honda Integra Type S (campo velocidadMaxima duplicado).
+- Actualizada la selección de destacados de la landing: ahora muestra Ferrari SF90 Stradale, Lamborghini Revuelto, Porsche Taycan Turbo S, BMW M5 CS, Audi R8 V10 y Ford GT (mezcla de modelos nuevos).
+- `bun run lint`: 0 errores, 0 advertencias.
+- Verificación con Agent Browser:
+  * Marketplace muestra 48 vehículos (antes 12).
+  * 12 filtros de marca presentes; filtro Ferrari → 4 modelos; filtro Lamborghini → 4 modelos.
+  * Búsqueda "Cybertruck" → 1 resultado exacto.
+  * Página de detalle del Ferrari SF90 Stradale (modelo nuevo) carga correctamente: 4 imágenes de galería, specs, botón comprar.
+  * Landing page muestra los 6 destacados nuevos + hero con Porsche.
+  * Sin errores en consola ni en dev.log. Todas las rutas 200.
+
+Stage Summary:
+- Catálogo expandido de 12 a 48 vehículos (4 por marca).
+- 12 marcas: Porsche, Ferrari, Lamborghini, BMW, Mercedes-Benz, Audi, Tesla, Toyota, Honda, Ford, Chevrolet, Nissan.
+- 36 modelos nuevos con specs reales e imágenes reales.
+- Misma identidad visual, mismas funcionalidades (búsqueda, filtros, compra, garaje).
+- Cero errores de lint, cero errores en runtime.
