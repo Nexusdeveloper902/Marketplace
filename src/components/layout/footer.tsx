@@ -42,6 +42,12 @@ export function Footer() {
             >
               Mi Garaje
             </Link>
+            <Link
+              href="/carrito"
+              className="transition-colors hover:text-foreground"
+            >
+              Carrito
+            </Link>
             <span className="transition-colors hover:text-foreground">
               Privacidad
             </span>

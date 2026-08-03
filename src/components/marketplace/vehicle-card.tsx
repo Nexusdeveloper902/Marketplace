@@ -1,15 +1,17 @@
 "use client"
 
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { ChevronRight, Zap } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ChevronRight, Zap, ShoppingCart, Check, BadgeCheck } from "lucide-react"
 import type { Vehicle } from "@/types/vehicle"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
+import { useTienda } from "@/store/use-store"
+import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
 
 interface VehicleCardProps {
   vehiculo: Vehicle
-  /** Etiqueta del botón de acción principal. */
+  /** Etiqueta del botón de navegación. */
   etiquetaBoton?: string
   /** Variante visual de la tarjeta. */
   variante?: "marketplace" | "garaje"
@@ -23,6 +25,19 @@ export function VehicleCard({
   index = 0,
 }: VehicleCardProps) {
   const href = `/vehiculos/${vehiculo.id}`
+  const estaEnCarrito = useTienda((s) => s.estaEnCarrito(vehiculo.id))
+  const estaComprado = useTienda((s) => s.estaComprado(vehiculo.id))
+  const agregarAlCarrito = useTienda((s) => s.agregarAlCarrito)
+  const { toast } = useToast()
+
+  const handleAgregar = () => {
+    if (estaEnCarrito || estaComprado) return
+    agregarAlCarrito(vehiculo.id)
+    toast({
+      title: "Añadido al carrito",
+      description: `${vehiculo.marca} ${vehiculo.modelo} se ha añadido a tu carrito.`,
+    })
+  }
 
   return (
     <motion.article
@@ -55,11 +70,19 @@ export function VehicleCard({
           {vehiculo.marca}
         </span>
 
-        {/* Potencia arriba a la derecha */}
-        <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold text-foreground backdrop-blur-md">
-          <Zap className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.5} />
-          {formatearNumero(vehiculo.potencia)} HP
-        </span>
+        {/* Indicadores de estado arriba a la derecha */}
+        <div className="absolute right-3 top-3 flex flex-col items-end gap-2">
+          <span className="flex items-center gap-1 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold text-foreground backdrop-blur-md">
+            <Zap className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.5} />
+            {formatearNumero(vehiculo.potencia)} HP
+          </span>
+          {estaComprado && (
+            <span className="flex items-center gap-1 rounded-full bg-[var(--success)]/15 px-2.5 py-1 text-[11px] font-semibold text-[var(--success)] backdrop-blur-md">
+              <BadgeCheck className="h-3 w-3" strokeWidth={2.5} />
+              Comprado
+            </span>
+          )}
+        </div>
 
         {/* Nombre sobre la imagen */}
         <div className="absolute inset-x-0 bottom-0 p-4 text-left">
@@ -93,18 +116,78 @@ export function VehicleCard({
           </div>
         </div>
 
-        <Link
-          href={href}
-          className={cn(
-            "group/btn mt-auto flex items-center justify-between gap-2 rounded-xl border px-4 py-3 text-sm font-semibold transition-all duration-300",
-            variante === "garaje"
-              ? "border-border bg-secondary text-foreground hover:bg-accent"
-              : "border-transparent bg-primary text-primary-foreground hover:opacity-90"
-          )}
-        >
-          {etiquetaBoton}
-          <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
-        </Link>
+        {/* Acciones */}
+        {variante === "garaje" ? (
+          <Link
+            href={href}
+            className="group/btn mt-auto flex items-center justify-between gap-2 rounded-xl border border-border bg-secondary px-4 py-3 text-sm font-semibold transition-all duration-300 hover:bg-accent"
+          >
+            {etiquetaBoton}
+            <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+          </Link>
+        ) : (
+          <div className="mt-auto flex flex-col gap-2.5 sm:flex-row">
+            {/* Agregar al carrito */}
+            <button
+              onClick={handleAgregar}
+              disabled={estaEnCarrito || estaComprado}
+              className={cn(
+                "flex flex-1 items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition-all duration-300 active:scale-[0.98]",
+                estaComprado
+                  ? "cursor-default border-border/50 bg-secondary/50 text-muted-foreground"
+                  : estaEnCarrito
+                    ? "cursor-default border-[var(--success)]/40 bg-[var(--success)]/10 text-[var(--success)]"
+                    : "border-border bg-secondary text-foreground hover:bg-accent"
+              )}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {estaComprado ? (
+                  <motion.span
+                    key="comprado"
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    className="flex items-center gap-1.5"
+                  >
+                    <BadgeCheck className="h-4 w-4" strokeWidth={2.3} />
+                    Comprado
+                  </motion.span>
+                ) : estaEnCarrito ? (
+                  <motion.span
+                    key="encarrito"
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    className="flex items-center gap-1.5"
+                  >
+                    <Check className="h-4 w-4" strokeWidth={2.5} />
+                    En el carrito
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="agregar"
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    className="flex items-center gap-1.5"
+                  >
+                    <ShoppingCart className="h-4 w-4" strokeWidth={2.2} />
+                    Agregar
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+
+            {/* Ver detalles */}
+            <Link
+              href={href}
+              className="group/btn flex flex-1 items-center justify-between gap-2 rounded-xl bg-primary px-3 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              {etiquetaBoton}
+              <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+            </Link>
+          </div>
+        )}
       </div>
     </motion.article>
   )

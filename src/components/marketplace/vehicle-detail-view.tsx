@@ -13,6 +13,7 @@ import {
   Calendar,
   Rocket,
   ShoppingCart,
+  BadgeCheck,
 } from "lucide-react"
 import { vehiculos } from "@/data/vehicles"
 import { useTienda } from "@/store/use-store"
@@ -39,8 +40,9 @@ interface VehicleDetailViewProps {
 }
 
 export function VehicleDetailView({ id }: VehicleDetailViewProps) {
-  const garaje = useTienda((s) => s.garaje)
-  const comprar = useTienda((s) => s.comprar)
+  const estaEnCarrito = useTienda((s) => s.estaEnCarrito(id))
+  const estaComprado = useTienda((s) => s.estaComprado(id))
+  const agregarAlCarrito = useTienda((s) => s.agregarAlCarrito)
   const { toast } = useToast()
 
   const vehiculo = vehiculos.find((v) => v.id === id)
@@ -62,14 +64,12 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
     )
   }
 
-  const yaComprado = garaje.includes(vehiculo.id)
-
-  const handleComprar = () => {
-    if (yaComprado) return
-    comprar(vehiculo.id)
+  const handleAgregar = () => {
+    if (estaEnCarrito || estaComprado) return
+    agregarAlCarrito(vehiculo.id)
     toast({
-      title: "Vehículo adquirido",
-      description: `${vehiculo.marca} ${vehiculo.modelo} se ha añadido a tu garaje.`,
+      title: "Añadido al carrito",
+      description: `${vehiculo.marca} ${vehiculo.modelo} se ha añadido a tu carrito.`,
     })
   }
 
@@ -102,6 +102,12 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
             <span className="absolute left-4 top-4 rounded-full bg-background/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
               {vehiculo.marca}
             </span>
+            {estaComprado && (
+              <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-[var(--success)]/20 px-3 py-1.5 text-[11px] font-semibold text-[var(--success)] backdrop-blur-md">
+                <BadgeCheck className="h-3.5 w-3.5" strokeWidth={2.5} />
+                Comprado
+              </span>
+            )}
           </motion.div>
 
           {/* Miniaturas */}
@@ -194,19 +200,21 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
           </div>
 
           {/* Acción de compra */}
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col gap-3">
             <button
-              onClick={handleComprar}
-              disabled={yaComprado}
+              onClick={handleAgregar}
+              disabled={estaEnCarrito || estaComprado}
               className={cn(
-                "flex flex-1 items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all duration-300",
-                yaComprado
+                "flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all duration-300",
+                estaComprado
                   ? "cursor-default bg-secondary text-muted-foreground"
-                  : "bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.99]"
+                  : estaEnCarrito
+                    ? "cursor-default border border-[var(--success)]/40 bg-[var(--success)]/10 text-[var(--success)]"
+                    : "bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.99]"
               )}
             >
               <AnimatePresence mode="wait" initial={false}>
-                {yaComprado ? (
+                {estaComprado ? (
                   <motion.span
                     key="comprado"
                     initial={{ opacity: 0, y: 6 }}
@@ -214,25 +222,44 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
                     exit={{ opacity: 0, y: -6 }}
                     className="flex items-center gap-2"
                   >
-                    <Check className="h-4 w-4 text-[var(--success)]" strokeWidth={2.5} />
-                    Comprado
+                    <BadgeCheck className="h-4 w-4 text-[var(--success)]" strokeWidth={2.5} />
+                    Vehículo comprado
+                  </motion.span>
+                ) : estaEnCarrito ? (
+                  <motion.span
+                    key="encarrito"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Check className="h-4 w-4" strokeWidth={2.5} />
+                    En el carrito
                   </motion.span>
                 ) : (
                   <motion.span
-                    key="comprar"
+                    key="agregar"
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     className="flex items-center gap-2"
                   >
                     <ShoppingCart className="h-4 w-4" strokeWidth={2.2} />
-                    Comprar vehículo
+                    Agregar al carrito
                   </motion.span>
                 )}
               </AnimatePresence>
             </button>
 
-            {yaComprado && (
+            {estaEnCarrito && !estaComprado && (
+              <Link
+                href="/carrito"
+                className="rounded-xl border border-border bg-card px-6 py-4 text-center text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+              >
+                Ver carrito y finalizar compra
+              </Link>
+            )}
+            {estaComprado && (
               <Link
                 href="/garaje"
                 className="rounded-xl border border-border bg-card px-6 py-4 text-center text-sm font-semibold text-foreground transition-colors hover:bg-accent"
