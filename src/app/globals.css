@@ -1,0 +1,167 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/*
+  Tema oscuro premium aplicado por defecto.
+  Paleta inspirada en Porsche / Tesla / Apple: negro profundo con
+  acentos neutros y un toque cálido sutil. El color de acento principal
+  es blanco (CTAs) y se reserva un verde esmeralda discreto para los
+  estados de "comprado".
+*/
+:root,
+.dark {
+  --radius: 0.9rem;
+
+  /* Fondo y superficie */
+  --background: oklch(0.12 0.004 75);
+  --foreground: oklch(0.98 0.002 75);
+  --card: oklch(0.165 0.005 75);
+  --card-foreground: oklch(0.98 0.002 75);
+  --popover: oklch(0.17 0.005 75);
+  --popover-foreground: oklch(0.98 0.002 75);
+
+  /* Acciones primarias en blanco (estilo Tesla / Apple) */
+  --primary: oklch(0.98 0.002 75);
+  --primary-foreground: oklch(0.12 0.004 75);
+
+  --secondary: oklch(0.215 0.005 75);
+  --secondary-foreground: oklch(0.98 0.002 75);
+
+  --muted: oklch(0.2 0.005 75);
+  --muted-foreground: oklch(0.64 0.012 75);
+
+  --accent: oklch(0.245 0.006 75);
+  --accent-foreground: oklch(0.98 0.002 75);
+
+  --destructive: oklch(0.62 0.22 25);
+
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.98 0 0 / 35%);
+
+  /* Acento de marca: champán metálico cálido */
+  --signature: oklch(0.85 0.09 80);
+  /* Verde esmeralda para estados de "comprado" */
+  --success: oklch(0.72 0.16 155);
+
+  --chart-1: oklch(0.85 0.09 80);
+  --chart-2: oklch(0.72 0.16 155);
+  --chart-3: oklch(0.62 0.22 25);
+  --chart-4: oklch(0.6 0.12 200);
+  --chart-5: oklch(0.7 0.15 60);
+
+  --sidebar: oklch(0.14 0.005 75);
+  --sidebar-foreground: oklch(0.98 0.002 75);
+  --sidebar-primary: oklch(0.98 0 0);
+  --sidebar-primary-foreground: oklch(0.12 0.004 75);
+  --sidebar-accent: oklch(0.22 0.006 75);
+  --sidebar-accent-foreground: oklch(0.98 0.002 75);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.98 0 0 / 35%);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Scrollbar personalizado con apariencia premium */
+@layer utilities {
+  .scrollbar-premium {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(1 0 0 / 18%) transparent;
+  }
+  .scrollbar-premium::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-premium::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-premium::-webkit-scrollbar-thumb {
+    background-color: oklch(1 0 0 / 16%);
+    border-radius: 9999px;
+  }
+  .scrollbar-premium::-webkit-scrollbar-thumb:hover {
+    background-color: oklch(1 0 0 / 28%);
+  }
+
+  /* Texto con gradiente de marca */
+  .text-gradient {
+    background: linear-gradient(
+      180deg,
+      oklch(0.98 0 0) 0%,
+      oklch(0.7 0.01 75) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Resplandor sutil de fondo para el hero */
+  .hero-glow {
+    background:
+      radial-gradient(
+        60% 50% at 50% 0%,
+        oklch(0.85 0.09 80 / 0.08) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        40% 40% at 80% 10%,
+        oklch(1 0 0 / 0.04) 0%,
+        transparent 60%
+      );
+  }
+}
