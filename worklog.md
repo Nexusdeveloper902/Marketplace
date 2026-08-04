@@ -346,3 +346,24 @@ Stage Summary:
 - Error de src vacío en marcas arreglado (3 VW sin imágenes + renderizado condicional).
 - UI más responsive: header adaptativo, sliders touch-friendly, comparador con columna sticky, sin overflow en móvil.
 - Cero errores de lint, cero errores en runtime.
+
+---
+Task ID: FIX-MOBILE-NAV
+Agent: Main (Z.ai Code)
+Task: Arreglar navegación móvil — los botones ocultos no eran accesibles
+
+Work Log:
+- Problema: el subagente UI-1 ocultó Inicio/Marcas/Comparar/Mi Garaje en móvil (`hidden md:inline-flex`) sin ofrecer alternativa, así que no eran accesibles desde 390px.
+- Solución: rediseñado el header con un menú hamburguesa (Sheet de shadcn/ui) para móvil.
+  * Móvil (<768px): Logo + Carrito + botón hamburguesa. Al abrir, un panel lateral (Sheet) muestra los 7 items (Inicio, Marketplace, Marcas, Favoritos, Comparar, Mi Garaje, Carrito) con iconos, etiquetas y badges. Al hacer clic, el menú se cierra y navega.
+  * Desktop (md+): todos los items inline como antes, sin botón hamburguesa (`md:hidden`).
+- Reutilizado el componente Sheet existente en `src/components/ui/sheet.tsx`.
+- `bun run lint`: 0 errores.
+- Verificación con Agent Browser:
+  * Móvil 390px: header muestra Logo + Carrito + botón "Abrir menú de navegación". Al abrir: los 7 items aparecen. Clic en "Marcas" → navega a /marcas correctamente y el menú se cierra.
+  * Desktop 1440px: los 7 items inline, botón hamburguesa con display:none (correctamente oculto).
+
+Stage Summary:
+- Todos los items de navegación ahora son accesibles en móvil vía menú hamburguesa.
+- Desktop sin cambios (nav inline).
+- Cero errores de lint.

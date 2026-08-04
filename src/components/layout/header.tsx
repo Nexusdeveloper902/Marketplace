@@ -1,36 +1,40 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { Gauge, Store, CarFront, Home, ShoppingCart, Heart, GitCompareArrows, Building2 } from "lucide-react"
+import {
+  Gauge,
+  Store,
+  CarFront,
+  Home,
+  ShoppingCart,
+  Heart,
+  GitCompareArrows,
+  Building2,
+  Menu,
+} from "lucide-react"
 import { useTienda } from "@/store/use-store"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
-// Items de navegación principal (centro).
-// `mostrar`: breakpoint mínimo en el que el item es visible.
-// - "base" → siempre visible (essenciales en móvil)
-// - "md"   → visible desde tablet (≥768px)
-// - "lg"   → visible desde desktop (≥1024px)
+// Todos los items de navegación (móvil y desktop comparten la misma lista).
 const navItems = [
-  { href: "/", label: "Inicio", icon: Home, mostrar: "md" as const },
-  { href: "/marketplace", label: "Marketplace", icon: Store, mostrar: "base" as const },
-  { href: "/marcas", label: "Marcas", icon: Building2, mostrar: "lg" as const },
+  { href: "/", label: "Inicio", icon: Home },
+  { href: "/marketplace", label: "Marketplace", icon: Store },
+  { href: "/marcas", label: "Marcas", icon: Building2 },
+  { href: "/favoritos", label: "Favoritos", icon: Heart, badgeKey: "favoritos" as const },
+  { href: "/comparar", label: "Comparar", icon: GitCompareArrows, badgeKey: "comparar" as const },
+  { href: "/garaje", label: "Mi Garaje", icon: CarFront, badgeKey: "garaje" as const },
 ] as const
-
-// Items secundarios (accesos rápidos con contadores)
-const accesosRapidos = [
-  { href: "/favoritos", label: "Favoritos", icon: Heart, badgeKey: "favoritos" as const, mostrar: "base" as const },
-  { href: "/comparar", label: "Comparar", icon: GitCompareArrows, badgeKey: "comparar" as const, mostrar: "md" as const },
-  { href: "/garaje", label: "Mi Garaje", icon: CarFront, badgeKey: "garaje" as const, mostrar: "md" as const },
-] as const
-
-// Mapa de breakpoint → clases de visibilidad
-const clasesVisibilidad: Record<"base" | "md" | "lg", string> = {
-  base: "inline-flex",
-  md: "hidden md:inline-flex",
-  lg: "hidden lg:inline-flex",
-}
 
 export function Header() {
   const pathname = usePathname()
@@ -38,11 +42,12 @@ export function Header() {
   const cantComparar = useTienda((s) => s.comparar.length)
   const cantGaraje = useTienda((s) => s.garaje.length)
   const cantCarrito = useTienda((s) => s.carrito.length)
-  const cantidades = {
+  const [menuAbierto, setMenuAbierto] = useState(false)
+
+  const cantidades: Record<string, number> = {
     favoritos: cantFavoritos,
     comparar: cantComparar,
     garaje: cantGaraje,
-    carrito: cantCarrito,
   }
 
   const estaActivo = (href: string) => {
@@ -77,53 +82,18 @@ export function Header() {
           </span>
         </Link>
 
-        {/* Navegación central */}
-        <nav className="flex items-center gap-1">
+        {/* Navegación central — desktop (md+): todos los items inline */}
+        <nav className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
             const Icon = item.icon
             const activo = estaActivo(item.href)
+            const badge = "badgeKey" in item ? cantidades[item.badgeKey] : 0
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative items-center gap-2 rounded-full px-2.5 py-2 text-sm font-medium transition-colors duration-200 sm:px-3.5",
-                  clasesVisibilidad[item.mostrar],
-                  activo
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {activo && (
-                  <motion.span
-                    layoutId="nav-activo"
-                    className="absolute inset-0 rounded-full bg-secondary"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <Icon className="relative z-10 h-4 w-4" strokeWidth={2} />
-                <span className="relative z-10 hidden lg:inline">
-                  {item.label}
-                </span>
-              </Link>
-            )
-          })}
-
-          {/* Separador */}
-          <span className="mx-1 hidden h-6 w-px bg-border lg:block" />
-
-          {/* Accesos rápidos con badges */}
-          {accesosRapidos.map((item) => {
-            const Icon = item.icon
-            const activo = estaActivo(item.href)
-            const badge = cantidades[item.badgeKey]
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "relative items-center gap-2 rounded-full px-2.5 py-2 text-sm font-medium transition-colors duration-200 sm:px-3.5",
-                  clasesVisibilidad[item.mostrar],
+                  "relative flex items-center gap-2 rounded-full px-2.5 py-2 text-sm font-medium transition-colors duration-200 lg:px-3.5",
                   activo
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -151,36 +121,109 @@ export function Header() {
           })}
         </nav>
 
-        {/* Carrito (destacado a la derecha) */}
-        <Link
-          href="/carrito"
-          className={cn(
-            "group relative flex shrink-0 items-center gap-2 rounded-full border px-2.5 py-2 text-sm font-medium transition-all duration-200 sm:px-3.5",
-            estaActivo("/carrito")
-              ? "border-border bg-secondary text-foreground"
-              : "border-border/70 text-muted-foreground hover:border-border hover:text-foreground"
-          )}
-          aria-label={`Carrito con ${cantidades.carrito} vehículo(s)`}
-        >
-          <div className="relative">
-            <ShoppingCart className="h-4 w-4 sm:h-[18px] sm:w-[18px]" strokeWidth={2} />
-            <AnimatePresence>
-              {cantidades.carrito > 0 && (
-                <motion.span
-                  key={cantidades.carrito}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 25 }}
-                  className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground"
-                >
-                  {cantidades.carrito}
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </div>
-          <span className="hidden xl:inline">Carrito</span>
-        </Link>
+        {/* Lado derecho: Carrito (siempre) + Menú hamburguesa (solo móvil) */}
+        <div className="flex items-center gap-2">
+          {/* Carrito (destacado a la derecha) */}
+          <Link
+            href="/carrito"
+            className={cn(
+              "group relative flex shrink-0 items-center gap-2 rounded-full border px-2.5 py-2 text-sm font-medium transition-all duration-200 sm:px-3.5",
+              estaActivo("/carrito")
+                ? "border-border bg-secondary text-foreground"
+                : "border-border/70 text-muted-foreground hover:border-border hover:text-foreground"
+            )}
+            aria-label={`Carrito con ${cantCarrito} vehículo(s)`}
+          >
+            <div className="relative">
+              <ShoppingCart className="h-4 w-4 sm:h-[18px] sm:w-[18px]" strokeWidth={2} />
+              <AnimatePresence>
+                {cantCarrito > 0 && (
+                  <motion.span
+                    key={cantCarrito}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                    className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground"
+                  >
+                    {cantCarrito}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </div>
+            <span className="hidden xl:inline">Carrito</span>
+          </Link>
+
+          {/* Menú hamburguesa — solo móvil */}
+          <Sheet open={menuAbierto} onOpenChange={setMenuAbierto}>
+            <SheetTrigger asChild>
+              <button
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:text-foreground md:hidden"
+                aria-label="Abrir menú de navegación"
+              >
+                <Menu className="h-5 w-5" strokeWidth={2} />
+              </button>
+            </SheetTrigger>
+            <SheetContent
+              side="right"
+              className="w-[280px] border-border bg-background p-0 sm:w-[320px]"
+            >
+              <SheetHeader className="border-b border-border/60 px-6 py-5">
+                <SheetTitle className="text-left text-base font-semibold tracking-tight">
+                  Navegación
+                </SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col gap-1 p-4">
+                {navItems.map((item) => {
+                  const Icon = item.icon
+                  const activo = estaActivo(item.href)
+                  const badge = "badgeKey" in item ? cantidades[item.badgeKey] : 0
+                  return (
+                    <SheetClose asChild key={item.href}>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                          activo
+                            ? "bg-secondary text-foreground"
+                            : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                        )}
+                      >
+                        <Icon className="h-5 w-5" strokeWidth={2} />
+                        <span className="flex-1">{item.label}</span>
+                        {badge > 0 && (
+                          <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[11px] font-semibold text-primary-foreground">
+                            {badge}
+                          </span>
+                        )}
+                      </Link>
+                    </SheetClose>
+                  )
+                })}
+                {/* Carrito también en el menú móvil */}
+                <SheetClose asChild>
+                  <Link
+                    href="/carrito"
+                    className={cn(
+                      "mt-2 flex items-center gap-3 rounded-xl border-t border-border/60 px-4 pt-4 text-sm font-medium transition-colors",
+                      estaActivo("/carrito")
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    <ShoppingCart className="h-5 w-5" strokeWidth={2} />
+                    <span className="flex-1">Carrito</span>
+                    {cantCarrito > 0 && (
+                      <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[11px] font-semibold text-primary-foreground">
+                        {cantCarrito}
+                      </span>
+                    )}
+                  </Link>
+                </SheetClose>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   )
