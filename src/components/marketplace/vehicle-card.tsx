@@ -89,7 +89,7 @@ export function VehicleCard({
         delay: Math.min(index * 0.04, 0.4),
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-500 hover:-translate-y-1 hover:border-border hover:shadow-[0_20px_50px_-12px_oklch(0_0_0/0.7)]"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card transition-all duration-700 ease-out hover:border-border/80 hover:bg-card/95 hover:shadow-[0_24px_60px_-20px_oklch(0_0_0/0.8)]"
     >
       {/* Imagen */}
       <div className="relative block aspect-[16/10] w-full overflow-hidden bg-secondary">
@@ -102,7 +102,7 @@ export function VehicleCard({
             src={vehiculo.imagenes[0]}
             alt={`${nombreCompleto} ${vehiculo.año}`}
             containerClassName="h-full w-full"
-            className="transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+            className="transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
           />
           {/* Degradado inferior para legibilidad */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/90 via-card/5 to-transparent" />

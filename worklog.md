@@ -412,3 +412,50 @@ Stage Summary:
 - Experiencia visual premium lograda: hero a pantalla completa con parallax, imágenes con carga progresiva (blur-up), contadores animados, etiquetas discretas, tarjetas con elevación sutil, transiciones suaves.
 - Componentes reutilizables: SmartImage, AnimatedCounter, VehicleCardSkeleton.
 - Cero errores de lint, cero errores en runtime.
+
+---
+Task ID: ART-DIRECTION-1..8
+Agent: Main (Z.ai Code)
+Task: Fase final de dirección de arte — experiencia premium cinematográfica (Porsche/Tesla/Audi level)
+
+Work Log:
+- Añadidas utilidades CSS de dirección de arte en globals.css:
+  * `.text-display`: letter-spacing -0.04em, line-height 0.92, font-weight 600 para títulos display cinematográficos.
+  * `.text-eyebrow`: letter-spacing 0.28em, uppercase, weight 500 para etiquetas editoriales.
+  * Letter-spacing global de h1/h2/h3 aumentado a -0.025em.
+- Hero rediseñado a cinematográfico:
+  * Vehículo protagonista a pantalla completa con parallax + escala lenta (1 → 1.08) al hacer scroll.
+  * Contenido anclado abajo (items-end) con mucho espacio negativo arriba.
+  * Texto reducido al mínimo: etiqueta "Digital Marketplace · Alta Gama" + título "Pura adrenalina" + una línea de descripción + único botón "Explorar vehículos".
+  * Tipografía display enorme (hasta text-[7.5rem] en xl).
+  * Degradados cinematográficos direccionales para legibilidad.
+  * Indicador de scroll minimalista (solo desktop).
+  * Eliminada la tarjeta flotante y las métricas del hero (movidas a otras secciones para limpiar).
+- Nueva sección cinematográfica `CinematicShowcase` (cinematic-showcase.tsx):
+  * Full-bleed (min-h-[90svh]) con el Lamborghini Revuelto como protagonista.
+  * Parallax + escala al hacer scroll por la sección.
+  * Texto editorial a la izquierda: marca, modelo enorme, descripción corta, 3 specs discretas (Caballos, 0-100, Vel. máxima) separadas por divisores, único botón "Descubrir el vehículo".
+  * Rompe la estructura tradicional del marketplace — parece extraída de la página oficial de Lamborghini.
+- Copy editorial en todas las secciones de la landing:
+  * FeaturedVehicles: "Nuestra Selección" / "Potencia sin compromisos".
+  * WhyChooseUs: "El lujo en movimiento" / "Diseñado para los amantes del detalle".
+  * BrandsSection: "Las casas más prestigiosas" / "Marcas que definen épocas".
+  * Marketplace: "Descubre el vehículo ideal para ti".
+- Espaciado profesional aumentado: py-16 → py-24/py-32/py-40 en todas las secciones de la landing. Borders suavizados a border/40 y border/50.
+- Jerarquía visual unificada en TODAS las páginas (garage, cart, favorites, compare, brands, brand-detail): mismo patrón de eyebrow + título display + espaciado pt-14/sm:pt-20.
+- Microinteracciones refinadas:
+  * VehicleCard hover: duración 700ms ease-out, sin translate (más sutil), sombra más profunda.
+  * Zoom de imagen: 1.05 → 1.04 con duración 1.2s (extremadamente sutil).
+  * Botones principales: gap que se expande en hover (gap-3 → gap-4) con sombra premium.
+- `bun run lint`: 0 errores, 0 advertencias.
+- Verificación con Agent Browser + VLM:
+  * Hero desktop: 8.5/10 — "perfectly mimics the minimalist, high-contrast, full-bleed image aesthetic used by luxury OEMs".
+  * Hero móvil: 8/10 — "moody lighting, atmospheric, premium high-end aesthetic".
+  * Cinematic showcase: 9/10 — "strongly mirrors Lamborghini's official digital identity".
+  * Imágenes de tarjetas cargan correctamente (opacity 1, naturalWidth real).
+  * Sin errores en consola.
+
+Stage Summary:
+- Dirección de arte premium lograda: hero cinematográfico a pantalla completa, sección editorial full-bleed, copy de marca, tipografía display, espaciado generoso, microinteracciones sutiles.
+- Jerarquía visual clara: hero dominante → showcase cinematográfico → selección curada → valores → marcas.
+- Cero errores de lint, cero errores en runtime.

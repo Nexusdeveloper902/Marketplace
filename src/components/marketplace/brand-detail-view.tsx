@@ -53,10 +53,10 @@ export function BrandDetailView({ marca }: BrandDetailViewProps) {
             {marca.charAt(0)}
           </span>
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-eyebrow text-[11px] text-[var(--signature)]">
               Fabricante
             </p>
-            <h1 className="mt-1 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            <h1 className="text-display mt-2 text-3xl text-foreground sm:text-4xl lg:text-5xl">
               {marca}
             </h1>
           </div>

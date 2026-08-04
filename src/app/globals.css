@@ -119,7 +119,7 @@
   }
   /* Tipografía premium: letter-spacing negativo en títulos grandes */
   h1, h2, h3 {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
   /* Selección de texto con color de marca */
   ::selection {
@@ -160,6 +160,20 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+  }
+
+  /* Tipografía cinematográfica para títulos display enormes */
+  .text-display {
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+    font-weight: 600;
+  }
+
+  /* Texto editorial con tracking amplio para etiquetas */
+  .text-eyebrow {
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
   }
 
   /* Resplandor sutil de fondo para el hero */

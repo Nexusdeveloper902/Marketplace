@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, SlidersHorizontal, X, Sparkles, ChevronDown } from "lucide-react"
+import { Search, SlidersHorizontal, X, ChevronDown } from "lucide-react"
 import { vehiculos, marcas } from "@/data/vehicles"
 import { CATEGORIAS, COMBUSTIBLES, TRACCIONES } from "@/types/vehicle"
 import { useTienda } from "@/store/use-store"
@@ -140,27 +140,26 @@ export function MarketplaceView() {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       {/* Hero compacto */}
-      <section className="hero-glow relative overflow-hidden rounded-3xl border border-border/60 px-6 py-12 sm:px-10 sm:py-16">
+      <section className="hero-glow relative overflow-hidden rounded-3xl border border-border/50 px-6 py-16 sm:px-10 sm:py-20">
         <div className="relative z-10 mx-auto max-w-3xl text-center">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-secondary/60 px-3.5 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur"
+            className="text-eyebrow text-[11px] text-[var(--signature)]"
           >
-            <Sparkles className="h-3.5 w-3.5 text-[var(--signature)]" strokeWidth={2.2} />
-            Catálogo completo · {vehiculos.length} modelos disponibles
+            Catálogo completo · {vehiculos.length} modelos
           </motion.span>
 
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="mt-6 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl"
+            transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+            className="text-display mt-6 text-4xl text-foreground sm:text-5xl lg:text-6xl"
           >
-            Encuentra el vehículo
+            Descubre el vehículo
             <br />
-            <span className="text-gradient">que define tu estilo</span>
+            <span className="text-gradient">ideal para ti</span>
           </motion.h1>
         </div>
       </section>

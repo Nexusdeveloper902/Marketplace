@@ -20,12 +20,12 @@ export function FavoritesView() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="border-b border-border/60 pb-8 pt-10 sm:pt-14"
+        className="border-b border-border/40 pb-10 pt-14 sm:pt-20"
       >
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="text-eyebrow text-[11px] text-[var(--signature)]">
           Tu selección personal
         </p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        <h1 className="text-display mt-5 text-4xl text-foreground sm:text-5xl lg:text-6xl">
           Favoritos
         </h1>
         {vehiculosFavoritos.length > 0 ? (
