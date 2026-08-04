@@ -102,7 +102,7 @@ export function CompareView() {
             >
               {/* Fila de cabecera con imágenes */}
               <div className="grid gap-3" style={{ gridTemplateColumns: `140px repeat(${vehiculosComparar.length}, 1fr)` }}>
-                <div className="flex items-end pb-3">
+                <div className="sticky left-0 z-10 flex items-end bg-background pb-3 pr-3">
                   <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                     Vehículo
                   </span>
@@ -160,7 +160,7 @@ export function CompareView() {
                       className="grid items-center gap-3 rounded-lg px-3 py-3 transition-colors hover:bg-secondary/40"
                       style={{ gridTemplateColumns: `140px repeat(${vehiculosComparar.length}, 1fr)` }}
                     >
-                      <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                      <span className="sticky left-0 z-10 bg-background py-0.5 pr-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                         {spec.etiqueta}
                       </span>
                       {vehiculosComparar.map((vehiculo) => {
@@ -194,7 +194,7 @@ export function CompareView() {
                     className="grid items-center gap-3 rounded-lg px-3 py-3 transition-colors hover:bg-secondary/40"
                     style={{ gridTemplateColumns: `140px repeat(${vehiculosComparar.length}, 1fr)` }}
                   >
-                    <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    <span className="sticky left-0 z-10 bg-background py-0.5 pr-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       {spec.etiqueta}
                     </span>
                     {vehiculosComparar.map((vehiculo) => (

@@ -195,7 +195,7 @@ export function MarketplaceView() {
             <button
               onClick={() => setPanelFiltrosAbierto((v) => !v)}
               className={cn(
-                "flex h-12 items-center gap-2 rounded-xl border px-4 text-sm font-medium transition-colors lg:hidden",
+                "flex h-12 shrink-0 items-center gap-2 rounded-xl border px-3 text-sm font-medium transition-colors sm:px-4 lg:hidden",
                 panelFiltrosAbierto
                   ? "border-foreground/30 bg-secondary text-foreground"
                   : "border-border bg-card text-muted-foreground"
@@ -206,11 +206,11 @@ export function MarketplaceView() {
             </button>
 
             {/* Ordenamiento */}
-            <div className="relative">
+            <div className="relative min-w-0 flex-1 sm:flex-none">
               <select
                 value={ordenamiento || ordenamientoPersistente}
                 onChange={(e) => handleOrdenamiento(e.target.value)}
-                className="h-12 appearance-none rounded-xl border border-border bg-card pl-4 pr-10 text-sm font-medium text-foreground outline-none transition-colors focus:border-foreground/30"
+                className="h-12 w-full appearance-none rounded-xl border border-border bg-card pl-3 pr-9 text-sm font-medium text-foreground outline-none transition-colors focus:border-foreground/30 sm:w-auto sm:pl-4 sm:pr-10"
                 aria-label="Ordenar por"
               >
                 {ORDENAMIENTOS.map((o) => (
@@ -404,7 +404,7 @@ function FiltrosPanel({
                 precioMin: Math.min(Number(e.target.value), f.precioMax),
               }))
             }
-            className="w-full accent-primary"
+            className="slider-premium"
           />
           <input
             type="range"
@@ -418,7 +418,7 @@ function FiltrosPanel({
                 precioMax: Math.max(Number(e.target.value), f.precioMin),
               }))
             }
-            className="w-full accent-primary"
+            className="slider-premium"
           />
         </div>
       </GrupoFiltro>
@@ -438,7 +438,7 @@ function FiltrosPanel({
                 añoMin: Math.min(Number(e.target.value), f.añoMax),
               }))
             }
-            className="w-full accent-primary"
+            className="slider-premium"
           />
           <input
             type="range"
@@ -452,7 +452,7 @@ function FiltrosPanel({
                 añoMax: Math.max(Number(e.target.value), f.añoMin),
               }))
             }
-            className="w-full accent-primary"
+            className="slider-premium"
           />
         </div>
       </GrupoFiltro>
@@ -468,7 +468,7 @@ function FiltrosPanel({
           onChange={(e) =>
             setFiltros((f) => ({ ...f, potenciaMin: Number(e.target.value) }))
           }
-          className="w-full accent-primary"
+          className="slider-premium"
         />
       </GrupoFiltro>
 

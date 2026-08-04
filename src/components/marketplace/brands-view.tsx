@@ -50,7 +50,7 @@ export function BrandsView() {
       cantidad: modelos.length,
       precioMin,
       precioMax,
-      imagen: modelos[0]?.imagenes[0] ?? "",
+      imagen: modelos[0]?.imagenes[0] ?? null,
       descripcion: descripcionesMarcas[marca] ?? "Fabricante de automóviles de alta gama.",
     }
   })
@@ -94,12 +94,20 @@ export function BrandsView() {
               >
                 {/* Imagen representativa */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
-                  <img
-                    src={datos.imagen}
-                    alt={`Vehículo destacado de ${datos.marca}`}
-                    className="h-full w-full object-cover opacity-70 transition-all duration-700 group-hover:scale-[1.05] group-hover:opacity-90"
-                    loading="lazy"
-                  />
+                  {datos.imagen ? (
+                    <img
+                      src={datos.imagen}
+                      alt={`Vehículo destacado de ${datos.marca}`}
+                      className="h-full w-full object-cover opacity-70 transition-all duration-700 group-hover:scale-[1.05] group-hover:opacity-90"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <span className="text-3xl font-bold text-muted-foreground/40">
+                        {datos.marca.charAt(0)}
+                      </span>
+                    </div>
+                  )}
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
                   {/* Inicial de la marca como logo */}
                   <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-xl bg-background/70 text-base font-bold text-foreground backdrop-blur-md">

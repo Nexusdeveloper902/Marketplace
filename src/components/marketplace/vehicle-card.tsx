@@ -72,12 +72,12 @@ export function VehicleCard({
         </Link>
 
         {/* Marca arriba a la izquierda */}
-        <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-background/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
+        <span className="pointer-events-none absolute left-2.5 top-2.5 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md sm:left-3 sm:top-3 sm:px-3">
           {vehiculo.marca}
         </span>
 
         {/* Botones de favorito y comparar arriba a la derecha */}
-        <div className="absolute right-3 top-3 flex items-center gap-2">
+        <div className="absolute right-2.5 top-2.5 flex items-center gap-1.5 sm:right-3 sm:top-3 sm:gap-2">
           <CompareButton
             vehiculoId={vehiculo.id}
             vehiculoNombre={nombreCompleto}
@@ -89,7 +89,7 @@ export function VehicleCard({
         </div>
 
         {/* Badge de potencia + comprado (debajo de los botones) */}
-        <div className="pointer-events-none absolute right-3 top-[3.75rem] flex flex-col items-end gap-2">
+        <div className="pointer-events-none absolute right-2.5 top-12 flex flex-col items-end gap-2 sm:right-3 sm:top-[3.75rem]">
           <span className="flex items-center gap-1 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold text-foreground backdrop-blur-md">
             <Zap className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.5} />
             {formatearNumero(vehiculo.potencia)} HP

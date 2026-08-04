@@ -43,7 +43,7 @@ export function FavoriteButton({
       className={cn(
         "flex items-center justify-center rounded-full transition-all duration-200",
         variant === "overlay"
-          ? "h-9 w-9 bg-background/60 text-foreground backdrop-blur-md hover:bg-background/80"
+          ? "h-8 w-8 bg-background/60 text-foreground backdrop-blur-md hover:bg-background/80 sm:h-9 sm:w-9"
           : "h-10 w-10 border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-accent",
         className
       )}
@@ -63,7 +63,7 @@ export function FavoriteButton({
             transition={{ type: "spring", stiffness: 500, damping: 20 }}
           >
             <Heart
-              className="h-4 w-4 fill-[var(--signature)] text-[var(--signature)]"
+              className="h-3.5 w-3.5 fill-[var(--signature)] text-[var(--signature)] sm:h-4 sm:w-4"
               strokeWidth={2}
             />
           </motion.span>
@@ -75,7 +75,7 @@ export function FavoriteButton({
             exit={{ scale: 0.5 }}
             transition={{ type: "spring", stiffness: 500, damping: 20 }}
           >
-            <Heart className="h-4 w-4" strokeWidth={2} />
+            <Heart className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
           </motion.span>
         )}
       </AnimatePresence>

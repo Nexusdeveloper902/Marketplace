@@ -51,7 +51,7 @@ export function CompareButton({
       className={cn(
         "flex items-center justify-center rounded-full transition-all duration-200",
         variant === "overlay"
-          ? "h-9 w-9 bg-background/60 text-foreground backdrop-blur-md hover:bg-background/80"
+          ? "h-8 w-8 bg-background/60 text-foreground backdrop-blur-md hover:bg-background/80 sm:h-9 sm:w-9"
           : "h-10 w-10 border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-accent",
         className
       )}
@@ -70,7 +70,7 @@ export function CompareButton({
             exit={{ scale: 0.5 }}
             transition={{ type: "spring", stiffness: 500, damping: 20 }}
           >
-            <Check className="h-4 w-4 text-[var(--success)]" strokeWidth={2.5} />
+            <Check className="h-3.5 w-3.5 text-[var(--success)] sm:h-4 sm:w-4" strokeWidth={2.5} />
           </motion.span>
         ) : (
           <motion.span
@@ -80,7 +80,7 @@ export function CompareButton({
             exit={{ scale: 0.5 }}
             transition={{ type: "spring", stiffness: 500, damping: 20 }}
           >
-            <GitCompareArrows className="h-4 w-4" strokeWidth={2} />
+            <GitCompareArrows className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
           </motion.span>
         )}
       </AnimatePresence>

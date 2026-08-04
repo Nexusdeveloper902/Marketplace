@@ -232,3 +232,117 @@ Stage Summary:
 - Features: favoritos, comparador (hasta 3), filtros avanzados (7 dimensiones + 4 ordenamientos), simulador de financiamiento, vehículos relacionados, vistos recientemente.
 - Todo persiste en localStorage. 100% frontend, sin backend.
 - Cero errores de lint, cero errores en runtime.
+
+---
+Task ID: UI-1
+Agent: frontend-styling-expert (Z.ai Code)
+Task: Mejorar la responsiveness de todo el sitio en todos los breakpoints (móvil 390px, tablet 768px, desktop 1024px+, wide 1440px+) preservando la identidad visual premium
+
+Work Log:
+- Leído `worklog.md` para contexto: proyecto marketplace de vehículos con tema oscuro premium, 88 vehículos, 30 marcas, 9 categorías, 7+ páginas con enrutado App Router.
+- Leídos los componentes clave antes de modificar: `header.tsx`, `marketplace-view.tsx`, `vehicle-card.tsx`, `vehicle-detail-view.tsx`, `compare-view.tsx`, `cart-view.tsx`, `favorite-button.tsx`, `compare-button.tsx`, `financing-calculator.tsx`, y los 4 componentes de landing (`landing-hero`, `featured-vehicles`, `why-choose-us`, `brands-section`). También `globals.css`.
+
+Cambios realizados (cambios mínimos y dirigidos — sólo clases responsive y CSS, sin alterar paleta, tipografía ni funcionalidad):
+
+1. `src/components/layout/header.tsx` (PRIORIDAD):
+   - Añadido campo `mostrar: "base" | "md" | "lg"` a cada ítem de `navItems` y `accesosRapidos`.
+   - Creado mapa `clasesVisibilidad` que aplica `inline-flex` (base), `hidden md:inline-flex` (md) o `hidden lg:inline-flex` (lg).
+   - Móvil (<768px): sólo visibles Marketplace, Favoritos y Carrito. Hidden: Inicio, Marcas, Comparar, Mi Garaje (todos accesibles desde el footer).
+   - Tablet (md, ≥768px): + Inicio, Comparar, Mi Garaje.
+   - Desktop (lg, ≥1024px): + Marcas → todos los 7 ítems.
+   - Subtítulo "Alta Gama" del logo ya estaba oculto en móvil (`hidden sm:flex`) — confirmado correcto.
+   - Carrito siempre visible (incluido su badge animado).
+   - Eliminada la clase `flex` por defecto de los Links; ahora la visibilidad la aporta `clasesVisibilidad` con `inline-flex`.
+
+2. `src/components/marketplace/marketplace-view.tsx`:
+   - Botón "Filtros" (móvil): añadido `shrink-0` y `px-3 sm:px-4` para que no encoja y ocupe menos en móvil.
+   - Wrapper del select de ordenamiento: `min-w-0 flex-1 sm:flex-none` (en móvil crece para llenar, en sm+ tamaño natural).
+   - Select: `w-full ... sm:w-auto` y `pl-3 pr-9 sm:pl-4 sm:pr-10` (full-width en móvil, auto en sm+). Previene overflow horizontal con opciones largas como "Precio: menor a mayor".
+   - 5 sliders de filtros (precio min/max, año min/max, potencia): cambiados de `w-full accent-primary` a `slider-premium` (nueva utilidad CSS).
+
+3. `src/components/marketplace/favorite-button.tsx` y `compare-button.tsx`:
+   - Variante `overlay`: `h-9 w-9` → `h-8 w-8 sm:h-9 sm:w-9` (botones más pequeños en móvil).
+   - Iconos: `h-4 w-4` → `h-3.5 w-3.5 sm:h-4 sm:w-4`.
+   - Variante `solid` (no overlay) sin cambios (10×10 ya es toque-amigable).
+
+4. `src/components/marketplace/vehicle-card.tsx`:
+   - Contenedor de botones overlay: `right-3 top-3 gap-2` → `right-2.5 top-2.5 gap-1.5 sm:right-3 sm:top-3 sm:gap-2`.
+   - Badge de marca: `left-3 top-3 px-3` → `left-2.5 top-2.5 px-2.5 sm:left-3 sm:top-3 sm:px-3`.
+   - Badge de HP/Comprado: `right-3 top-[3.75rem]` → `right-2.5 top-12 sm:right-3 sm:top-[3.75rem]`.
+   - Layout vertical de botones "Agregar + Ver detalles" en móvil preservado (`flex-col sm:flex-row`).
+
+5. `src/components/marketplace/vehicle-detail-view.tsx`:
+   - Miniaturas de galería: `gap-3` → `gap-2 sm:gap-3` (mejor en móvil 390px).
+   - Contenedor de botones overlay: `right-4 top-4 gap-2` → `right-3 top-3 gap-1.5 sm:right-4 sm:top-4 sm:gap-2`.
+   - Tamaños de texto ya eran responsive (`text-3xl sm:text-4xl lg:text-5xl`) — verificado correcto.
+   - Specs grid `grid-cols-2 sm:grid-cols-3` — verificado correcto.
+
+6. `src/components/marketplace/financing-calculator.tsx`:
+   - 3 sliders (cuota inicial, número de cuotas, tasa interés): cambiados de `mt-2 w-full accent-primary` a `slider-premium mt-2` (hit-area táctil 28px, thumb 18px visible).
+
+7. `src/components/marketplace/compare-view.tsx`:
+   - Celda "Vehículo" del header: añadido `sticky left-0 z-10 bg-background pr-3` para que la columna de etiquetas permanezca visible al hacer scroll horizontal.
+   - Celdas de etiqueta de cada fila spec (numéricas y de texto): añadido `sticky left-0 z-10 bg-background py-0.5 pr-3`.
+   - Mantiene el scroll horizontal existente (`overflow-x-auto`) — ahora con la primera columna pinned.
+
+8. `src/components/marketplace/cart-view.tsx`:
+   - Sin cambios de código necesarios. Verificado: layout `lg:grid-cols-[1fr_360px]` ya apila en móvil, imagen `w-28 sm:w-36` (112px en móvil) es adecuada, padding `p-3 sm:p-4` ya responsive, trash button `h-9 w-9` cumple mínimo táctil.
+
+9. `src/components/landing/landing-hero.tsx`:
+   - Métricas: `gap-8` → `gap-6 sm:gap-8` (3 métricas caben mejor en móvil 390px).
+   - Verificado: hero grid ya apila en móvil (`grid-cols-1 lg:grid-cols-2`), títulos ya escalan (`text-4xl sm:text-5xl lg:text-6xl xl:text-7xl`), botones ya son full-width en móvil.
+
+10. `src/components/landing/featured-vehicles.tsx`, `why-choose-us.tsx`, `brands-section.tsx`:
+    - Verificados: grids ya son responsive (1/2/3, 1/2/4, 2/3/6 respectivamente), padding `px-4 sm:px-6 lg:px-8`, títulos escalan con `text-3xl sm:text-4xl lg:text-5xl`. Sin cambios necesarios.
+
+11. `src/app/globals.css`:
+    - Añadida utilidad `.slider-premium` en `@layer utilities`: estiliza `input[type=range]` con track 4px, thumb 18px, hit-area 28px, fondo transparente, thumb blanco con borde y sombra. Soporta `:active` (scale 1.15) y `:focus-visible`. Compatible con webkit y moz. Mantiene la paleta (usa `var(--primary)` y `var(--background)`).
+    - Sin tocar la paleta de colores, fuentes ni el resto del tema.
+
+Verificación:
+- `bun run lint`: 0 errores, 0 advertencias (exit code 0).
+- `bun run build`: exitoso, 128 páginas estáticas generadas (88 vehículos + 30 marcas + 10 otras rutas).
+- Tipos: los errores `tsc` restantes son pre-existentes (propiedad `sufijo` en vehicle-detail-view, módulos en `examples/` y `skills/`) y no fueron introducidos por esta tarea.
+
+Stage Summary:
+- Responsiveness mejorada en TODO el sitio (header, marketplace, detalle, comparar, carrito, landing, financiamiento) sin alterar la estética premium oscura.
+- Header móvil (390px) ahora muestra sólo 4 elementos (logo + Marketplace + Favoritos + Carrito) en lugar de 7, eliminando el hacinamiento.
+- Sliders táctiles (financiamiento + filtros) con hit-area 28px y thumb visible.
+- Comparador con primera columna sticky para scroll horizontal usable.
+- Sort dropdown del marketplace ya no hace overflow en móvil.
+- Botones overlay (favorito/comparar) ligeramente más pequeños (8×8) en móvil, recuperando 9×9 en sm+.
+- Cero errores de lint, build exitoso, sin cambios en paleta/tipografía/funcionalidad.
+
+---
+Task ID: FIX-1..FIX-5
+Agent: Main (Z.ai Code) + frontend-styling-expert (UI-1)
+Task: Descargar imágenes localmente, arreglar error de src vacío en marcas, mejorar responsividad
+
+Work Log:
+- Investigado error "empty string passed to src": 3 vehículos Volkswagen (golf-r, id4, touareg) tenían arrays `imagenes` vacíos porque las claves no coincidieron en results.json del subagente IMG-2.
+- Buscadas 4 imágenes reales para cada uno de los 3 VW faltantes (búsqueda secuencial con sleep 8).
+- Script Python que: (a) arregló los 3 VW con sus URLs, (b) descargó las 352 imágenes (88 vehículos × 4) a `public/vehicles/<id>/1.jpg` etc., (c) reescribió vehicles.ts para usar rutas locales (`/vehicles/<id>/N.jpg`). 352/352 descargadas, 0 fallos. Tamaño total: 152MB.
+- Corregido brands-view.tsx: `imagen` ahora es `null` en vez de `""`, y el `<img>` solo se renderiza cuando hay URL válida (fallback a inicial de la marca).
+- Subagente UI-1 (frontend-styling-expert) mejoró la responsividad en 11 archivos:
+  * Header: móvil 390px ahora muestra solo Logo + Favoritos + Carrito (antes 7 ítems amontonados). Inicio/Marcas/Comparar/Mi Garaje aparecen en md+/lg+.
+  * Marketplace: sort dropdown con `min-w-0 flex-1` para evitar overflow, botón Filtros con `shrink-0`.
+  * VehicleCard: botones overlay más pequeños en móvil (`h-8 w-8 sm:h-9 sm:w-9`).
+  * Compare-view: primera columna sticky (`sticky left-0 z-10 bg-background`) para mantener etiquetas visibles al hacer scroll horizontal.
+  * Financing-calculator: sliders con nueva utilidad `.slider-premium` (touch-friendly, thumb 18px, hit-area 28px).
+  * Landing hero: métricas con gap responsive.
+  * Nueva utilidad CSS `.slider-premium` en globals.css.
+- `bun run lint`: 0 errores, 0 advertencias.
+- Verificación con Agent Browser:
+  * Móvil 390px: header con solo 3 ítems, sin overflow horizontal.
+  * Desktop 1440px: header con 7 ítems, todas las imágenes cargan localmente (loaded: true).
+  * Página /marcas: 30 marcas renderizadas, SIN errores de empty src.
+  * Página /comparar: columna sticky confirmada en el código.
+  * Landing: 7/7 imágenes cargadas, todas locales (allLocal: true).
+  * Sin errores en consola.
+
+Stage Summary:
+- 352 imágenes descargadas localmente en `public/vehicles/` (152MB), carga instantánea en dev.
+- vehicles.ts usa rutas locales (`/vehicles/<id>/N.jpg`) en vez de URLs remotas.
+- Error de src vacío en marcas arreglado (3 VW sin imágenes + renderizado condicional).
+- UI más responsive: header adaptativo, sliders touch-friendly, comparador con columna sticky, sin overflow en móvil.
+- Cero errores de lint, cero errores en runtime.

@@ -7,19 +7,30 @@ import { Gauge, Store, CarFront, Home, ShoppingCart, Heart, GitCompareArrows, Bu
 import { useTienda } from "@/store/use-store"
 import { cn } from "@/lib/utils"
 
-// Items de navegación principal (centro)
+// Items de navegación principal (centro).
+// `mostrar`: breakpoint mínimo en el que el item es visible.
+// - "base" → siempre visible (essenciales en móvil)
+// - "md"   → visible desde tablet (≥768px)
+// - "lg"   → visible desde desktop (≥1024px)
 const navItems = [
-  { href: "/", label: "Inicio", icon: Home },
-  { href: "/marketplace", label: "Marketplace", icon: Store },
-  { href: "/marcas", label: "Marcas", icon: Building2 },
+  { href: "/", label: "Inicio", icon: Home, mostrar: "md" as const },
+  { href: "/marketplace", label: "Marketplace", icon: Store, mostrar: "base" as const },
+  { href: "/marcas", label: "Marcas", icon: Building2, mostrar: "lg" as const },
 ] as const
 
 // Items secundarios (accesos rápidos con contadores)
 const accesosRapidos = [
-  { href: "/favoritos", label: "Favoritos", icon: Heart, badgeKey: "favoritos" as const },
-  { href: "/comparar", label: "Comparar", icon: GitCompareArrows, badgeKey: "comparar" as const },
-  { href: "/garaje", label: "Mi Garaje", icon: CarFront, badgeKey: "garaje" as const },
+  { href: "/favoritos", label: "Favoritos", icon: Heart, badgeKey: "favoritos" as const, mostrar: "base" as const },
+  { href: "/comparar", label: "Comparar", icon: GitCompareArrows, badgeKey: "comparar" as const, mostrar: "md" as const },
+  { href: "/garaje", label: "Mi Garaje", icon: CarFront, badgeKey: "garaje" as const, mostrar: "md" as const },
 ] as const
+
+// Mapa de breakpoint → clases de visibilidad
+const clasesVisibilidad: Record<"base" | "md" | "lg", string> = {
+  base: "inline-flex",
+  md: "hidden md:inline-flex",
+  lg: "hidden lg:inline-flex",
+}
 
 export function Header() {
   const pathname = usePathname()
@@ -76,7 +87,8 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative flex items-center gap-2 rounded-full px-2.5 py-2 text-sm font-medium transition-colors duration-200 sm:px-3.5",
+                  "relative items-center gap-2 rounded-full px-2.5 py-2 text-sm font-medium transition-colors duration-200 sm:px-3.5",
+                  clasesVisibilidad[item.mostrar],
                   activo
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -110,7 +122,8 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative flex items-center gap-2 rounded-full px-2.5 py-2 text-sm font-medium transition-colors duration-200 sm:px-3.5",
+                  "relative items-center gap-2 rounded-full px-2.5 py-2 text-sm font-medium transition-colors duration-200 sm:px-3.5",
+                  clasesVisibilidad[item.mostrar],
                   activo
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"

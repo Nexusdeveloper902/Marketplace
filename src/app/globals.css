@@ -164,4 +164,57 @@
         transparent 60%
       );
   }
+
+  /*
+    Sliders (input[type=range]) con hit-area táctil generosa y thumb
+    visible. Apto para móvil (390px) y desktop. Conserva el accent
+    primary del tema.
+  */
+  .slider-premium {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 28px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .slider-premium::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 9999px;
+    background-color: oklch(1 0 0 / 14%);
+  }
+  .slider-premium::-moz-range-track {
+    height: 4px;
+    border-radius: 9999px;
+    background-color: oklch(1 0 0 / 14%);
+  }
+  .slider-premium::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -7px;
+    height: 18px;
+    width: 18px;
+    border-radius: 9999px;
+    background-color: var(--primary);
+    border: 2px solid var(--background);
+    box-shadow: 0 1px 6px oklch(0 0 0 / 0.45);
+    transition: transform 0.15s ease;
+  }
+  .slider-premium::-webkit-slider-thumb:active {
+    transform: scale(1.15);
+  }
+  .slider-premium::-moz-range-thumb {
+    height: 18px;
+    width: 18px;
+    border-radius: 9999px;
+    background-color: var(--primary);
+    border: 2px solid var(--background);
+    box-shadow: 0 1px 6px oklch(0 0 0 / 0.45);
+  }
+  .slider-premium:focus-visible {
+    outline: none;
+  }
+  .slider-premium:focus-visible::-webkit-slider-runnable-track {
+    background-color: oklch(1 0 0 / 22%);
+  }
 }

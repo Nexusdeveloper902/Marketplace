@@ -136,7 +136,7 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
               {vehiculo.marca}
             </span>
             {/* Botones de favorito y comparar sobre la imagen */}
-            <div className="absolute right-4 top-4 flex items-center gap-2">
+            <div className="absolute right-3 top-3 flex items-center gap-1.5 sm:right-4 sm:top-4 sm:gap-2">
               <CompareButton
                 vehiculoId={vehiculo.id}
                 vehiculoNombre={nombreCompleto}
@@ -155,7 +155,7 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
           </motion.div>
 
           {/* Miniaturas */}
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-2 sm:gap-3">
             {vehiculo.imagenes.map((img, i) => (
               <button
                 key={i}

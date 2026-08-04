@@ -74,7 +74,7 @@ export function LandingHero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.28 }}
-              className="mt-10 flex items-center justify-center gap-8 lg:justify-start"
+              className="mt-10 flex items-center justify-center gap-6 sm:gap-8 lg:justify-start"
             >
               {[
                 { valor: `${vehiculos.length}`, etiqueta: "Modelos" },

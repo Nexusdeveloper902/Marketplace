@@ -75,7 +75,7 @@ export function FinancingCalculator({ precio }: FinancingCalculatorProps) {
             step={1000}
             value={cuotaInicial}
             onChange={(e) => setCuotaInicial(Number(e.target.value))}
-            className="mt-2 w-full accent-primary"
+            className="slider-premium mt-2"
             aria-label="Cuota inicial"
           />
         </div>
@@ -97,7 +97,7 @@ export function FinancingCalculator({ precio }: FinancingCalculatorProps) {
             step={12}
             value={numCuotas}
             onChange={(e) => setNumCuotas(Number(e.target.value))}
-            className="mt-2 w-full accent-primary"
+            className="slider-premium mt-2"
             aria-label="Número de cuotas"
           />
           <div className="mt-1.5 flex justify-between text-[10px] text-muted-foreground">
@@ -123,7 +123,7 @@ export function FinancingCalculator({ precio }: FinancingCalculatorProps) {
             step={0.5}
             value={tasaInteres}
             onChange={(e) => setTasaInteres(Number(e.target.value))}
-            className="mt-2 w-full accent-primary"
+            className="slider-premium mt-2"
             aria-label="Tasa de interés"
           />
         </div>
