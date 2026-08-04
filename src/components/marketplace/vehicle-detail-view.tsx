@@ -25,6 +25,7 @@ import { FavoriteButton } from "./favorite-button"
 import { CompareButton } from "./compare-button"
 import { FinancingCalculator } from "./financing-calculator"
 import { RelatedVehicles } from "./related-vehicles"
+import { SmartImage } from "@/components/ui/smart-image"
 import { cn } from "@/lib/utils"
 
 const especificaciones = [
@@ -127,9 +128,11 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border/70 bg-card"
           >
-            <img
+            <SmartImage
               src={vehiculo.imagenes[imagenActiva]}
               alt={`${nombreCompleto} - imagen ${imagenActiva + 1}`}
+              containerClassName="h-full w-full"
+              priority
               className="h-full w-full object-cover"
             />
             <span className="absolute left-4 top-4 rounded-full bg-background/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
@@ -168,11 +171,11 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
                 )}
                 aria-label={`Ver imagen ${i + 1}`}
               >
-                <img
+                <SmartImage
                   src={img}
                   alt={`${nombreCompleto} - miniatura ${i + 1}`}
+                  containerClassName="h-full w-full"
                   className="h-full w-full object-cover"
-                  loading="lazy"
                 />
               </button>
             ))}
@@ -181,6 +184,7 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
 
         {/* Columna derecha: información */}
         <div className="flex flex-col">
+          {/* Intro comercial */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -194,27 +198,42 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
                 {vehiculo.categoria}
               </span>
             </div>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            <h1 className="mt-2 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               {vehiculo.modelo}
             </h1>
-            <p className="mt-3 text-sm font-medium text-muted-foreground">
+            <p className="mt-4 text-sm font-medium text-muted-foreground">
               {vehiculo.año} · {vehiculo.combustible} ·{" "}
               {formatearNumero(vehiculo.potencia)} HP
             </p>
+          </motion.div>
 
-            <div className="mt-6 flex items-end gap-3">
-              <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Precio
-              </p>
-            </div>
-            <p className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          {/* Bloque de precio destacado */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-8 rounded-2xl border border-border/70 bg-secondary/40 p-6"
+          >
+            <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+              Precio
+            </p>
+            <p className="mt-1 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
               {formatearPrecio(vehiculo.precio)}
             </p>
-
-            <p className="mt-6 max-w-prose text-sm leading-relaxed text-muted-foreground sm:text-base">
-              {vehiculo.descripcion}
+            <p className="mt-2 text-xs text-muted-foreground">
+              Financiamiento disponible · Simulación sin compromiso
             </p>
           </motion.div>
+
+          {/* Descripción */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="mt-8 max-w-prose text-base leading-relaxed text-muted-foreground"
+          >
+            {vehiculo.descripcion}
+          </motion.p>
 
           {/* Especificaciones técnicas */}
           <div className="mt-8">

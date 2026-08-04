@@ -9,6 +9,7 @@ import { useTienda } from "@/store/use-store"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { useToast } from "@/hooks/use-toast"
 import { CheckoutModal } from "./checkout-modal"
+import { SmartImage } from "@/components/ui/smart-image"
 
 export function CartView() {
   const carrito = useTienda((s) => s.carrito)
@@ -93,11 +94,11 @@ export function CartView() {
                       className="relative aspect-[4/3] w-28 shrink-0 overflow-hidden rounded-xl bg-secondary sm:w-36"
                       aria-label={`Ver detalles del ${vehiculo.marca} ${vehiculo.modelo}`}
                     >
-                      <img
+                      <SmartImage
                         src={vehiculo.imagenes[0]}
                         alt={`${vehiculo.marca} ${vehiculo.modelo}`}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
+                        containerClassName="h-full w-full"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </Link>
 

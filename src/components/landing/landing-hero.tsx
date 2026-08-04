@@ -1,156 +1,248 @@
 "use client"
 
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { ArrowRight, Sparkles, Zap } from "lucide-react"
+import { useRef } from "react"
+import { motion, useScroll, useTransform, useInView } from "framer-motion"
+import { ArrowRight, Sparkles, Zap, ChevronDown } from "lucide-react"
 import { vehiculos } from "@/data/vehicles"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
+import { AnimatedCounter } from "@/components/ui/animated-counter"
+import { SmartImage } from "@/components/ui/smart-image"
 
-// Vehículo destacado para el hero (seleccionado por ser un icono).
-const vehiculoDestacado = vehiculos.find((v) => v.id === "porsche-911-carrera") ?? vehiculos[0]
+// Vehículo protagonista del hero.
+const vehiculoDestacado =
+  vehiculos.find((v) => v.id === "porsche-911-carrera") ?? vehiculos[0]
+
+const easeLux = [0.22, 1, 0.36, 1] as const
 
 export function LandingHero() {
+  const ref = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  })
+
+  // Parallax: la imagen se mueve más lento que el texto al hacer scroll
+  const yImagen = useTransform(scrollYProgress, [0, 1], [0, 120])
+  const yTexto = useTransform(scrollYProgress, [0, 1], [0, -40])
+  const opacityScroll = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+
   return (
-    <section className="hero-glow relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 pb-16 pt-16 sm:px-6 sm:pb-24 sm:pt-24 lg:px-8">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Texto */}
-          <div className="relative z-10 text-center lg:text-left">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-secondary/60 px-3.5 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur"
-            >
-              <Sparkles className="h-3.5 w-3.5 text-[var(--signature)]" strokeWidth={2.2} />
-              Marketplace de alta gama · {vehiculos.length} modelos
-            </motion.span>
+    <section
+      ref={ref}
+      className="hero-glow relative flex min-h-[100svh] items-center overflow-hidden"
+    >
+      {/* Imagen de fondo a pantalla completa con parallax */}
+      <motion.div
+        style={{ y: yImagen }}
+        className="absolute inset-0 z-0"
+      >
+        <SmartImage
+          src={vehiculoDestacado.imagenes[0]}
+          alt={`${vehiculoDestacado.marca} ${vehiculoDestacado.modelo}`}
+          containerClassName="h-full w-full"
+          priority
+          className="h-full w-full object-cover"
+        />
+        {/* Degradados para legibilidad y profundidad */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
+      </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.05 }}
-              className="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl xl:text-7xl"
-            >
-              Donde la pasión
-              <br />
-              <span className="text-gradient">se convierte en velocidad</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.12 }}
-              className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0"
-            >
-              Una selección curada de los automóviles más extraordinarios del
-              mundo. Diseño, ingeniería y emoción reunidos en una experiencia
-              de compra premium.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:items-start lg:justify-start"
-            >
-              <Link
-                href="/marketplace"
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
-              >
-                Explorar vehículos
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-              <Link
-                href="/garaje"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent sm:w-auto"
-              >
-                Mi Garaje
-              </Link>
-            </motion.div>
-
-            {/* Métricas */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.28 }}
-              className="mt-10 flex items-center justify-center gap-6 sm:gap-8 lg:justify-start"
-            >
-              {[
-                { valor: `${vehiculos.length}`, etiqueta: "Modelos" },
-                { valor: `${marcasCount()}`, etiqueta: "Marcas" },
-                { valor: "100%", etiqueta: "Curado" },
-              ].map((m) => (
-                <div key={m.etiqueta} className="text-center lg:text-left">
-                  <p className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-                    {m.valor}
-                  </p>
-                  <p className="mt-0.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                    {m.etiqueta}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Imagen del vehículo destacado */}
+      {/* Contenido */}
+      <motion.div
+        style={{ y: yTexto, opacity: opacityScroll }}
+        className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8"
+      >
+        <div className="max-w-2xl">
+          {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: easeLux }}
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/40 px-4 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-md">
+              <Sparkles
+                className="h-3.5 w-3.5 text-[var(--signature)]"
+                strokeWidth={2.2}
+              />
+              Marketplace de alta gama · {vehiculos.length} modelos
+            </span>
+          </motion.div>
+
+          {/* Título enorme */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: easeLux }}
+            className="mt-6 text-5xl font-semibold leading-[0.95] tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-8xl"
+          >
+            Donde la pasión
+            <br />
+            <span className="text-gradient">se convierte</span>
+            <br />
+            en velocidad
+          </motion.h1>
+
+          {/* Subtítulo */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: easeLux }}
+            className="mt-7 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg"
+          >
+            Una selección curada de los automóviles más extraordinarios del
+            mundo. Diseño, ingeniería y emoción reunidos en una experiencia
+            de compra premium.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: easeLux }}
+            className="mt-9 flex flex-col gap-3 sm:flex-row"
           >
             <Link
-              href={`/vehiculos/${vehiculoDestacado.id}`}
-              className="group relative block overflow-hidden rounded-3xl border border-border/70 bg-card shadow-[0_30px_80px_-20px_oklch(0_0_0/0.8)]"
+              href="/marketplace"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-7 py-4 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:opacity-90 hover:shadow-[0_8px_30px_-8px_oklch(0.98_0_0/0.4)] active:scale-[0.98] sm:w-auto"
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
-                <img
-                  src={vehiculoDestacado.imagenes[0]}
-                  alt={`${vehiculoDestacado.marca} ${vehiculoDestacado.modelo}`}
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-              </div>
-
-              {/* Etiqueta de destacado */}
-              <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-background/60 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
-                <Sparkles className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.5} />
-                Vehículo destacado
-              </span>
-
-              {/* Información sobre la imagen */}
-              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-                <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                  {vehiculoDestacado.marca}
-                </p>
-                <div className="mt-1.5 flex flex-wrap items-end justify-between gap-3">
-                  <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-                    {vehiculoDestacado.modelo}
-                  </h2>
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center gap-1 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold text-foreground backdrop-blur-md">
-                      <Zap className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.5} />
-                      {formatearNumero(vehiculoDestacado.potencia)} HP
-                    </span>
-                    <span className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">
-                      {formatearPrecio(vehiculoDestacado.precio)}
-                    </span>
-                  </div>
-                </div>
-                <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80">
-                  Ver detalles
-                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                </p>
-              </div>
+              Explorar vehículos
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
+            <Link
+              href={`/vehiculos/${vehiculoDestacado.id}`}
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-border/70 bg-background/40 px-7 py-4 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:bg-background/60 active:scale-[0.98] sm:w-auto"
+            >
+              Ver vehículo destacado
             </Link>
           </motion.div>
+
+          {/* Métricas con contadores animados */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45, ease: easeLux }}
+            className="mt-14 flex items-center gap-8 sm:gap-12"
+          >
+            <Metrica
+              valor={
+                <AnimatedCounter
+                  valor={vehiculos.length}
+                  className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+                />
+              }
+              etiqueta="Modelos"
+            />
+            <div className="h-12 w-px bg-border" />
+            <Metrica
+              valor={
+                <AnimatedCounter
+                  valor={new Set(vehiculos.map((v) => v.marca)).size}
+                  className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+                />
+              }
+              etiqueta="Marcas"
+            />
+            <div className="hidden h-12 w-px bg-border sm:block" />
+            <Metrica
+              valor={
+                <AnimatedCounter
+                  valor={100}
+                  sufijo="%"
+                  className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+                />
+              }
+              etiqueta="Curado"
+            />
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
+
+      {/* Indicador de scroll */}
+      <motion.div
+        style={{ opacity: opacityScroll }}
+        className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-1 text-muted-foreground"
+        >
+          <span className="text-[10px] font-medium uppercase tracking-[0.2em]">
+            Desliza
+          </span>
+          <ChevronDown className="h-4 w-4" strokeWidth={2} />
+        </motion.div>
+      </motion.div>
+
+      {/* Tarjeta flotante del vehículo destacado (desktop) */}
+      <motion.div
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, delay: 0.4, ease: easeLux }}
+        className="absolute bottom-12 right-12 z-10 hidden lg:block"
+      >
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <Link
+            href={`/vehiculos/${vehiculoDestacado.id}`}
+            className="group block w-72 overflow-hidden rounded-2xl border border-border/70 bg-card/80 p-4 backdrop-blur-xl transition-all duration-500 hover:border-border hover:bg-card/95 hover:shadow-[0_20px_60px_-12px_oklch(0_0_0/0.8)]"
+          >
+            <div className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 rounded-full bg-[var(--signature)]/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--signature)]">
+                <Sparkles className="h-3 w-3" strokeWidth={2.5} />
+                Destacado
+              </span>
+            </div>
+            <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              {vehiculoDestacado.marca}
+            </p>
+            <h3 className="mt-1 text-xl font-semibold tracking-tight text-foreground">
+              {vehiculoDestacado.modelo}
+            </h3>
+            <div className="mt-3 flex items-center justify-between">
+              <span className="flex items-center gap-1 text-xs font-semibold text-foreground">
+                <Zap
+                  className="h-3 w-3 text-[var(--signature)]"
+                  strokeWidth={2.5}
+                />
+                {formatearNumero(vehiculoDestacado.potencia)} HP
+              </span>
+              <span className="text-base font-semibold tracking-tight text-foreground">
+                {formatearPrecio(vehiculoDestacado.precio)}
+              </span>
+            </div>
+            <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground">
+              Ver detalles
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </div>
+          </Link>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }
 
-function marcasCount() {
-  return new Set(vehiculos.map((v) => v.marca)).size
+function Metrica({
+  valor,
+  etiqueta,
+}: {
+  valor: React.ReactNode
+  etiqueta: string
+}) {
+  return (
+    <div>
+      {valor}
+      <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+        {etiqueta}
+      </p>
+    </div>
+  )
 }

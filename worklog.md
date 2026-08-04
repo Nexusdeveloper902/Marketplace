@@ -367,3 +367,48 @@ Stage Summary:
 - Todos los items de navegación ahora son accesibles en móvil vía menú hamburguesa.
 - Desktop sin cambios (nav inline).
 - Cero errores de lint.
+
+---
+Task ID: PREMIUM-1..PREMIUM-9
+Agent: Main (Z.ai Code)
+Task: Fase final — transformar Digital Marketplace en una experiencia premium (Porsche/Tesla level)
+
+Work Log:
+- Creado componente `SmartImage` (`src/components/ui/smart-image.tsx`): carga progresiva con skeleton shimmer → fade-in + blur-up, lazy loading, aspect ratio reservado para evitar layout shift. Patrón con `key={src}` + inner component para resetear estado sin useEffect. Ref callback detecta imágenes en caché.
+- Creado `AnimatedCounter` (`src/components/ui/animated-counter.tsx`): contador que anima de 0 al valor final con easing ease-out-cubic al entrar en viewport.
+- Creado `VehicleCardSkeleton` + `VehicleGridSkeleton` (`src/components/ui/skeletons.tsx`): skeletons que replican exactamente la estructura de las tarjetas.
+- Landing Hero rediseñado a pantalla completa (`min-h-[100svh]`):
+  * Imagen del Porsche 911 como fondo a pantalla completa con parallax (useScroll + useTransform).
+  * Degradados direccionales para legibilidad y profundidad.
+  * Tipografía enorme (text-5xl → text-8xl) con letter-spacing negativo.
+  * Aparición progresiva escalonada del contenido (badge → título → subtítulo → CTAs → métricas).
+  * Contadores animados en las métricas (88 modelos, 30 marcas, 100%).
+  * Tarjeta flotante del vehículo destacado (desktop) con animación de flotación infinita.
+  * Indicador de scroll animado en la parte inferior.
+- VehicleCard premiumizado:
+  * Etiquetas discretas según vehículo: "Eléctrico", "Superdeportivo", "Edición exclusiva", "Nuevo".
+  * Mejor jerarquía: marca sobre imagen → modelo → año/categoría → precio/potencia/0-100.
+  * Hover con elevación sutil (`hover:-translate-y-1`).
+  * SmartImage integrado para carga progresiva.
+  * Separadores entre specs en el cuerpo de la tarjeta.
+- Página de detalle mejorada:
+  * Intro comercial con título enorme (text-6xl).
+  * Bloque de precio destacado en tarjeta separada con esquina redondeada.
+  * Descripción con mejor jerarquía y espaciado.
+  * Galería y miniaturas con SmartImage (carga progresiva).
+  * Aparición escalonada de los bloques (intro → precio → descripción → specs → financiamiento → acciones).
+- SmartImage integrado en: brands-view, cart-view, compare-view, vehicle-detail-view.
+- Template.tsx: transición entre páginas más suave (y: 12 → 0, duration: 0.4s).
+- globals.css: tipografía premium (letter-spacing negativo en h1/h2/h3, font-feature-settings kerning/ligas), selección de texto con color de marca, -webkit-tap-highlight-color transparent.
+- `bun run lint`: 0 errores, 0 advertencias.
+- Verificación con Agent Browser + VLM:
+  * Hero: 8/10 desktop, 9/10 móvil — pantalla completa, vehículo visible, tipografía elegante.
+  * Cards: 8/10 — etiquetas visibles, jerarquía limpia, feel premium.
+  * Detail: 9/10 — bloque de precio destacado, specs en grid, financiamiento presente.
+  * Imágenes cargan correctamente (opacity 1 tras carga progresiva).
+  * Sin errores en consola ni en dev.log.
+
+Stage Summary:
+- Experiencia visual premium lograda: hero a pantalla completa con parallax, imágenes con carga progresiva (blur-up), contadores animados, etiquetas discretas, tarjetas con elevación sutil, transiciones suaves.
+- Componentes reutilizables: SmartImage, AnimatedCounter, VehicleCardSkeleton.
+- Cero errores de lint, cero errores en runtime.

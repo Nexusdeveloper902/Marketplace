@@ -2,22 +2,58 @@
 
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronRight, Zap, ShoppingCart, Check, BadgeCheck } from "lucide-react"
+import {
+  ChevronRight,
+  Zap,
+  ShoppingCart,
+  Check,
+  BadgeCheck,
+  Battery,
+  Flame,
+  Crown,
+} from "lucide-react"
 import type { Vehicle } from "@/types/vehicle"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { useTienda } from "@/store/use-store"
 import { useToast } from "@/hooks/use-toast"
 import { FavoriteButton } from "./favorite-button"
 import { CompareButton } from "./compare-button"
+import { SmartImage } from "@/components/ui/smart-image"
 import { cn } from "@/lib/utils"
 
 interface VehicleCardProps {
   vehiculo: Vehicle
-  /** Etiqueta del botón de navegación. */
   etiquetaBoton?: string
-  /** Variante visual de la tarjeta. */
   variante?: "marketplace" | "garaje" | "favoritos"
   index?: number
+}
+
+// Determina la etiqueta discreta según el vehículo.
+function obtenerEtiqueta(vehiculo: Vehicle) {
+  if (vehiculo.combustible === "Eléctrico")
+    return { texto: "Eléctrico", icono: Battery, color: "text-[var(--chart-4)]" }
+  if (vehiculo.categoria === "Superdeportivo")
+    return { texto: "Superdeportivo", icono: Flame, color: "text-[var(--signature)]" }
+  if (vehiculo.precio > 200000)
+    return { texto: "Edición exclusiva", icono: Crown, color: "text-[var(--signature)]" }
+  if (vehiculo.año >= 2024)
+    return { texto: "Nuevo", icono: Sparkle, color: "text-[var(--success)]" }
+  return null
+}
+
+// Icono Sparkle local para evitar import adicional.
+function Sparkle({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      width="12"
+      height="12"
+    >
+      <path d="M12 2L13.5 8.5L20 10L13.5 11.5L12 18L10.5 11.5L4 10L10.5 8.5L12 2Z" />
+    </svg>
+  )
 }
 
 export function VehicleCard({
@@ -33,6 +69,7 @@ export function VehicleCard({
   const { toast } = useToast()
 
   const nombreCompleto = `${vehiculo.marca} ${vehiculo.modelo}`
+  const etiqueta = obtenerEtiqueta(vehiculo)
 
   const handleAgregar = () => {
     if (estaEnCarrito || estaComprado) return
@@ -52,7 +89,7 @@ export function VehicleCard({
         delay: Math.min(index * 0.04, 0.4),
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[0_1px_0_0_oklch(1_0_0/0.04)_inset,0_8px_30px_-12px_oklch(0_0_0/0.6)] transition-all duration-500 hover:border-border hover:shadow-[0_1px_0_0_oklch(1_0_0/0.06)_inset,0_20px_50px_-12px_oklch(0_0_0/0.7)]"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-500 hover:-translate-y-1 hover:border-border hover:shadow-[0_20px_50px_-12px_oklch(0_0_0/0.7)]"
     >
       {/* Imagen */}
       <div className="relative block aspect-[16/10] w-full overflow-hidden bg-secondary">
@@ -61,23 +98,33 @@ export function VehicleCard({
           className="block h-full w-full"
           aria-label={`Ver detalles del ${nombreCompleto}`}
         >
-          <img
+          <SmartImage
             src={vehiculo.imagenes[0]}
             alt={`${nombreCompleto} ${vehiculo.año}`}
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-            loading="lazy"
+            containerClassName="h-full w-full"
+            className="transition-transform duration-700 ease-out group-hover:scale-[1.05]"
           />
           {/* Degradado inferior para legibilidad */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/90 via-card/10 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/90 via-card/5 to-transparent" />
         </Link>
 
-        {/* Marca arriba a la izquierda */}
-        <span className="pointer-events-none absolute left-2.5 top-2.5 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md sm:left-3 sm:top-3 sm:px-3">
-          {vehiculo.marca}
-        </span>
+        {/* Etiqueta discreta arriba a la izquierda */}
+        {etiqueta && (
+          <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-background/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider backdrop-blur-md">
+            <etiqueta.icono className={cn("h-3 w-3", etiqueta.color)} />
+            {etiqueta.texto}
+          </span>
+        )}
+
+        {/* Marca arriba a la izquierda (si no hay etiqueta) */}
+        {!etiqueta && (
+          <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
+            {vehiculo.marca}
+          </span>
+        )}
 
         {/* Botones de favorito y comparar arriba a la derecha */}
-        <div className="absolute right-2.5 top-2.5 flex items-center gap-1.5 sm:right-3 sm:top-3 sm:gap-2">
+        <div className="absolute right-3 top-3 flex items-center gap-1.5">
           <CompareButton
             vehiculoId={vehiculo.id}
             vehiculoNombre={nombreCompleto}
@@ -88,30 +135,27 @@ export function VehicleCard({
           />
         </div>
 
-        {/* Badge de potencia + comprado (debajo de los botones) */}
-        <div className="pointer-events-none absolute right-2.5 top-12 flex flex-col items-end gap-2 sm:right-3 sm:top-[3.75rem]">
-          <span className="flex items-center gap-1 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold text-foreground backdrop-blur-md">
-            <Zap className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.5} />
-            {formatearNumero(vehiculo.potencia)} HP
+        {/* Badge de comprado */}
+        {estaComprado && (
+          <span className="pointer-events-none absolute right-3 top-12 flex items-center gap-1 rounded-full bg-[var(--success)]/15 px-2.5 py-1 text-[10px] font-semibold text-[var(--success)] backdrop-blur-md">
+            <BadgeCheck className="h-3 w-3" strokeWidth={2.5} />
+            Comprado
           </span>
-          {estaComprado && (
-            <span className="flex items-center gap-1 rounded-full bg-[var(--success)]/15 px-2.5 py-1 text-[11px] font-semibold text-[var(--success)] backdrop-blur-md">
-              <BadgeCheck className="h-3 w-3" strokeWidth={2.5} />
-              Comprado
-            </span>
-          )}
-        </div>
+        )}
 
         {/* Nombre sobre la imagen */}
         <Link
           href={href}
           className="absolute inset-x-0 bottom-0 p-4 text-left"
         >
-          <h3 className="text-lg font-semibold leading-tight text-foreground drop-shadow-sm sm:text-xl">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
+            {vehiculo.marca}
+          </p>
+          <h3 className="mt-0.5 text-lg font-semibold leading-tight text-foreground drop-shadow-sm sm:text-xl">
             {vehiculo.modelo}
           </h3>
-          <p className="mt-0.5 text-xs font-medium text-muted-foreground">
-            {vehiculo.año} · {vehiculo.combustible} · {vehiculo.categoria}
+          <p className="mt-0.5 text-[11px] font-medium text-muted-foreground">
+            {vehiculo.año} · {vehiculo.categoria}
           </p>
         </Link>
       </div>
@@ -120,20 +164,32 @@ export function VehicleCard({
       <div className="flex flex-1 flex-col gap-4 p-4 sm:p-5">
         <div className="flex items-end justify-between gap-3">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
               Precio
             </p>
             <p className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
               {formatearPrecio(vehiculo.precio)}
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-              0-100 km/h
-            </p>
-            <p className="text-sm font-semibold text-foreground">
-              {vehiculo.aceleracion0a100}s
-            </p>
+          <div className="flex items-center gap-3 text-right">
+            <div>
+              <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                Potencia
+              </p>
+              <p className="flex items-center justify-end gap-1 text-sm font-semibold text-foreground">
+                <Zap className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.5} />
+                {formatearNumero(vehiculo.potencia)} HP
+              </p>
+            </div>
+            <div className="hidden h-8 w-px bg-border sm:block" />
+            <div className="hidden sm:block">
+              <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                0-100
+              </p>
+              <p className="text-sm font-semibold text-foreground">
+                {vehiculo.aceleracion0a100}s
+              </p>
+            </div>
           </div>
         </div>
 

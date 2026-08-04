@@ -7,6 +7,7 @@ import { vehiculos, marcas } from "@/data/vehicles"
 import { useTienda, MAX_COMPARAR } from "@/store/use-store"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { EmptyState } from "./empty-state"
+import { SmartImage } from "@/components/ui/smart-image"
 import { cn } from "@/lib/utils"
 
 // Especificaciones a comparar. "mejor" define si el valor mayor o menor es mejor.
@@ -117,11 +118,11 @@ export function CompareView() {
                     className="relative overflow-hidden rounded-xl border border-border/70 bg-card"
                   >
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-secondary">
-                      <img
+                      <SmartImage
                         src={vehiculo.imagenes[0]}
                         alt={`${vehiculo.marca} ${vehiculo.modelo}`}
-                        className="h-full w-full object-cover"
-                        loading="lazy"
+                        containerClassName="h-full w-full"
+                        className="object-cover"
                       />
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/90 to-transparent" />
                       <button

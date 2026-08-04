@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { ArrowRight, Gauge } from "lucide-react"
 import { vehiculos, marcas } from "@/data/vehicles"
 import { formatearPrecio } from "@/lib/format"
+import { SmartImage } from "@/components/ui/smart-image"
 
 // Descripciones breves para cada marca.
 const descripcionesMarcas: Record<string, string> = {
@@ -95,11 +96,11 @@ export function BrandsView() {
                 {/* Imagen representativa */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
                   {datos.imagen ? (
-                    <img
+                    <SmartImage
                       src={datos.imagen}
                       alt={`Vehículo destacado de ${datos.marca}`}
-                      className="h-full w-full object-cover opacity-70 transition-all duration-700 group-hover:scale-[1.05] group-hover:opacity-90"
-                      loading="lazy"
+                      containerClassName="h-full w-full"
+                      className="object-cover opacity-70 transition-all duration-700 group-hover:scale-[1.05] group-hover:opacity-90"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">

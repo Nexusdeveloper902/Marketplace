@@ -108,11 +108,23 @@
   }
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+  /* Tipografía premium: letter-spacing negativo en títulos grandes */
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+  }
+  /* Selección de texto con color de marca */
+  ::selection {
+    background-color: oklch(0.85 0.09 80 / 0.25);
+    color: oklch(0.98 0 0);
   }
 }
 
