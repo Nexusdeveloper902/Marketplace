@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { cn } from "@/lib/utils"
 
 interface SmartImageProps {
@@ -14,10 +14,14 @@ interface SmartImageProps {
   aspectRatio?: string
 }
 
+// Tiempo mínimo que se muestra el skeleton (ms). Garantiza que la carga
+// progresiva sea perceptible incluso con imágenes en caché local.
+const MIN_SKELETON_MS = 350
+
 /**
  * Imagen con carga progresiva premium:
- * - Skeleton shimmer mientras carga
- * - Fade-in suave + ligero desenfoque al cargar
+ * - Skeleton shimmer mientras carga (mínimo MIN_SKELETON_MS)
+ * - Fade-in suave + ligero desenfoque al cargar (blur-up)
  * - Lazy loading por defecto (priority lo desactiva)
  * - Aspect ratio reservado para evitar layout shift
  *
@@ -62,14 +66,28 @@ function SmartImageInner({
   priority: boolean
   className?: string
 }) {
-  const [cargada, setCargada] = useState(false)
+  const [imagenCargada, setImagenCargada] = useState(false)
   const [error, setError] = useState(false)
+  const [mostrarSkeleton, setMostrarSkeleton] = useState(true)
+  const inicioRef = useRef<number>(performance.now())
+
+  // Oculta el skeleton después del mínimo de tiempo, asegurando que
+  // la carga progresiva siempre sea perceptible.
+  useEffect(() => {
+    const transcurrido = performance.now() - inicioRef.current
+    const restante = Math.max(0, MIN_SKELETON_MS - transcurrido)
+    const timer = setTimeout(() => setMostrarSkeleton(false), restante)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // "cargada" solo es true cuando la imagen terminó Y pasó el mínimo de skeleton
+  const cargada = imagenCargada && !mostrarSkeleton
 
   return (
     <>
       {/* Skeleton shimmer */}
-      {!cargada && !error && (
-        <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-secondary via-accent/30 to-secondary" />
+      {mostrarSkeleton && !error && (
+        <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-secondary via-accent/40 to-secondary" />
       )}
 
       {/* Imagen */}
@@ -79,12 +97,12 @@ function SmartImageInner({
           alt={alt}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
-          onLoad={() => setCargada(true)}
+          onLoad={() => setImagenCargada(true)}
           onError={() => setError(true)}
           ref={(el) => {
             // Si la imagen ya está en caché, onLoad puede no dispararse.
-            if (el && el.complete && el.naturalWidth > 0 && !cargada) {
-              setCargada(true)
+            if (el && el.complete && el.naturalWidth > 0 && !imagenCargada) {
+              setImagenCargada(true)
             }
           }}
           className={cn(
