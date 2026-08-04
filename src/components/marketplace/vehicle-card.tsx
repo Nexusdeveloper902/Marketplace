@@ -102,7 +102,7 @@ export function VehicleCard({
             src={vehiculo.imagenes[0]}
             alt={`${nombreCompleto} ${vehiculo.año}`}
             containerClassName="h-full w-full"
-            className="transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+            hoverScale={1.04}
           />
           {/* Degradado inferior para legibilidad */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/90 via-card/5 to-transparent" />

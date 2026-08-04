@@ -96,12 +96,14 @@ export function BrandsView() {
                 {/* Imagen representativa */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
                   {datos.imagen ? (
-                    <SmartImage
-                      src={datos.imagen}
-                      alt={`Vehículo destacado de ${datos.marca}`}
-                      containerClassName="h-full w-full"
-                      className="object-cover opacity-70 transition-all duration-700 group-hover:scale-[1.05] group-hover:opacity-90"
-                    />
+                    <div className="h-full w-full opacity-70 transition-opacity duration-700 group-hover:opacity-90">
+                      <SmartImage
+                        src={datos.imagen}
+                        alt={`Vehículo destacado de ${datos.marca}`}
+                        containerClassName="h-full w-full"
+                        hoverScale={1.05}
+                      />
+                    </div>
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
                       <span className="text-3xl font-bold text-muted-foreground/40">

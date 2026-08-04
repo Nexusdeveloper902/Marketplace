@@ -98,7 +98,7 @@ export function CartView() {
                         src={vehiculo.imagenes[0]}
                         alt={`${vehiculo.marca} ${vehiculo.modelo}`}
                         containerClassName="h-full w-full"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        hoverScale={1.05}
                       />
                     </Link>
 
