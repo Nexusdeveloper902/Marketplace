@@ -7,6 +7,8 @@ import type { Vehicle } from "@/types/vehicle"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { useTienda } from "@/store/use-store"
 import { useToast } from "@/hooks/use-toast"
+import { FavoriteButton } from "./favorite-button"
+import { CompareButton } from "./compare-button"
 import { cn } from "@/lib/utils"
 
 interface VehicleCardProps {
@@ -14,7 +16,7 @@ interface VehicleCardProps {
   /** Etiqueta del botón de navegación. */
   etiquetaBoton?: string
   /** Variante visual de la tarjeta. */
-  variante?: "marketplace" | "garaje"
+  variante?: "marketplace" | "garaje" | "favoritos"
   index?: number
 }
 
@@ -30,12 +32,14 @@ export function VehicleCard({
   const agregarAlCarrito = useTienda((s) => s.agregarAlCarrito)
   const { toast } = useToast()
 
+  const nombreCompleto = `${vehiculo.marca} ${vehiculo.modelo}`
+
   const handleAgregar = () => {
     if (estaEnCarrito || estaComprado) return
     agregarAlCarrito(vehiculo.id)
     toast({
       title: "Añadido al carrito",
-      description: `${vehiculo.marca} ${vehiculo.modelo} se ha añadido a tu carrito.`,
+      description: `${nombreCompleto} se ha añadido a tu carrito.`,
     })
   }
 
@@ -45,33 +49,47 @@ export function VehicleCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.5,
-        delay: Math.min(index * 0.05, 0.4),
+        delay: Math.min(index * 0.04, 0.4),
         ease: [0.22, 1, 0.36, 1],
       }}
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[0_1px_0_0_oklch(1_0_0/0.04)_inset,0_8px_30px_-12px_oklch(0_0_0/0.6)] transition-all duration-500 hover:border-border hover:shadow-[0_1px_0_0_oklch(1_0_0/0.06)_inset,0_20px_50px_-12px_oklch(0_0_0/0.7)]"
     >
       {/* Imagen */}
-      <Link
-        href={href}
-        className="relative block aspect-[16/10] w-full overflow-hidden bg-secondary"
-        aria-label={`Ver detalles del ${vehiculo.marca} ${vehiculo.modelo}`}
-      >
-        <img
-          src={vehiculo.imagenes[0]}
-          alt={`${vehiculo.marca} ${vehiculo.modelo} ${vehiculo.año}`}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-          loading="lazy"
-        />
-        {/* Degradado inferior para legibilidad */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/90 via-card/10 to-transparent" />
+      <div className="relative block aspect-[16/10] w-full overflow-hidden bg-secondary">
+        <Link
+          href={href}
+          className="block h-full w-full"
+          aria-label={`Ver detalles del ${nombreCompleto}`}
+        >
+          <img
+            src={vehiculo.imagenes[0]}
+            alt={`${nombreCompleto} ${vehiculo.año}`}
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+            loading="lazy"
+          />
+          {/* Degradado inferior para legibilidad */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/90 via-card/10 to-transparent" />
+        </Link>
 
         {/* Marca arriba a la izquierda */}
-        <span className="absolute left-3 top-3 rounded-full bg-background/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
+        <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-background/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
           {vehiculo.marca}
         </span>
 
-        {/* Indicadores de estado arriba a la derecha */}
-        <div className="absolute right-3 top-3 flex flex-col items-end gap-2">
+        {/* Botones de favorito y comparar arriba a la derecha */}
+        <div className="absolute right-3 top-3 flex items-center gap-2">
+          <CompareButton
+            vehiculoId={vehiculo.id}
+            vehiculoNombre={nombreCompleto}
+          />
+          <FavoriteButton
+            vehiculoId={vehiculo.id}
+            vehiculoNombre={nombreCompleto}
+          />
+        </div>
+
+        {/* Badge de potencia + comprado (debajo de los botones) */}
+        <div className="pointer-events-none absolute right-3 top-[3.75rem] flex flex-col items-end gap-2">
           <span className="flex items-center gap-1 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold text-foreground backdrop-blur-md">
             <Zap className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.5} />
             {formatearNumero(vehiculo.potencia)} HP
@@ -85,15 +103,18 @@ export function VehicleCard({
         </div>
 
         {/* Nombre sobre la imagen */}
-        <div className="absolute inset-x-0 bottom-0 p-4 text-left">
+        <Link
+          href={href}
+          className="absolute inset-x-0 bottom-0 p-4 text-left"
+        >
           <h3 className="text-lg font-semibold leading-tight text-foreground drop-shadow-sm sm:text-xl">
             {vehiculo.modelo}
           </h3>
           <p className="mt-0.5 text-xs font-medium text-muted-foreground">
-            {vehiculo.año} · {vehiculo.combustible}
+            {vehiculo.año} · {vehiculo.combustible} · {vehiculo.categoria}
           </p>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
       {/* Cuerpo */}
       <div className="flex flex-1 flex-col gap-4 p-4 sm:p-5">
@@ -108,16 +129,16 @@ export function VehicleCard({
           </div>
           <div className="text-right">
             <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-              Vel. máxima
+              0-100 km/h
             </p>
             <p className="text-sm font-semibold text-foreground">
-              {formatearNumero(vehiculo.velocidadMaxima)} km/h
+              {vehiculo.aceleracion0a100}s
             </p>
           </div>
         </div>
 
         {/* Acciones */}
-        {variante === "garaje" ? (
+        {variante === "garaje" || variante === "favoritos" ? (
           <Link
             href={href}
             className="group/btn mt-auto flex items-center justify-between gap-2 rounded-xl border border-border bg-secondary px-4 py-3 text-sm font-semibold transition-all duration-300 hover:bg-accent"

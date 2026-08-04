@@ -2,6 +2,13 @@
 
 import { useSyncExternalStore } from "react"
 
+// Snapshots cacheados para evitar el warning de React 19
+// "getSnapshot should be cached to avoid an infinite loop".
+const CLIENT_SNAPSHOT = true
+const SERVER_SNAPSHOT = false
+
+const emptySubscribe = () => () => {}
+
 /**
  * Devuelve `false` durante el render del servidor y la hidratación inicial
  * del cliente, y `true` una vez hidratado. Útil para evitar desajustes de
@@ -9,8 +16,8 @@ import { useSyncExternalStore } from "react"
  */
 export function useHydrated(): boolean {
   return useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
+    emptySubscribe,
+    () => CLIENT_SNAPSHOT,
+    () => SERVER_SNAPSHOT
   )
 }

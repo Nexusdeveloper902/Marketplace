@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -14,18 +14,26 @@ import {
   Rocket,
   ShoppingCart,
   BadgeCheck,
+  Wind,
+  Timer,
 } from "lucide-react"
 import { vehiculos } from "@/data/vehicles"
 import { useTienda } from "@/store/use-store"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { useToast } from "@/hooks/use-toast"
+import { FavoriteButton } from "./favorite-button"
+import { CompareButton } from "./compare-button"
+import { FinancingCalculator } from "./financing-calculator"
+import { RelatedVehicles } from "./related-vehicles"
 import { cn } from "@/lib/utils"
 
 const especificaciones = [
   { clave: "motor", etiqueta: "Motor", icono: Gauge },
   { clave: "potencia", etiqueta: "Potencia", icono: Zap, sufijo: " HP" },
+  { clave: "torque", etiqueta: "Torque", icono: Gauge, sufijo: " Nm" },
   { clave: "transmision", etiqueta: "Transmisión", icono: Cog },
   { clave: "combustible", etiqueta: "Combustible", icono: Fuel },
+  { clave: "traccion", etiqueta: "Tracción", icono: Wind },
   { clave: "año", etiqueta: "Año", icono: Calendar },
   {
     clave: "velocidadMaxima",
@@ -33,20 +41,33 @@ const especificaciones = [
     icono: Rocket,
     sufijo: " km/h",
   },
+  {
+    clave: "aceleracion0a100",
+    etiqueta: "0-100 km/h",
+    icono: Timer,
+    sufijo: " s",
+  },
 ] as const
 
 interface VehicleDetailViewProps {
   id: string
 }
 
+/**
+ * Componente exterior: gestiona el registro de "visto recientemente"
+ * y el estado de vehículo no encontrado. El contenido interactivo
+ * se delega a un componente interior con `key={id}` para resetear
+ * el estado (imagen activa) al navegar entre vehículos.
+ */
 export function VehicleDetailView({ id }: VehicleDetailViewProps) {
-  const estaEnCarrito = useTienda((s) => s.estaEnCarrito(id))
-  const estaComprado = useTienda((s) => s.estaComprado(id))
-  const agregarAlCarrito = useTienda((s) => s.agregarAlCarrito)
-  const { toast } = useToast()
-
   const vehiculo = vehiculos.find((v) => v.id === id)
-  const [imagenActiva, setImagenActiva] = useState(0)
+  const marcarVisto = useTienda((s) => s.marcarVisto)
+
+  useEffect(() => {
+    if (vehiculo) {
+      marcarVisto(vehiculo.id)
+    }
+  }, [vehiculo, marcarVisto])
 
   if (!vehiculo) {
     return (
@@ -64,12 +85,24 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
     )
   }
 
+  return <VehicleDetailContent key={vehiculo.id} vehiculo={vehiculo} />
+}
+
+function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<typeof vehiculos.find>> }) {
+  const estaEnCarrito = useTienda((s) => s.estaEnCarrito(vehiculo.id))
+  const estaComprado = useTienda((s) => s.estaComprado(vehiculo.id))
+  const agregarAlCarrito = useTienda((s) => s.agregarAlCarrito)
+  const { toast } = useToast()
+
+  const [imagenActiva, setImagenActiva] = useState(0)
+  const nombreCompleto = `${vehiculo.marca} ${vehiculo.modelo}`
+
   const handleAgregar = () => {
     if (estaEnCarrito || estaComprado) return
     agregarAlCarrito(vehiculo.id)
     toast({
       title: "Añadido al carrito",
-      description: `${vehiculo.marca} ${vehiculo.modelo} se ha añadido a tu carrito.`,
+      description: `${nombreCompleto} se ha añadido a tu carrito.`,
     })
   }
 
@@ -96,14 +129,25 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
           >
             <img
               src={vehiculo.imagenes[imagenActiva]}
-              alt={`${vehiculo.marca} ${vehiculo.modelo} - imagen ${imagenActiva + 1}`}
+              alt={`${nombreCompleto} - imagen ${imagenActiva + 1}`}
               className="h-full w-full object-cover"
             />
             <span className="absolute left-4 top-4 rounded-full bg-background/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
               {vehiculo.marca}
             </span>
+            {/* Botones de favorito y comparar sobre la imagen */}
+            <div className="absolute right-4 top-4 flex items-center gap-2">
+              <CompareButton
+                vehiculoId={vehiculo.id}
+                vehiculoNombre={nombreCompleto}
+              />
+              <FavoriteButton
+                vehiculoId={vehiculo.id}
+                vehiculoNombre={nombreCompleto}
+              />
+            </div>
             {estaComprado && (
-              <span className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-[var(--success)]/20 px-3 py-1.5 text-[11px] font-semibold text-[var(--success)] backdrop-blur-md">
+              <span className="absolute bottom-4 left-4 flex items-center gap-1.5 rounded-full bg-[var(--success)]/20 px-3 py-1.5 text-[11px] font-semibold text-[var(--success)] backdrop-blur-md">
                 <BadgeCheck className="h-3.5 w-3.5" strokeWidth={2.5} />
                 Comprado
               </span>
@@ -126,7 +170,7 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
               >
                 <img
                   src={img}
-                  alt={`${vehiculo.marca} ${vehiculo.modelo} - miniatura ${i + 1}`}
+                  alt={`${nombreCompleto} - miniatura ${i + 1}`}
                   className="h-full w-full object-cover"
                   loading="lazy"
                 />
@@ -142,9 +186,14 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              {vehiculo.marca}
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                {vehiculo.marca}
+              </p>
+              <span className="rounded-full border border-border/70 bg-secondary/60 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                {vehiculo.categoria}
+              </span>
+            </div>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
               {vehiculo.modelo}
             </h1>
@@ -167,10 +216,10 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
             </p>
           </motion.div>
 
-          {/* Especificaciones */}
+          {/* Especificaciones técnicas */}
           <div className="mt-8">
             <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Especificaciones
+              Especificaciones técnicas
             </h2>
             <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {especificaciones.map((spec) => {
@@ -197,6 +246,11 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
                 )
               })}
             </div>
+          </div>
+
+          {/* Simulador de financiamiento */}
+          <div className="mt-8">
+            <FinancingCalculator precio={vehiculo.precio} />
           </div>
 
           {/* Acción de compra */}
@@ -270,6 +324,9 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
           </div>
         </div>
       </div>
+
+      {/* Vehículos relacionados */}
+      <RelatedVehicles vehiculoActual={vehiculo} />
     </div>
   )
 }

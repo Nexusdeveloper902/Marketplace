@@ -13,9 +13,13 @@ export const vehiculos: Vehicle[] = [
     precio: 114400,
     motor: "3.0L Twin-Turbo Boxer 6",
     potencia: 379,
+    torque: 420, // Nm
     transmision: "PDK 8 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 293,
+    aceleracion0a100: 4.0, // segundos
+    categoria: "Deportivo",
     descripcion:
       "El Porsche 911 Carrera representa la esencia del deportivo purista. Su motor bóxer turboalimentado entrega una respuesta inmediata, mientras que su chasis afinado garantiza una dinámica de conducción incomparable. Un icono atemporal redefinido para la era moderna.",
     imagenes: [
@@ -33,9 +37,13 @@ export const vehiculos: Vehicle[] = [
     precio: 192900,
     motor: "Dual-Motor Eléctrico",
     potencia: 750,
+    torque: 1050, // Nm
     transmision: "Automática 2 velocidades",
     combustible: "Eléctrico",
+    traccion: "AWD",
     velocidadMaxima: 260,
+    aceleracion0a100: 2.8, // segundos
+    categoria: "Sedán",
     descripcion:
       "El Porsche Taycan Turbo S demuestra que la electromovilidad puede ser pura emoción. Con 750 CV y tracción integral, acelera de 0 a 100 km/h en 2,8 segundos. Su arquitectura de 800V permite cargas ultrarrápidas sin renunciar al ADN deportivo de Porsche.",
     imagenes: [
@@ -53,9 +61,13 @@ export const vehiculos: Vehicle[] = [
     precio: 196300,
     motor: "4.0L Twin-Turbo V8",
     potencia: 650,
+    torque: 850, // Nm
     transmision: "Tiptronic S 8 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 305,
+    aceleracion0a100: 3.2, // segundos
+    categoria: "SUV",
     descripcion:
       "El Porsche Cayenne Turbo GT es el SUV más potente de la historia de Porsche. Desarrollado en el Nürburgring, su V8 biturbo de 650 CV y su chasis activo lo convierten en una bestia de pista con la versatilidad de un vehículo de cinco plazas.",
     imagenes: [
@@ -73,9 +85,13 @@ export const vehiculos: Vehicle[] = [
     precio: 149600,
     motor: "4.0L Boxer 6 Atmosférico",
     potencia: 493,
+    torque: 450, // Nm
     transmision: "PDK 7 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 315,
+    aceleracion0a100: 3.4, // segundos
+    categoria: "Coupé",
     descripcion:
       "El Porsche 718 Cayman GT4 RS lleva el motor atmosférico del 911 GT3 al chasis de motor central perfecto. Con 493 CV que giran hasta 9.000 rpm, ofrece una experiencia de conducción táctil y pura que pocos deportivos pueden igualar.",
     imagenes: [
@@ -95,9 +111,13 @@ export const vehiculos: Vehicle[] = [
     precio: 322986,
     motor: "3.0L Twin-Turbo V6 Híbrido",
     potencia: 830,
+    torque: 740, // Nm
     transmision: "DCT 8 velocidades",
     combustible: "Híbrido",
+    traccion: "RWD",
     velocidadMaxima: 330,
+    aceleracion0a100: 2.9, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "La Ferrari 296 GTB redefine el concepto del superdeportivo con su motor V6 híbrido que entrega 830 CV combinados. Una obra maestra de la ingeniería italiana que combina potencia brutal, eficiencia eléctrica y el sonido inconfundible de Maranello.",
     imagenes: [
@@ -115,9 +135,13 @@ export const vehiculos: Vehicle[] = [
     precio: 507300,
     motor: "4.0L Twin-Turbo V8 Híbrido Plug-in",
     potencia: 986,
+    torque: 900, // Nm
     transmision: "DCT 8 velocidades",
     combustible: "Híbrido",
+    traccion: "AWD",
     velocidadMaxima: 340,
+    aceleracion0a100: 2.5, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "La Ferrari SF90 Stradale es el primer superdeportivo híbrido enchufable de Ferrari, con 986 CV combinados de su V8 biturbo y tres motores eléctricos. Acelera de 0 a 100 km/h en 2,5 segundos y representa la cúspide tecnológica de Maranello.",
     imagenes: [
@@ -135,9 +159,13 @@ export const vehiculos: Vehicle[] = [
     precio: 243308,
     motor: "3.9L Twin-Turbo V8",
     potencia: 612,
+    torque: 760, // Nm
     transmision: "DCT 8 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 320,
+    aceleracion0a100: 3.4, // segundos
+    categoria: "Coupé",
     descripcion:
       "La Ferrari Roma evoca la dolce vita italiana con un diseño de líneas puras y elegantes. Bajo su capó, un V8 biturbo de 612 CV ofrece prestaciones de superdeportivo envueltas en un gran turismo refinado y atemporal.",
     imagenes: [
@@ -155,9 +183,13 @@ export const vehiculos: Vehicle[] = [
     precio: 625000,
     motor: "6.5L V12 Atmosférico",
     potencia: 819,
+    torque: 692, // Nm
     transmision: "DCT 7 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 340,
+    aceleracion0a100: 2.85, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "La Ferrari 812 Competizione es la culminación del V12 atmosférico puro. Con 819 CV a 9.250 rpm, es el motor de 12 cilindros más potente de la historia de Ferrari road cars. Una edición limitada que rinde tributo al placer de conducir sin compromisos.",
     imagenes: [
@@ -177,9 +209,13 @@ export const vehiculos: Vehicle[] = [
     precio: 249870,
     motor: "5.2L V10 Atmosférico",
     potencia: 631,
+    torque: 600, // Nm
     transmision: "DCT 7 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 325,
+    aceleracion0a100: 2.9, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "La Lamborghini Huracán EVO lleva la adrenalina al límite con su legendario motor V10 atmosférico. Su sistema de tracción integral y la tecnología LDVI anticipan cada movimiento del conductor, ofreciendo una experiencia de conducción visceral y pura.",
     imagenes: [
@@ -197,9 +233,13 @@ export const vehiculos: Vehicle[] = [
     precio: 517770,
     motor: "6.5L V12 Atmosférico",
     potencia: 759,
+    torque: 720, // Nm
     transmision: "ISR 7 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 350,
+    aceleracion0a100: 2.8, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "La Lamborghini Aventador SVJ es la encarnación más extrema del V12 atmosférico de Sant'Agata. Con 759 CV y la aerodinámica ALA 2.0, batió el récord de producción en el Nürburgring. Un monstruo puro con el carácter salvaje de Lamborghini.",
     imagenes: [
@@ -217,9 +257,13 @@ export const vehiculos: Vehicle[] = [
     precio: 608000,
     motor: "6.5L V12 Híbrido Plug-in",
     potencia: 1015,
+    torque: 793, // Nm
     transmision: "DCT 8 velocidades",
     combustible: "Híbrido",
+    traccion: "AWD",
     velocidadMaxima: 350,
+    aceleracion0a100: 2.5, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "La Lamborghini Revuelto inaugura la era híbrida de Sant'Agata con un V12 atmosférico nuevo combinado con tres motores eléctricos, entregando 1.015 CV. Es el primer superdeportivo HPEV de Lamborghini, fusionando la tradición V12 con el futuro eléctrico.",
     imagenes: [
@@ -237,9 +281,13 @@ export const vehiculos: Vehicle[] = [
     precio: 260000,
     motor: "4.0L Twin-Turbo V8",
     potencia: 657,
+    torque: 800, // Nm
     transmision: "Automatic 8 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 306,
+    aceleracion0a100: 3.3, // segundos
+    categoria: "SUV",
     descripcion:
       "La Lamborghini Urus Performante eleva al Super SUV al siguiente nivel con 657 CV y una reducción de peso de 47 kg. Su aerodinámica agresiva y la puesta a punto orientada a pista la convierten en el Lamborghini más versátil y radical de la gama.",
     imagenes: [
@@ -259,9 +307,13 @@ export const vehiculos: Vehicle[] = [
     precio: 79100,
     motor: "3.0L Twin-Turbo Inline-6 (S58)",
     potencia: 503,
+    torque: 650, // Nm
     transmision: "M Steptronic 8 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 290,
+    aceleracion0a100: 3.5, // segundos
+    categoria: "Coupé",
     descripcion:
       "La BMW M4 Competition combina la precisión alemana con una potencia despiadada. Su motor de seis cilindros en línea turboalimentado entrega 503 CV, mientras que su chasis orientado a la pista convierte cada curva en una celebración de la ingeniería de rendimiento.",
     imagenes: [
@@ -279,9 +331,13 @@ export const vehiculos: Vehicle[] = [
     precio: 142000,
     motor: "4.4L Twin-Turbo V8 (S63)",
     potencia: 627,
+    torque: 750, // Nm
     transmision: "M Steptronic 8 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 305,
+    aceleracion0a100: 2.9, // segundos
+    categoria: "Sedán",
     descripcion:
       "La BMW M5 CS es el BMW de producción más potente jamás construido. Con 627 CV de su V8 biturbo y tracción M xDrive, es una berlina de cuatro plazas que acelera de 0 a 100 km/h en 2,9 segundos. El equilibrio definitivo entre lujo familiar y rendimiento extremo.",
     imagenes: [
@@ -299,9 +355,13 @@ export const vehiculos: Vehicle[] = [
     precio: 147500,
     motor: "1.5L Turbo Inline-3 Híbrido",
     potencia: 369,
+    torque: 570, // Nm
     transmision: "Automática 6 velocidades",
     combustible: "Híbrido",
+    traccion: "AWD",
     velocidadMaxima: 250,
+    aceleracion0a100: 4.4, // segundos
+    categoria: "Coupé",
     descripcion:
       "La BMW i8 fue pionera del deportivo híbrido con su arquitectura de motor central y puertas de tijera. Su diseño futurista de fibra de carbono y su sistema híbrido de 369 CV la convierten en un icono de diseño que adelantó su época.",
     imagenes: [
@@ -319,9 +379,13 @@ export const vehiculos: Vehicle[] = [
     precio: 122300,
     motor: "4.4L Twin-Turbo V8 (S68)",
     potencia: 617,
+    torque: 750, // Nm
     transmision: "M Steptronic 8 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 290,
+    aceleracion0a100: 3.7, // segundos
+    categoria: "SUV",
     descripcion:
       "La BMW X5 M Competition combina la capacidad de un SUV con el rendimiento de un deportivo M. Su V8 biturbo de 617 CV y la tracción integral M xDrive la convierten en uno de los SUV más rápidos y capaces del mercado.",
     imagenes: [
@@ -341,9 +405,13 @@ export const vehiculos: Vehicle[] = [
     precio: 136000,
     motor: "4.0L Twin-Turbo V8",
     potencia: 577,
+    torque: 590, // Nm
     transmision: "AMG SPEEDSHIFT 9 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 315,
+    aceleracion0a100: 3.2, // segundos
+    categoria: "Sedán",
     descripcion:
       "El Mercedes-AMG GT 63 4-Door Coupe fusiona el lujo de una berlina con el alma de un superdeportivo. Su V8 biturbo fabricado a mano ofrece una fuerza imponente, envuelta en un diseño de cuatro puertas que redefine el concepto de gran turismo.",
     imagenes: [
@@ -361,9 +429,13 @@ export const vehiculos: Vehicle[] = [
     precio: 230000,
     motor: "4.0L Twin-Turbo V8 Mild Hybrid",
     potencia: 791,
+    torque: 1040, // Nm
     transmision: "AMG SPEEDSHIFT 9 velocidades",
     combustible: "Híbrido",
+    traccion: "AWD",
     velocidadMaxima: 290,
+    aceleracion0a100: 3.2, // segundos
+    categoria: "Sedán",
     descripcion:
       "El Mercedes-AMG S63 combina el lujo absoluto de la Clase S con la potencia brutal de AMG. Su V8 biturbo con sistema híbrido ligero entrega 791 CV, ofreciendo una serenidad de marcha limusina y una aceleración de superdeportivo en un mismo automóvil.",
     imagenes: [
@@ -381,9 +453,13 @@ export const vehiculos: Vehicle[] = [
     precio: 180000,
     motor: "4.0L Twin-Turbo V8 (M177)",
     potencia: 577,
+    torque: 850, // Nm
     transmision: "AMG SPEEDSHIFT 9 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 240,
+    aceleracion0a100: 3.6, // segundos
+    categoria: "SUV",
     descripcion:
       "El Mercedes-AMG G63 es el todoterreno de lujo definitivo. Su icónico diseño rectangular se combina con un V8 biturbo de 577 CV y tres diferenciales de bloqueo. Un símbolo de estatus que domina tanto el asfalto como los caminos más exigentes.",
     imagenes: [
@@ -401,9 +477,13 @@ export const vehiculos: Vehicle[] = [
     precio: 85000,
     motor: "2.0L Turbo Inline-4 Híbrido Plug-in",
     potencia: 671,
+    torque: 1020, // Nm
     transmision: "AMG SPEEDSHIFT 9 velocidades",
     combustible: "Híbrido",
+    traccion: "RWD",
     velocidadMaxima: 280,
+    aceleracion0a100: 3.3, // segundos
+    categoria: "Sedán",
     descripcion:
       "El Mercedes-AMG C63 S adopta una revolucionaria mecánica híbrida enchufable de cuatro cilindros derivada de la F1, entregando 671 CV combinados. Una berlina compacta que redefine la potencia y la eficiencia en su segmento.",
     imagenes: [
@@ -423,9 +503,13 @@ export const vehiculos: Vehicle[] = [
     precio: 126890,
     motor: "4.0L Twin-Turbo V8 Mild Hybrid",
     potencia: 591,
+    torque: 800, // Nm
     transmision: "Tiptronic 8 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 305,
+    aceleracion0a100: 3.6, // segundos
+    categoria: "Familiar",
     descripcion:
       "El Audi RS6 Avant es la definición absoluta del familiar deportivo. Bajo su carrocería de cinco puertas se oculta un V8 biturbo de 591 CV con tracción quattro. El equilibrio perfecto entre practicidad familiar y rendimiento extremo.",
     imagenes: [
@@ -443,9 +527,13 @@ export const vehiculos: Vehicle[] = [
     precio: 158000,
     motor: "5.2L V10 Atmosférico",
     potencia: 602,
+    torque: 565, // Nm
     transmision: "S tronic 7 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 331,
+    aceleracion0a100: 3.2, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "El Audi R8 V10 Performance es el superdeportivo de Audi con motor central. Comparte el V10 atmosférico con la Lamborghini Huracán, entregando 602 CV con la precisión de la tracción quattro. El final glorioso de una era de motores atmosféricos.",
     imagenes: [
@@ -463,9 +551,13 @@ export const vehiculos: Vehicle[] = [
     precio: 128000,
     motor: "4.0L Twin-Turbo V8 Mild Hybrid",
     potencia: 591,
+    torque: 800, // Nm
     transmision: "Tiptronic 8 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 305,
+    aceleracion0a100: 3.6, // segundos
+    categoria: "Coupé",
     descripcion:
       "El Audi RS7 Sportback combina la elegancia de un coupé con la potencia de un superdeportivo. Su V8 biturbo de 591 CV y la línea de techo flotante crean un gran turismo de cuatro puertas con un carácter decididamente deportivo.",
     imagenes: [
@@ -483,9 +575,13 @@ export const vehiculos: Vehicle[] = [
     precio: 95000,
     motor: "4.0L Twin-Turbo V8 Mild Hybrid",
     potencia: 500,
+    torque: 770, // Nm
     transmision: "Tiptronic 8 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 250,
+    aceleracion0a100: 4.1, // segundos
+    categoria: "SUV",
     descripcion:
       "El Audi SQ8 combina el lujo de un coupé SUV con la potencia de un V8 biturbo de 500 CV. Su diseño atlético y su interior premium lo posicionan como la opción equilibrada entre confort, deportividad y capacidad todoterreno.",
     imagenes: [
@@ -505,9 +601,13 @@ export const vehiculos: Vehicle[] = [
     precio: 89990,
     motor: "Tri-Motor Eléctrico",
     potencia: 1020,
+    torque: 1420, // Nm
     transmision: "Automática 1 velocidad",
     combustible: "Eléctrico",
+    traccion: "AWD",
     velocidadMaxima: 322,
+    aceleracion0a100: 2.1, // segundos
+    categoria: "Sedán",
     descripcion:
       "La Tesla Model S Plaid es la revolución eléctrica hecha realidad. Sus tres motores generan 1020 CV que la catapultan de 0 a 100 km/h en menos de 2,1 segundos. Una combinación inigualable de aceleración brutal, autonomía y tecnología de vanguardia.",
     imagenes: [
@@ -525,9 +625,13 @@ export const vehiculos: Vehicle[] = [
     precio: 52990,
     motor: "Dual-Motor Eléctrico AWD",
     potencia: 460,
+    torque: 660, // Nm
     transmision: "Automática 1 velocidad",
     combustible: "Eléctrico",
+    traccion: "AWD",
     velocidadMaxima: 261,
+    aceleracion0a100: 3.1, // segundos
+    categoria: "Sedán",
     descripcion:
       "La Tesla Model 3 Performance democratiza la alta gamma eléctrica. Con 460 CV y tracción dual, acelera de 0 a 100 km/h en 3,1 segundos. Su equilibrio entre autonomía, tecnología y precio la convierte en el referente del segmento.",
     imagenes: [
@@ -545,9 +649,13 @@ export const vehiculos: Vehicle[] = [
     precio: 99990,
     motor: "Tri-Motor Eléctrico AWD",
     potencia: 1020,
+    torque: 1420, // Nm
     transmision: "Automática 1 velocidad",
     combustible: "Eléctrico",
+    traccion: "AWD",
     velocidadMaxima: 262,
+    aceleracion0a100: 2.5, // segundos
+    categoria: "SUV",
     descripcion:
       "La Tesla Model X Plaid es el SUV eléctrico más potente del mundo. Con 1.020 CV y las icónicas puertas Falcon Wing, combina la potencia de un superdeportivo con la capacidad de un vehículo familiar de siete plazas y una autonomía excepcional.",
     imagenes: [
@@ -565,9 +673,13 @@ export const vehiculos: Vehicle[] = [
     precio: 99990,
     motor: "Tri-Motor Eléctrico AWD",
     potencia: 845,
+    torque: 1390, // Nm
     transmision: "Automática 1 velocidad",
     combustible: "Eléctrico",
+    traccion: "AWD",
     velocidadMaxima: 209,
+    aceleracion0a100: 2.7, // segundos
+    categoria: "Pickup",
     descripcion:
       "La Tesla Cybertruck redefinió el diseño automovilístico con su carrocería de acero inoxidable exoesquelético. Con 845 CV, tracción integral y una capacidad de remolque de 5 toneladas, es una revolución visual y funcional en el mundo de las pickups eléctricas.",
     imagenes: [
@@ -587,9 +699,13 @@ export const vehiculos: Vehicle[] = [
     precio: 56545,
     motor: "3.0L Turbo Inline-6 (B58)",
     potencia: 382,
+    torque: 500, // Nm
     transmision: "Automática 8 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 250,
+    aceleracion0a100: 3.9, // segundos
+    categoria: "Coupé",
     descripcion:
       "La Toyota GR Supra regresa el espíritu del deportivo japonés puro. Desarrollada por Gazoo Racing, su motor de seis cilindros en línea turboalimentado y su peso equilibrado 50:50 ofrecen una experiencia de conducción táctil y emocionante en cada giro del volante.",
     imagenes: [
@@ -607,9 +723,13 @@ export const vehiculos: Vehicle[] = [
     precio: 36000,
     motor: "1.6L Turbo Inline-3 (G16E-GTS)",
     potencia: 300,
+    torque: 400, // Nm
     transmision: "Manual 6 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 230,
+    aceleracion0a100: 4.9, // segundos
+    categoria: "Hatchback",
     descripcion:
       "La Toyota GR Corolla lleva el ADN de rally al compacto diario. Su motor tricilíndrico turbo de 300 CV y la tracción integral GR-Four con diferenciales Torsen la convierten en una de las máquinas más divertidas y carismáticas de su generación.",
     imagenes: [
@@ -627,9 +747,13 @@ export const vehiculos: Vehicle[] = [
     precio: 55950,
     motor: "2.4L Turbo Inline-4 Híbrido",
     potencia: 326,
+    torque: 630, // Nm
     transmision: "Automática 8 velocidades",
     combustible: "Híbrido",
+    traccion: "AWD",
     velocidadMaxima: 210,
+    aceleracion0a100: 6.5, // segundos
+    categoria: "SUV",
     descripcion:
       "La Toyota Land Cruiser es la leyenda todoterreno reimaginada para la era híbrida. Con 75 años de herencia, su nuevo propulsor híbrido turbo de 326 CV y la tracción integral permanente lo mantienen como el referente de fiabilidad y capacidad off-road.",
     imagenes: [
@@ -647,9 +771,13 @@ export const vehiculos: Vehicle[] = [
     precio: 35500,
     motor: "3.5L V6 Atmosférico (2GR-FKS)",
     potencia: 301,
+    torque: 362, // Nm
     transmision: "Automática 8 velocidades",
     combustible: "Gasolina",
+    traccion: "FWD",
     velocidadMaxima: 220,
+    aceleracion0a100: 5.8, // segundos
+    categoria: "Sedán",
     descripcion:
       "La Toyota Camry TRD lleva el espíritu deportivo a la berlina familiar por excelencia. Su V6 atmosférico de 301 CV se combina con suspensión deportiva TRD y un aerodinámico agresivo, creando una sorprendente versión de alto rendimiento de un clásico.",
     imagenes: [
@@ -669,9 +797,13 @@ export const vehiculos: Vehicle[] = [
     precio: 44990,
     motor: "2.0L Turbo Inline-4 (K20C1)",
     potencia: 315,
+    torque: 420, // Nm
     transmision: "Manual 6 velocidades",
     combustible: "Gasolina",
+    traccion: "FWD",
     velocidadMaxima: 275,
+    aceleracion0a100: 5.4, // segundos
+    categoria: "Hatchback",
     descripcion:
       "La Honda Civic Type R es el rey indiscutible de los compactos deportivos. Su motor turboalimentado de 315 CV acoplado a una transmisión manual de seis velocidades y un chasis afinado en el Nürburgring la convierten en la alegría pura de conducir.",
     imagenes: [
@@ -689,9 +821,13 @@ export const vehiculos: Vehicle[] = [
     precio: 171495,
     motor: "3.5L Twin-Turbo V6 Híbrido",
     potencia: 600,
+    torque: 667, // Nm
     transmision: "DCT 9 velocidades",
     combustible: "Híbrido",
+    traccion: "AWD",
     velocidadMaxima: 307,
+    aceleracion0a100: 3.0, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "La Honda NSX Type S despide a la segunda generación del superdeportivo japonés con 600 CV combinados de su V6 biturbo y tres motores eléctricos. Una obra maestra de precisión híbrida con tracción integral SH-AWD y la filosofía pura de Honda.",
     imagenes: [
@@ -709,9 +845,13 @@ export const vehiculos: Vehicle[] = [
     precio: 31895,
     motor: "1.5L Turbo Inline-4 (L15CH)",
     potencia: 192,
+    torque: 260, // Nm
     transmision: "CVT",
     combustible: "Gasolina",
+    traccion: "FWD",
     velocidadMaxima: 195,
+    aceleracion0a100: 7.2, // segundos
+    categoria: "Sedán",
     descripcion:
       "La Honda Accord Sport combina la elegancia de una berlina mediana con un toque deportivo. Su motor turboalimentado de 192 CV ofrece eficiencia y respuesta ágil, en un interior refinado y tecnológico que redefine el segmento.",
     imagenes: [
@@ -729,9 +869,13 @@ export const vehiculos: Vehicle[] = [
     precio: 51900,
     motor: "2.0L Turbo Inline-4 (K20C1)",
     potencia: 320,
+    torque: 420, // Nm
     transmision: "Manual 6 velocidades",
     combustible: "Gasolina",
+    traccion: "FWD",
     velocidadMaxima: 265,
+    aceleracion0a100: 5.2, // segundos
+    categoria: "Sedán",
     descripcion:
       "La Acura Integra Type S revive el legendario nombre con un enfoque moderno. Comparte el motor turbo de 320 CV del Civic Type R en un chasis propio, con transmisión manual y un carácter más refinado pero igual de emocionante.",
     imagenes: [
@@ -751,9 +895,13 @@ export const vehiculos: Vehicle[] = [
     precio: 43545,
     motor: "5.0L V8 (Coyote)",
     potencia: 480,
+    torque: 570, // Nm
     transmision: "Manual 6 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 250,
+    aceleracion0a100: 4.2, // segundos
+    categoria: "Coupé",
     descripcion:
       "El Ford Mustang GT es la encarnación moderna del muscle car americano. Su legendario V8 Coyote de 5.0 litros ruge con 480 CV, combinando la herencia de seis décadas de libertad con la tecnología y el confort de la séptima generación.",
     imagenes: [
@@ -771,9 +919,13 @@ export const vehiculos: Vehicle[] = [
     precio: 500000,
     motor: "3.5L Twin-Turbo V6 (EcoBoost)",
     potencia: 660,
+    torque: 746, // Nm
     transmision: "DCT 7 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 347,
+    aceleracion0a100: 2.8, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "El Ford GT es el superdeportivo de motor central inspirado en el legendario GT40. Su chasis de fibra de carbono y el V6 EcoBoost biturbo de 660 CV rinden homenaje a las victorias de Le Mans, combinando aerodinámica activa y diseño de vanguardia.",
     imagenes: [
@@ -791,9 +943,13 @@ export const vehiculos: Vehicle[] = [
     precio: 109145,
     motor: "5.2L Supercharged V8 (Predator)",
     potencia: 720,
+    torque: 868, // Nm
     transmision: "Automática 10 velocidades",
     combustible: "Gasolina",
+    traccion: "4WD",
     velocidadMaxima: 180,
+    aceleracion0a100: 3.7, // segundos
+    categoria: "Pickup",
     descripcion:
       "La Ford F-150 Raptor R lleva el V8 supercargado de 720 CV del Shelby GT500 al rey de las pickups todoterreno. Con suspensión de largo recorrido y tracción 4x4, es la máquina definitiva para conquistar cualquier terreno a alta velocidad.",
     imagenes: [
@@ -811,9 +967,13 @@ export const vehiculos: Vehicle[] = [
     precio: 89535,
     motor: "3.0L Twin-Turbo V6 (EcoBoost)",
     potencia: 418,
+    torque: 587, // Nm
     transmision: "Automática 10 velocidades",
     combustible: "Gasolina",
+    traccion: "4WD",
     velocidadMaxima: 180,
+    aceleracion0a100: 5.5, // segundos
+    categoria: "SUV",
     descripcion:
       "El Ford Bronco Raptor combina la capacidad todoterreno extrema con la filosofía de rendimiento Raptor. Su V6 biturbo de 418 CV, suspensión FOX Live Valve y trocha ampliada lo convierten en el SUV todoterreno de alta velocidad más capaz del mercado.",
     imagenes: [
@@ -833,9 +993,13 @@ export const vehiculos: Vehicle[] = [
     precio: 112700,
     motor: "5.5L V8 Atmosférico (LT6)",
     potencia: 670,
+    torque: 623, // Nm
     transmision: "DCT 8 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 312,
+    aceleracion0a100: 2.6, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "La Chevrolet Corvette Z06 eleva el ícono americano al territorio de los superdeportivos. Su motor V8 atmosférico de 5.5L con cigüeñal plano gira hasta 8.600 rpm entregando 670 CV, con un chasis de motor central que compite con lo mejor de Europa.",
     imagenes: [
@@ -853,9 +1017,13 @@ export const vehiculos: Vehicle[] = [
     precio: 76995,
     motor: "6.2L Supercharged V8 (LT4)",
     potencia: 650,
+    torque: 881, // Nm
     transmision: "Manual 6 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 318,
+    aceleracion0a100: 3.5, // segundos
+    categoria: "Coupé",
     descripcion:
       "La Chevrolet Camaro ZL1 es la respuesta de Chevy al muscle car extremo. Su V8 supercargado LT4 de 650 CV, aerodinámica de pista y un chasis extraordinariamente afinado la convierten en una Bestia track-day con un carácter americano inconfundible.",
     imagenes: [
@@ -873,9 +1041,13 @@ export const vehiculos: Vehicle[] = [
     precio: 72175,
     motor: "6.2L V8 (L87)",
     potencia: 420,
+    torque: 624, // Nm
     transmision: "Automática 10 velocidades",
     combustible: "Gasolina",
+    traccion: "4WD",
     velocidadMaxima: 160,
+    aceleracion0a100: 5.8, // segundos
+    categoria: "Pickup",
     descripcion:
       "La Chevrolet Silverado ZR2 es la pickup todoterreno más capaz de Chevy. Con suspensión Multimático de posición variable, diferenciales de bloqueo electrónicos delantero y trasero, y un V8 de 420 CV, está lista para conquistar los terrenos más hostiles.",
     imagenes: [
@@ -893,9 +1065,13 @@ export const vehiculos: Vehicle[] = [
     precio: 65200,
     motor: "6.2L V8 (L87)",
     potencia: 420,
+    torque: 624, // Nm
     transmision: "Automática 10 velocidades",
     combustible: "Gasolina",
+    traccion: "4WD",
     velocidadMaxima: 200,
+    aceleracion0a100: 5.9, // segundos
+    categoria: "SUV",
     descripcion:
       "La Chevrolet Tahoe RST combina la capacidad de un SUV de tamaño completo con un estilo deportivo agresivo. Su V8 de 420 CV, detalles exteriores en negro y rines de 22 pulgadas la convierten en una opción imponente para la familia que no renuncia al estilo.",
     imagenes: [
@@ -915,9 +1091,13 @@ export const vehiculos: Vehicle[] = [
     precio: 215000,
     motor: "3.8L Twin-Turbo V6 (VR38DETT)",
     potencia: 600,
+    torque: 652, // Nm
     transmision: "DCT 6 velocidades",
     combustible: "Gasolina",
+    traccion: "AWD",
     velocidadMaxima: 315,
+    aceleracion0a100: 2.5, // segundos
+    categoria: "Superdeportivo",
     descripcion:
       "La Nissan GT-R Nismo, conocida como Godzilla, es el máximo exponente de la ingeniería japonesa de rendimiento. Cada motor es ensamblado a mano por un maestro Takumi, entregando 600 CV con una tracción integral ATTESA E-TS que domina cualquier trazada.",
     imagenes: [
@@ -935,9 +1115,13 @@ export const vehiculos: Vehicle[] = [
     precio: 52970,
     motor: "3.0L Twin-Turbo V6 (VR30DDTT)",
     potencia: 420,
+    torque: 520, // Nm
     transmision: "Automática 9 velocidades",
     combustible: "Gasolina",
+    traccion: "RWD",
     velocidadMaxima: 250,
+    aceleracion0a100: 4.0, // segundos
+    categoria: "Coupé",
     descripcion:
       "La Nissan Z Nismo revive la leyenda del deportivo japonés con un V6 biturbo de 420 CV. Su diseño rinde homenaje a los Z clásicos mientras incorpora tecnología moderna y una puesta a punto Nismo orientada a circuito para una experiencia pura y emocionante.",
     imagenes: [
@@ -955,9 +1139,13 @@ export const vehiculos: Vehicle[] = [
     precio: 51530,
     motor: "Dual-Motor Eléctrico AWD (e-4ORCE)",
     potencia: 389,
+    torque: 600, // Nm
     transmision: "Automática 1 velocidad",
     combustible: "Eléctrico",
+    traccion: "AWD",
     velocidadMaxima: 200,
+    aceleracion0a100: 5.1, // segundos
+    categoria: "SUV",
     descripcion:
       "La Nissan Ariya es el SUV crossover eléctrico que redefine la movilidad de la marca. Con el sistema de tracción integral e-4ORCE de 389 CV, ofrece una conducción suave y refinada, interior minimalista y una autonomía pensada para el uso diario sin compromisos.",
     imagenes: [
@@ -975,9 +1163,13 @@ export const vehiculos: Vehicle[] = [
     precio: 39120,
     motor: "3.8L V6 Atmosférico (VQ40DE)",
     potencia: 310,
+    torque: 381, // Nm
     transmision: "Automática 9 velocidades",
     combustible: "Gasolina",
+    traccion: "4WD",
     velocidadMaxima: 180,
+    aceleracion0a100: 7.0, // segundos
+    categoria: "Pickup",
     descripcion:
       "La Nissan Frontier PRO-4X es la pickup mediana todoterreno robusta y fiable. Su V6 atmosférico de 310 CV, tracción 4x4 con diferencial de bloqueo trasero y suspensión afinada para off-road la convierten en una compañera ideal para la aventura.",
     imagenes: [
@@ -987,6 +1179,957 @@ export const vehiculos: Vehicle[] = [
       "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/5017e2bb72c9.jpg",
     ],
   },
+  {
+    id: "mclaren-750s",
+    marca: "McLaren",
+    modelo: "750S",
+    año: 2024,
+    precio: 324000,
+    motor: "4.0L Twin-Turbo V8 (M840T)",
+    potencia: 740,
+    torque: 800, // Nm
+    transmision: "DCT 7 velocidades",
+    combustible: "Gasolina",
+    traccion: "RWD",
+    velocidadMaxima: 332,
+    aceleracion0a100: 2.8, // segundos
+    categoria: "Superdeportivo",
+    descripcion:
+      "El McLaren 750S es la encarnación más ligera y potente de la serie Super. Su V8 biturbo de 740 CV y un peso de solo 1.389 kg lo convierten en uno de los deportivos más rápidos y puros del mundo, con una relación peso-potencia extraordinaria.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/10f9d73909b7.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/21e9b952a1d8.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f9dbc67c067e.jpeg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1e91984cd181.jpg",
+    ],
+  },
+  {
+    id: "mclaren-artura",
+    marca: "McLaren",
+    modelo: "Artura",
+    año: 2024,
+    precio: 233000,
+    motor: "3.0L Twin-Turbo V6 Híbrido",
+    potencia: 671,
+    torque: 720, // Nm
+    transmision: "DCT 8 velocidades",
+    combustible: "Híbrido",
+    traccion: "RWD",
+    velocidadMaxima: 330,
+    aceleracion0a100: 3.0, // segundos
+    categoria: "Superdeportivo",
+    descripcion:
+      "El McLaren Artura inaugura una nueva plataforma de carbono híbrida. Su V6 biturbo combinado con un motor eléctrico entrega 671 CV, ofreciendo la respuesta inmediata de la electrificación con el carácter explosivo de McLaren.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3d0299387c4e.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3d0551e4c938.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e578e7ef580c.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/204b0adc489e.jpg",
+    ],
+  },
+  {
+    id: "aston-martin-db12",
+    marca: "Aston Martin",
+    modelo: "DB12",
+    año: 2024,
+    precio: 245000,
+    motor: "4.0L Twin-Turbo V8",
+    potencia: 671,
+    torque: 800, // Nm
+    transmision: "ZF 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "RWD",
+    velocidadMaxima: 325,
+    aceleracion0a100: 3.6, // segundos
+    categoria: "Coupé",
+    descripcion:
+      "El Aston Martin DB12 redefine el gran turismo británico. Su V8 biturbo de 671 CV combinado con un chasis radicalmente nuevo ofrece una mezcla perfecta de refinamiento de largo recorrido y prestaciones de superdeportivo.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d463b240aac5.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/200d7df67608.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/cb71d80b8908.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/48cd9c08df34.jpg",
+    ],
+  },
+  {
+    id: "aston-martin-vantage",
+    marca: "Aston Martin",
+    modelo: "Vantage",
+    año: 2024,
+    precio: 191000,
+    motor: "4.0L Twin-Turbo V8",
+    potencia: 656,
+    torque: 800, // Nm
+    transmision: "ZF 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "RWD",
+    velocidadMaxima: 325,
+    aceleracion0a100: 3.5, // segundos
+    categoria: "Coupé",
+    descripcion:
+      "El Aston Martin Vantage es el deportivo puro de la marca británica. Con 656 CV de su V8 biturbo y un diseño agresivo, combina la elegancia característica de Aston Martin con una ferocidad orientada a pista.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/08097da11495.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3208c7ccf826.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/44ae624f5c8a.jpeg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1b53b5d48f2e.jpg",
+    ],
+  },
+  {
+    id: "bentley-continental-gt",
+    marca: "Bentley",
+    modelo: "Continental GT Speed",
+    año: 2024,
+    precio: 287000,
+    motor: "6.0L Twin-Turbo W12",
+    potencia: 650,
+    torque: 900, // Nm
+    transmision: "DCT 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 335,
+    aceleracion0a100: 3.5, // segundos
+    categoria: "Coupé",
+    descripcion:
+      "El Bentley Continental GT Speed representa la cúspide del gran turismo de lujo. Su legendario W12 biturbo de 650 CV envuelve al conductor en un interior de artesanía incomparable, con capacidad de alcanzar 335 km/h con serenidad absoluta.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b8f1c00ad956.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b27ceca981ed.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/20b3058eb78c.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/5fa50b26cddc.jpg",
+    ],
+  },
+  {
+    id: "bentley-bentayga",
+    marca: "Bentley",
+    modelo: "Bentayga EWB",
+    año: 2024,
+    precio: 246000,
+    motor: "4.0L Twin-Turbo V8",
+    potencia: 542,
+    torque: 770, // Nm
+    transmision: "ZF 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 290,
+    aceleracion0a100: 4.5, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Bentley Bentayga EWB es el SUV de lujo definitivo. Con batalla extendida y un V8 biturbo de 542 CV, combina el confort de una limusina con la capacidad de un todoterreno y el refinamiento característico de Crewe.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/6b1ea8af5c4c.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d3ce0d8291db.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b9da5ed1337b.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/6f3512a40c4d.jpg",
+    ],
+  },
+  {
+    id: "rolls-royce-ghost",
+    marca: "Rolls-Royce",
+    modelo: "Ghost",
+    año: 2024,
+    precio: 355000,
+    motor: "6.75L Twin-Turbo V12",
+    potencia: 563,
+    torque: 850, // Nm
+    transmision: "ZF 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 250,
+    aceleracion0a100: 4.7, // segundos
+    categoria: "Sedán",
+    descripcion:
+      "El Rolls-Royce Ghost encarna el lujo sereno. Su V12 biturbo de 6.75 litros funciona con una suavidad sobrenatural, mientras el Planar Suspension System crea la sensación de 'volar' por la carretera. Lujo puro sin concesiones.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/216c9c6935ca.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/49364fd5c2d1.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a3c84d467ee6.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/52b2155ea589.jpg",
+    ],
+  },
+  {
+    id: "rolls-royce-cullinan",
+    marca: "Rolls-Royce",
+    modelo: "Cullinan",
+    año: 2024,
+    precio: 390000,
+    motor: "6.75L Twin-Turbo V12",
+    potencia: 563,
+    torque: 850, // Nm
+    transmision: "ZF 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 250,
+    aceleracion0a100: 5.2, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Rolls-Royce Cullinan es el SUV de lujo más exclusivo del mundo. Su V12 de 563 CV y la suspensión mágica lo convierten en un santuario móvil capaz de conquistar cualquier terreno con una elegancia inigualable.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8c29bfb4ffc0.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/ab866d9e97af.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c5d67a7aec50.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/303bd718ce9c.jpg",
+    ],
+  },
+  {
+    id: "lexus-lc500",
+    marca: "Lexus",
+    modelo: "LC 500",
+    año: 2024,
+    precio: 99300,
+    motor: "5.0L V8 Atmosférico (2UR-GSE)",
+    potencia: 471,
+    torque: 540, // Nm
+    transmision: "Automática 10 velocidades",
+    combustible: "Gasolina",
+    traccion: "RWD",
+    velocidadMaxima: 270,
+    aceleracion0a100: 4.4, // segundos
+    categoria: "Coupé",
+    descripcion:
+      "El Lexus LC 500 es un gran turismo japonés con un V8 atmosférico de 471 CV que entrega una experiencia sonora y táctil incomparable. Su diseño sculptural y su interior artesanal lo convierten en una obra de arte rodante.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/cee8a15f48b9.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/86bfb7c86190.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1b969550ea1c.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/623e513ae075.jpg",
+    ],
+  },
+  {
+    id: "lexus-rx-fsport",
+    marca: "Lexus",
+    modelo: "RX 450h+ F Sport",
+    año: 2024,
+    precio: 73000,
+    motor: "2.5L Híbrido Enchufable",
+    potencia: 309,
+    torque: 335, // Nm
+    transmision: "e-CVT",
+    combustible: "Híbrido",
+    traccion: "AWD",
+    velocidadMaxima: 200,
+    aceleracion0a100: 6.5, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Lexus RX 450h+ F Sport combina la eficiencia híbrida enchufable con la deportividad F Sport. Su sistema de 309 CV ofrece una conducción refinada y silenciosa, con el lujo y la fiabilidad característicos de Lexus.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/73c57b0bdfb2.jpeg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/54a565f6e44c.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d0827b729486.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3dbd6294edc8.jpg",
+    ],
+  },
+  {
+    id: "volvo-xc90-recharge",
+    marca: "Volvo",
+    modelo: "XC90 Recharge",
+    año: 2024,
+    precio: 71900,
+    motor: "2.0L Turbo Híbrido Enchufable",
+    potencia: 455,
+    torque: 709, // Nm
+    transmision: "Automática 8 velocidades",
+    combustible: "Híbrido",
+    traccion: "AWD",
+    velocidadMaxima: 180,
+    aceleracion0a100: 5.3, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Volvo XC90 Recharge combina la seguridad escandinava con la electrificación. Su sistema híbrido enchufable de 455 CV ofrece prestaciones de deportivo en un SUV familiar de siete plazas, con la elegancia minimalista de Volvo.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/08f8ac379bf8.webp",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/9d9b83f23109.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3d378f35bc6a.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a393f867a6d6.jpg",
+    ],
+  },
+  {
+    id: "volvo-xc60",
+    marca: "Volvo",
+    modelo: "XC60 B5",
+    año: 2024,
+    precio: 47000,
+    motor: "2.0L Turbo Mild Hybrid",
+    potencia: 247,
+    torque: 360, // Nm
+    transmision: "Automática 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 220,
+    aceleracion0a100: 7.1, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Volvo XC60 B5 es el SUV premium compacto por excelencia. Con 247 CV de su motor turbo híbrido ligero, ofrece un equilibrio perfecto entre confort, seguridad y diseño escandinavo atemporal.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/bb34a2d84883.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b062e7476687.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2087775fe07f.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d886fdc17122.jpg",
+    ],
+  },
+  {
+    id: "rivian-r1t",
+    marca: "Rivian",
+    modelo: "R1T",
+    año: 2024,
+    precio: 71700,
+    motor: "Quad-Motor Eléctrico AWD",
+    potencia: 835,
+    torque: 0, // Nm
+    transmision: "Automática 1 velocidad",
+    combustible: "Eléctrico",
+    traccion: "AWD",
+    velocidadMaxima: 177,
+    aceleracion0a100: 3.0, // segundos
+    categoria: "Pickup",
+    descripcion:
+      "La Rivian R1T reinventa la pickup eléctrica con cuatro motores independientes que generan 835 CV. Capaz de cruzar ríos de 1 metro de profundidad y acelerar de 0 a 100 en 3 segundos, es la aventura eléctrica definitiva.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/176979fe542d.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/69ddb013d139.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/56f6af17bcb0.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/eee71ad9e0df.jpg",
+    ],
+  },
+  {
+    id: "rivian-r1s",
+    marca: "Rivian",
+    modelo: "R1S",
+    año: 2024,
+    precio: 75700,
+    motor: "Quad-Motor Eléctrico AWD",
+    potencia: 835,
+    torque: 0, // Nm
+    transmision: "Automática 1 velocidad",
+    combustible: "Eléctrico",
+    traccion: "AWD",
+    velocidadMaxima: 201,
+    aceleracion0a100: 3.0, // segundos
+    categoria: "SUV",
+    descripcion:
+      "La Rivian R1S lleva la misma tecnología quad-motor de 835 CV de la R1T a un SUV de siete plazas. Con capacidad todoterreno excepcional y autonomía de hasta 640 km, es el SUV eléctrico de aventura más capaz.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c0e2f2cec655.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3bba1d8786d5.webp",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2ce16ba45999.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/13659a5b9514.jpg",
+    ],
+  },
+  {
+    id: "byd-han-ev",
+    marca: "BYD",
+    modelo: "Han EV",
+    año: 2024,
+    precio: 45000,
+    motor: "Dual-Motor Eléctrico AWD",
+    potencia: 517,
+    torque: 0, // Nm
+    transmision: "Automática 1 velocidad",
+    combustible: "Eléctrico",
+    traccion: "AWD",
+    velocidadMaxima: 185,
+    aceleracion0a100: 3.9, // segundos
+    categoria: "Sedán",
+    descripcion:
+      "El BYD Han EV es la berlina eléctrica insignia de la marca china. Con 517 CV de sus dos motores y la tecnología de batería Blade, ofrece prestaciones de deportivo con la seguridad y autonomía de última generación.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8738e7ea6a5e.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/78e7e0871863.jpeg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/150dea4b7c0e.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8fa6cc589e8b.jpg",
+    ],
+  },
+  {
+    id: "byd-seal",
+    marca: "BYD",
+    modelo: "Seal",
+    año: 2024,
+    precio: 38000,
+    motor: "Dual-Motor Eléctrico AWD",
+    potencia: 523,
+    torque: 0, // Nm
+    transmision: "Automática 1 velocidad",
+    combustible: "Eléctrico",
+    traccion: "AWD",
+    velocidadMaxima: 180,
+    aceleracion0a100: 3.8, // segundos
+    categoria: "Sedán",
+    descripcion:
+      "El BYD Seal es un sedán eléctrico deportivo con 523 CV y la batería Blade de seguridad extrema. Su diseño aerodinámico y su plataforma e-Platform 3.0 lo posicionan como un competidor de primer nivel en la electromovilidad.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/653c645cff5b.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/899de660a133.png",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/ee3deda46cc5.jpeg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e4062639d1f7.jpg",
+    ],
+  },
+  {
+    id: "dodge-charger-hellcat",
+    marca: "Dodge",
+    modelo: "Charger Hellcat Redeye",
+    año: 2023,
+    precio: 82000,
+    motor: "6.2L Supercharged V8 (Hellcat)",
+    potencia: 797,
+    torque: 959, // Nm
+    transmision: "Automática 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "RWD",
+    velocidadMaxima: 326,
+    aceleracion0a100: 3.6, // segundos
+    categoria: "Sedán",
+    descripcion:
+      "El Dodge Charger Hellcat Redeye es el sedán de producción más potente del mundo. Su V8 supercargado de 797 CV hace rugir el muscle car americano en una berlina de cuatro puertas capaz de superar los 320 km/h.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/ac693e0523bc.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c0faae18e9ed.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/31dc9047d86d.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/90ab0729f1b4.jpg",
+    ],
+  },
+  {
+    id: "dodge-demon-170",
+    marca: "Dodge",
+    modelo: "Challenger SRT Demon 170",
+    año: 2023,
+    precio: 96666,
+    motor: "6.2L Supercharged V8 (Hemi)",
+    potencia: 1025,
+    torque: 1281, // Nm
+    transmision: "Automática 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "RWD",
+    velocidadMaxima: 350,
+    aceleracion0a100: 1.66, // segundos
+    categoria: "Coupé",
+    descripcion:
+      "El Dodge Challenger SRT Demon 170 es el muscle car más extremo jamás construido. Con 1.025 CV con combustible E85, es el primer coche de producción en bajar de los 2 segundos en el cuarto de milla. Una despedida épica del V8.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/cbbfb7dcb493.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/80497dc13925.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a905cf7b0f2a.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e44a1f0bee81.jpg",
+    ],
+  },
+  {
+    id: "jeep-wrangler-rubicon",
+    marca: "Jeep",
+    modelo: "Wrangler Rubicon 392",
+    año: 2024,
+    precio: 85000,
+    motor: "6.4L V8 (SRT)",
+    potencia: 470,
+    torque: 637, // Nm
+    transmision: "Automática 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "4WD",
+    velocidadMaxima: 160,
+    aceleracion0a100: 4.5, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Jeep Wrangler Rubicon 392 combina la legendaria capacidad todoterreno del Wrangler con un V8 de 470 CV. El único Wrangler con motor V8 de fábrica, ofrece un rugido inconfundible y una capacidad off-road sin igual.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/8f102df81218.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/0da0b5c58cb3.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/517bf8f47d1d.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c460219c2552.jpg",
+    ],
+  },
+  {
+    id: "jeep-grand-cherokee-trackhawk",
+    marca: "Jeep",
+    modelo: "Grand Cherokee Trackhawk",
+    año: 2023,
+    precio: 89000,
+    motor: "6.2L Supercharged V8 (Hellcat)",
+    potencia: 707,
+    torque: 875, // Nm
+    transmision: "Automática 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 290,
+    aceleracion0a100: 3.5, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Jeep Grand Cherokee Trackhawk es el SUV más loco del mundo, con el motor Hellcat supercargado de 707 CV. Un familiar de cinco plazas que acelera de 0 a 100 en 3.5 segundos y alcanza 290 km/h.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a5e012a18880.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3283fc7c4d7a.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/38382c0dbde2.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e9579a117e89.jpg",
+    ],
+  },
+  {
+    id: "subaru-wrx-sti",
+    marca: "Subaru",
+    modelo: "WRX STI",
+    año: 2024,
+    precio: 45000,
+    motor: "2.5L Turbo Boxer-4 (EJ257)",
+    potencia: 310,
+    torque: 392, // Nm
+    transmision: "Manual 6 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 255,
+    aceleracion0a100: 5.3, // segundos
+    categoria: "Sedán",
+    descripcion:
+      "El Subaru WRX STI es el icono de los rallyes moderno. Su motor bóxer turbo de 310 CV y la legendaria tracción симmetrical AWD con DCCD ofrecen una dinámica de conducción única, nacida en los tramos especiales del WRC.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/de946da5b78f.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/79c628dfb789.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c6453b4c1eb8.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/950fd5156e61.jpg",
+    ],
+  },
+  {
+    id: "subaru-outback",
+    marca: "Subaru",
+    modelo: "Outback Wilderness",
+    año: 2024,
+    precio: 38000,
+    motor: "2.4L Turbo Boxer-4",
+    potencia: 260,
+    torque: 377, // Nm
+    transmision: "CVT",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 220,
+    aceleracion0a100: 5.9, // segundos
+    categoria: "Familiar",
+    descripcion:
+      "El Subaru Outback Wilderness es el familiar aventurero definitivo. Con suspensión elevada, motor bóxer turbo de 260 CV y tracción симmetrical AWD, combina la practicidad de un familiar con la capacidad todoterreno de un SUV.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d0ad863a28bc.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/9cdb99f771fc.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/6d337d30ed8f.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/4588617355a6.jpg",
+    ],
+  },
+  {
+    id: "peugeot-308-gt",
+    marca: "Peugeot",
+    modelo: "308 GT",
+    año: 2024,
+    precio: 35000,
+    motor: "1.6L Turbo Inline-4 (PureTech)",
+    potencia: 225,
+    torque: 300, // Nm
+    transmision: "Automática 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "FWD",
+    velocidadMaxima: 235,
+    aceleracion0a100: 7.5, // segundos
+    categoria: "Hatchback",
+    descripcion:
+      "El Peugeot 308 GT combina el diseño elegante francés con un motor turbo de 225 CV. Su interior i-Cockpit con pantalla 3D y su chasis afinado ofrecen una experiencia de conducción refinada y deportiva en un compacto premium.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/640ced773890.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/768f3e9e47e5.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/4ecf24ebd13d.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/17f4dc758ad9.jpg",
+    ],
+  },
+  {
+    id: "peugeot-508-peugeot-sport",
+    marca: "Peugeot",
+    modelo: "508 PSE",
+    año: 2024,
+    precio: 62000,
+    motor: "1.6L Turbo Híbrido Enchufable AWD",
+    potencia: 360,
+    torque: 520, // Nm
+    transmision: "Automática 8 velocidades",
+    combustible: "Híbrido",
+    traccion: "AWD",
+    velocidadMaxima: 250,
+    aceleracion0a100: 5.2, // segundos
+    categoria: "Sedán",
+    descripcion:
+      "El Peugeot 508 Peugeot Sport Engineered es el modelo más potente de la historia de Peugeot. Con 360 CV combinados de su sistema híbrido enchufable AWD, fusiona la elegancia de una berlina deportiva con la eficiencia eléctrica.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e5f80d5af064.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1872c8fe8a6d.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1df30aa03d97.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/6aaac89727db.jpg",
+    ],
+  },
+  {
+    id: "renault-megane-rs",
+    marca: "Renault",
+    modelo: "Mégane R.S. Ultime",
+    año: 2024,
+    precio: 42000,
+    motor: "1.8L Turbo Inline-4",
+    potencia: 300,
+    torque: 420, // Nm
+    transmision: "Manual 6 velocidades",
+    combustible: "Gasolina",
+    traccion: "FWD",
+    velocidadMaxima: 260,
+    aceleracion0a100: 5.4, // segundos
+    categoria: "Hatchback",
+    descripcion:
+      "El Renault Mégane R.S. Ultime despide al hot hatch francés con 300 CV y tracción 4Control de cuatro ruedas directrices. Un compacto deportivo nacido en el circuito de Nürburgring, con un carácter vivo y comunicativo.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/01a089703d96.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/de718ba387b9.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/86302b7d5ef0.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/0250a1933f4d.jpg",
+    ],
+  },
+  {
+    id: "renault-arkana",
+    marca: "Renault",
+    modelo: "Arkana",
+    año: 2024,
+    precio: 28000,
+    motor: "1.3L Turbo Mild Hybrid",
+    potencia: 158,
+    torque: 270, // Nm
+    transmision: "Automática 7 velocidades",
+    combustible: "Gasolina",
+    traccion: "FWD",
+    velocidadMaxima: 195,
+    aceleracion0a100: 9.5, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Renault Arkana es un SUV coupé que combina la elegancia de un coupé con la robustez de un SUV. Con 158 CV de su motor turbo híbrido ligero, ofrece un diseño diferenciado y una eficiencia optimizada para el uso diario.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/21095bfe6d97.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c586f34c99ef.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1fab7f2ca0ac.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/89ceedc9d6e4.jpg",
+    ],
+  },
+  {
+    id: "suzuki-jimny",
+    marca: "Suzuki",
+    modelo: "Jimny",
+    año: 2024,
+    precio: 25000,
+    motor: "1.5L Atmosférico Inline-4 (K15B)",
+    potencia: 102,
+    torque: 130, // Nm
+    transmision: "Manual 5 velocidades",
+    combustible: "Gasolina",
+    traccion: "4WD",
+    velocidadMaxima: 145,
+    aceleracion0a100: 12.0, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Suzuki Jimny es un todoterreno compacto con alma de legend. Con tracción 4x4 con reductora, chasis de largueros y travesaños y un diseño cuadrado icónico, conquista los terrenos más difíciles con un tamaño mínimo.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d300f53d7f6d.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f118a1aec81c.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/0c65584f1597.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/9f6140946d8d.png",
+    ],
+  },
+  {
+    id: "suzuki-swift-sport",
+    marca: "Suzuki",
+    modelo: "Swift Sport",
+    año: 2024,
+    precio: 22000,
+    motor: "1.4L Turbo Mild Hybrid (K14D)",
+    potencia: 129,
+    torque: 235, // Nm
+    transmision: "Manual 6 velocidades",
+    combustible: "Gasolina",
+    traccion: "FWD",
+    velocidadMaxima: 210,
+    aceleracion0a100: 8.1, // segundos
+    categoria: "Hatchback",
+    descripcion:
+      "El Suzuki Swift Sport es la alegría de conducir en estado puro. Con solo 970 kg y 129 CV turbo, su relación peso-potencia y su chasis afilado ofrecen una diversión táctil que pocos hot hatch modernos pueden igualar.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d332b9266d0d.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/93e5bdeed2f6.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a284d5b7630e.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/404936cb57b2.jpg",
+    ],
+  },
+  {
+    id: "mazda-mx5-miata",
+    marca: "Mazda",
+    modelo: "MX-5 Miata",
+    año: 2024,
+    precio: 30000,
+    motor: "2.0L Skyactiv-G Atmosférico",
+    potencia: 181,
+    torque: 205, // Nm
+    transmision: "Manual 6 velocidades",
+    combustible: "Gasolina",
+    traccion: "RWD",
+    velocidadMaxima: 219,
+    aceleracion0a100: 6.5, // segundos
+    categoria: "Convertible",
+    descripcion:
+      "El Mazda MX-5 Miata es el roadster más vendido de la historia y la encarnación moderna del jin-itei, la idea de que coche y conductor son uno. Ligero, con motor central-delantero y tracción trasera, es la pureza hecha automóvil.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/bb7ce354d141.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b713a9ad979f.png",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a88446d13ba6.png",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/443032da9bd5.jpg",
+    ],
+  },
+  {
+    id: "mazda-cx5",
+    marca: "Mazda",
+    modelo: "CX-5 2.5 Turbo",
+    año: 2024,
+    precio: 38000,
+    motor: "2.5L Turbo Skyactiv-G",
+    potencia: 256,
+    torque: 433, // Nm
+    transmision: "Automática 6 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 220,
+    aceleracion0a100: 6.1, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Mazda CX-5 2.5 Turbo combina el diseño Kodo elegante con 256 CV turbo. Su enfoque en el refinamiento, la calidad interior premium y la dinámica de conducción Jinba-Ittai lo posicionan como el SUV más deportivo de su segmento.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/bff298887b41.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2b8c932e1d88.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/340bbb21528e.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e10653c4dcb5.jpg",
+    ],
+  },
+  {
+    id: "hyundai-i30n",
+    marca: "Hyundai",
+    modelo: "i30 N",
+    año: 2024,
+    precio: 35000,
+    motor: "2.0L Turbo Inline-4",
+    potencia: 280,
+    torque: 392, // Nm
+    transmision: "Manual 6 velocidades",
+    combustible: "Gasolina",
+    traccion: "FWD",
+    velocidadMaxima: 250,
+    aceleracion0a100: 5.9, // segundos
+    categoria: "Hatchback",
+    descripcion:
+      "El Hyundai i30 N es el hot hatch nacido en el Nürburgring. Con 280 CV, diferencial de deslizamiento limitado electrônico y la filosofía N de Hyundai, ofrece prestaciones de pista con la practicidad de un compacto de cinco plazas.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c6491e0b5f56.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/040e2d31f53b.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d2c84d2f57aa.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/91040192eeec.jpg",
+    ],
+  },
+  {
+    id: "hyundai-ioniq5n",
+    marca: "Hyundai",
+    modelo: "Ioniq 5 N",
+    año: 2024,
+    precio: 66000,
+    motor: "Dual-Motor Eléctrico AWD",
+    potencia: 641,
+    torque: 770, // Nm
+    transmision: "Automática 1 velocidad",
+    combustible: "Eléctrico",
+    traccion: "AWD",
+    velocidadMaxima: 260,
+    aceleracion0a100: 3.4, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Hyundai Ioniq 5 N es el primer SUV eléctrico de rendimiento N. Con 641 CV, simulación de cambios de marcha y un sonido sintético de motor, lleva la emoción de los deportivos a la era eléctrica con personalidad propia.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/41af5ed6344f.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/138ab3bea68c.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a9169f0ce896.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2efddce2e363.jpg",
+    ],
+  },
+  {
+    id: "kia-stinger-gt",
+    marca: "Kia",
+    modelo: "Stinger GT",
+    año: 2023,
+    precio: 50000,
+    motor: "3.3L Twin-Turbo V6 (Lambda)",
+    potencia: 365,
+    torque: 510, // Nm
+    transmision: "Automática 8 velocidades",
+    combustible: "Gasolina",
+    traccion: "RWD",
+    velocidadMaxima: 270,
+    aceleracion0a100: 4.7, // segundos
+    categoria: "Sedán",
+    descripcion:
+      "El Kia Stinger GT es la berlina deportiva que cambió la percepción de Kia. Con un V6 biturbo de 365 CV y tracción trasera, rinde homenaje a los gran turismo clásicos con un diseño agresivo y prestaciones de verdadero deportivo.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/561c208af0e2.png",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/bad9bfcba563.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b374976209fb.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/5d0352eda0f5.jpg",
+    ],
+  },
+  {
+    id: "kia-ev6-gt",
+    marca: "Kia",
+    modelo: "EV6 GT",
+    año: 2024,
+    precio: 61000,
+    motor: "Dual-Motor Eléctrico AWD",
+    potencia: 576,
+    torque: 740, // Nm
+    transmision: "Automática 1 velocidad",
+    combustible: "Eléctrico",
+    traccion: "AWD",
+    velocidadMaxima: 260,
+    aceleracion0a100: 3.5, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Kia EV6 GT es el crossover eléctrico más potente de Kia. Con 576 CV y aceleración de 0 a 100 en 3.5 segundos, combina la versatilidad de un crossover con prestaciones de superdeportivo en un diseño futurista.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e1a2eda80336.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e049ef3140f3.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e368c9147f8f.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/a2158f7015f9.jpg",
+    ],
+  },
+  {
+    id: "volkswagen-golf-r",
+    marca: "Volkswagen",
+    modelo: "Golf R",
+    año: 2024,
+    precio: 46000,
+    motor: "2.0L Turbo Inline-4 (EA888)",
+    potencia: 329,
+    torque: 420, // Nm
+    transmision: "DSG 7 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 270,
+    aceleracion0a100: 4.6, // segundos
+    categoria: "Hatchback",
+    descripcion:
+      "El Volkswagen Golf R es el compacto deportivo definitivo. Con 329 CV y tracción integral 4Motion con vectorización de par, ofrece prestaciones de deportivo con la discreción y practicidad que han hecho legendario al Golf.",
+    imagenes: [
+      ,
+    ],
+  },
+  {
+    id: "volkswagen-id4",
+    marca: "Volkswagen",
+    modelo: "ID.4",
+    año: 2024,
+    precio: 41000,
+    motor: "Dual-Motor Eléctrico AWD",
+    potencia: 295,
+    torque: 0, // Nm
+    transmision: "Automática 1 velocidad",
+    combustible: "Eléctrico",
+    traccion: "AWD",
+    velocidadMaxima: 180,
+    aceleracion0a100: 5.4, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Volkswagen ID.4 es el SUV eléctrico familiar por excelencia. Con 295 CV en versión dual-motor y un interior espacioso y luminoso, democratiza la electromovilidad con el pragmatismo alemán característico de Volkswagen.",
+    imagenes: [
+      ,
+    ],
+  },
+  {
+    id: "volkswagen-touareg",
+    marca: "Volkswagen",
+    modelo: "Touareg R",
+    año: 2024,
+    precio: 85000,
+    motor: "3.0L Turbo V6 Híbrido Enchufable",
+    potencia: 462,
+    torque: 700, // Nm
+    transmision: "Tiptronic 8 velocidades",
+    combustible: "Híbrido",
+    traccion: "AWD",
+    velocidadMaxima: 250,
+    aceleracion0a100: 5.1, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Volkswagen Touareg R es el SUV más potente de VW. Con 462 CV de su sistema híbrido enchufable y suspensión neumática adaptativa, combina la capacidad todoterreno con el rendimiento deportivo y el confort de larga distancia.",
+    imagenes: [
+      ,
+    ],
+  },
+  {
+    id: "mercedes-amg-gle63",
+    marca: "Mercedes-Benz",
+    modelo: "AMG GLE 63 S",
+    año: 2024,
+    precio: 130000,
+    motor: "4.0L Twin-Turbo V8 Mild Hybrid",
+    potencia: 603,
+    torque: 850, // Nm
+    transmision: "AMG SPEEDSHIFT 9 velocidades",
+    combustible: "Gasolina",
+    traccion: "AWD",
+    velocidadMaxima: 280,
+    aceleracion0a100: 3.7, // segundos
+    categoria: "SUV",
+    descripcion:
+      "El Mercedes-AMG GLE 63 S es el SUV deportivo más extremo de Mercedes. Su V8 biturbo de 603 CV con sistema híbrido EQ Boost y suspensión activa AMG Ride Control+ lo convierten en un SUV con alma de superdeportivo.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/cace69c62ca8.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/827c871522d5.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/9dcd0b5f92ce.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c8aebfd54282.jpg",
+    ],
+  },
+  {
+    id: "bmw-i7",
+    marca: "BMW",
+    modelo: "i7 xDrive60",
+    año: 2024,
+    precio: 120000,
+    motor: "Dual-Motor Eléctrico AWD",
+    potencia: 536,
+    torque: 745, // Nm
+    transmision: "Automática 1 velocidad",
+    combustible: "Eléctrico",
+    traccion: "AWD",
+    velocidadMaxima: 240,
+    aceleracion0a100: 4.5, // segundos
+    categoria: "Sedán",
+    descripcion:
+      "El BMW i7 xDrive60 es la berlina de lujo eléctrica definitiva. Con 536 CV, autonomía de hasta 615 km y un interior con pantallas Theater Screen y cristales electrocrómicos, redefine el lujo silencioso del siglo XXI.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/20be1a1b4c81.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/7c3d36809bfd.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/fd4b55db303d.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/76934890b4f4.jpg",
+    ],
+  },
+  {
+    id: "audi-etron-gt",
+    marca: "Audi",
+    modelo: "e-tron GT RS",
+    año: 2024,
+    precio: 147000,
+    motor: "Dual-Motor Eléctrico AWD",
+    potencia: 637,
+    torque: 830, // Nm
+    transmision: "Automática 2 velocidades",
+    combustible: "Eléctrico",
+    traccion: "AWD",
+    velocidadMaxima: 250,
+    aceleracion0a100: 3.1, // segundos
+    categoria: "Sedán",
+    descripcion:
+      "El Audi e-tron GT RS es el gran turismo eléctrico de Audi. Con 637 CV y tracción integral quattro, comparte plataforma con el Porsche Taycan. Un deportivo eléctrico de cuatro plazas con la elegancia característica de Audi.",
+    imagenes: [
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/88de3f3c2755.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e0eddf6c0f98.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1085ae8a17d2.jpg",
+      "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/be469f5d7521.jpg",
+    ],
+  }
 ]
 
 // Lista única de marcas para los filtros.

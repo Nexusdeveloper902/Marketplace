@@ -162,3 +162,73 @@ Stage Summary:
 - 36 modelos nuevos con specs reales e imágenes reales.
 - Misma identidad visual, mismas funcionalidades (búsqueda, filtros, compra, garaje).
 - Cero errores de lint, cero errores en runtime.
+
+---
+Task ID: IMG-2
+Agent: image-search-subagent
+Task: Buscar imágenes reales para 40 modelos de autos nuevos (Marcas nuevas + expansión de marcas existentes) usando `z-ai image-search` CLI
+
+Work Log:
+- Leído `worklog.md` para contexto: proyecto marketplace de vehículos con 48 modelos existentes (12 marcas × 4 modelos). Esta fase agrega 40 modelos nuevos que combinan marcas nuevas (McLaren, Aston Martin, Bentley, Rolls-Royce, Lexus, Volvo, Rivian, BYD, Dodge, Jeep, Subaru, Peugeot, Renault, Suzuki, Mazda, Hyundai, Kia, Volkswagen) con expansiones de marcas ya presentes (Mercedes-AMG GLE 63, BMW i7, Audi e-tron GT).
+- Creado directorio de salida `/home/z/my-project/img-search2/`.
+- Verificado `z-ai image-search --help`: opciones `-q`, `--count`, `--gl`, `--no-rank` confirmadas.
+- Ejecutadas las 40 búsquedas **secuencialmente** con `sleep 7` entre cada una, en 7 lotes (6+6+6+6+6+6+4) para mantenerse dentro del timeout por invocación de herramienta:
+  * Lote 1 (modelos 1-6): McLaren 750S/Artura, Aston Martin DB12/Vantage, Bentley Continental GT/Bentayga.
+  * Lote 2 (modelos 7-12): Rolls-Royce Ghost/Cullinan, Lexus LC 500/RX F Sport, Volvo XC90 Recharge/XC60.
+  * Lote 3 (modelos 13-18): Rivian R1T/R1S, BYD Han EV/Seal, Dodge Charger Hellcat/Demon 170.
+  * Lote 4 (modelos 19-24): Jeep Wrangler Rubicon/Grand Cherokee Trackhawk, Subaru WRX STI/Outback, Peugeot 308 GT/508 PSE.
+  * Lote 5 (modelos 25-30): Renault Megane RS/Arkana, Suzuki Jimny/Swift Sport, Mazda MX-5 Miata/CX-5.
+  * Lote 6 (modelos 31-36): Hyundai i30 N/Ioniq 5 N, Kia Stinger GT/EV6 GT, Volkswagen Golf R/ID.4.
+  * Lote 7 (modelos 37-40): Volkswagen Touareg, Mercedes-AMG GLE 63, BMW i7, Audi e-tron GT.
+- **Cero búsquedas fallaron con HTTP 429**: la cadencia `sleep 7` fue suficiente en todos los 40 casos. La lógica de reintento con `sleep 20` no tuvo que usarse.
+- Verificación de archivos: 40 archivos `.txt` generados, cada uno con exactamente 4 ocurrencias de `"original_url"` (verificado con `grep -c`).
+- Escrito `img-search2/build_results.py` (Python): define el orden exacto de las 40 claves, parsea cada `.txt` con regex `original_url` (fallback a JSON brace-matching), emite `results.json` con indent=2.
+- `results.json` generado (13.413 bytes, indent=2). Validación con Python:
+  * JSON válido: True
+  * Cantidad de claves: 40
+  * Todas las claves tienen array de exactamente 4 URLs
+  * Todas las URLs empiezan con `https://` y son `z-cdn.chatglm.cn/...` (OSS embebible)
+  * Cero modelos con !=4 URLs
+  * Orden de claves coincide exactamente con el del enunciado
+
+Stage Summary:
+- 40 modelos nuevos con 4 imágenes reales cada uno = 160 URLs OSS-hosted adicionales.
+- Catálogo total potencial: 88 modelos (48 existentes + 40 nuevos).
+- Archivo consolidado: `/home/z/my-project/img-search2/results.json` (40 claves, 4 URLs c/u).
+- Archivos crudos por modelo: `/home/z/my-project/img-search2/<model-name>.txt` (40 archivos).
+- Script de construcción reutilizable: `/home/z/my-project/img-search2/build_results.py`.
+- Marcas nuevas cubiertas: McLaren (2), Aston Martin (2), Bentley (2), Rolls-Royce (2), Lexus (2), Volvo (2), Rivian (2), BYD (2), Dodge (2), Jeep (2), Subaru (2), Peugeot (2), Renault (2), Suzuki (2), Mazda (2), Hyundai (2), Kia (2), Volkswagen (3).
+- Marcas existentes expandidas: Mercedes-Benz (GLE 63), BMW (i7), Audi (e-tron GT).
+- Listo para que el agente principal integre estos 40 modelos en `src/data/vehicles.ts`.
+
+---
+Task ID: FEAT-1..FEAT-14
+Agent: Main (Z.ai Code) + image-search-subagent (IMG-2)
+Task: Expansión mayor: catálogo 88 vehículos + favoritos + comparador + filtros avanzados + financiamiento + marcas + detalle mejorado
+
+Work Log:
+- Extendido tipo Vehicle con: torque, traccion, aceleracion0a100, categoria + constantes CATEGORIAS/COMBUSTIBLES/TRACCIONES.
+- Script Python añadió los 4 nuevos campos a los 48 vehículos existentes (specs reales).
+- Subagente IMG-2 buscó 160 imágenes (40 modelos nuevos, 4 c/u) sin errores 429.
+- Integrados 40 vehículos nuevos (McLaren, Aston Martin, Bentley, Rolls-Royce, Lexus, Volvo, Rivian, BYD, Dodge, Jeep, Subaru, Peugeot, Renault, Suzuki, Mazda, Hyundai, Kia, Volkswagen + expansión Mercedes/BMW/Audi) → catálogo total: 88 vehículos, 30 marcas, 9 categorías.
+- Store expandido: favoritos (toggle), comparador (max 3), vistos recientemente (max 8), ordenamiento persistente. Todo en localStorage.
+- VehicleCard rediseñado: botones de favorito (corazón) y comparar superpuestos en la imagen, badge de categoría, indicadores "En el carrito"/"Comprado".
+- Página /favoritos: grid de favoritos con EmptyState reutilizable.
+- Página /comparar: tabla lado a lado con scroll horizontal, resalta el mejor valor (trofeo) en precio/potencia/torque/velocidad/aceleración/año, specs de texto (motor/transmisión/combustible/tracción/categoría), botón de quitar, sugerencia de añadir más.
+- Marketplace mejorado: panel de filtros lateral (categoría, precio con doble slider, año, potencia mínima, combustible, tracción) + ordenamiento (relevancia, precio asc/desc, año, potencia) persistente. Filtros de marca siempre visibles arriba.
+- Simulador de financiamiento: sliders para cuota inicial, número de cuotas (12-84), tasa de interés (0-15%); calcula cuota mensual (fórmula amortización francesa), monto financiado, total a pagar e intereses.
+- Página /marcas: 30 marcas con descripción, modelo destacado, contador y precio desde. Página /marcas/[marca] dinámica con generateStaticParams.
+- Detalle mejorado: 9 especificaciones técnicas en cuadrícula, simulador de financiamiento, botones favorito+comparar, sección "Vehículos relacionados" (algoritmo de similitud por marca/categoría/combustible/precio), marca como visto recientemente.
+- Componente EmptyState reutilizable para favoritos/garaje/carrito/comparador.
+- Header reestructurado: Inicio, Marketplace, Marcas | Favoritos, Comparar, Mi Garaje (con badges) | Carrito (destacado). Selectores primitivos para evitar loops de Zustand.
+- Footer actualizado con todos los enlaces.
+- useHydrated: snapshots cacheados para evitar warning de React 19.
+- `bun run lint`: 0 errores, 0 advertencias.
+- Verificación con Agent Browser: 88 vehículos en marketplace, filtros funcionando, favoritos con toast+badge+persistencia, comparador con tabla y trofeos, marcas (30) con páginas dinámicas, financiamiento con cálculos en tiempo real, relacionados mostrando, persistencia de favoritos/comparador/carrito tras recarga. Sin errores en consola en carga fresca.
+
+Stage Summary:
+- Catálogo: 88 vehículos, 30 marcas, 9 categorías, con specs completas (incl. torque, tracción, aceleración 0-100).
+- 7 nuevas páginas/rutas: /favoritos, /comparar, /marcas, /marcas/[marca] (+ las existentes /, /marketplace, /vehiculos/[id], /garaje, /carrito).
+- Features: favoritos, comparador (hasta 3), filtros avanzados (7 dimensiones + 4 ordenamientos), simulador de financiamiento, vehículos relacionados, vistos recientemente.
+- Todo persiste en localStorage. 100% frontend, sin backend.
+- Cero errores de lint, cero errores en runtime.

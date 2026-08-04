@@ -37,6 +37,24 @@ export function Footer() {
               Marketplace
             </Link>
             <Link
+              href="/marcas"
+              className="transition-colors hover:text-foreground"
+            >
+              Marcas
+            </Link>
+            <Link
+              href="/favoritos"
+              className="transition-colors hover:text-foreground"
+            >
+              Favoritos
+            </Link>
+            <Link
+              href="/comparar"
+              className="transition-colors hover:text-foreground"
+            >
+              Comparar
+            </Link>
+            <Link
               href="/garaje"
               className="transition-colors hover:text-foreground"
             >

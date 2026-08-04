@@ -5,19 +5,39 @@ import { persist } from "zustand/middleware"
 
 interface EstadoTienda {
   // --- Carrito (pendiente de compra) ---
-  carrito: string[] // ids de vehículos en el carrito
+  carrito: string[]
   agregarAlCarrito: (id: string) => void
   quitarDelCarrito: (id: string) => void
   estaEnCarrito: (id: string) => boolean
   vaciarCarrito: () => void
 
   // --- Garaje (vehículos comprados) ---
-  garaje: string[] // ids de vehículos comprados
-  comprar: (id: string) => void
+  garaje: string[]
   estaComprado: (id: string) => boolean
-  // Mueve todos los vehículos del carrito al garaje y vacía el carrito.
   finalizarCompra: () => void
+
+  // --- Favoritos ---
+  favoritos: string[]
+  toggleFavorito: (id: string) => void
+  esFavorito: (id: string) => boolean
+
+  // --- Comparador (hasta 3 vehículos) ---
+  comparar: string[]
+  toggleComparar: (id: string) => void
+  estaEnComparador: (id: string) => boolean
+  vaciarComparador: () => void
+
+  // --- Vistos recientemente ---
+  recientes: string[]
+  marcarVisto: (id: string) => void
+
+  // --- Preferencias de ordenamiento ---
+  ordenamiento: string
+  setOrdenamiento: (o: string) => void
 }
+
+const MAX_COMPARAR = 3
+const MAX_RECIENTES = 8
 
 export const useTienda = create<EstadoTienda>()(
   persist(
@@ -26,7 +46,7 @@ export const useTienda = create<EstadoTienda>()(
       carrito: [],
       agregarAlCarrito: (id) => {
         const actual = get().carrito
-        if (actual.includes(id)) return // No duplicar
+        if (actual.includes(id)) return
         set({ carrito: [...actual, id] })
       },
       quitarDelCarrito: (id) =>
@@ -36,25 +56,54 @@ export const useTienda = create<EstadoTienda>()(
 
       // --- Garaje ---
       garaje: [],
-      comprar: (id) => {
-        const actual = get().garaje
-        if (actual.includes(id)) return // No duplicar
-        set({ garaje: [...actual, id] })
-      },
       estaComprado: (id) => get().garaje.includes(id),
       finalizarCompra: () => {
         const { carrito, garaje } = get()
         if (carrito.length === 0) return
-        // Añade al garaje los que aún no estén comprados, y vacía el carrito.
         const nuevos = carrito.filter((id) => !garaje.includes(id))
-        set({
-          garaje: [...garaje, ...nuevos],
-          carrito: [],
-        })
+        set({ garaje: [...garaje, ...nuevos], carrito: [] })
       },
+
+      // --- Favoritos ---
+      favoritos: [],
+      toggleFavorito: (id) => {
+        const actual = get().favoritos
+        set(
+          actual.includes(id)
+            ? { favoritos: actual.filter((v) => v !== id) }
+            : { favoritos: [...actual, id] }
+        )
+      },
+      esFavorito: (id) => get().favoritos.includes(id),
+
+      // --- Comparador ---
+      comparar: [],
+      toggleComparar: (id) => {
+        const actual = get().comparar
+        if (actual.includes(id)) {
+          set({ comparar: actual.filter((v) => v !== id) })
+        } else if (actual.length < MAX_COMPARAR) {
+          set({ comparar: [...actual, id] })
+        }
+      },
+      estaEnComparador: (id) => get().comparar.includes(id),
+      vaciarComparador: () => set({ comparar: [] }),
+
+      // --- Vistos recientemente ---
+      recientes: [],
+      marcarVisto: (id) => {
+        const actual = get().recientes.filter((v) => v !== id)
+        set({ recientes: [id, ...actual].slice(0, MAX_RECIENTES) })
+      },
+
+      // --- Ordenamiento ---
+      ordenamiento: "relevancia",
+      setOrdenamiento: (o) => set({ ordenamiento: o }),
     }),
     {
       name: "digital-marketplace-tienda",
     }
   )
 )
+
+export { MAX_COMPARAR }
