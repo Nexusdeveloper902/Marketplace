@@ -37,11 +37,11 @@ export function RelatedVehicles({
   if (relacionados.length === 0) return null
 
   return (
-    <section className="mt-16 border-t border-border/60 pt-12">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+    <section className="mt-20 border-t border-border/40 pt-16">
+      <p className="text-eyebrow text-[11px] text-[var(--signature)]">
         También te puede interesar
       </p>
-      <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+      <h2 className="text-display mt-5 text-3xl text-foreground sm:text-4xl">
         Vehículos relacionados
       </h2>
       <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-6">
@@ -50,7 +50,7 @@ export function RelatedVehicles({
             key={vehiculo.id}
             vehiculo={vehiculo}
             index={i}
-            etiquetaBoton="Ver detalles"
+            etiquetaBoton="Explorar vehículo"
           />
         ))}
       </div>

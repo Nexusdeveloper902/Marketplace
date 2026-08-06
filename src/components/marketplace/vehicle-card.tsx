@@ -89,7 +89,7 @@ export function VehicleCard({
         delay: Math.min(index * 0.04, 0.4),
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card transition-all duration-700 ease-out hover:border-border/80 hover:bg-card/95 hover:shadow-[0_24px_60px_-20px_oklch(0_0_0/0.8)]"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card shadow-card transition-all duration-500 ease-out hover:border-border/80 hover:bg-card/95 hover:shadow-card-hover"
     >
       {/* Imagen */}
       <div className="relative block aspect-[16/10] w-full overflow-hidden bg-secondary">
@@ -110,7 +110,7 @@ export function VehicleCard({
 
         {/* Etiqueta discreta arriba a la izquierda */}
         {etiqueta && (
-          <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-background/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider backdrop-blur-md">
+          <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1 rounded-lg bg-background/70 px-2.5 py-1 text-[10px] font-semibold tracking-wide backdrop-blur-md">
             <etiqueta.icono className={cn("h-3 w-3", etiqueta.color)} />
             {etiqueta.texto}
           </span>
@@ -118,7 +118,7 @@ export function VehicleCard({
 
         {/* Marca arriba a la izquierda (si no hay etiqueta) */}
         {!etiqueta && (
-          <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-background/60 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-md">
+          <span className="pointer-events-none absolute left-3 top-3 rounded-lg bg-background/60 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-foreground backdrop-blur-md">
             {vehiculo.marca}
           </span>
         )}
@@ -137,7 +137,7 @@ export function VehicleCard({
 
         {/* Badge de comprado */}
         {estaComprado && (
-          <span className="pointer-events-none absolute right-3 top-12 flex items-center gap-1 rounded-full bg-[var(--success)]/15 px-2.5 py-1 text-[10px] font-semibold text-[var(--success)] backdrop-blur-md">
+          <span className="pointer-events-none absolute right-3 top-12 flex items-center gap-1 rounded-lg bg-[var(--success)]/15 px-2.5 py-1 text-[10px] font-semibold text-[var(--success)] backdrop-blur-md">
             <BadgeCheck className="h-3 w-3" strokeWidth={2.5} />
             Comprado
           </span>
@@ -249,7 +249,7 @@ export function VehicleCard({
                     className="flex items-center gap-1.5"
                   >
                     <ShoppingCart className="h-4 w-4" strokeWidth={2.2} />
-                    Agregar
+                    Agregar al carrito
                   </motion.span>
                 )}
               </AnimatePresence>

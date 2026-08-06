@@ -228,7 +228,7 @@ export function MarketplaceView() {
           <button
             onClick={() => setFiltros((f) => ({ ...f, marca: null }))}
             className={cn(
-              "shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200",
+              "shrink-0 rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-200",
               filtros.marca === null
                 ? "border-transparent bg-primary text-primary-foreground"
                 : "border-border bg-card text-muted-foreground hover:text-foreground"
@@ -246,7 +246,7 @@ export function MarketplaceView() {
                 }))
               }
               className={cn(
-                "shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200",
+                "shrink-0 rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-200",
                 filtros.marca === marca
                   ? "border-transparent bg-primary text-primary-foreground"
                   : "border-border bg-card text-muted-foreground hover:text-foreground"
@@ -317,7 +317,7 @@ export function MarketplaceView() {
                   key={vehiculo.id}
                   vehiculo={vehiculo}
                   index={i}
-                  etiquetaBoton="Ver detalles"
+                  etiquetaBoton="Explorar vehículo"
                 />
               ))}
             </div>
@@ -362,7 +362,7 @@ function FiltrosPanel({
     <div className="space-y-5 rounded-2xl border border-border/70 bg-card p-5">
       <div className="flex items-center gap-2">
         <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
-        <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        <h2 className="text-eyebrow text-[11px] text-[var(--signature)]">
           Filtros
         </h2>
       </div>
@@ -538,7 +538,7 @@ function ChipFiltro({
     <button
       onClick={onClick}
       className={cn(
-        "rounded-full border px-2.5 py-1 text-xs font-medium transition-all duration-200",
+        "rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-all duration-200",
         activo
           ? "border-transparent bg-primary text-primary-foreground"
           : "border-border bg-secondary/50 text-muted-foreground hover:text-foreground"

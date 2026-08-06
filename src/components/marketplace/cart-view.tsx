@@ -3,12 +3,13 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Trash2, ShoppingBag, ArrowRight, ShieldCheck, Zap } from "lucide-react"
+import { Trash2, ShoppingBag, ArrowRight, ShieldCheck, Zap, BadgeCheck, Award } from "lucide-react"
 import { vehiculos } from "@/data/vehicles"
 import { useTienda } from "@/store/use-store"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { useToast } from "@/hooks/use-toast"
 import { CheckoutModal } from "./checkout-modal"
+import { EmptyState } from "./empty-state"
 import { SmartImage } from "@/components/ui/smart-image"
 
 export function CartView() {
@@ -17,7 +18,7 @@ export function CartView() {
   const finalizarCompra = useTienda((s) => s.finalizarCompra)
   const { toast } = useToast()
   const [modalAbierto, setModalAbierto] = useState(false)
-  const [resumen, setResumen] = useState({ cantidad: 0, total: 0 })
+  const [resumen, setResumen] = useState({ cantidad: 0, total: 0, vehiculos: [] as typeof items })
 
   const items = carrito
     .map((id) => vehiculos.find((v) => v.id === id))
@@ -34,10 +35,20 @@ export function CartView() {
   }
 
   const handleFinalizar = () => {
-    setResumen({ cantidad: items.length, total })
+    setResumen({ cantidad: items.length, total, vehiculos: items })
     finalizarCompra()
     setModalAbierto(true)
   }
+
+  // Cálculo estimado de financiación (60 cuotas, 6.5% anual, 20% inicial)
+  const cuotaInicial = Math.round(total * 0.2)
+  const montoFinanciar = total - cuotaInicial
+  const tasaMensual = 0.065 / 12
+  const cuotaMensual =
+    montoFinanciar > 0
+      ? (montoFinanciar * tasaMensual * Math.pow(1 + tasaMensual, 60)) /
+        (Math.pow(1 + tasaMensual, 60) - 1)
+      : 0
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -159,7 +170,7 @@ export function CartView() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="rounded-2xl border border-border/70 bg-card p-6"
             >
-              <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              <h2 className="text-eyebrow text-[11px] text-[var(--signature)]">
                 Resumen del pedido
               </h2>
 
@@ -186,24 +197,58 @@ export function CartView() {
                 <span className="text-sm font-medium text-muted-foreground">
                   Total
                 </span>
-                <span className="text-2xl font-semibold tracking-tight text-foreground">
+                <motion.span
+                  key={total}
+                  initial={{ opacity: 0.5, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="text-2xl font-semibold tracking-tight text-foreground"
+                >
                   {formatearPrecio(total)}
-                </span>
+                </motion.span>
               </div>
+
+              {/* Estimación de financiación */}
+              {cuotaMensual > 0 && (
+                <div className="mt-4 rounded-xl border border-border/60 bg-secondary/30 p-3.5">
+                  <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                    Financiación estimada
+                  </p>
+                  <div className="mt-1.5 flex items-end justify-between">
+                    <div>
+                      <p className="text-lg font-semibold tracking-tight text-foreground">
+                        {formatearPrecio(cuotaMensual)}
+                      </p>
+                      <p className="text-[10px] text-muted-foreground">/ mes · 60 cuotas</p>
+                    </div>
+                    <p className="text-right text-[10px] text-muted-foreground">
+                      Cuota inicial: {formatearPrecio(cuotaInicial)}
+                    </p>
+                  </div>
+                </div>
+              )}
 
               <button
                 onClick={handleFinalizar}
-                className="group mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 active:scale-[0.99]"
+                className="group mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-sm font-semibold text-primary-foreground transition-all hover:gap-3 hover:shadow-[0_8px_30px_-8px_oklch(0.98_0_0/0.35)] active:scale-[0.99]"
               >
                 Finalizar compra
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
 
-              {/* Garantías */}
+              {/* Indicadores de confianza */}
               <ul className="mt-5 space-y-2.5 text-xs text-muted-foreground">
                 <li className="flex items-center gap-2">
                   <ShieldCheck className="h-3.5 w-3.5 text-[var(--success)]" strokeWidth={2.2} />
-                  Compra simulada, sin pagos reales
+                  Pago seguro
+                </li>
+                <li className="flex items-center gap-2">
+                  <BadgeCheck className="h-3.5 w-3.5 text-[var(--success)]" strokeWidth={2.2} />
+                  Compra protegida
+                </li>
+                <li className="flex items-center gap-2">
+                  <Award className="h-3.5 w-3.5 text-[var(--signature)]" strokeWidth={2.2} />
+                  Garantía oficial
                 </li>
                 <li className="flex items-center gap-2">
                   <Zap className="h-3.5 w-3.5 text-[var(--signature)]" strokeWidth={2.2} />
@@ -214,30 +259,13 @@ export function CartView() {
           </aside>
         </div>
       ) : (
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="mt-10 flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-20 text-center sm:py-28"
-        >
-          <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary text-muted-foreground">
-            <ShoppingBag className="h-8 w-8" strokeWidth={1.5} />
-          </span>
-          <p className="mt-5 text-lg font-medium text-foreground">
-            Tu carrito está vacío
-          </p>
-          <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-            Añade vehículos desde el marketplace y aparecerán aquí listos para
-            finalizar tu compra.
-          </p>
-          <Link
-            href="/marketplace"
-            className="group mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            Explorar marketplace
-            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-          </Link>
-        </motion.section>
+        <EmptyState
+          icon={ShoppingBag}
+          titulo="Todavía no has agregado ningún vehículo"
+          descripcion="Explora el marketplace y añade los automóviles que más te gusten. Aparecerán aquí listos para finalizar tu compra."
+          ctaLabel="Comenzar a explorar"
+          ctaHref="/marketplace"
+        />
       )}
 
       <CheckoutModal
@@ -245,6 +273,7 @@ export function CartView() {
         onClose={() => setModalAbierto(false)}
         cantidad={resumen.cantidad}
         total={resumen.total}
+        vehiculos={resumen.vehiculos}
       />
     </div>
   )

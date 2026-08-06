@@ -127,7 +127,7 @@ export function CompareView() {
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/90 to-transparent" />
                       <button
                         onClick={() => toggleComparar(vehiculo.id)}
-                        className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-background/70 text-muted-foreground backdrop-blur-md transition-colors hover:text-foreground"
+                        className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-lg bg-background/70 text-muted-foreground backdrop-blur-md transition-colors hover:text-foreground"
                         aria-label={`Quitar ${vehiculo.marca} ${vehiculo.modelo}`}
                       >
                         <X className="h-3.5 w-3.5" />

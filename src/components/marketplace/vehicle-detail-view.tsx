@@ -191,14 +191,14 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-2">
-              <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              <p className="text-eyebrow text-[11px] text-[var(--signature)]">
                 {vehiculo.marca}
               </p>
-              <span className="rounded-full border border-border/70 bg-secondary/60 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              <span className="rounded-lg border border-border/70 bg-secondary/60 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-muted-foreground">
                 {vehiculo.categoria}
               </span>
             </div>
-            <h1 className="mt-2 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            <h1 className="text-display mt-4 text-4xl text-foreground sm:text-5xl lg:text-6xl">
               {vehiculo.modelo}
             </h1>
             <p className="mt-4 text-sm font-medium text-muted-foreground">
@@ -214,10 +214,10 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-8 rounded-2xl border border-border/70 bg-secondary/40 p-6"
           >
-            <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+            <p className="text-eyebrow text-[10px] text-muted-foreground">
               Precio
             </p>
-            <p className="mt-1 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+            <p className="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               {formatearPrecio(vehiculo.precio)}
             </p>
             <p className="mt-2 text-xs text-muted-foreground">
@@ -236,8 +236,8 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
           </motion.p>
 
           {/* Especificaciones técnicas */}
-          <div className="mt-8">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="mt-10">
+            <h2 className="text-eyebrow text-[11px] text-[var(--signature)]">
               Especificaciones técnicas
             </h2>
             <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">

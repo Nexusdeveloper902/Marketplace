@@ -96,7 +96,7 @@ export function LandingHero() {
           >
             <Link
               href="/marketplace"
-              className="group inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:gap-4 hover:shadow-[0_12px_40px_-8px_oklch(0.98_0_0/0.35)] active:scale-[0.98]"
+              className="group inline-flex items-center gap-3 rounded-xl bg-primary px-7 py-4 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:gap-4 hover:shadow-[0_12px_40px_-8px_oklch(0.98_0_0/0.35)] active:scale-[0.98]"
             >
               Explorar vehículos
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

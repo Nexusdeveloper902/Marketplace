@@ -60,9 +60,9 @@ export function FavoritesView() {
       ) : (
         <EmptyState
           icon={Heart}
-          titulo="Aún no tienes favoritos"
-          descripcion="Explora el marketplace y toca el ícono de corazón en los vehículos que más te gusten para guardarlos aquí."
-          ctaLabel="Explorar marketplace"
+          titulo="Guarda aquí los vehículos que más te inspiren"
+          descripcion="Toca el ícono de corazón en cualquier vehículo del marketplace para guardarlo en tu lista personal de favoritos."
+          ctaLabel="Descubrir vehículos"
           ctaHref="/marketplace"
         />
       )}

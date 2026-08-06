@@ -70,7 +70,7 @@ export function FeaturedVehicles() {
             key={vehiculo.id}
             vehiculo={vehiculo}
             index={i}
-            etiquetaBoton="Ver detalles"
+            etiquetaBoton="Explorar vehículo"
           />
         ))}
       </div>

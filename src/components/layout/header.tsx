@@ -16,6 +16,7 @@ import {
   Menu,
 } from "lucide-react"
 import { useTienda } from "@/store/use-store"
+import { useHydrated } from "@/hooks/use-hydrated"
 import {
   Sheet,
   SheetContent,
@@ -43,6 +44,7 @@ export function Header() {
   const cantGaraje = useTienda((s) => s.garaje.length)
   const cantCarrito = useTienda((s) => s.carrito.length)
   const [menuAbierto, setMenuAbierto] = useState(false)
+  const hidratado = useHydrated()
 
   const cantidades: Record<string, number> = {
     favoritos: cantFavoritos,
@@ -154,16 +156,19 @@ export function Header() {
             <span className="hidden xl:inline">Carrito</span>
           </Link>
 
-          {/* Menú hamburguesa — solo móvil */}
-          <Sheet open={menuAbierto} onOpenChange={setMenuAbierto}>
-            <SheetTrigger asChild>
-              <button
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:text-foreground md:hidden"
-                aria-label="Abrir menú de navegación"
-              >
-                <Menu className="h-5 w-5" strokeWidth={2} />
-              </button>
-            </SheetTrigger>
+          {/* Menú hamburguesa — solo móvil.
+              Se renderiza solo tras la hidratación para evitar el mismatch
+              de IDs generados por Radix entre servidor y cliente. */}
+          {hidratado ? (
+            <Sheet open={menuAbierto} onOpenChange={setMenuAbierto}>
+              <SheetTrigger asChild>
+                <button
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:text-foreground md:hidden"
+                  aria-label="Abrir menú de navegación"
+                >
+                  <Menu className="h-5 w-5" strokeWidth={2} />
+                </button>
+              </SheetTrigger>
             <SheetContent
               side="right"
               className="w-[280px] border-border bg-background p-0 sm:w-[320px]"
@@ -223,6 +228,14 @@ export function Header() {
               </nav>
             </SheetContent>
           </Sheet>
+          ) : (
+            <button
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-muted-foreground md:hidden"
+              aria-label="Abrir menú de navegación"
+            >
+              <Menu className="h-5 w-5" strokeWidth={2} />
+            </button>
+          )}
         </div>
       </div>
     </header>

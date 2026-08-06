@@ -2,10 +2,11 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { CarFront, ArrowRight } from "lucide-react"
+import { CarFront } from "lucide-react"
 import { vehiculos } from "@/data/vehicles"
 import { useTienda } from "@/store/use-store"
 import { VehicleCard } from "./vehicle-card"
+import { EmptyState } from "./empty-state"
 
 export function GarageView() {
   const garaje = useTienda((s) => s.garaje)
@@ -80,30 +81,13 @@ export function GarageView() {
           </div>
         </section>
       ) : (
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="mt-10 flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-20 text-center sm:py-28"
-        >
-          <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary text-muted-foreground">
-            <CarFront className="h-8 w-8" strokeWidth={1.5} />
-          </span>
-          <p className="mt-5 text-lg font-medium text-foreground">
-            Tu garaje está vacío
-          </p>
-          <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-            Los vehículos que adquieras aparecerán aquí para que puedas
-            inspeccionarlos cuando quieras.
-          </p>
-          <Link
-            href="/marketplace"
-            className="group mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            Explorar marketplace
-            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-          </Link>
-        </motion.section>
+        <EmptyState
+          icon={CarFront}
+          titulo="Tu colección comienza aquí"
+          descripcion="Los vehículos que adquieras aparecerán en tu garaje privado, listos para que los inspecciones cuando quieras."
+          ctaLabel="Explorar marketplace"
+          ctaHref="/marketplace"
+        />
       )}
     </div>
   )

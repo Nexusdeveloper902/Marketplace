@@ -55,7 +55,7 @@ export function BrandsSection() {
               delay: Math.min(i * 0.04, 0.4),
               ease: easeLux,
             }}
-            className="group flex aspect-[3/2] items-center justify-center rounded-2xl border border-border/50 bg-card/50 px-4 transition-all duration-500 hover:border-border hover:bg-card"
+            className="group flex aspect-[3/2] items-center justify-center rounded-2xl border border-border/50 bg-card/50 px-4 shadow-card transition-all duration-500 hover:border-border hover:bg-card hover:shadow-card-hover"
           >
             <span className="text-center text-sm font-semibold tracking-tight text-muted-foreground transition-colors duration-500 group-hover:text-foreground sm:text-base">
               {marca}
@@ -67,7 +67,7 @@ export function BrandsSection() {
       <div className="mt-14">
         <Link
           href="/marketplace"
-          className="group inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:gap-4 hover:shadow-[0_12px_40px_-8px_oklch(0.98_0_0/0.35)] active:scale-[0.98]"
+          className="group inline-flex items-center gap-3 rounded-xl bg-primary px-7 py-4 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:gap-4 hover:shadow-[0_12px_40px_-8px_oklch(0.98_0_0/0.35)] active:scale-[0.98]"
         >
           Explorar todos los vehículos
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

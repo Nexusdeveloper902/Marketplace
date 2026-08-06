@@ -3,9 +3,9 @@
   "version": "0.2.1",
   "private": true,
   "scripts": {
-    "dev": "node -e \"const {spawn}=require('child_process');const fs=require('fs');const p=spawn('next',['dev','-p','3000'],{stdio:['inherit','pipe','pipe'],shell:true});const l=fs.createWriteStream('dev.log');p.stdout.pipe(l);p.stderr.pipe(l);p.stdout.pipe(process.stdout);p.stderr.pipe(process.stderr);p.on('exit',c=>process.exit(c??1));\"",
-    "build": "next build && node -e \"fs.cpSync('.next/static', '.next/standalone/.next/static', { recursive: true }); fs.cpSync('public', '.next/standalone/public', { recursive: true })\"",
-    "start": "node -e \"process.env.NODE_ENV='production';const {spawn}=require('child_process');const fs=require('fs');const p=spawn('bun',['.next/standalone/server.js'],{stdio:['inherit','pipe','pipe'],shell:true});const l=fs.createWriteStream('server.log');p.stdout.pipe(l);p.stderr.pipe(l);p.stdout.pipe(process.stdout);p.stderr.pipe(process.stderr);p.on('exit',c=>process.exit(c??1));\"",
+    "dev": "next dev -p 3000 2>&1 | tee dev.log",
+    "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
+    "start": "NODE_ENV=production bun .next/standalone/server.js 2>&1 | tee server.log",
     "lint": "eslint .",
     "db:push": "prisma db push --accept-data-loss",
     "db:generate": "prisma generate",

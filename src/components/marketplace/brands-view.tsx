@@ -91,7 +91,7 @@ export function BrandsView() {
             >
               <Link
                 href={`/marcas/${datos.marca.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`}
-                className="group block overflow-hidden rounded-2xl border border-border/70 bg-card transition-all duration-500 hover:border-border hover:shadow-[0_20px_50px_-12px_oklch(0_0_0/0.7)]"
+                className="group block overflow-hidden rounded-2xl border border-border/50 bg-card shadow-card transition-all duration-500 hover:border-border hover:shadow-card-hover"
               >
                 {/* Imagen representativa */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">

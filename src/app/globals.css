@@ -176,6 +176,14 @@
     font-weight: 500;
   }
 
+  /* Sistema de elevación consistente */
+  .shadow-card {
+    box-shadow: 0 2px 8px -2px oklch(0 0 0 / 0.3), 0 8px 24px -8px oklch(0 0 0 / 0.4);
+  }
+  .shadow-card-hover {
+    box-shadow: 0 4px 12px -2px oklch(0 0 0 / 0.35), 0 24px 48px -12px oklch(0 0 0 / 0.6);
+  }
+
   /* Resplandor sutil de fondo para el hero */
   .hero-glow {
     background:

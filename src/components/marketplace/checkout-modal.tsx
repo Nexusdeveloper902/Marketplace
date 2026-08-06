@@ -1,31 +1,69 @@
 "use client"
 
-import { useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { CheckCircle2, ArrowRight, Sparkles } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import {
+  CheckCircle2,
+  ArrowRight,
+  ArrowLeft,
+  Sparkles,
+  Lock,
+  CreditCard,
+  User,
+  Mail,
+  Phone,
+  Loader2,
+  ShieldCheck,
+  Calendar,
+} from "lucide-react"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog"
 import { formatearPrecio } from "@/lib/format"
+import type { Vehicle } from "@/types/vehicle"
+import { SmartImage } from "@/components/ui/smart-image"
+import { cn } from "@/lib/utils"
 
 interface CheckoutModalProps {
   abierto: boolean
   onClose: () => void
   cantidad: number
   total: number
+  /** Vehículos comprados (para mostrar en la pantalla de éxito). */
+  vehiculos: Vehicle[]
 }
+
+type Paso = "datos" | "pago" | "procesando" | "exito"
+
+const easeLux = [0.22, 1, 0.36, 1] as const
 
 export function CheckoutModal({
   abierto,
   onClose,
   cantidad,
   total,
+  vehiculos,
 }: CheckoutModalProps) {
+  const [paso, setPaso] = useState<Paso>("datos")
+  const [numeroPedido, setNumeroPedido] = useState("")
+  const [datos, setDatos] = useState({
+    nombre: "",
+    email: "",
+    telefono: "",
+  })
+  const [pago, setPago] = useState({
+    tarjeta: "",
+    vencimiento: "",
+    cvv: "",
+    nombreTarjeta: "",
+  })
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   // Bloquea el scroll del body cuando el modal está abierto.
   useEffect(() => {
     if (abierto) {
@@ -36,71 +74,510 @@ export function CheckoutModal({
     }
   }, [abierto])
 
+  // Reset al paso inicial cuando se cierra
+  useEffect(() => {
+    if (!abierto) {
+      const t = setTimeout(() => {
+        setPaso("datos")
+        setDatos({ nombre: "", email: "", telefono: "" })
+        setPago({ tarjeta: "", vencimiento: "", cvv: "", nombreTarjeta: "" })
+      }, 300)
+      return () => clearTimeout(t)
+    }
+  }, [abierto])
+
+  // Limpieza del timer de procesamiento
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current)
+    }
+  }, [])
+
+  const handlePagar = () => {
+    setPaso("procesando")
+    // Genera un número de pedido simulado
+    const num = "DM-" + Date.now().toString(36).toUpperCase().slice(-8)
+    setNumeroPedido(num)
+    // Simula el procesamiento del pago
+    timerRef.current = setTimeout(() => {
+      setPaso("exito")
+    }, 2800)
+  }
+
+  const datosValidos =
+    datos.nombre.trim().length > 2 &&
+    /\S+@\S+\.\S+/.test(datos.email) &&
+    datos.telefono.trim().length >= 7
+
+  const pagoValido =
+    pago.tarjeta.replace(/\s/g, "").length >= 15 &&
+    pago.vencimiento.length >= 4 &&
+    pago.cvv.length >= 3 &&
+    pago.nombreTarjeta.trim().length > 2
+
+  // Formateadores para los inputs
+  const formatearTarjeta = (v: string) => {
+    const limpio = v.replace(/\D/g, "").slice(0, 16)
+    return limpio.replace(/(.{4})/g, "$1 ").trim()
+  }
+  const formatearVencimiento = (v: string) => {
+    const limpio = v.replace(/\D/g, "").slice(0, 4)
+    return limpio.length > 2 ? limpio.slice(0, 2) + "/" + limpio.slice(2) : limpio
+  }
+  const formatearCVV = (v: string) => v.replace(/\D/g, "").slice(0, 4)
+  const formatearTelefono = (v: string) =>
+    v.replace(/[^\d\s+-]/g, "").slice(0, 20)
+
   return (
     <Dialog open={abierto} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="overflow-hidden border-border/70 bg-card p-0 sm:max-w-md">
-        {/* Cabecera con animación de éxito */}
-        <div className="relative flex flex-col items-center px-6 pb-2 pt-10 text-center">
-          <div className="hero-glow pointer-events-none absolute inset-0" />
-          <motion.div
-            initial={{ scale: 0, rotate: -20 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.05 }}
-            className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[var(--success)]/15 text-[var(--success)]"
-          >
-            <CheckCircle2 className="h-9 w-9" strokeWidth={2} />
-          </motion.div>
-          <span className="relative mt-4 inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-secondary/60 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-            <Sparkles className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.2} />
-            Compra confirmada
-          </span>
-        </div>
+      <DialogContent
+        className="overflow-hidden border-border/70 bg-card p-0 sm:max-w-md"
+        // Evita que el diálogo se cierre al hacer clic fuera durante el flujo.
+        onPointerDownOutside={(e) => e.preventDefault()}
+        onInteractOutside={(e) => e.preventDefault()}
+        // Evita cerrar con Escape durante el procesamiento del pago.
+        onEscapeKeyDown={(e) => {
+          if (paso === "procesando") e.preventDefault()
+        }}
+      >
+        <AnimatePresence mode="wait">
+          {/* === PASO 1: DATOS DE CONTACTO === */}
+          {paso === "datos" && (
+            <motion.div
+              key="datos"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3, ease: easeLux }}
+            >
+              <DialogHeader className="px-6 pb-3 pt-6">
+                <DialogTitle className="text-xl font-semibold tracking-tight text-foreground">
+                  Finalizar compra
+                </DialogTitle>
+                <DialogDescription className="mt-1 text-sm text-muted-foreground">
+                  Datos de contacto para la tramitación del pedido.
+                </DialogDescription>
+              </DialogHeader>
 
-        <DialogHeader className="px-6 pb-2 pt-4 text-center">
-          <DialogTitle className="text-2xl font-semibold tracking-tight text-foreground">
-            ¡Felicidades por tu adquisición!
-          </DialogTitle>
-          <DialogDescription className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            {cantidad === 1
-              ? "Tu vehículo ha sido añadido a tu garaje privado."
-              : `Has adquirido ${cantidad} vehículos. Todos se han añadido a tu garaje privado.`}
-          </DialogDescription>
-        </DialogHeader>
+              {/* Indicador de pasos */}
+              <IndicadorPasos paso={1} />
 
-        {/* Resumen */}
-        <div className="mx-6 mt-4 rounded-xl border border-border/70 bg-secondary/40 p-4">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Vehículos adquiridos</span>
-            <span className="font-semibold text-foreground">{cantidad}</span>
-          </div>
-          <div className="mt-2 flex items-center justify-between border-t border-border/60 pt-2">
-            <span className="text-sm font-medium text-muted-foreground">
-              Total de la compra
-            </span>
-            <span className="text-lg font-semibold tracking-tight text-foreground">
-              {formatearPrecio(total)}
-            </span>
-          </div>
-        </div>
+              <div className="space-y-4 px-6 py-5">
+                <Campo
+                  icono={User}
+                  label="Nombre completo"
+                  placeholder="Juan Pérez"
+                  value={datos.nombre}
+                  onChange={(v) => setDatos((d) => ({ ...d, nombre: v }))}
+                />
+                <Campo
+                  icono={Mail}
+                  label="Correo electrónico"
+                  placeholder="juan@ejemplo.com"
+                  tipo="email"
+                  value={datos.email}
+                  onChange={(v) => setDatos((d) => ({ ...d, email: v }))}
+                />
+                <Campo
+                  icono={Phone}
+                  label="Teléfono"
+                  placeholder="+34 600 123 456"
+                  value={datos.telefono}
+                  onChange={(v) =>
+                    setDatos((d) => ({ ...d, telefono: formatearTelefono(v) }))
+                  }
+                />
+              </div>
 
-        {/* Acciones */}
-        <div className="flex flex-col gap-2.5 px-6 pb-6 pt-5">
-          <Link
-            href="/garaje"
-            onClick={onClose}
-            className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            Ver mi garaje
-            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-          </Link>
-          <button
-            onClick={onClose}
-            className="w-full rounded-xl border border-border bg-card px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
-          >
-            Seguir explorando
-          </button>
-        </div>
+              {/* Resumen */}
+              <ResumenCompra cantidad={cantidad} total={total} />
+
+              {/* Acciones */}
+              <div className="flex gap-3 px-6 pb-6 pt-4">
+                <button type="button"
+                  onClick={onClose}
+                  className="rounded-xl border border-border bg-card px-5 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+                >
+                  Cancelar
+                </button>
+                <button type="button"
+                  onClick={() => setPaso("pago")}
+                  disabled={!datosValidos}
+                  className="group flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Continuar al pago
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* === PASO 2: PAGO === */}
+          {paso === "pago" && (
+            <motion.div
+              key="pago"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3, ease: easeLux }}
+            >
+              <DialogHeader className="px-6 pb-3 pt-6">
+                <DialogTitle className="text-xl font-semibold tracking-tight text-foreground">
+                  Datos de pago
+                </DialogTitle>
+                <DialogDescription className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <Lock className="h-3.5 w-3.5" strokeWidth={2} />
+                  Pago simulado · No se realiza ningún cargo real
+                </DialogDescription>
+              </DialogHeader>
+
+              <IndicadorPasos paso={2} />
+
+              <div className="space-y-4 px-6 py-5">
+                {/* Tarjeta visual */}
+                <div className="relative overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-secondary to-accent/40 p-5">
+                  <div className="flex items-start justify-between">
+                    <div className="h-8 w-11 rounded-md bg-primary/80" />
+                    <CreditCard className="h-6 w-6 text-muted-foreground" strokeWidth={1.5} />
+                  </div>
+                  <p className="mt-5 font-mono text-base tracking-wider text-foreground">
+                    {pago.tarjeta || "•••• •••• •••• ••••"}
+                  </p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <p className="text-xs font-medium text-muted-foreground">
+                      {pago.nombreTarjeta || "NOMBRE DEL TITULAR"}
+                    </p>
+                    <p className="text-xs font-medium text-muted-foreground">
+                      {pago.vencimiento || "MM/AA"}
+                    </p>
+                  </div>
+                </div>
+
+                <Campo
+                  icono={CreditCard}
+                  label="Número de tarjeta"
+                  placeholder="4242 4242 4242 4242"
+                  value={pago.tarjeta}
+                  onChange={(v) =>
+                    setPago((p) => ({ ...p, tarjeta: formatearTarjeta(v) }))
+                  }
+                />
+                <div className="grid grid-cols-2 gap-3">
+                  <Campo
+                    icono={Calendar}
+                    label="Vencimiento"
+                    placeholder="MM/AA"
+                    value={pago.vencimiento}
+                    onChange={(v) =>
+                      setPago((p) => ({
+                        ...p,
+                        vencimiento: formatearVencimiento(v),
+                      }))
+                    }
+                  />
+                  <Campo
+                    icono={Lock}
+                    label="CVV"
+                    placeholder="123"
+                    value={pago.cvv}
+                    onChange={(v) => setPago((p) => ({ ...p, cvv: formatearCVV(v) }))}
+                  />
+                </div>
+                <Campo
+                  icono={User}
+                  label="Titular de la tarjeta"
+                  placeholder="Juan Pérez"
+                  value={pago.nombreTarjeta}
+                  onChange={(v) =>
+                    setPago((p) => ({ ...p, nombreTarjeta: v }))
+                  }
+                />
+              </div>
+
+              <ResumenCompra cantidad={cantidad} total={total} />
+
+              {/* Acciones */}
+              <div className="flex gap-3 px-6 pb-6 pt-4">
+                <button type="button"
+                  onClick={() => setPaso("datos")}
+                  className="flex items-center gap-1.5 rounded-xl border border-border bg-card px-5 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Atrás
+                </button>
+                <button type="button"
+                  onClick={handlePagar}
+                  disabled={!pagoValido}
+                  className="group flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  <Lock className="h-4 w-4" strokeWidth={2.2} />
+                  Pagar {formatearPrecio(total)}
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* === PASO 3: PROCESANDO === */}
+          {paso === "procesando" && (
+            <motion.div
+              key="procesando"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col items-center justify-center px-6 py-20 text-center"
+            >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              >
+                <Loader2 className="h-12 w-12 text-[var(--signature)]" strokeWidth={1.5} />
+              </motion.div>
+              <p className="mt-6 text-lg font-semibold tracking-tight text-foreground">
+                Procesando pago…
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Estamos verificando tu transacción de forma segura.
+              </p>
+              <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
+                <ShieldCheck className="h-3.5 w-3.5 text-[var(--success)]" strokeWidth={2} />
+                Conexión cifrada de 256 bits
+              </div>
+            </motion.div>
+          )}
+
+          {/* === PASO 4: ÉXITO PREMIUM === */}
+          {paso === "exito" && (
+            <motion.div
+              key="exito"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: easeLux }}
+            >
+              {/* Imagen grande del vehículo comprado */}
+              {vehiculos.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, ease: easeLux }}
+                  className="relative aspect-[16/9] w-full overflow-hidden"
+                >
+                  <SmartImage
+                    src={vehiculos[0].imagenes[0]}
+                    alt={`${vehiculos[0].marca} ${vehiculos[0].modelo}`}
+                    containerClassName="h-full w-full"
+                    priority
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                  {/* Badge de confirmación flotante */}
+                  <motion.div
+                    initial={{ scale: 0, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.3 }}
+                    className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--success)] text-primary-foreground shadow-lg"
+                  >
+                    <CheckCircle2 className="h-7 w-7" strokeWidth={2} />
+                  </motion.div>
+                  {/* Nombre del vehículo sobre la imagen */}
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <p className="text-eyebrow text-[10px] text-[var(--signature)]">
+                      {vehiculos[0].marca}
+                    </p>
+                    <p className="mt-1 text-xl font-semibold tracking-tight text-foreground">
+                      {vehiculos[0].modelo}
+                    </p>
+                    {vehiculos.length > 1 && (
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        +{vehiculos.length - 1} vehículo(s) más
+                      </p>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Mensaje de felicitación personalizado */}
+              <div className="px-6 pt-6 text-center">
+                <span className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-secondary/60 px-3 py-1 text-[11px] font-medium tracking-wide text-muted-foreground">
+                  <Sparkles className="h-3 w-3 text-[var(--signature)]" strokeWidth={2.2} />
+                  Pago confirmado
+                </span>
+                <h2 className="text-display mt-4 text-2xl text-foreground sm:text-3xl">
+                  ¡Felicidades!
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {vehiculos.length === 1
+                    ? `Tu ${vehiculos[0].marca} ${vehiculos[0].modelo} te está esperando en tu garaje privado.`
+                    : `Tus ${vehiculos.length} vehículos te están esperando en tu garaje privado.`}
+                </p>
+              </div>
+
+              {/* Recibo del pedido */}
+              <div className="mx-6 mt-6 space-y-2.5 rounded-xl border border-border/70 bg-secondary/40 p-4">
+                <FilaRecibo etiqueta="Nº de pedido" valor={numeroPedido} mono />
+                <FilaRecibo etiqueta="Fecha de entrega" valor="Inmediata" />
+                <FilaRecibo etiqueta="Vehículos" valor={String(cantidad)} />
+                <FilaRecibo
+                  etiqueta="Método de pago"
+                  valor={`•••• ${pago.tarjeta.slice(-4) || "****"}`}
+                />
+                <div className="flex items-center justify-between border-t border-border/60 pt-2.5">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    Total pagado
+                  </span>
+                  <span className="text-lg font-semibold tracking-tight text-foreground">
+                    {formatearPrecio(total)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Mensaje de agradecimiento */}
+              <p className="mx-6 mt-4 text-center text-xs italic leading-relaxed text-muted-foreground">
+                Gracias por confiar en Digital Marketplace.
+              </p>
+
+              {/* Acciones diferenciadas */}
+              <div className="flex flex-col gap-2.5 px-6 pb-6 pt-5">
+                <Link
+                  href="/garaje"
+                  onClick={onClose}
+                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:gap-3 hover:opacity-90 active:scale-[0.99]"
+                >
+                  Ver en mi garaje
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  href="/marketplace"
+                  onClick={onClose}
+                  className="w-full rounded-xl border border-border bg-card px-6 py-3.5 text-center text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+                >
+                  Seguir explorando vehículos
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </DialogContent>
     </Dialog>
+  )
+}
+
+// --- Subcomponentes ---
+
+function IndicadorPasos({ paso }: { paso: 1 | 2 }) {
+  return (
+    <div className="flex items-center gap-2 px-6 py-2">
+      <PasoIndicador numero={1} activo={paso >= 1} etiqueta="Datos" />
+      <div className={cn("h-px flex-1", paso >= 2 ? "bg-[var(--signature)]" : "bg-border")} />
+      <PasoIndicador numero={2} activo={paso >= 2} etiqueta="Pago" />
+      <div className="h-px flex-1 bg-border" />
+      <PasoIndicador numero={3} activo={false} etiqueta="Confirmar" />
+    </div>
+  )
+}
+
+function PasoIndicador({
+  numero,
+  activo,
+  etiqueta,
+}: {
+  numero: number
+  activo: boolean
+  etiqueta: string
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <span
+        className={cn(
+          "flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-semibold transition-colors",
+          activo
+            ? "bg-primary text-primary-foreground"
+            : "bg-secondary text-muted-foreground"
+        )}
+      >
+        {numero}
+      </span>
+      <span
+        className={cn(
+          "text-[11px] font-medium transition-colors",
+          activo ? "text-foreground" : "text-muted-foreground"
+        )}
+      >
+        {etiqueta}
+      </span>
+    </div>
+  )
+}
+
+function Campo({
+  icono: Icono,
+  label,
+  placeholder,
+  value,
+  onChange,
+  tipo = "text",
+}: {
+  icono: typeof User
+  label: string
+  placeholder: string
+  value: string
+  onChange: (v: string) => void
+  tipo?: string
+}) {
+  return (
+    <div>
+      <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+        {label}
+      </label>
+      <div className="relative">
+        <Icono
+          className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+          strokeWidth={2}
+        />
+        <input
+          type={tipo}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          className="h-11 w-full rounded-xl border border-border bg-background pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-foreground/30 focus:ring-2 focus:ring-ring/30"
+        />
+      </div>
+    </div>
+  )
+}
+
+function ResumenCompra({ cantidad, total }: { cantidad: number; total: number }) {
+  return (
+    <div className="mx-6 mb-2 rounded-xl border border-border/60 bg-secondary/30 p-3">
+      <div className="flex items-center justify-between text-xs">
+        <span className="text-muted-foreground">{cantidad} vehículo(s)</span>
+        <span className="font-semibold text-foreground">{formatearPrecio(total)}</span>
+      </div>
+    </div>
+  )
+}
+
+function FilaRecibo({
+  etiqueta,
+  valor,
+  mono,
+}: {
+  etiqueta: string
+  valor: string
+  mono?: boolean
+}) {
+  return (
+    <div className="flex items-center justify-between text-sm">
+      <span className="text-muted-foreground">{etiqueta}</span>
+      <span
+        className={cn(
+          "font-semibold text-foreground",
+          mono && "font-mono text-xs"
+        )}
+      >
+        {valor}
+      </span>
+    </div>
   )
 }

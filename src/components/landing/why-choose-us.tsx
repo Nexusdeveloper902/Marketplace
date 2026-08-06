@@ -73,7 +73,7 @@ export function WhyChooseUs() {
                   delay: Math.min(i * 0.08, 0.4),
                   ease: easeLux,
                 }}
-                className="group rounded-2xl border border-border/50 bg-card/50 p-7 transition-all duration-500 hover:border-border hover:bg-card"
+                className="group rounded-2xl border border-border/50 bg-card/50 p-7 shadow-card transition-all duration-500 hover:border-border hover:bg-card hover:shadow-card-hover"
               >
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary text-foreground transition-all duration-500 group-hover:bg-primary group-hover:text-primary-foreground">
                   <Icono className="h-5 w-5" strokeWidth={1.8} />
