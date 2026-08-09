@@ -116,6 +116,12 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    /* Transición suave entre temas */
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+  /* Transición de superficies al cambiar tema */
+  .bg-card, .bg-secondary, .bg-accent, .bg-popover {
+    transition: background-color 0.4s ease;
   }
   /* Tipografía premium: letter-spacing negativo en títulos grandes */
   h1, h2, h3 {

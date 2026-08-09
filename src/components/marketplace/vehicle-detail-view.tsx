@@ -119,8 +119,8 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
       </Link>
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
-        {/* Columna izquierda: galería */}
-        <div className="flex flex-col gap-3">
+        {/* Columna izquierda: galería — sticky en desktop para evitar hueco */}
+        <div className="flex flex-col gap-3 lg:sticky lg:top-20 lg:self-start lg:h-fit">
           <motion.div
             key={imagenActiva}
             initial={{ opacity: 0.3, scale: 1.01 }}
@@ -179,6 +179,35 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
                 />
               </button>
             ))}
+          </div>
+
+          {/* Bloque de highlights para llenar la columna y enriquecer */}
+          <div className="mt-4 hidden rounded-2xl border border-border/50 bg-card p-5 lg:block">
+            <p className="text-eyebrow text-[10px] text-[var(--signature)]">
+              Destacados
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-4">
+              <Highlight
+                icono={Rocket}
+                etiqueta="Velocidad máxima"
+                valor={`${formatearNumero(vehiculo.velocidadMaxima)} km/h`}
+              />
+              <Highlight
+                icono={Timer}
+                etiqueta="0—100 km/h"
+                valor={`${vehiculo.aceleracion0a100}s`}
+              />
+              <Highlight
+                icono={Zap}
+                etiqueta="Potencia"
+                valor={`${formatearNumero(vehiculo.potencia)} HP`}
+              />
+              <Highlight
+                icono={Gauge}
+                etiqueta="Torque"
+                valor={`${formatearNumero(vehiculo.torque)} Nm`}
+              />
+            </div>
           </div>
         </div>
 
@@ -346,6 +375,30 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
 
       {/* Vehículos relacionados */}
       <RelatedVehicles vehiculoActual={vehiculo} />
+    </div>
+  )
+}
+
+function Highlight({
+  icono: Icono,
+  etiqueta,
+  valor,
+}: {
+  icono: typeof Gauge
+  etiqueta: string
+  valor: string
+}) {
+  return (
+    <div>
+      <div className="flex items-center gap-1.5 text-muted-foreground">
+        <Icono className="h-3.5 w-3.5" strokeWidth={2} />
+        <span className="text-[10px] font-medium uppercase tracking-wider">
+          {etiqueta}
+        </span>
+      </div>
+      <p className="mt-1.5 text-base font-semibold tracking-tight text-foreground">
+        {valor}
+      </p>
     </div>
   )
 }

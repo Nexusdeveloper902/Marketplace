@@ -14,7 +14,7 @@ export function BrandsSection() {
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5 }}
           className="text-eyebrow text-[11px] text-[var(--signature)]"
         >
@@ -23,7 +23,7 @@ export function BrandsSection() {
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, delay: 0.05, ease: easeLux }}
           className="text-display mt-5 text-4xl text-foreground sm:text-5xl lg:text-6xl"
         >
@@ -34,7 +34,7 @@ export function BrandsSection() {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground"
         >
@@ -49,10 +49,10 @@ export function BrandsSection() {
             key={marca}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{
               duration: 0.4,
-              delay: Math.min(i * 0.04, 0.4),
+              delay: Math.min(i * 0.03, 0.3),
               ease: easeLux,
             }}
             className="group flex aspect-[3/2] items-center justify-center rounded-2xl border border-border/50 bg-card/50 px-4 shadow-card transition-all duration-500 hover:border-border hover:bg-card hover:shadow-card-hover"

@@ -58,7 +58,7 @@ export function CinematicShowcase() {
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: easeLux }}
             className="text-eyebrow text-[11px] text-[var(--signature)]"
           >
@@ -68,7 +68,7 @@ export function CinematicShowcase() {
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.1, ease: easeLux }}
             className="text-display mt-5 text-4xl text-foreground sm:text-6xl lg:text-7xl"
           >
@@ -78,7 +78,7 @@ export function CinematicShowcase() {
           <motion.p
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.2, ease: easeLux }}
             className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg"
           >
@@ -90,7 +90,7 @@ export function CinematicShowcase() {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.3, ease: easeLux }}
             className="mt-10 flex items-center gap-8 sm:gap-10"
           >
@@ -113,7 +113,7 @@ export function CinematicShowcase() {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.4, ease: easeLux }}
             className="mt-10"
           >

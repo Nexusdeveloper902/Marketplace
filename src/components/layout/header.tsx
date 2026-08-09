@@ -14,9 +14,12 @@ import {
   GitCompareArrows,
   Building2,
   Menu,
+  Shield,
 } from "lucide-react"
 import { useTienda } from "@/store/use-store"
 import { useHydrated } from "@/hooks/use-hydrated"
+import { ThemeToggle } from "./theme-toggle"
+import { ThemeToggleMobile } from "./theme-toggle-mobile"
 import {
   Sheet,
   SheetContent,
@@ -123,8 +126,28 @@ export function Header() {
           })}
         </nav>
 
-        {/* Lado derecho: Carrito (siempre) + Menú hamburguesa (solo móvil) */}
+        {/* Lado derecho: Theme toggle + Admin + Carrito + Menú hamburguesa */}
         <div className="flex items-center gap-2">
+          {/* Theme toggle — oculto en móvil muy pequeño */}
+          <div className="hidden sm:block">
+            <ThemeToggle />
+          </div>
+
+          {/* Admin */}
+          <Link
+            href="/admin/login"
+            className={cn(
+              "hidden h-10 shrink-0 items-center justify-center rounded-lg border border-border/70 px-3 text-sm font-medium transition-all duration-300 hover:text-foreground sm:flex",
+              estaActivo("/admin")
+                ? "border-border bg-secondary text-foreground"
+                : "text-muted-foreground"
+            )}
+            aria-label="Panel administrativo"
+          >
+            <Shield className="h-4 w-4" strokeWidth={2} />
+            <span className="ml-2 hidden lg:inline">Admin</span>
+          </Link>
+
           {/* Carrito (destacado a la derecha) */}
           <Link
             href="/carrito"
@@ -225,6 +248,30 @@ export function Header() {
                     )}
                   </Link>
                 </SheetClose>
+
+                {/* Admin en el menú móvil */}
+                <SheetClose asChild>
+                  <Link
+                    href="/admin/login"
+                    className={cn(
+                      "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                      estaActivo("/admin")
+                        ? "bg-secondary text-foreground"
+                        : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                    )}
+                  >
+                    <Shield className="h-5 w-5" strokeWidth={2} />
+                    <span className="flex-1">Admin</span>
+                  </Link>
+                </SheetClose>
+
+                {/* Theme toggle en el menú móvil */}
+                <div className="mt-2 border-t border-border/60 px-4 pt-4">
+                  <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                    Tema visual
+                  </p>
+                  <ThemeToggleMobile />
+                </div>
               </nav>
             </SheetContent>
           </Sheet>

@@ -40,7 +40,7 @@ export function WhyChooseUs() {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5 }}
             className="text-eyebrow text-[11px] text-[var(--signature)]"
           >
@@ -49,7 +49,7 @@ export function WhyChooseUs() {
           <motion.h2
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7, delay: 0.05, ease: easeLux }}
             className="text-display mt-5 text-4xl text-foreground sm:text-5xl lg:text-6xl"
           >
@@ -67,7 +67,7 @@ export function WhyChooseUs() {
                 key={ventaja.titulo}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{
                   duration: 0.6,
                   delay: Math.min(i * 0.08, 0.4),

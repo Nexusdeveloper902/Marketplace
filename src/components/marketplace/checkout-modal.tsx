@@ -16,6 +16,7 @@ import {
   Loader2,
   ShieldCheck,
   Calendar,
+  AlertCircle,
 } from "lucide-react"
 import {
   Dialog,
@@ -110,10 +111,30 @@ export function CheckoutModal({
     datos.telefono.trim().length >= 7
 
   const pagoValido =
-    pago.tarjeta.replace(/\s/g, "").length >= 15 &&
-    pago.vencimiento.length >= 4 &&
+    pago.tarjeta.replace(/\s/g, "").length === 16 &&
+    /^\d{2}\/\d{2}$/.test(pago.vencimiento) &&
     pago.cvv.length >= 3 &&
     pago.nombreTarjeta.trim().length > 2
+
+  // Validaciones individuales para mostrar errores en vivo
+  const errores = {
+    tarjeta: pago.tarjeta.length > 0 && pago.tarjeta.replace(/\s/g, "").length !== 16,
+    vencimiento:
+      pago.vencimiento.length > 0 &&
+      (!/^\d{2}\/\d{2}$/.test(pago.vencimiento) ||
+        Number(pago.vencimiento.slice(0, 2)) > 12 ||
+        Number(pago.vencimiento.slice(0, 2)) < 1),
+    cvv: pago.cvv.length > 0 && pago.cvv.length < 3,
+    nombreTarjeta:
+      pago.nombreTarjeta.trim().length > 0 && pago.nombreTarjeta.trim().length < 3,
+  }
+
+  // Validación de datos personales
+  const erroresDatos = {
+    nombre: datos.nombre.length > 0 && datos.nombre.trim().length < 3,
+    email: datos.email.length > 0 && !/\S+@\S+\.\S+/.test(datos.email),
+    telefono: datos.telefono.length > 0 && datos.telefono.trim().length < 7,
+  }
 
   // Formateadores para los inputs
   const formatearTarjeta = (v: string) => {
@@ -169,6 +190,8 @@ export function CheckoutModal({
                   placeholder="Juan Pérez"
                   value={datos.nombre}
                   onChange={(v) => setDatos((d) => ({ ...d, nombre: v }))}
+                  error={erroresDatos.nombre}
+                  mensajeError="El nombre debe tener al menos 3 caracteres"
                 />
                 <Campo
                   icono={Mail}
@@ -177,6 +200,8 @@ export function CheckoutModal({
                   tipo="email"
                   value={datos.email}
                   onChange={(v) => setDatos((d) => ({ ...d, email: v }))}
+                  error={erroresDatos.email}
+                  mensajeError="Correo electrónico inválido"
                 />
                 <Campo
                   icono={Phone}
@@ -186,6 +211,8 @@ export function CheckoutModal({
                   onChange={(v) =>
                     setDatos((d) => ({ ...d, telefono: formatearTelefono(v) }))
                   }
+                  error={erroresDatos.telefono}
+                  mensajeError="Número de teléfono inválido"
                 />
               </div>
 
@@ -261,6 +288,8 @@ export function CheckoutModal({
                   onChange={(v) =>
                     setPago((p) => ({ ...p, tarjeta: formatearTarjeta(v) }))
                   }
+                  error={errores.tarjeta}
+                  mensajeError="La tarjeta debe tener 16 dígitos"
                 />
                 <div className="grid grid-cols-2 gap-3">
                   <Campo
@@ -274,6 +303,8 @@ export function CheckoutModal({
                         vencimiento: formatearVencimiento(v),
                       }))
                     }
+                    error={errores.vencimiento}
+                    mensajeError="Formato inválido (MM/AA)"
                   />
                   <Campo
                     icono={Lock}
@@ -281,6 +312,8 @@ export function CheckoutModal({
                     placeholder="123"
                     value={pago.cvv}
                     onChange={(v) => setPago((p) => ({ ...p, cvv: formatearCVV(v) }))}
+                    error={errores.cvv}
+                    mensajeError="Mínimo 3 dígitos"
                   />
                 </div>
                 <Campo
@@ -291,6 +324,8 @@ export function CheckoutModal({
                   onChange={(v) =>
                     setPago((p) => ({ ...p, nombreTarjeta: v }))
                   }
+                  error={errores.nombreTarjeta}
+                  mensajeError="Nombre demasiado corto"
                 />
               </div>
 
@@ -517,6 +552,8 @@ function Campo({
   value,
   onChange,
   tipo = "text",
+  error,
+  mensajeError,
 }: {
   icono: typeof User
   label: string
@@ -524,6 +561,8 @@ function Campo({
   value: string
   onChange: (v: string) => void
   tipo?: string
+  error?: boolean
+  mensajeError?: string
 }) {
   return (
     <div>
@@ -532,7 +571,10 @@ function Campo({
       </label>
       <div className="relative">
         <Icono
-          className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+          className={cn(
+            "pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors",
+            error ? "text-[var(--destructive)]" : "text-muted-foreground"
+          )}
           strokeWidth={2}
         />
         <input
@@ -540,9 +582,24 @@ function Campo({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="h-11 w-full rounded-xl border border-border bg-background pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-foreground/30 focus:ring-2 focus:ring-ring/30"
+          className={cn(
+            "h-11 w-full rounded-xl border bg-background pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:ring-2",
+            error
+              ? "border-[var(--destructive)]/50 focus:border-[var(--destructive)] focus:ring-[var(--destructive)]/20"
+              : "border-border focus:border-foreground/30 focus:ring-ring/30"
+          )}
         />
       </div>
+      {error && mensajeError && (
+        <motion.p
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-1.5 flex items-center gap-1 text-[11px] text-[var(--destructive)]"
+        >
+          <AlertCircle className="h-3 w-3" strokeWidth={2.5} />
+          {mensajeError}
+        </motion.p>
+      )}
     </div>
   )
 }
