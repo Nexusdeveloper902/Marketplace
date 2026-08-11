@@ -144,6 +144,24 @@ Run them with:
 bun test
 ```
 
+## CI/CD
+
+A GitHub Actions workflow in [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
+runs on every pull request and push to `main`. It installs dependencies with a
+frozen lockfile, then runs lint, tests, and a production build. In-progress runs on
+the same branch are cancelled when a new commit is pushed.
+
+| Step    | Command              |
+| ------- | -------------------- |
+| Install | `bun install --frozen-lockfile` |
+| Lint    | `bun run lint`       |
+| Test    | `bun test`           |
+| Build   | `bun run build`      |
+
+The project is deployed to **Vercel**, which builds and deploys on its own
+integration (preview deployments per PR, production on merges to `main`). The
+GitHub Actions pipeline is a quality gate that runs before Vercel's deployment.
+
 ## Production deployment
 
 `bun run build` produces a standalone server in `.next/standalone`. Start it with:
