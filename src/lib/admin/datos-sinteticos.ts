@@ -128,6 +128,7 @@ export interface TopVehiculo {
 
 export interface Pedido {
   id: string
+  number: string
   cliente: string
   vehiculo: string
   marca: string
@@ -280,6 +281,7 @@ export function generarDatosDashboard(): DatosDashboard {
         const fechaPedido = new Date(año, mes, dia)
         pedidosRecientes.push({
           id: `DM-${fechaPedido.getTime().toString(36).toUpperCase().slice(-6)}-${p}`,
+          number: `DM-${fechaPedido.getTime().toString(36).toUpperCase().slice(-6)}-${p}`,
           cliente: nombresCliente[randInt(0, nombresCliente.length - 1)],
           vehiculo: `${marca.marca} ${modelo}`,
           marca: marca.marca,

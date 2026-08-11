@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -34,9 +34,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts"
-import { useAuth } from "@/store/use-auth"
-import { useHydrated } from "@/hooks/use-hydrated"
+import { useAuth } from "@/lib/auth/auth-context"
 import { generarDatosDashboard } from "@/lib/admin/datos-sinteticos"
+import type { DashboardData } from "@/lib/server/data/analytics"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
@@ -58,20 +58,51 @@ const CHART_COLORS = [
 
 export default function AdminDashboardPage() {
   const router = useRouter()
-  const hidratado = useHydrated()
-  const autenticado = useAuth((s) => s.autenticado)
-  const logout = useAuth((s) => s.logout)
+  const { isAuthenticated, isAdmin, logout } = useAuth()
+  const [datos, setDatos] = useState<DashboardData | null>(null)
+  const [cargando, setCargando] = useState(true)
 
-  // Proteger la ruta
+  // Proteger la ruta: requiere admin session.
   useEffect(() => {
-    if (hidratado && !autenticado) {
-      router.replace("/admin/login")
+    if (!isAuthenticated) return // still loading or not logged in
+    if (!isAdmin) {
+      router.replace("/")
     }
-  }, [hidratado, autenticado, router])
+  }, [isAuthenticated, isAdmin, router])
 
-  const datos = generarDatosDashboard()
+  // Cargar analíticas reales desde el backend (admin only).
+  useEffect(() => {
+    if (!isAdmin) return
+    let cancelled = false
+    void (async () => {
+      try {
+        const res = await fetch("/api/analytics", { cache: "no-store" })
+        if (!res.ok) {
+          // Not authorized → bounce to login.
+          router.replace("/admin/login")
+          return
+        }
+        const data = (await res.json()) as DashboardData
+        if (!cancelled) setDatos(data)
+      } catch {
+        if (!cancelled) setDatos(null)
+      } finally {
+        if (!cancelled) setCargando(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [isAdmin, router])
 
-  if (!hidratado || !autenticado) {
+  // Loading / auth gate.
+  if (cargando || !isAuthenticated || !isAdmin || !datos) {
+    // If we have no real data yet, fall back to the synthetic generator so the
+    // dashboard shell renders during load and for demos without seeded data.
+    const fallback = generarDatosDashboard()
+    if (!datos) {
+      return <DashboardShell datos={fallback} cargando={cargando} onLogout={async () => { await logout(); router.replace("/admin/login") }} />
+    }
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
         <motion.div
@@ -83,10 +114,24 @@ export default function AdminDashboardPage() {
     )
   }
 
-  const handleLogout = () => {
-    logout()
-    router.replace("/admin/login")
-  }
+  return (
+    <DashboardShell
+      datos={datos}
+      cargando={false}
+      onLogout={async () => { await logout(); router.replace("/admin/login") }}
+    />
+  )
+}
+
+function DashboardShell({
+  datos,
+  cargando,
+  onLogout,
+}: {
+  datos: DashboardData
+  cargando: boolean
+  onLogout: () => Promise<void>
+}) {
 
   // Preparar datos para gráficos
   const ultimos12Meses = datos.meses.slice(-12)
@@ -140,7 +185,7 @@ export default function AdminDashboardPage() {
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
             <button
-              onClick={handleLogout}
+              onClick={() => void onLogout()}
               className="flex items-center gap-2 rounded-lg border border-border/70 px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               <LogOut className="h-4 w-4" />

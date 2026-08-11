@@ -1,22 +1,23 @@
 "use client"
 
 import { useMemo } from "react"
-import { vehiculos } from "@/data/vehicles"
 import type { Vehicle } from "@/types/vehicle"
 import { VehicleCard } from "./vehicle-card"
 
 interface RelatedVehiclesProps {
   vehiculoActual: Vehicle
+  catalogo: Vehicle[]
   cantidad?: number
 }
 
 export function RelatedVehicles({
   vehiculoActual,
+  catalogo,
   cantidad = 3,
 }: RelatedVehiclesProps) {
   const relacionados = useMemo(() => {
     // Puntúa cada vehículo por similitud (marca, categoria, rango de precio)
-    return vehiculos
+    return catalogo
       .filter((v) => v.id !== vehiculoActual.id)
       .map((v) => {
         let puntaje = 0
@@ -32,7 +33,7 @@ export function RelatedVehicles({
       .sort((a, b) => b.puntaje - a.puntaje)
       .slice(0, cantidad)
       .map((r) => r.vehiculo)
-  }, [vehiculoActual, cantidad])
+  }, [catalogo, vehiculoActual, cantidad])
 
   if (relacionados.length === 0) return null
 

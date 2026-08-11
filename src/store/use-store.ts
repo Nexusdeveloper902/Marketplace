@@ -20,6 +20,7 @@ interface EstadoTienda {
   favoritos: string[]
   toggleFavorito: (id: string) => void
   esFavorito: (id: string) => boolean
+  setFavoritos: (ids: string[]) => void
 
   // --- Comparador (hasta 3 vehículos) ---
   comparar: string[]
@@ -75,6 +76,7 @@ export const useTienda = create<EstadoTienda>()(
         )
       },
       esFavorito: (id) => get().favoritos.includes(id),
+      setFavoritos: (ids) => set({ favoritos: Array.from(new Set(ids)) }),
 
       // --- Comparador ---
       comparar: [],
