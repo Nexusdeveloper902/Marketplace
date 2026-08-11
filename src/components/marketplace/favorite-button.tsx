@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { Heart } from "lucide-react"
 import { useTienda } from "@/store/use-store"
+import { useToggleFavorito } from "@/lib/auth/use-favorites-sync"
 import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
 
@@ -20,11 +21,11 @@ export function FavoriteButton({
   variant = "overlay",
 }: FavoriteButtonProps) {
   const esFavorito = useTienda((s) => s.esFavorito(vehiculoId))
-  const toggleFavorito = useTienda((s) => s.toggleFavorito)
+  const toggleFavorito = useToggleFavorito()
   const { toast } = useToast()
 
   const handleToggle = () => {
-    toggleFavorito(vehiculoId)
+    void toggleFavorito(vehiculoId)
     toast({
       title: esFavorito ? "Eliminado de favoritos" : "Añadido a favoritos",
       description: esFavorito

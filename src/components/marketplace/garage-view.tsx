@@ -1,26 +1,100 @@
 "use client"
 
-import Link from "next/link"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { CarFront } from "lucide-react"
+import { CarFront, Loader2, LogIn } from "lucide-react"
 import { vehiculos } from "@/data/vehicles"
-import { useTienda } from "@/store/use-store"
+import { useAuth } from "@/lib/auth/auth-context"
+import { formatearPrecio } from "@/lib/format"
 import { VehicleCard } from "./vehicle-card"
 import { EmptyState } from "./empty-state"
 
-export function GarageView() {
-  const garaje = useTienda((s) => s.garaje)
+interface OrderItemDTO {
+  vehicle: { id: string; marca: string; modelo: string }
+  priceAtPurchase: number
+}
+interface OrderDTO {
+  id: string
+  number: string
+  status: string
+  total: number
+  createdAt: string
+  items: OrderItemDTO[]
+}
 
-  const vehiculosGaraje = garaje
-    .map((id) => vehiculos.find((v) => v.id === id))
+function formatDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString("es-ES", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })
+  } catch {
+    return iso
+  }
+}
+
+interface Compra {
+  vehicleSlug: string
+  orderNumber: string
+  fecha: string
+  precio: number
+}
+
+export function GarageView() {
+  const { loading, isAuthenticated } = useAuth()
+  const [compras, setCompras] = useState<Compra[]>([])
+  const [cargando, setCargando] = useState(true)
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setCargando(false)
+      return
+    }
+    let cancelled = false
+    void (async () => {
+      try {
+        const res = await fetch("/api/orders", { cache: "no-store" })
+        if (!res.ok) return
+        const data = await res.json()
+        if (cancelled) return
+        const completed = (data.orders as OrderDTO[]).filter(
+          (o) => o.status === "COMPLETED"
+        )
+        // Derive purchased vehicles from completed orders. Later purchases
+        // override earlier references for the same vehicle.
+        const map = new Map<string, Compra>()
+        for (const o of completed) {
+          for (const it of o.items) {
+            map.set(it.vehicle.id, {
+              vehicleSlug: it.vehicle.id,
+              orderNumber: o.number,
+              fecha: o.createdAt,
+              precio: it.priceAtPurchase,
+            })
+          }
+        }
+        if (!cancelled) setCompras(Array.from(map.values()))
+      } catch {
+        // ignore
+      } finally {
+        if (!cancelled) setCargando(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [isAuthenticated])
+
+  const vehiculosGaraje = compras
+    .map((c) => {
+      const v = vehiculos.find((x) => x.id === c.vehicleSlug)
+      return v ? { vehiculo: v, compra: c } : null
+    })
     .filter((v): v is NonNullable<typeof v> => Boolean(v))
 
-  const valorTotal = vehiculosGaraje.reduce((sum, v) => sum + v.precio, 0)
-  const valorFormateado = new Intl.NumberFormat("es-ES", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(valorTotal)
+  const valorTotal = vehiculosGaraje.reduce((sum, v) => sum + v.compra.precio, 0)
+  const valorFormateado = formatearPrecio(valorTotal)
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -66,17 +140,41 @@ export function GarageView() {
       </motion.section>
 
       {/* Contenido */}
-      {vehiculosGaraje.length > 0 ? (
+      {cargando ? (
+        <div className="flex justify-center py-20">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        </div>
+      ) : !isAuthenticated ? (
+        <EmptyState
+          icon={LogIn}
+          titulo="Inicia sesión para ver tu garaje"
+          descripcion="Tu garaje privado muestra los vehículos que has adquirido. Inicia sesión para acceder a tu colección."
+          ctaLabel="Iniciar sesión"
+          ctaHref="/login?redirect=/garaje"
+        />
+      ) : vehiculosGaraje.length > 0 ? (
         <section className="mt-8 pb-4">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-6">
-            {vehiculosGaraje.map((vehiculo, i) => (
-              <VehicleCard
-                key={vehiculo.id}
-                vehiculo={vehiculo}
-                index={i}
-                etiquetaBoton="Inspeccionar"
-                variante="garaje"
-              />
+            {vehiculosGaraje.map(({ vehiculo, compra }, i) => (
+              <div key={vehiculo.id} className="relative">
+                <VehicleCard
+                  vehiculo={vehiculo}
+                  index={i}
+                  etiquetaBoton="Inspeccionar"
+                  variante="garaje"
+                />
+                <div className="mt-2 rounded-xl border border-border/40 bg-card/60 p-3 text-xs">
+                  <p className="font-mono text-[10px] text-muted-foreground">
+                    {compra.orderNumber}
+                  </p>
+                  <p className="mt-0.5 text-muted-foreground">
+                    Comprado el {formatDate(compra.fecha)}
+                  </p>
+                  <p className="mt-0.5 font-medium text-foreground">
+                    {formatearPrecio(compra.precio)}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </section>

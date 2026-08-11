@@ -3,8 +3,7 @@
 import { useMemo, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, SlidersHorizontal, X, ChevronDown } from "lucide-react"
-import { vehiculos, marcas } from "@/data/vehicles"
-import { CATEGORIAS, COMBUSTIBLES, TRACCIONES } from "@/types/vehicle"
+import { CATEGORIAS, COMBUSTIBLES, TRACCIONES, type Vehicle } from "@/types/vehicle"
 import { useTienda } from "@/store/use-store"
 import { VehicleCard } from "./vehicle-card"
 import { cn } from "@/lib/utils"
@@ -48,7 +47,13 @@ const filtrosIniciales: Filtros = {
   potenciaMin: 0,
 }
 
-export function MarketplaceView() {
+export function MarketplaceView({
+  vehiculos,
+  marcas,
+}: {
+  vehiculos: Vehicle[]
+  marcas: string[]
+}) {
   const [busqueda, setBusqueda] = useState("")
   const [filtros, setFiltros] = useState<Filtros>(filtrosIniciales)
   const [ordenamiento, setOrdenamiento] = useState("relevancia")
@@ -113,7 +118,7 @@ export function MarketplaceView() {
         break
     }
     return resultado
-  }, [busqueda, filtros, ordenamiento, ordenamientoPersistente])
+  }, [vehiculos, busqueda, filtros, ordenamiento, ordenamientoPersistente])
 
   const limpiarFiltros = () => {
     setBusqueda("")

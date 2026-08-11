@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Gauge,
@@ -15,8 +15,13 @@ import {
   Building2,
   Menu,
   Shield,
+  User as UserIcon,
+  LogOut,
+  Receipt,
 } from "lucide-react"
 import { useTienda } from "@/store/use-store"
+import { useAuth } from "@/lib/auth/auth-context"
+import { useFavoritesSync } from "@/lib/auth/use-favorites-sync"
 import { useHydrated } from "@/hooks/use-hydrated"
 import { ThemeToggle } from "./theme-toggle"
 import { ThemeToggleMobile } from "./theme-toggle-mobile"
@@ -28,6 +33,13 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
 
 // Todos los items de navegación (móvil y desktop comparten la misma lista).
@@ -42,12 +54,16 @@ const navItems = [
 
 export function Header() {
   const pathname = usePathname()
+  const router = useRouter()
   const cantFavoritos = useTienda((s) => s.favoritos.length)
   const cantComparar = useTienda((s) => s.comparar.length)
   const cantGaraje = useTienda((s) => s.garaje.length)
   const cantCarrito = useTienda((s) => s.carrito.length)
   const [menuAbierto, setMenuAbierto] = useState(false)
   const hidratado = useHydrated()
+  const { user, isAuthenticated, logout } = useAuth()
+  // Hydrate favorites from the DB when authenticated (DB is source of truth).
+  useFavoritesSync()
 
   const cantidades: Record<string, number> = {
     favoritos: cantFavoritos,
@@ -135,7 +151,7 @@ export function Header() {
 
           {/* Admin */}
           <Link
-            href="/admin/login"
+            href={user?.role === "ADMIN" ? "/admin" : "/admin/login"}
             className={cn(
               "hidden h-10 shrink-0 items-center justify-center rounded-lg border border-border/70 px-3 text-sm font-medium transition-all duration-300 hover:text-foreground sm:flex",
               estaActivo("/admin")
@@ -147,6 +163,72 @@ export function Header() {
             <Shield className="h-4 w-4" strokeWidth={2} />
             <span className="ml-2 hidden lg:inline">Admin</span>
           </Link>
+
+          {/* Cuenta / Autenticación */}
+          {hidratado && isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className="flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg border border-border/70 px-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:text-foreground sm:px-3"
+                  aria-label="Menú de cuenta"
+                >
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-[11px] font-bold uppercase text-primary-foreground">
+                    {(user?.name ?? user?.email ?? "?").charAt(0)}
+                  </span>
+                  <span className="hidden max-w-[90px] truncate lg:inline">
+                    {user?.name ?? "Cuenta"}
+                  </span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-52">
+                <div className="px-2 py-1.5">
+                  <p className="text-sm font-medium text-foreground truncate">
+                    {user?.name ?? "Cuenta"}
+                  </p>
+                  <p className="truncate text-xs text-muted-foreground">{user?.email}</p>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/perfil" className="flex items-center gap-2">
+                    <UserIcon className="h-4 w-4" /> Mi perfil
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/pedidos" className="flex items-center gap-2">
+                    <Receipt className="h-4 w-4" /> Mis pedidos
+                  </Link>
+                </DropdownMenuItem>
+                {user?.role === "ADMIN" && (
+                  <DropdownMenuItem asChild>
+                    <Link href="/admin" className="flex items-center gap-2">
+                      <Shield className="h-4 w-4" /> Panel admin
+                    </Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => void logout().then(() => router.refresh())}
+                  className="flex items-center gap-2 text-[var(--destructive)] focus:text-[var(--destructive)]"
+                >
+                  <LogOut className="h-4 w-4" /> Cerrar sesión
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link
+              href="/login"
+              className={cn(
+                "hidden h-10 shrink-0 items-center justify-center gap-2 rounded-lg border border-border/70 px-3 text-sm font-medium transition-all duration-300 hover:text-foreground sm:flex",
+                estaActivo("/login")
+                  ? "border-border bg-secondary text-foreground"
+                  : "text-muted-foreground"
+              )}
+              aria-label="Iniciar sesión"
+            >
+              <UserIcon className="h-4 w-4" strokeWidth={2} />
+              <span className="hidden lg:inline">Entrar</span>
+            </Link>
+          )}
 
           {/* Carrito (destacado a la derecha) */}
           <Link
@@ -264,6 +346,64 @@ export function Header() {
                     <span className="flex-1">Admin</span>
                   </Link>
                 </SheetClose>
+
+                {/* Cuenta / Pedidos en el menú móvil */}
+                {isAuthenticated ? (
+                  <>
+                    <SheetClose asChild>
+                      <Link
+                        href="/perfil"
+                        className={cn(
+                          "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                          estaActivo("/perfil")
+                            ? "bg-secondary text-foreground"
+                            : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                        )}
+                      >
+                        <UserIcon className="h-5 w-5" strokeWidth={2} />
+                        <span className="flex-1">Mi perfil</span>
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link
+                        href="/pedidos"
+                        className={cn(
+                          "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                          estaActivo("/pedidos")
+                            ? "bg-secondary text-foreground"
+                            : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                        )}
+                      >
+                        <Receipt className="h-5 w-5" strokeWidth={2} />
+                        <span className="flex-1">Mis pedidos</span>
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <button
+                        onClick={() => void logout().then(() => { setMenuAbierto(false); router.refresh() })}
+                        className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-[var(--destructive)] transition-colors hover:bg-[var(--destructive)]/10"
+                      >
+                        <LogOut className="h-5 w-5" strokeWidth={2} />
+                        <span className="flex-1">Cerrar sesión</span>
+                      </button>
+                    </SheetClose>
+                  </>
+                ) : (
+                  <SheetClose asChild>
+                    <Link
+                      href="/login"
+                      className={cn(
+                        "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                        estaActivo("/login")
+                          ? "bg-secondary text-foreground"
+                          : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                      )}
+                    >
+                      <UserIcon className="h-5 w-5" strokeWidth={2} />
+                      <span className="flex-1">Iniciar sesión</span>
+                    </Link>
+                  </SheetClose>
+                )}
 
                 {/* Theme toggle en el menú móvil */}
                 <div className="mt-2 border-t border-border/60 px-4 pt-4">

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -28,6 +28,9 @@ import {
 import { formatearPrecio } from "@/lib/format"
 import type { Vehicle } from "@/types/vehicle"
 import { SmartImage } from "@/components/ui/smart-image"
+import { useAuth } from "@/lib/auth/auth-context"
+import { useTienda } from "@/store/use-store"
+import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 
 interface CheckoutModalProps {
@@ -37,9 +40,11 @@ interface CheckoutModalProps {
   total: number
   /** Vehículos comprados (para mostrar en la pantalla de éxito). */
   vehiculos: Vehicle[]
+  /** Vehicle slugs in the cart (sent to the server to create the order). */
+  itemSlugs: string[]
 }
 
-type Paso = "datos" | "pago" | "procesando" | "exito"
+type Paso = "datos" | "pago" | "procesando" | "exito" | "error"
 
 const easeLux = [0.22, 1, 0.36, 1] as const
 
@@ -49,9 +54,14 @@ export function CheckoutModal({
   cantidad,
   total,
   vehiculos,
+  itemSlugs,
 }: CheckoutModalProps) {
+  const router = useRouter()
+  const { isAuthenticated } = useAuth()
+  const vaciarCarrito = useTienda((s) => s.vaciarCarrito)
   const [paso, setPaso] = useState<Paso>("datos")
   const [numeroPedido, setNumeroPedido] = useState("")
+  const [mensajeError, setMensajeError] = useState("")
   const [datos, setDatos] = useState({
     nombre: "",
     email: "",
@@ -63,7 +73,6 @@ export function CheckoutModal({
     cvv: "",
     nombreTarjeta: "",
   })
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Bloquea el scroll del body cuando el modal está abierto.
   useEffect(() => {
@@ -80,6 +89,7 @@ export function CheckoutModal({
     if (!abierto) {
       const t = setTimeout(() => {
         setPaso("datos")
+        setMensajeError("")
         setDatos({ nombre: "", email: "", telefono: "" })
         setPago({ tarjeta: "", vencimiento: "", cvv: "", nombreTarjeta: "" })
       }, 300)
@@ -87,22 +97,37 @@ export function CheckoutModal({
     }
   }, [abierto])
 
-  // Limpieza del timer de procesamiento
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current)
+  const handlePagar = async () => {
+    // Require an authenticated session; the server never trusts client identity.
+    if (!isAuthenticated) {
+      onClose()
+      router.replace("/login?redirect=/carrito")
+      return
     }
-  }, [])
-
-  const handlePagar = () => {
     setPaso("procesando")
-    // Genera un número de pedido simulado
-    const num = "DM-" + Date.now().toString(36).toUpperCase().slice(-8)
-    setNumeroPedido(num)
-    // Simula el procesamiento del pago
-    timerRef.current = setTimeout(() => {
+    setMensajeError("")
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: itemSlugs.map((slug) => ({ vehicleSlug: slug, quantity: 1 })),
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setMensajeError(data.error ?? "No se pudo completar la compra.")
+        setPaso("error")
+        return
+      }
+      // Real order created server-side (stock decremented transactionally).
+      setNumeroPedido(data.orderNumber ?? "—")
+      vaciarCarrito()
       setPaso("exito")
-    }, 2800)
+    } catch {
+      setMensajeError("Error de conexión. Inténtalo de nuevo.")
+      setPaso("error")
+    }
   }
 
   const datosValidos =
@@ -489,6 +514,44 @@ export function CheckoutModal({
                 >
                   Seguir explorando vehículos
                 </Link>
+              </div>
+            </motion.div>
+          )}
+
+          {/* === PASO ERROR === */}
+          {paso === "error" && (
+            <motion.div
+              key="error"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col items-center justify-center px-6 py-16 text-center"
+            >
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--destructive)]/15 text-[var(--destructive)]">
+                <AlertCircle className="h-7 w-7" strokeWidth={2} />
+              </div>
+              <p className="mt-6 text-lg font-semibold tracking-tight text-foreground">
+                No se pudo completar la compra
+              </p>
+              <p className="mt-2 max-w-xs text-sm text-muted-foreground">
+                {mensajeError || "Ocurrió un error inesperado. Inténtalo de nuevo."}
+              </p>
+              <div className="mt-6 flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setPaso("pago")}
+                  className="rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+                >
+                  Reintentar
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                >
+                  Cerrar
+                </button>
               </div>
             </motion.div>
           )}

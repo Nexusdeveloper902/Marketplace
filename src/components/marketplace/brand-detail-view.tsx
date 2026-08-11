@@ -3,15 +3,15 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { vehiculos, marcas } from "@/data/vehicles"
 import { VehicleCard } from "./vehicle-card"
+import type { Vehicle } from "@/types/vehicle"
 
 interface BrandDetailViewProps {
   marca: string
+  vehiculos: Vehicle[]
 }
 
-export function BrandDetailView({ marca }: BrandDetailViewProps) {
-  const vehiculosMarca = vehiculos.filter((v) => v.marca === marca)
+export function BrandDetailView({ marca, vehiculos: vehiculosMarca }: BrandDetailViewProps) {
 
   if (vehiculosMarca.length === 0) {
     return (

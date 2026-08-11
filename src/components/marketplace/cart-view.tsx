@@ -15,10 +15,9 @@ import { SmartImage } from "@/components/ui/smart-image"
 export function CartView() {
   const carrito = useTienda((s) => s.carrito)
   const quitarDelCarrito = useTienda((s) => s.quitarDelCarrito)
-  const finalizarCompra = useTienda((s) => s.finalizarCompra)
   const { toast } = useToast()
   const [modalAbierto, setModalAbierto] = useState(false)
-  const [resumen, setResumen] = useState({ cantidad: 0, total: 0, vehiculos: [] as typeof items })
+  const [resumen, setResumen] = useState({ cantidad: 0, total: 0, vehiculos: [] as typeof items, slugs: [] as string[] })
 
   const items = carrito
     .map((id) => vehiculos.find((v) => v.id === id))
@@ -35,8 +34,7 @@ export function CartView() {
   }
 
   const handleFinalizar = () => {
-    setResumen({ cantidad: items.length, total, vehiculos: items })
-    finalizarCompra()
+    setResumen({ cantidad: items.length, total, vehiculos: items, slugs: items.map((v) => v.id) })
     setModalAbierto(true)
   }
 
@@ -274,6 +272,7 @@ export function CartView() {
         cantidad={resumen.cantidad}
         total={resumen.total}
         vehiculos={resumen.vehiculos}
+        itemSlugs={resumen.slugs}
       />
     </div>
   )

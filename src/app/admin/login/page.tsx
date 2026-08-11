@@ -4,49 +4,45 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Gauge, Lock, User, ArrowRight, ArrowLeft, AlertCircle, Eye, EyeOff } from "lucide-react"
-import { useAuth } from "@/store/use-auth"
+import { Gauge, Lock, Mail, ArrowRight, ArrowLeft, AlertCircle, Eye, EyeOff, Loader2 } from "lucide-react"
+import { useAuth } from "@/lib/auth/auth-context"
 import { useHydrated } from "@/hooks/use-hydrated"
 import { vehiculos } from "@/data/vehicles"
 import { SmartImage } from "@/components/ui/smart-image"
-import { cn } from "@/lib/utils"
 
 const easeLux = [0.22, 1, 0.36, 1] as const
 
 export default function AdminLoginPage() {
   const router = useRouter()
   const hidratado = useHydrated()
-  const autenticado = useAuth((s) => s.autenticado)
-  const login = useAuth((s) => s.login)
+  const { user, login, isAuthenticated } = useAuth()
 
-  const [usuario, setUsuario] = useState("")
-  const [contraseña, setContraseña] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [mostrarContraseña, setMostrarContraseña] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [cargando, setCargando] = useState(false)
 
-  // Si ya está autenticado, redirigir al dashboard
+  // Si ya hay sesión de admin, redirigir al dashboard.
   useEffect(() => {
-    if (hidratado && autenticado) {
+    if (hidratado && isAuthenticated && user?.role === "ADMIN") {
       router.replace("/admin")
     }
-  }, [hidratado, autenticado, router])
+  }, [hidratado, isAuthenticated, user, router])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setCargando(true)
-    setError(false)
-
-    // Simular pequeña latencia para realismo
-    setTimeout(() => {
-      const ok = login(usuario, contraseña)
-      if (ok) {
-        router.replace("/admin")
-      } else {
-        setError(true)
-        setCargando(false)
-      }
-    }, 600)
+    setError(null)
+    const result = await login(email, password)
+    if (!result.ok) {
+      setError(result.error ?? "Credenciales incorrectas")
+      setCargando(false)
+      return
+    }
+    // Reload to pick up the server-side session + role for the admin route.
+    router.replace("/admin")
+    router.refresh()
   }
 
   // Imagen para el lado izquierdo
@@ -122,20 +118,21 @@ export default function AdminLoginPage() {
 
           {/* Formulario */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Usuario */}
+            {/* Email */}
             <div>
               <label className="mb-1.5 block text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Usuario
+                Correo electrónico
               </label>
               <div className="relative">
-                <User className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" strokeWidth={2} />
+                <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" strokeWidth={2} />
                 <input
-                  type="text"
-                  value={usuario}
-                  onChange={(e) => setUsuario(e.target.value)}
-                  placeholder="admin"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin@luxicar.com"
                   className="h-12 w-full rounded-xl border border-border bg-card pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-foreground/30 focus:ring-2 focus:ring-ring/30"
-                  autoComplete="username"
+                  autoComplete="email"
+                  required
                 />
               </div>
             </div>
@@ -149,11 +146,12 @@ export default function AdminLoginPage() {
                 <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" strokeWidth={2} />
                 <input
                   type={mostrarContraseña ? "text" : "password"}
-                  value={contraseña}
-                  onChange={(e) => setContraseña(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="h-12 w-full rounded-xl border border-border bg-card pl-10 pr-10 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-foreground/30 focus:ring-2 focus:ring-ring/30"
                   autoComplete="current-password"
+                  required
                 />
                 <button
                   type="button"
@@ -178,23 +176,19 @@ export default function AdminLoginPage() {
                 className="flex items-center gap-2 rounded-xl border border-[var(--destructive)]/30 bg-[var(--destructive)]/10 px-4 py-3 text-sm text-[var(--destructive)]"
               >
                 <AlertCircle className="h-4 w-4 shrink-0" strokeWidth={2} />
-                Credenciales incorrectas. Inténtalo de nuevo.
+                {error}
               </motion.div>
             )}
 
             {/* Botón */}
             <button
               type="submit"
-              disabled={cargando || !usuario || !contraseña}
+              disabled={cargando || !email || !password}
               className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:gap-3 hover:shadow-[0_8px_30px_-8px_oklch(0.98_0_0/0.35)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {cargando ? (
                 <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                    className="h-4 w-4 rounded-full border-2 border-primary-foreground border-t-transparent"
-                  />
+                  <Loader2 className="h-4 w-4 animate-spin" />
                   Verificando…
                 </>
               ) : (
@@ -204,6 +198,10 @@ export default function AdminLoginPage() {
                 </>
               )}
             </button>
+
+            <p className="pt-2 text-center text-xs text-muted-foreground">
+              Admin demo: <span className="font-medium text-foreground">admin@luxicar.com</span> / admin123
+            </p>
           </form>
 
           {/* Volver al marketplace */}

@@ -3,58 +3,20 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, Gauge } from "lucide-react"
-import { vehiculos, marcas } from "@/data/vehicles"
 import { formatearPrecio } from "@/lib/format"
 import { SmartImage } from "@/components/ui/smart-image"
 
-// Descripciones breves para cada marca.
-const descripcionesMarcas: Record<string, string> = {
-  Porsche: "Ingeniería deportiva alemana sin concesiones desde 1948.",
-  Ferrari: "La pasión y el rendimiento de Maranello llevados a la perfección.",
-  Lamborghini: "Diseño extremo y potencia salvaje desde Sant'Agata Bolognese.",
-  BMW: "Pura alegría de conducir con precisión bávara.",
-  "Mercedes-Benz": "Lujo, innovación y herencia automovilística desde 1886.",
-  Audi: "Tecnología de vanguardia y diseño progresista alemán.",
-  Tesla: "La revolución eléctrica que transformó la industria.",
-  Toyota: "Fiabilidad legendaria y espíritu Gazoo Racing.",
-  Honda: "Ingeniería eficiente con alma deportiva japonesa.",
-  Ford: "Herencia americana y muscle car desde 1903.",
-  Chevrolet: "El corazón performance de América desde 1911.",
-  Nissan: "Innovación japonesa y el ADN de Godzilla.",
-  McLaren: "Tecnología de F1 aplicada a superdeportivos de carretera.",
-  "Aston Martin": "Elegancia y potencia británicas con más de un siglo de historia.",
-  Bentley: "Lujo artesanal británico con alma de gran turismo.",
-  "Rolls-Royce": "La cúspide absoluta del lujo automovilístico mundial.",
-  Lexus: "Refinamiento japonés y fiabilidad híbrida premium.",
-  Volvo: "Seguridad escandinava y diseño minimalista atemporal.",
-  Rivian: "Aventura eléctrica con vehículos todoterreno de nueva generación.",
-  BYD: "Electromovilidad china líder mundial con batería Blade.",
-  Dodge: "Muscle car americano en su forma más brutal.",
-  Jeep: "Capacidad todoterreno legendaria desde 1941.",
-  Subaru: "Bóxer y tracción simétrica, nacido para la aventura.",
-  Peugeot: "Diseño francés elegante y ingeniería deportiva.",
-  Renault: "Innovación francesa con espíritu de competición.",
-  Suzuki: "Compactos ágiles y todoterreno sin concesiones.",
-  Mazda: "Diseño Kodo y la filosofía Jinba-Ittai.",
-  Hyundai: "Performance N y tecnología eléctrica de vanguardia.",
-  Kia: "Diseño audaz y electromovilidad accesible.",
-  Volkswagen: "Pragmatismo alemán para el conductor cotidiano.",
+export interface BrandCardData {
+  marca: string
+  slug: string
+  cantidad: number
+  precioMin: number
+  precioMax: number
+  imagen: string | null
+  descripcion: string
 }
 
-export function BrandsView() {
-  const datosMarcas = marcas.map((marca) => {
-    const modelos = vehiculos.filter((v) => v.marca === marca)
-    const precioMin = Math.min(...modelos.map((v) => v.precio))
-    const precioMax = Math.max(...modelos.map((v) => v.precio))
-    return {
-      marca,
-      cantidad: modelos.length,
-      precioMin,
-      precioMax,
-      imagen: modelos[0]?.imagenes[0] ?? null,
-      descripcion: descripcionesMarcas[marca] ?? "Fabricante de automóviles de alta gama.",
-    }
-  })
+export function BrandsView({ datosMarcas }: { datosMarcas: BrandCardData[] }) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -90,7 +52,7 @@ export function BrandsView() {
               }}
             >
               <Link
-                href={`/marcas/${datos.marca.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`}
+                href={`/marcas/${datos.slug}`}
                 className="group block overflow-hidden rounded-2xl border border-border/50 bg-card shadow-card transition-all duration-500 hover:border-border hover:shadow-card-hover"
               >
                 {/* Imagen representativa */}

@@ -17,7 +17,7 @@ import {
   Wind,
   Timer,
 } from "lucide-react"
-import { vehiculos } from "@/data/vehicles"
+import type { Vehicle } from "@/types/vehicle"
 import { useTienda } from "@/store/use-store"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { useToast } from "@/hooks/use-toast"
@@ -25,6 +25,7 @@ import { FavoriteButton } from "./favorite-button"
 import { CompareButton } from "./compare-button"
 import { FinancingCalculator } from "./financing-calculator"
 import { RelatedVehicles } from "./related-vehicles"
+import { ReviewsSection } from "./reviews-section"
 import { SmartImage } from "@/components/ui/smart-image"
 import { cn } from "@/lib/utils"
 
@@ -51,7 +52,8 @@ const especificaciones = [
 ] as const
 
 interface VehicleDetailViewProps {
-  id: string
+  vehiculo: Vehicle
+  catalogo: Vehicle[]
 }
 
 /**
@@ -60,8 +62,7 @@ interface VehicleDetailViewProps {
  * se delega a un componente interior con `key={id}` para resetear
  * el estado (imagen activa) al navegar entre vehículos.
  */
-export function VehicleDetailView({ id }: VehicleDetailViewProps) {
-  const vehiculo = vehiculos.find((v) => v.id === id)
+export function VehicleDetailView({ vehiculo, catalogo }: VehicleDetailViewProps) {
   const marcarVisto = useTienda((s) => s.marcarVisto)
 
   useEffect(() => {
@@ -86,10 +87,10 @@ export function VehicleDetailView({ id }: VehicleDetailViewProps) {
     )
   }
 
-  return <VehicleDetailContent key={vehiculo.id} vehiculo={vehiculo} />
+  return <VehicleDetailContent key={vehiculo.id} vehiculo={vehiculo} catalogo={catalogo} />
 }
 
-function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<typeof vehiculos.find>> }) {
+function VehicleDetailContent({ vehiculo, catalogo }: { vehiculo: Vehicle; catalogo: Vehicle[] }) {
   const estaEnCarrito = useTienda((s) => s.estaEnCarrito(vehiculo.id))
   const estaComprado = useTienda((s) => s.estaComprado(vehiculo.id))
   const agregarAlCarrito = useTienda((s) => s.agregarAlCarrito)
@@ -374,7 +375,9 @@ function VehicleDetailContent({ vehiculo }: { vehiculo: NonNullable<ReturnType<t
       </div>
 
       {/* Vehículos relacionados */}
-      <RelatedVehicles vehiculoActual={vehiculo} />
+      <RelatedVehicles vehiculoActual={vehiculo} catalogo={catalogo} />
+
+      <ReviewsSection vehicleSlug={vehiculo.id} />
     </div>
   )
 }

@@ -1,8 +1,9 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Prisma schema for LUXICAR premium vehicle marketplace.
+//
+// SQLite is used for local development. The schema is written so that
+// switching the datasource provider to "postgresql" requires no model
+// changes (String IDs via cuid(), Int ratings, standard DateTime fields,
+// composite uniques supported by both engines).
 
 generator client {
   provider = "prisma-client-js"
@@ -13,20 +14,140 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ---------------------------------------------------------------------------
+// Enums (declared as String + constants in code so SQLite stays happy while
+// remaining trivially portable to Postgres enums).
+// ---------------------------------------------------------------------------
+
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String     @id @default(cuid())
+  email        String     @unique
+  name         String?
+  passwordHash String
+  role         String     @default("USER") // "USER" | "ADMIN"
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  favorites    Favorite[]
+  orders       Order[]
+  reviews      Review[]
+  events       Event[]
 }
 
-model Post {
+model Brand {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String    @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  vehicles    Vehicle[]
+}
+
+model Vehicle {
+  id               String    @id @default(cuid())
+  // Stable human-readable slug preserved from the static catalog so existing
+  // routes like /vehiculos/[id] keep working (e.g. "porsche-911-carrera").
+  slug             String    @unique
+  marca            String
+  modelo           String
+  año              Int
+  precio           Int
+  motor            String
+  potencia         Int
+  torque           Int
+  transmision      String
+  combustible      String
+  traccion         String
+  velocidadMaxima  Int
+  aceleracion0a100 Float
+  categoria        String
+  descripcion      String
+  images           String    @default("[]") // JSON-encoded string[] (SQLite has no array type)
+  stock            Int       @default(1)
+  available        Boolean   @default(true)
+  featured         Boolean   @default(false)
+  brandId          String?
+  brand            Brand?    @relation(fields: [brandId], references: [id])
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  favorites        Favorite[]
+  orderItems       OrderItem[]
+  reviews          Review[]
+  events           Event[]
+}
+
+model Favorite {
   id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
+  userId    String
+  vehicleId String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, vehicleId])
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  // Human-friendly order number, e.g. "LXC-2026-00042".
+  number    String      @unique
+  userId    String
+  status    String      @default("PENDING") // PENDING | PROCESSING | COMPLETED | CANCELLED
+  total     Int
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     OrderItem[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model OrderItem {
+  id              String   @id @default(cuid())
+  orderId         String
+  vehicleId       String
+  priceAtPurchase Int
+  quantity        Int      @default(1)
+
+  order           Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  vehicle         Vehicle  @relation(fields: [vehicleId], references: [id])
+
+  @@unique([orderId, vehicleId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  vehicleId String
+  rating    Int // 1-5
+  comment   String  @default("")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, vehicleId]) // one review per user per vehicle
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  type      String   // e.g. VEHICLE_VIEWED, VEHICLE_FAVORITED, CART_ADDED, CHECKOUT_STARTED, PURCHASE_COMPLETED
+  userId    String?
+  vehicleId String?
+  orderId   String?
+  metadata  String   @default("{}") // JSON-encoded
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  vehicle   Vehicle? @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+
+  @@index([type])
+  @@index([createdAt])
 }
