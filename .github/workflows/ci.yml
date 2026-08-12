@@ -59,7 +59,18 @@ jobs:
         run: bun run lint
 
       - name: Test
-        run: bun test
+        # Run with coverage so the suite and its coverage report are produced
+        # in a single pass. The text table prints in the log; the lcov report
+        # is uploaded below for tooling/inspection.
+        run: bun test --coverage --coverage-reporter=text --coverage-reporter=lcov
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 14
 
       - name: Build
         run: bun run build
