@@ -11,6 +11,25 @@ import { useToast } from "@/hooks/use-toast"
 import { CheckoutModal, leerBorradorCheckout, borrarBorradorCheckout } from "./checkout-modal"
 import { EmptyState } from "./empty-state"
 import { SmartImage } from "@/components/ui/smart-image"
+import { estaDisponible, type Vehicle } from "@/types/vehicle"
+
+/**
+ * Revalida el carrito contra el inventario real del servidor (vía la API
+ * pública de vehículos) en lugar de fiarse de los IDs aceptados por
+ * agregarAlCarrito, que pueden quedar obsoletos en el localStorage tras un
+ * cambio de stock. Devuelve los vehículos del carrito que siguen
+ * disponibles con su precio/stock actualizados; lanza si la API falla.
+ */
+export async function revalidarCarrito(slugs: string[]): Promise<Map<string, Vehicle>> {
+  const res = await fetch("/api/vehicles?all=1", { cache: "no-store" })
+  if (!res.ok) throw new Error("No se pudo verificar el inventario")
+  const data = (await res.json()) as { items: Vehicle[] }
+  const disponibles = new Map<string, Vehicle>()
+  for (const v of data.items) {
+    if (slugs.includes(v.id) && estaDisponible(v)) disponibles.set(v.id, v)
+  }
+  return disponibles
+}
 
 export function CartView() {
   const carrito = useTienda((s) => s.carrito)
@@ -19,11 +38,9 @@ export function CartView() {
 
   // Borrador del checkout restaurado tras un redirect a /login. Se lee una sola
   // vez (lazy init) para que el modal lo reciba en sus useState iniciales.
+  // Solo datos de contacto: el pago nunca se persiste (seguridad).
   const [borrador] = useState<
-    | {
-        datos: { nombre: string; email: string; telefono: string }
-        pago: { tarjeta: string; vencimiento: string; cvv: string; nombreTarjeta: string }
-      }
+    | { datos: { nombre: string; email: string; telefono: string } }
     | null
   >(() => (typeof window !== "undefined" ? leerBorradorCheckout() : null))
 
@@ -36,19 +53,41 @@ export function CartView() {
     if (!borrador) return
     borrarBorradorCheckout()
     if (carrito.length === 0) return
-    const itemsCarrito = carrito
-      .map((id) => vehiculos.find((v) => v.id === id))
-      .filter((v): v is NonNullable<typeof v> => Boolean(v))
-    const t = setTimeout(() => {
+    const slugsCarrito = carrito
+    let cancelled = false
+    const t = setTimeout(async () => {
+      // Revalida disponibilidad contra el servidor antes de reabrir el modal,
+      // igual que handleFinalizar: el carrito en localStorage puede estar obsoleto.
+      let validos = slugsCarrito
+        .map((id) => vehiculos.find((v) => v.id === id))
+        .filter((v): v is NonNullable<typeof v> => Boolean(v))
+      try {
+        const disponibles = await revalidarCarrito(slugsCarrito)
+        validos = validos.filter((v) => disponibles.has(v.id))
+        const agotados = slugsCarrito.filter((id) => !disponibles.has(id))
+        for (const id of agotados) quitarDelCarrito(id)
+        if (agotados.length > 0) {
+          toast({
+            title: "Algunos vehículos ya no están disponibles",
+            description: "Se quitaron del carrito los agotados.",
+          })
+        }
+      } catch {
+        /* red/servidor caído: el POST /api/orders valida de forma autoritativa */
+      }
+      if (cancelled || validos.length === 0) return
       setResumen({
-        cantidad: itemsCarrito.length,
-        total: itemsCarrito.reduce((sum, v) => sum + v.precio, 0),
-        vehiculos: itemsCarrito,
-        slugs: itemsCarrito.map((v) => v.id),
+        cantidad: validos.length,
+        total: validos.reduce((sum, v) => sum + v.precio, 0),
+        vehiculos: validos,
+        slugs: validos.map((v) => v.id),
       })
       setModalAbierto(true)
     }, 0)
-    return () => clearTimeout(t)
+    return () => {
+      cancelled = true
+      clearTimeout(t)
+    }
   }, [])
 
   const items = carrito
@@ -65,8 +104,40 @@ export function CartView() {
     })
   }
 
-  const handleFinalizar = () => {
-    setResumen({ cantidad: items.length, total, vehiculos: items, slugs: items.map((v) => v.id) })
+  const handleFinalizar = async () => {
+    // Revalida el carrito contra el inventario actual del servidor antes de
+    // abrir el checkout: un vehículo persistido en localStorage puede haberse
+    // agotado desde que se añadió. El servidor vuelve a rechazar en el POST
+    // /api/orders, pero aquí damos feedback temprano y limpiamos el carrito.
+    let validos: Vehicle[] = items
+    try {
+      const disponibles = await revalidarCarrito(items.map((v) => v.id))
+      validos = items
+        .filter((v) => disponibles.has(v.id))
+        // Usa precio/stock actualizados del servidor, no del catálogo estático.
+        .map((v) => disponibles.get(v.id) ?? v)
+      const agotados = items.filter((v) => !disponibles.has(v.id))
+      if (agotados.length > 0) {
+        for (const v of agotados) quitarDelCarrito(v.id)
+        toast({
+          title:
+            agotados.length === 1
+              ? "Vehículo ya no disponible"
+              : "Algunos vehículos ya no están disponibles",
+          description: `${agotados.map((v) => `${v.marca} ${v.modelo}`).join(", ")} se quitó del carrito.`,
+        })
+        if (validos.length === 0) return
+      }
+    } catch {
+      // Si la verificación falla (red/servidor caído), dejamos pasar: el
+      // POST /api/orders es la validación autoritativa y rechazará igual.
+    }
+    setResumen({
+      cantidad: validos.length,
+      total: validos.reduce((sum, v) => sum + v.precio, 0),
+      vehiculos: validos,
+      slugs: validos.map((v) => v.id),
+    })
     setModalAbierto(true)
   }
 
@@ -306,7 +377,6 @@ export function CartView() {
         vehiculos={resumen.vehiculos}
         itemSlugs={resumen.slugs}
         borradorDatos={borrador?.datos}
-        borradorPago={borrador?.pago}
       />
     </div>
   )
