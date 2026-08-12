@@ -305,6 +305,17 @@ async function main() {
   }
   console.log(`  ✓ Eventos analíticos generados`)
 
+  // --- Restore shoppable inventory ---
+  // Historical demo orders decremented stock, which left ~30% of the catalog
+  // sold-out. The orders/reviews/analytics already reflect those sales, so
+  // restore healthy stock on top of the residual numbers so the marketplace
+  // stays browsable and purchasable.
+  await db.vehicle.updateMany({ where: { stock: 0 }, data: { stock: 1, available: true } })
+  await db.vehicle.updateMany({ where: { stock: 1 }, data: { stock: 2, available: true } })
+  await db.vehicle.updateMany({ where: { stock: { gte: 2 } }, data: { available: true } })
+  const restocked = await db.vehicle.aggregate({ _sum: { stock: true }, _count: true })
+  console.log(`  ✓ Inventario restaurado (${restocked._sum.stock} unidades en ${restocked._count} vehículos)`)
+
   console.log("✅ Seed completado.")
 }
 

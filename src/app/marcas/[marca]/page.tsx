@@ -4,6 +4,8 @@ import { listBrands, getBrandNameBySlug } from "@/lib/server/data/brands"
 import { listVehicles } from "@/lib/server/data/vehicles"
 import { notFound } from "next/navigation"
 
+export const dynamic = "force-dynamic"
+
 interface PageProps {
   params: Promise<{ marca: string }>
 }
