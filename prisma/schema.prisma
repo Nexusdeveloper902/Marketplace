@@ -1,16 +1,16 @@
 // Prisma schema for LUXICAR premium vehicle marketplace.
 //
-// SQLite is used for local development. The schema is written so that
-// switching the datasource provider to "postgresql" requires no model
-// changes (String IDs via cuid(), Int ratings, standard DateTime fields,
-// composite uniques supported by both engines).
+// PostgreSQL is the production datasource (works on Vercel serverless and
+// any hosted Postgres such as Supabase/Neon). IDs are cuid() strings, ratings
+// are Int, and enums are stored as String + constants in code — keeping the
+// schema portable across engines.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 

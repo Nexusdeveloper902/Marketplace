@@ -3,7 +3,7 @@
 A full-stack **premium marketplace of high-end vehicles** built with
 Next.js 16, React 19, and TypeScript. The UI is in Spanish, uses a dark cinematic
 theme with six selectable color themes, and is backed by a real relational
-database (Prisma + SQLite for local dev, portable to PostgreSQL) with server-side
+database (Prisma + PostgreSQL, Supabase-compatible) with server-side
 authentication, orders, inventory, favorites, reviews, and analytics. Client UI
 state (cart, comparison list, theme, recently viewed) is still held in Zustand,
 but the source of truth for users, vehicles, orders, favorites, reviews, and
@@ -19,7 +19,7 @@ specifications and image galleries.
 - **Bun** as the package manager and runtime
 - **Tailwind CSS v4** + **shadcn/ui** + **Radix UI** primitives
 - **Zustand** (with `persist` middleware) for client state
-- **Prisma** + **SQLite** (see [Database](#database))
+- **Prisma** + **PostgreSQL** (Supabase-compatible — see [Database](#database))
 - **Framer Motion** for transitions, **Recharts** for the admin dashboard charts
 
 ## Getting started
@@ -122,11 +122,21 @@ A demo admin account is created by the seed script:
 
 ## Database
 
-The project uses **Prisma** as its data access layer with **SQLite** for local
-development. The schema in [`prisma/schema.prisma`](prisma/schema.prisma) defines
-the full domain model and is written so switching the datasource provider to
-`postgresql` requires no model changes (String IDs via `cuid()`, `Int` ratings,
-standard `DateTime` fields, composite uniques supported by both engines).
+The project uses **Prisma** as its data access layer over **PostgreSQL**. The
+schema in [`prisma/schema.prisma`](prisma/schema.prisma) defines the full domain
+model. PostgreSQL is required because the app runs on Vercel serverless, where a
+local file database (SQLite) cannot persist writes at runtime.
+
+A hosted Postgres works out of the box — **Supabase** is the recommended option.
+Use the **session-mode pooler** connection string (port `5432`), which supports
+both Prisma migrations and runtime queries:
+
+```
+postgresql://postgres.<PROJECT_REF>:<PASSWORD>@aws-0-<REGION>.pooler.supabase.com:5432/postgres
+```
+
+(The transaction pooler on port `6543` does not support Prisma's schema engine
+for migrations.)
 
 ### Models
 
@@ -167,7 +177,7 @@ API routes / Server Components / Server Actions
         ↓
 Prisma data-access layer (src/lib/server/data/*)
         ↓
-Database (SQLite → PostgreSQL portable)
+Database (PostgreSQL / Supabase)
 ```
 
 - **Server components** fetch vehicles/brands directly from the Prisma data layer
@@ -197,7 +207,7 @@ used so seeding/preview works, but a missing/short secret throws in production.
 
 Unit tests use Bun's built-in test runner (`bun:test`) and are colocated with the
 source as `*.test.ts` files. They cover pure helpers **and** real backend
-business logic against the seeded SQLite database:
+business logic against the seeded PostgreSQL database:
 
 - [`src/lib/utils.test.ts`](src/lib/utils.test.ts) — `cn()` class helper
 - [`src/lib/format.test.ts`](src/lib/format.test.ts) — price/number formatting
@@ -220,28 +230,44 @@ bun test
 
 ## Environment variables
 
-Configure these in `.env` (never commit secrets):
+Configure these in `.env` (local) and in **Vercel → Project Settings →
+Environment Variables** (never commit secrets — `.env` is gitignored):
 
-| Variable       | Required | Description                                                         |
-| -------------- | -------- | ------------------------------------------------------------------ |
-| `DATABASE_URL` | yes      | Prisma datasource URL. Local dev: `file:./db/luxicar.db`.           |
-| `AUTH_SECRET`  | prod     | Session signing secret (≥ 16 chars). Dev falls back to a fixed value. |
+| Variable       | Required | Description                                                                 |
+| -------------- | -------- | --------------------------------------------------------------------------- |
+| `DATABASE_URL` | yes      | PostgreSQL connection URL (Supabase session pooler recommended).           |
+| `AUTH_SECRET`  | prod     | Session signing secret (≥ 16 chars). Generate with `openssl rand -hex 32`. |
 
-On Vercel, set both in **Project Settings → Environment Variables** and run
-`bun run db:setup` (or `prisma migrate deploy && bun run prisma/seed.ts`) as part
-of the release flow. SQLite works for preview/development; switch
-`provider = "postgresql"` and set a Postgres `DATABASE_URL` for production.
+### Vercel deployment
+
+1. Create a Supabase project and copy the **session-mode pooler** connection
+   string (port `5432`) as `DATABASE_URL`.
+2. Generate `AUTH_SECRET` and add it.
+3. Set both in **Vercel → Settings → Environment Variables** for Production
+   and Preview.
+4. The `vercel-build` script runs `prisma generate && prisma migrate deploy
+   && next build` automatically — migrations are applied during the build.
+5. Seed the database **once** (the DB is persistent, so do not seed on every
+   build): run `bun run db:seed` locally with `DATABASE_URL` set to the
+   Supabase URL, or via a one-off Vercel task.
+
+> **Deployment Protection:** if login/API calls return `401 Protected
+> deployment`, disable Vercel Authentication (Settings → Deployment
+> Protection) or generate a Protection Bypass secret for automation.
 
 ## CI/CD
 
 A GitHub Actions workflow in [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
-runs on every pull request and push to `main`. It installs dependencies with a
-frozen lockfile, then runs lint, tests, and a production build. In-progress runs on
-the same branch are cancelled when a new commit is pushed.
+runs on every pull request and push to `main`. It spins up an **isolated
+PostgreSQL service container**, applies migrations, seeds it, then runs lint,
+tests, and a production build — so the shared production database is never
+touched by CI. In-progress runs on the same branch are cancelled when a new
+commit is pushed.
 
 | Step    | Command              |
 | ------- | -------------------- |
 | Install | `bun install --frozen-lockfile` |
+| DB      | `bun run db:setup` (migrate + seed the CI Postgres) |
 | Lint    | `bun run lint`       |
 | Test    | `bun test`           |
 | Build   | `bun run build`      |
