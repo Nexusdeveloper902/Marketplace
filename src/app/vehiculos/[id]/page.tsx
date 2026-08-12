@@ -4,6 +4,8 @@ import { listAllVehicles, getVehicleBySlug, getVehicleDTOBySlug } from "@/lib/se
 import { notFound } from "next/navigation"
 import { trackEvent, EventType } from "@/lib/server/events"
 
+export const dynamic = "force-dynamic"
+
 interface PageProps {
   params: Promise<{ id: string }>
 }
