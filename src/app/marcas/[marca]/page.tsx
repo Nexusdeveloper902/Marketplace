@@ -10,8 +10,14 @@ interface PageProps {
 
 // Genera las rutas estáticas para cada marca desde la base de datos.
 export async function generateStaticParams() {
-  const brands = await listBrands()
-  return brands.map((b) => ({ marca: b.slug }))
+  try {
+    const brands = await listBrands()
+    return brands.map((b) => ({ marca: b.slug }))
+  } catch {
+    // DB unreachable at build time — render brand pages on demand instead of
+    // failing the whole build.
+    return []
+  }
 }
 
 export default async function MarcaPage({ params }: PageProps) {
