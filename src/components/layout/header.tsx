@@ -103,8 +103,8 @@ export function Header() {
           </span>
         </Link>
 
-        {/* Navegación central — desktop (md+): todos los items inline */}
-        <nav className="hidden items-center gap-1 md:flex">
+        {/* Navegación central — desktop (lg+): todos los items inline */}
+        <nav className="hidden items-center gap-0.5 lg:flex">
           {navItems.map((item) => {
             const Icon = item.icon
             const activo = estaActivo(item.href)
@@ -129,7 +129,7 @@ export function Header() {
                   />
                 )}
                 <Icon className="relative z-10 h-4 w-4" strokeWidth={2} />
-                <span className="relative z-10 hidden lg:inline">
+                <span className="relative z-10 hidden xl:inline">
                   {item.label}
                 </span>
                 {badge > 0 && (
@@ -142,27 +142,12 @@ export function Header() {
           })}
         </nav>
 
-        {/* Lado derecho: Theme toggle + Admin + Carrito + Menú hamburguesa */}
-        <div className="flex items-center gap-2">
+        {/* Lado derecho: Theme toggle + Cuenta + Carrito + Menú hamburguesa */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Theme toggle — oculto en móvil muy pequeño */}
           <div className="hidden sm:block">
             <ThemeToggle />
           </div>
-
-          {/* Admin */}
-          <Link
-            href={user?.role === "ADMIN" ? "/admin" : "/admin/login"}
-            className={cn(
-              "hidden h-10 shrink-0 items-center justify-center rounded-lg border border-border/70 px-3 text-sm font-medium transition-all duration-300 hover:text-foreground sm:flex",
-              estaActivo("/admin")
-                ? "border-border bg-secondary text-foreground"
-                : "text-muted-foreground"
-            )}
-            aria-label="Panel administrativo"
-          >
-            <Shield className="h-4 w-4" strokeWidth={2} />
-            <span className="ml-2 hidden lg:inline">Admin</span>
-          </Link>
 
           {/* Cuenta / Autenticación */}
           {hidratado && isAuthenticated ? (
@@ -268,7 +253,7 @@ export function Header() {
             <Sheet open={menuAbierto} onOpenChange={setMenuAbierto}>
               <SheetTrigger asChild>
                 <button
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:text-foreground md:hidden"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:text-foreground lg:hidden"
                   aria-label="Abrir menú de navegación"
                 >
                   <Menu className="h-5 w-5" strokeWidth={2} />
@@ -331,21 +316,23 @@ export function Header() {
                   </Link>
                 </SheetClose>
 
-                {/* Admin en el menú móvil */}
-                <SheetClose asChild>
-                  <Link
-                    href="/admin/login"
-                    className={cn(
-                      "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
-                      estaActivo("/admin")
-                        ? "bg-secondary text-foreground"
-                        : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
-                    )}
-                  >
-                    <Shield className="h-5 w-5" strokeWidth={2} />
-                    <span className="flex-1">Admin</span>
-                  </Link>
-                </SheetClose>
+                {/* Admin en el menú móvil — solo para administradores */}
+                {user?.role === "ADMIN" && (
+                  <SheetClose asChild>
+                    <Link
+                      href="/admin"
+                      className={cn(
+                        "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                        estaActivo("/admin")
+                          ? "bg-secondary text-foreground"
+                          : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                      )}
+                    >
+                      <Shield className="h-5 w-5" strokeWidth={2} />
+                      <span className="flex-1">Panel admin</span>
+                    </Link>
+                  </SheetClose>
+                )}
 
                 {/* Cuenta / Pedidos en el menú móvil */}
                 {isAuthenticated ? (
@@ -417,7 +404,7 @@ export function Header() {
           </Sheet>
           ) : (
             <button
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-muted-foreground md:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border/70 text-muted-foreground lg:hidden"
               aria-label="Abrir menú de navegación"
             >
               <Menu className="h-5 w-5" strokeWidth={2} />
