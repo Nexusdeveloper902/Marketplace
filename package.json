@@ -14,7 +14,7 @@
     "db:reset": "prisma migrate reset",
     "db:seed": "bun run prisma/seed.ts",
     "db:setup": "prisma generate && prisma migrate deploy && bun run prisma/seed.ts",
-    "vercel-build": "prisma generate && prisma migrate deploy && bun run prisma/seed.ts && next build"
+    "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "prisma": {
     "seed": "bun run prisma/seed.ts"

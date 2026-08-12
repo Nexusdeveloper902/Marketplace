@@ -19,6 +19,27 @@ jobs:
     name: Lint, test & build
     runs-on: ubuntu-latest
 
+    # Isolated PostgreSQL for migrations, seed and tests — keeps the shared
+    # production database untouched.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: luxicar_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/luxicar_test"
+      AUTH_SECRET: "ci-luxicar-test-secret"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
