@@ -16,8 +16,10 @@ import {
   BadgeCheck,
   Wind,
   Timer,
+  Ban,
 } from "lucide-react"
 import type { Vehicle } from "@/types/vehicle"
+import { estaDisponible } from "@/types/vehicle"
 import { useTienda } from "@/store/use-store"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { useToast } from "@/hooks/use-toast"
@@ -98,10 +100,11 @@ function VehicleDetailContent({ vehiculo, catalogo }: { vehiculo: Vehicle; catal
 
   const [imagenActiva, setImagenActiva] = useState(0)
   const nombreCompleto = `${vehiculo.marca} ${vehiculo.modelo}`
+  const disponible = estaDisponible(vehiculo)
 
   const handleAgregar = () => {
-    if (estaEnCarrito || estaComprado) return
-    agregarAlCarrito(vehiculo.id)
+    if (estaEnCarrito || estaComprado || !disponible) return
+    agregarAlCarrito(vehiculo.id, disponible)
     toast({
       title: "Añadido al carrito",
       description: `${nombreCompleto} se ha añadido a tu carrito.`,
@@ -306,18 +309,31 @@ function VehicleDetailContent({ vehiculo, catalogo }: { vehiculo: Vehicle; catal
           <div className="mt-8 flex flex-col gap-3">
             <button
               onClick={handleAgregar}
-              disabled={estaEnCarrito || estaComprado}
+              disabled={estaEnCarrito || estaComprado || !disponible}
               className={cn(
                 "flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold transition-all duration-300",
-                estaComprado
-                  ? "cursor-default bg-secondary text-muted-foreground"
-                  : estaEnCarrito
-                    ? "cursor-default border border-[var(--success)]/40 bg-[var(--success)]/10 text-[var(--success)]"
-                    : "bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.99]"
+                !disponible
+                  ? "cursor-not-allowed border border-border/50 bg-secondary/40 text-muted-foreground"
+                  : estaComprado
+                    ? "cursor-default bg-secondary text-muted-foreground"
+                    : estaEnCarrito
+                      ? "cursor-default border border-[var(--success)]/40 bg-[var(--success)]/10 text-[var(--success)]"
+                      : "bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.99]"
               )}
             >
               <AnimatePresence mode="wait" initial={false}>
-                {estaComprado ? (
+                {!disponible ? (
+                  <motion.span
+                    key="agotado"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Ban className="h-4 w-4" strokeWidth={2.2} />
+                    Vehículo agotado
+                  </motion.span>
+                ) : estaComprado ? (
                   <motion.span
                     key="comprado"
                     initial={{ opacity: 0, y: 6 }}

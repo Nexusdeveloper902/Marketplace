@@ -26,6 +26,15 @@ export interface Vehicle {
   categoria: CategoriaVehiculo
   descripcion: string
   imagenes: string[]
+  /** Unidades disponibles en inventario (omitido en datos estáticos = ilimitado). */
+  stock?: number
+  /** Si el vehículo puede comprarse actualmente (omitido = true). */
+  available?: boolean
+}
+
+/** ¿Se puede añadir este vehículo al carrito? */
+export function estaDisponible(v: Vehicle): boolean {
+  return v.available !== false && (v.stock ?? 1) > 0
 }
 
 // Categorías disponibles para los filtros.

@@ -42,11 +42,52 @@ interface CheckoutModalProps {
   vehiculos: Vehicle[]
   /** Vehicle slugs in the cart (sent to the server to create the order). */
   itemSlugs: string[]
+  /** Borrador restaurado tras iniciar sesión (solo datos de contacto; el
+   * pago se vuelve a pedir por seguridad: nunca persistimos datos de tarjeta). */
+  borradorDatos?: { nombre: string; email: string; telefono: string }
 }
 
 type Paso = "datos" | "pago" | "procesando" | "exito" | "error"
 
 const easeLux = [0.22, 1, 0.36, 1] as const
+
+// Clave de sessionStorage para conservar el borrador del checkout entre el
+// redirect a /login y el regreso a /carrito. Sesión/local, no persiste entre
+// dispositivos ni tras cerrar la pestaña. SOLO se guardan datos de contacto:
+// nunca almacenamos número de tarjeta ni CVV (ni siquiera en una demo).
+const CLAVE_BORRADOR = "luxicar-checkout-draft"
+
+export function guardarBorradorCheckout(datos: {
+  datos: { nombre: string; email: string; telefono: string }
+}) {
+  try {
+    sessionStorage.setItem(CLAVE_BORRADOR, JSON.stringify(datos))
+  } catch {
+    /* sessionStorage puede estar bloqueado (modo privado); se ignora. */
+  }
+}
+
+export function leerBorradorCheckout():
+  | {
+      datos: { nombre: string; email: string; telefono: string }
+    }
+  | null {
+  try {
+    const raw = sessionStorage.getItem(CLAVE_BORRADOR)
+    if (!raw) return null
+    return JSON.parse(raw)
+  } catch {
+    return null
+  }
+}
+
+export function borrarBorradorCheckout() {
+  try {
+    sessionStorage.removeItem(CLAVE_BORRADOR)
+  } catch {
+    /* no-op */
+  }
+}
 
 export function CheckoutModal({
   abierto,
@@ -55,6 +96,7 @@ export function CheckoutModal({
   total,
   vehiculos,
   itemSlugs,
+  borradorDatos,
 }: CheckoutModalProps) {
   const router = useRouter()
   const { isAuthenticated } = useAuth()
@@ -63,11 +105,13 @@ export function CheckoutModal({
   const [numeroPedido, setNumeroPedido] = useState("")
   const [mensajeError, setMensajeError] = useState("")
   const [datos, setDatos] = useState({
-    nombre: "",
-    email: "",
-    telefono: "",
+    nombre: borradorDatos?.nombre ?? "",
+    email: borradorDatos?.email ?? "",
+    telefono: borradorDatos?.telefono ?? "",
   })
   const [pago, setPago] = useState({
+    // El pago NO se restaura del borrador: se solicita de nuevo tras el login
+    // para no persistir datos sensibles de tarjeta en el navegador.
     tarjeta: "",
     vencimiento: "",
     cvv: "",
@@ -100,6 +144,9 @@ export function CheckoutModal({
   const handlePagar = async () => {
     // Require an authenticated session; the server never trusts client identity.
     if (!isAuthenticated) {
+      // Conserva solo los datos de contacto para restaurarlos tras iniciar
+      // sesión. El pago se vuelve a pedir: nunca persistimos datos de tarjeta.
+      guardarBorradorCheckout({ datos })
       onClose()
       router.replace("/login?redirect=/carrito")
       return
@@ -123,6 +170,7 @@ export function CheckoutModal({
       // Real order created server-side (stock decremented transactionally).
       setNumeroPedido(data.orderNumber ?? "—")
       vaciarCarrito()
+      borrarBorradorCheckout()
       setPaso("exito")
     } catch {
       setMensajeError("Error de conexión. Inténtalo de nuevo.")
