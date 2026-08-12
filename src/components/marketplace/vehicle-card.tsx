@@ -11,8 +11,10 @@ import {
   Battery,
   Flame,
   Crown,
+  Ban,
 } from "lucide-react"
 import type { Vehicle } from "@/types/vehicle"
+import { estaDisponible } from "@/types/vehicle"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { useTienda } from "@/store/use-store"
 import { useToast } from "@/hooks/use-toast"
@@ -70,10 +72,11 @@ export function VehicleCard({
 
   const nombreCompleto = `${vehiculo.marca} ${vehiculo.modelo}`
   const etiqueta = obtenerEtiqueta(vehiculo)
+  const disponible = estaDisponible(vehiculo)
 
   const handleAgregar = () => {
-    if (estaEnCarrito || estaComprado) return
-    agregarAlCarrito(vehiculo.id)
+    if (estaEnCarrito || estaComprado || !disponible) return
+    agregarAlCarrito(vehiculo.id, disponible)
     toast({
       title: "Añadido al carrito",
       description: `${nombreCompleto} se ha añadido a tu carrito.`,
@@ -143,6 +146,15 @@ export function VehicleCard({
           </span>
         )}
 
+        {/* Badge de agotado */}
+        {!disponible && (
+          <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span className="rounded-xl bg-background/85 px-4 py-2 text-sm font-bold uppercase tracking-wider text-muted-foreground shadow-lg backdrop-blur-md">
+              Agotado
+            </span>
+          </span>
+        )}
+
         {/* Nombre sobre la imagen */}
         <Link
           href={href}
@@ -207,18 +219,31 @@ export function VehicleCard({
             {/* Agregar al carrito */}
             <button
               onClick={handleAgregar}
-              disabled={estaEnCarrito || estaComprado}
+              disabled={estaEnCarrito || estaComprado || !disponible}
               className={cn(
                 "flex flex-1 items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition-all duration-300 active:scale-[0.98]",
-                estaComprado
-                  ? "cursor-default border-border/50 bg-secondary/50 text-muted-foreground"
-                  : estaEnCarrito
-                    ? "cursor-default border-[var(--success)]/40 bg-[var(--success)]/10 text-[var(--success)]"
-                    : "border-border bg-secondary text-foreground hover:bg-accent"
+                !disponible
+                  ? "cursor-not-allowed border-border/50 bg-secondary/40 text-muted-foreground"
+                  : estaComprado
+                    ? "cursor-default border-border/50 bg-secondary/50 text-muted-foreground"
+                    : estaEnCarrito
+                      ? "cursor-default border-[var(--success)]/40 bg-[var(--success)]/10 text-[var(--success)]"
+                      : "border-border bg-secondary text-foreground hover:bg-accent"
               )}
             >
               <AnimatePresence mode="wait" initial={false}>
-                {estaComprado ? (
+                {!disponible ? (
+                  <motion.span
+                    key="agotado"
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    className="flex items-center gap-1.5"
+                  >
+                    <Ban className="h-4 w-4" strokeWidth={2.2} />
+                    Agotado
+                  </motion.span>
+                ) : estaComprado ? (
                   <motion.span
                     key="comprado"
                     initial={{ opacity: 0, y: 4 }}

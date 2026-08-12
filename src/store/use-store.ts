@@ -6,7 +6,7 @@ import { persist } from "zustand/middleware"
 interface EstadoTienda {
   // --- Carrito (pendiente de compra) ---
   carrito: string[]
-  agregarAlCarrito: (id: string) => void
+  agregarAlCarrito: (id: string, disponible?: boolean) => boolean
   quitarDelCarrito: (id: string) => void
   estaEnCarrito: (id: string) => boolean
   vaciarCarrito: () => void
@@ -45,10 +45,13 @@ export const useTienda = create<EstadoTienda>()(
     (set, get) => ({
       // --- Carrito ---
       carrito: [],
-      agregarAlCarrito: (id) => {
+      agregarAlCarrito: (id, disponible = true) => {
+        // No se puede añadir un vehículo agotado/no disponible al carrito.
+        if (!disponible) return false
         const actual = get().carrito
-        if (actual.includes(id)) return
+        if (actual.includes(id)) return false
         set({ carrito: [...actual, id] })
+        return true
       },
       quitarDelCarrito: (id) =>
         set({ carrito: get().carrito.filter((v) => v !== id) }),

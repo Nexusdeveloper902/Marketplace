@@ -42,11 +42,58 @@ interface CheckoutModalProps {
   vehiculos: Vehicle[]
   /** Vehicle slugs in the cart (sent to the server to create the order). */
   itemSlugs: string[]
+  /** Borrador restaurado tras iniciar sesión (datos/pago ya rellenados). */
+  borradorDatos?: { nombre: string; email: string; telefono: string }
+  borradorPago?: {
+    tarjeta: string
+    vencimiento: string
+    cvv: string
+    nombreTarjeta: string
+  }
 }
 
 type Paso = "datos" | "pago" | "procesando" | "exito" | "error"
 
 const easeLux = [0.22, 1, 0.36, 1] as const
+
+// Clave de sessionStorage para conservar el borrador del checkout entre el
+// redirect a /login y el regreso a /carrito. Sesión/local, no persiste entre
+// dispositivos ni tras cerrar la pestaña.
+const CLAVE_BORRADOR = "luxicar-checkout-draft"
+
+export function guardarBorradorCheckout(datos: {
+  datos: { nombre: string; email: string; telefono: string }
+  pago: { tarjeta: string; vencimiento: string; cvv: string; nombreTarjeta: string }
+}) {
+  try {
+    sessionStorage.setItem(CLAVE_BORRADOR, JSON.stringify(datos))
+  } catch {
+    /* sessionStorage puede estar bloqueado (modo privado); se ignora. */
+  }
+}
+
+export function leerBorradorCheckout():
+  | {
+      datos: { nombre: string; email: string; telefono: string }
+      pago: { tarjeta: string; vencimiento: string; cvv: string; nombreTarjeta: string }
+    }
+  | null {
+  try {
+    const raw = sessionStorage.getItem(CLAVE_BORRADOR)
+    if (!raw) return null
+    return JSON.parse(raw)
+  } catch {
+    return null
+  }
+}
+
+export function borrarBorradorCheckout() {
+  try {
+    sessionStorage.removeItem(CLAVE_BORRADOR)
+  } catch {
+    /* no-op */
+  }
+}
 
 export function CheckoutModal({
   abierto,
@@ -55,6 +102,8 @@ export function CheckoutModal({
   total,
   vehiculos,
   itemSlugs,
+  borradorDatos,
+  borradorPago,
 }: CheckoutModalProps) {
   const router = useRouter()
   const { isAuthenticated } = useAuth()
@@ -63,15 +112,15 @@ export function CheckoutModal({
   const [numeroPedido, setNumeroPedido] = useState("")
   const [mensajeError, setMensajeError] = useState("")
   const [datos, setDatos] = useState({
-    nombre: "",
-    email: "",
-    telefono: "",
+    nombre: borradorDatos?.nombre ?? "",
+    email: borradorDatos?.email ?? "",
+    telefono: borradorDatos?.telefono ?? "",
   })
   const [pago, setPago] = useState({
-    tarjeta: "",
-    vencimiento: "",
-    cvv: "",
-    nombreTarjeta: "",
+    tarjeta: borradorPago?.tarjeta ?? "",
+    vencimiento: borradorPago?.vencimiento ?? "",
+    cvv: borradorPago?.cvv ?? "",
+    nombreTarjeta: borradorPago?.nombreTarjeta ?? "",
   })
 
   // Bloquea el scroll del body cuando el modal está abierto.
@@ -100,6 +149,8 @@ export function CheckoutModal({
   const handlePagar = async () => {
     // Require an authenticated session; the server never trusts client identity.
     if (!isAuthenticated) {
+      // Conserva lo que el usuario ya rellenó para restaurarlo tras iniciar sesión.
+      guardarBorradorCheckout({ datos, pago })
       onClose()
       router.replace("/login?redirect=/carrito")
       return
@@ -123,6 +174,7 @@ export function CheckoutModal({
       // Real order created server-side (stock decremented transactionally).
       setNumeroPedido(data.orderNumber ?? "—")
       vaciarCarrito()
+      borrarBorradorCheckout()
       setPaso("exito")
     } catch {
       setMensajeError("Error de conexión. Inténtalo de nuevo.")

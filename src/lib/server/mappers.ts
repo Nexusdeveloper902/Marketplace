@@ -42,6 +42,8 @@ export function toVehicleDTO(v: VehicleRecord): Vehicle {
     categoria: v.categoria as Vehicle["categoria"],
     descripcion: v.descripcion,
     imagenes,
+    stock: v.stock,
+    available: v.available,
   }
 }
 

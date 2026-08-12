@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Trash2, ShoppingBag, ArrowRight, ShieldCheck, Zap, BadgeCheck, Award } from "lucide-react"
@@ -8,7 +8,7 @@ import { vehiculos } from "@/data/vehicles"
 import { useTienda } from "@/store/use-store"
 import { formatearPrecio, formatearNumero } from "@/lib/format"
 import { useToast } from "@/hooks/use-toast"
-import { CheckoutModal } from "./checkout-modal"
+import { CheckoutModal, leerBorradorCheckout, borrarBorradorCheckout } from "./checkout-modal"
 import { EmptyState } from "./empty-state"
 import { SmartImage } from "@/components/ui/smart-image"
 
@@ -16,8 +16,40 @@ export function CartView() {
   const carrito = useTienda((s) => s.carrito)
   const quitarDelCarrito = useTienda((s) => s.quitarDelCarrito)
   const { toast } = useToast()
+
+  // Borrador del checkout restaurado tras un redirect a /login. Se lee una sola
+  // vez (lazy init) para que el modal lo reciba en sus useState iniciales.
+  const [borrador] = useState<
+    | {
+        datos: { nombre: string; email: string; telefono: string }
+        pago: { tarjeta: string; vencimiento: string; cvv: string; nombreTarjeta: string }
+      }
+    | null
+  >(() => (typeof window !== "undefined" ? leerBorradorCheckout() : null))
+
   const [modalAbierto, setModalAbierto] = useState(false)
   const [resumen, setResumen] = useState({ cantidad: 0, total: 0, vehiculos: [] as typeof items, slugs: [] as string[] })
+
+  // Si volvemos de /login con un borrador guardado, reabre el checkout relleno.
+  // El setState va dentro de setTimeout para evitar render en cascada en effects.
+  useEffect(() => {
+    if (!borrador) return
+    borrarBorradorCheckout()
+    if (carrito.length === 0) return
+    const itemsCarrito = carrito
+      .map((id) => vehiculos.find((v) => v.id === id))
+      .filter((v): v is NonNullable<typeof v> => Boolean(v))
+    const t = setTimeout(() => {
+      setResumen({
+        cantidad: itemsCarrito.length,
+        total: itemsCarrito.reduce((sum, v) => sum + v.precio, 0),
+        vehiculos: itemsCarrito,
+        slugs: itemsCarrito.map((v) => v.id),
+      })
+      setModalAbierto(true)
+    }, 0)
+    return () => clearTimeout(t)
+  }, [])
 
   const items = carrito
     .map((id) => vehiculos.find((v) => v.id === id))
@@ -273,6 +305,8 @@ export function CartView() {
         total={resumen.total}
         vehiculos={resumen.vehiculos}
         itemSlugs={resumen.slugs}
+        borradorDatos={borrador?.datos}
+        borradorPago={borrador?.pago}
       />
     </div>
   )
