@@ -9,8 +9,14 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const vehiculos = await listAllVehicles()
-  return vehiculos.map((v) => ({ id: v.id }))
+  try {
+    const vehiculos = await listAllVehicles()
+    return vehiculos.map((v) => ({ id: v.id }))
+  } catch {
+    // DB unreachable at build time — render vehicle pages on demand instead of
+    // failing the whole build. Routes are still server-rendered at request time.
+    return []
+  }
 }
 
 export default async function VehiculoPage({ params }: PageProps) {
