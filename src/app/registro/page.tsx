@@ -1,11 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 import { Gauge, Lock, Mail, User, ArrowRight, ArrowLeft, AlertCircle, Eye, EyeOff, Loader2 } from "lucide-react"
 import { useAuth } from "@/lib/auth/auth-context"
+import { useTienda } from "@/store/use-store"
 import { vehiculos } from "@/data/vehicles"
 import { SmartImage } from "@/components/ui/smart-image"
 import { cn } from "@/lib/utils"
@@ -13,8 +14,18 @@ import { cn } from "@/lib/utils"
 const easeLux = [0.22, 1, 0.36, 1] as const
 
 export default function RegistroPage() {
+  return (
+    <Suspense fallback={null}>
+      <RegistroPageInner />
+    </Suspense>
+  )
+}
+
+function RegistroPageInner() {
   const router = useRouter()
-  const { register } = useAuth()
+  const search = useSearchParams()
+  const { register, mergeGuestFavorites } = useAuth()
+  const favoritos = useTienda((s) => s.favoritos)
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -22,6 +33,8 @@ export default function RegistroPage() {
   const [mostrar, setMostrar] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [cargando, setCargando] = useState(false)
+
+  const redirect = search.get("redirect") || "/perfil"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,7 +46,9 @@ export default function RegistroPage() {
       setCargando(false)
       return
     }
-    router.replace("/perfil")
+    // Merge any guest favorites into the newly created account.
+    await mergeGuestFavorites(favoritos)
+    router.replace(redirect)
     router.refresh()
   }
 
@@ -98,7 +113,7 @@ export default function RegistroPage() {
             <h2 className="text-display text-3xl text-foreground">Crear cuenta</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               ¿Ya tienes cuenta?{" "}
-              <Link href="/login" className="font-medium text-[var(--signature)] hover:underline">
+              <Link href={`/login${redirect !== "/perfil" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`} className="font-medium text-[var(--signature)] hover:underline">
                 Inicia sesión
               </Link>
             </p>

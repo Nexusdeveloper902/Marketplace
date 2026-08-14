@@ -112,7 +112,7 @@ function LoginPageInner() {
             <h2 className="text-display text-3xl text-foreground">Iniciar sesión</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               ¿Aún no tienes cuenta?{" "}
-              <Link href="/registro" className="font-medium text-[var(--signature)] hover:underline">
+              <Link href={`/registro${redirect !== "/perfil" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`} className="font-medium text-[var(--signature)] hover:underline">
                 Regístrate
               </Link>
             </p>

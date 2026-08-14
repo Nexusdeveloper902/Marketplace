@@ -48,11 +48,14 @@ export class CheckoutError extends Error {
 /**
  * Generate the next human-friendly order number, e.g. "LXC-2026-00042".
  * Reads the current max number for the year and increments.
+ *
+ * Accepts a transaction client so it reuses the caller's pooled connection
+ * instead of checking out a separate one (which can exhaust the DB pool).
  */
-async function nextOrderNumber(): Promise<string> {
+async function nextOrderNumber(tx: Prisma.TransactionClient): Promise<string> {
   const year = new Date().getFullYear()
   const prefix = `LXC-${year}-`
-  const last = await db.order.findFirst({
+  const last = await tx.order.findFirst({
     where: { number: { startsWith: prefix } },
     orderBy: { number: "desc" },
     select: { number: true },
@@ -173,7 +176,7 @@ export async function checkout(
       })
     }
 
-    const number = await nextOrderNumber()
+    const number = await nextOrderNumber(tx)
     const order = await tx.order.create({
       data: {
         number,
