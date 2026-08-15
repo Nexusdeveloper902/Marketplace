@@ -7,8 +7,11 @@
     "build": "next build && if [ -d .next/standalone ]; then cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/; fi",
     "start": "NODE_ENV=production bun .next/standalone/server.js 2>&1 | tee server.log",
     "lint": "eslint .",
-    "test": "bun test --parallel=1",
-    "test:coverage": "bun test --coverage --coverage-reporter=text --coverage-reporter=lcov",
+    "test": "bun test src/ --parallel=1",
+    "test:unit": "bun test src/lib/format.test.ts src/lib/utils.test.ts src/lib/site.test.ts src/lib/types/vehicle.test.ts src/store/use-store.test.ts src/lib/admin/datos-sinteticos.test.ts src/components/marketplace/cart-view.test.ts src/lib/server/password.test.ts src/lib/server/session.test.ts src/lib/server/mappers.test.ts src/lib/server/http.test.ts",
+    "test:coverage": "bun test src/ --coverage --coverage-reporter=text --coverage-reporter=lcov",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install --with-deps chromium",
     "db:push": "prisma db push --accept-data-loss",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
@@ -90,6 +93,7 @@
     "zustand": "^5.0.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/postcss": "^4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
