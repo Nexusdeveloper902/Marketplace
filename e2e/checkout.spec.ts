@@ -27,9 +27,13 @@ test.describe("Flujo de compra", () => {
   test("agregar al carrito muestra el enlace al checkout", async ({ page, context }) => {
     await registrar(context, page)
 
-    // Ir al marketplace y abrir el primer detalle de vehículo.
+    // Ir al marketplace y abrir el primer detalle de vehículo (la imagen es
+    // un enlace con aria-label "Ver detalles del {marca} {modelo}").
     await page.goto("/marketplace")
-    await page.getByRole("link").filter({ hasText: /Ver detalles/i }).first().click()
+    await page
+      .getByRole("link", { name: /Ver detalles del .+/i })
+      .first()
+      .click()
     await expect(page.locator("h1").first()).toBeVisible()
 
     // Añadir al carrito (botón "Agregar al carrito", no el de "agotado"/"comprado").
@@ -44,7 +48,10 @@ test.describe("Flujo de compra", () => {
 
     // Abrir un detalle y añadir al carrito.
     await page.goto("/marketplace")
-    await page.getByRole("link").filter({ hasText: /Ver detalles/i }).first().click()
+    await page
+      .getByRole("link", { name: /Ver detalles del .+/i })
+      .first()
+      .click()
     await expect(page.locator("h1").first()).toBeVisible()
     await page.getByRole("button", { name: /Agregar al carrito/ }).click()
     await expect(page.getByRole("link", { name: /Ver carrito y finalizar compra/ })).toBeVisible()
@@ -80,7 +87,7 @@ test.describe("Flujo de compra", () => {
     })
 
     // El enlace a /gracias existe y navega a la página dedicada.
-    await page.getByRole("link", { name: /Ver confirmación|gracias/i }).first().click()
+    await page.getByRole("link", { name: /Ver resumen del pedido/i }).click()
     await expect(page).toHaveURL(/\/gracias$/, { timeout: 15_000 })
   })
 })

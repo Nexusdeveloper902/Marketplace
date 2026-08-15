@@ -27,9 +27,11 @@ test.describe("Autenticación", () => {
     await expect(page.getByText(NAME).first()).toBeVisible()
 
     // --- Logout ---
-    // Abrir el menú de cuenta desde el header y cerrar sesión.
+    // Abrir el menú de cuenta desde el header y cerrar sesión. El item
+    // "Cerrar sesión" es un menuitem de Radix (no un button), y vive en un
+    // portal que sólo aparece tras abrir el menú.
     await page.getByRole("button", { name: /Menú de cuenta/ }).click()
-    await page.getByRole("button", { name: /Cerrar sesión/i }).click()
+    await page.getByRole("menuitem", { name: /Cerrar sesión/i }).click()
 
     // Vuelve a la home sin sesión.
     await page.waitForURL(/\/$/, { timeout: 15_000 })
@@ -37,22 +39,23 @@ test.describe("Autenticación", () => {
   })
 
   test("login con la cuenta recién creadada", async ({ page }) => {
-    // Primera pasada: crear la cuenta en una pestaña limpia.
+    // Crear una cuenta nueva (email único) para este test.
+    const email = `login+${RUN_ID}@luxicar.test`
     await page.goto("/registro")
-    await page.getByPlaceholder("Juan Pérez").fill(NAME + " 2")
-    await page.getByPlaceholder("tu@ejemplo.com").fill(EMAIL)
+    await page.getByPlaceholder("Juan Pérez").fill(NAME + " Login")
+    await page.getByPlaceholder("tu@ejemplo.com").fill(email)
     await page.getByPlaceholder("Mínimo 6 caracteres").fill(PASSWORD)
     await page.getByRole("button", { name: /Crear cuenta/ }).click()
     await expect(page).toHaveURL(/\/perfil$/)
 
     // Cerrar sesión para luego probar login limpio.
     await page.getByRole("button", { name: /Menú de cuenta/ }).click()
-    await page.getByRole("button", { name: /Cerrar sesión/i }).click()
+    await page.getByRole("menuitem", { name: /Cerrar sesión/i }).click()
     await page.waitForURL(/\/$/, { timeout: 15_000 })
 
     // --- Login ---
     await page.goto("/login")
-    await page.getByPlaceholder("tu@ejemplo.com").fill(EMAIL)
+    await page.getByPlaceholder("tu@ejemplo.com").fill(email)
     await page.getByPlaceholder("••••••••").fill(PASSWORD)
     await page.getByRole("button", { name: /^Iniciar sesión$/ }).click()
 
@@ -72,10 +75,23 @@ test.describe("Autenticación", () => {
   })
 
   test("registro rechaza email duplicado", async ({ page }) => {
-    // El email ya existe del primer test → el servidor responde 409.
+    // Registrar una cuenta inicial con email único para este test.
+    const email = `dup+${RUN_ID}@luxicar.test`
+    await page.goto("/registro")
+    await page.getByPlaceholder("Juan Pérez").fill("Original Dup")
+    await page.getByPlaceholder("tu@ejemplo.com").fill(email)
+    await page.getByPlaceholder("Mínimo 6 caracteres").fill(PASSWORD)
+    await page.getByRole("button", { name: /Crear cuenta/ }).click()
+    await expect(page).toHaveURL(/\/perfil$/, { timeout: 15_000 })
+
+    // Cerrar sesión y volver a registro para intentar duplicar el email.
+    await page.getByRole("button", { name: /Menú de cuenta/ }).click()
+    await page.getByRole("menuitem", { name: /Cerrar sesión/i }).click()
+    await page.waitForURL(/\/$/, { timeout: 15_000 })
+
     await page.goto("/registro")
     await page.getByPlaceholder("Juan Pérez").fill("Duplicado")
-    await page.getByPlaceholder("tu@ejemplo.com").fill(EMAIL)
+    await page.getByPlaceholder("tu@ejemplo.com").fill(email)
     await page.getByPlaceholder("Mínimo 6 caracteres").fill(PASSWORD)
     await page.getByRole("button", { name: /Crear cuenta/ }).click()
 

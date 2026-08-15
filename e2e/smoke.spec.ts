@@ -33,10 +33,13 @@ test.describe("Páginas públicas y SEO", () => {
   })
 
   test("un detalle de vehículo carga con especificaciones", async ({ page }) => {
-    // Navegar desde el marketplace hacia la primera tarjeta
+    // Navegar desde el marketplace hacia la primera tarjeta (la imagen es un
+    // enlace con aria-label "Ver detalles del {marca} {modelo}").
     await page.goto("/marketplace")
-    const firstCard = page.getByRole("link").filter({ hasText: /Ver detalles|Descubrir|Descubrir más/i }).first()
-    await firstCard.click()
+    await page
+      .getByRole("link", { name: /Ver detalles del .+/i })
+      .first()
+      .click()
     await expect(page).toHaveTitle(/.+/)
     await expect(page.locator("h1").first()).toBeVisible()
   })
@@ -101,7 +104,10 @@ test.describe("Páginas públicas y SEO", () => {
 
   test("favicon y manifest están referenciados en el head", async ({ page }) => {
     await page.goto("/")
-    await expect(page.locator('link[rel="icon"]')).toHaveCount(1)
+    // Next emite al menos un link[rel="icon"] (icon.svg + favicon.ico);
+    // basta con que exista uno o más. Los <link> del <head> son "hidden"
+    // para Playwright, así que se comprueba count, no visibilidad.
+    expect(await page.locator('link[rel="icon"]').count()).toBeGreaterThanOrEqual(1)
     await expect(page.locator('link[rel="manifest"]')).toHaveCount(1)
     await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveCount(1)
   })
