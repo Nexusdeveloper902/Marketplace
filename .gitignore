@@ -61,3 +61,6 @@ server.log
 
 # Skills directory
 /skills/
+# Playwright
+/playwright-report
+/test-results
