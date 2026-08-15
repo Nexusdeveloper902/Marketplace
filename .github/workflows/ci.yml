@@ -77,10 +77,11 @@ jobs:
         run: bun run db:setup
 
       - name: Integration tests
-        # Full bun:test suite with coverage. Includes the DB-backed data-layer
-        # tests (orders, analytics, brands, vehicles, events) and the unit
-        # suite; the lcov report is uploaded below for tooling/inspection.
-        run: bun test --coverage --coverage-reporter=text --coverage-reporter=lcov
+        # Full bun:test suite (scoped to src/) with coverage. Includes the
+        # DB-backed data-layer tests (orders, analytics, brands, vehicles,
+        # events) and the unit suite; Playwright specs under e2e/ are excluded
+        # from bun discovery. The lcov report is uploaded below.
+        run: bun test src/ --coverage --coverage-reporter=text --coverage-reporter=lcov
 
       - name: Upload coverage report
         if: always()
