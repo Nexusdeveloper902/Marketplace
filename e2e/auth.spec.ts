@@ -29,13 +29,18 @@ test.describe("Autenticación", () => {
     // --- Logout ---
     // Abrir el menú de cuenta desde el header y cerrar sesión. El item
     // "Cerrar sesión" es un menuitem de Radix (no un button), y vive en un
-    // portal que sólo aparece tras abrir el menú.
+    // portal que sólo aparece tras abrir el menú. Tras cerrar sesión, /perfil
+    // (client component) redirige a /login.
     await page.getByRole("button", { name: /Menú de cuenta/ }).click()
     await page.getByRole("menuitem", { name: /Cerrar sesión/i }).click()
 
-    // Vuelve a la home sin sesión.
-    await page.waitForURL(/\/$/, { timeout: 15_000 })
-    await expect(page).toHaveURL(/\/$/)
+    // Ya sin sesión: el botón de cuenta desaparece y vuelve "Entrar".
+    await expect(page.getByRole("button", { name: /Menú de cuenta/ })).toBeHidden({
+      timeout: 15_000,
+    })
+    await expect(page.getByRole("link", { name: /Iniciar sesión/ })).toBeVisible({
+      timeout: 15_000,
+    })
   })
 
   test("login con la cuenta recién creadada", async ({ page }) => {
@@ -51,7 +56,9 @@ test.describe("Autenticación", () => {
     // Cerrar sesión para luego probar login limpio.
     await page.getByRole("button", { name: /Menú de cuenta/ }).click()
     await page.getByRole("menuitem", { name: /Cerrar sesión/i }).click()
-    await page.waitForURL(/\/$/, { timeout: 15_000 })
+    await expect(page.getByRole("link", { name: /Iniciar sesión/ })).toBeVisible({
+      timeout: 15_000,
+    })
 
     // --- Login ---
     await page.goto("/login")
@@ -87,7 +94,9 @@ test.describe("Autenticación", () => {
     // Cerrar sesión y volver a registro para intentar duplicar el email.
     await page.getByRole("button", { name: /Menú de cuenta/ }).click()
     await page.getByRole("menuitem", { name: /Cerrar sesión/i }).click()
-    await page.waitForURL(/\/$/, { timeout: 15_000 })
+    await expect(page.getByRole("link", { name: /Iniciar sesión/ })).toBeVisible({
+      timeout: 15_000,
+    })
 
     await page.goto("/registro")
     await page.getByPlaceholder("Juan Pérez").fill("Duplicado")

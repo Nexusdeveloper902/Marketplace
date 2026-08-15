@@ -28,6 +28,10 @@ export default defineConfig({
     screenshot: "only-on-failure",
     video: "retain-on-failure",
     locale: "es-ES",
+    // framer-motion respects prefers-reduced-motion, so this disables the
+    // card enter/exit animations that otherwise keep elements "unstable" and
+    // make Playwright time out waiting to click.
+    reducedMotion: "reduce",
   },
 
   projects: [

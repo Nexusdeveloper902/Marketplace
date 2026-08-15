@@ -37,7 +37,10 @@ test.describe("Flujo de compra", () => {
     await expect(page.locator("h1").first()).toBeVisible()
 
     // Añadir al carrito (botón "Agregar al carrito", no el de "agotado"/"comprado").
-    const addBtn = page.getByRole("button", { name: /Agregar al carrito/ })
+    // La página de detalle incluye además una sección de "vehículos
+    // relacionados" con botones homónimos, así que apuntamos al primero (el
+    // CTA principal del vehículo en cuestión).
+    const addBtn = page.getByRole("button", { name: /Agregar al carrito/ }).first()
     await addBtn.click()
     await expect(page.getByText(/En el carrito/).first()).toBeVisible()
     await expect(page.getByRole("link", { name: /Ver carrito y finalizar compra/ })).toBeVisible()
@@ -53,7 +56,7 @@ test.describe("Flujo de compra", () => {
       .first()
       .click()
     await expect(page.locator("h1").first()).toBeVisible()
-    await page.getByRole("button", { name: /Agregar al carrito/ }).click()
+    await page.getByRole("button", { name: /Agregar al carrito/ }).first().click()
     await expect(page.getByRole("link", { name: /Ver carrito y finalizar compra/ })).toBeVisible()
     await page.getByRole("link", { name: /Ver carrito y finalizar compra/ }).click()
     await expect(page).toHaveURL(/\/carrito$/)
