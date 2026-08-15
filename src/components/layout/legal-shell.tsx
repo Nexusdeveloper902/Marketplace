@@ -50,19 +50,9 @@ export function LegalShell({
 
         <footer className="mt-16 border-t border-border/40 pt-8 text-xs text-muted-foreground">
           <p>
-            {siteConfig.contact.company} · {siteConfig.contact.addressLine1},{" "}
-            {siteConfig.contact.addressLine2}
+            {siteConfig.name} · {siteConfig.tagline}
           </p>
-          <p className="mt-1">
-            CIF {siteConfig.contact.vatId} ·{" "}
-            <a
-              href={`mailto:${siteConfig.contact.email}`}
-              className="transition-colors hover:text-foreground"
-            >
-              {siteConfig.contact.email}
-            </a>{" "}
-            · {siteConfig.contact.phone}
-          </p>
+          <p className="mt-1">Experiencia de compra simulada.</p>
         </footer>
       </article>
     </SiteShell>

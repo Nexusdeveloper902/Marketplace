@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 const ACTUALIZADO = "1 de junio de 2026"
 
 export default function PrivacidadPage() {
-  const { contact } = siteConfig
   return (
     <LegalShell
       titulo="Política de Privacidad"
@@ -23,13 +22,10 @@ export default function PrivacidadPage() {
         <h2 className="text-xl font-semibold text-foreground">1. Responsable del tratamiento</h2>
         <p className="mt-3">
           El responsable del tratamiento de tus datos personales es{" "}
-          <strong className="text-foreground">{contact.company}</strong>, con
-          domicilio en {contact.addressLine1}, {contact.addressLine2} y CIF{" "}
-          {contact.vatId}. Puedes contactarnos escribiendo a{" "}
-          <a href={`mailto:${contact.email}`} className="text-[var(--signature)] hover:underline">
-            {contact.email}
-          </a>{" "}
-          o llamando al {contact.phone}.
+          <strong className="text-foreground">{siteConfig.name}</strong>. Al
+          tratarse de una experiencia de compra simulada, los datos que facilitas
+          se usan únicamente para el funcionamiento de la demo y no se comparten
+          con terceros con fines comerciales.
         </p>
       </section>
 
@@ -95,12 +91,8 @@ export default function PrivacidadPage() {
         <p className="mt-3">
           Como interesado tienes derecho a acceder, rectificar, suprimir,
           oponerte, limitar y portar tus datos personales, así como a retirar el
-          consentimiento prestado. Para ejercerlos, escríbenos a{" "}
-          <a href={`mailto:${contact.email}`} className="text-[var(--signature)] hover:underline">
-            {contact.email}
-          </a>
-          . También puedes reclamar ante la Agencia Española de Protección de
-          Datos (AEPD).
+          consentimiento prestado. También puedes reclamar ante la Agencia
+          Española de Protección de Datos (AEPD).
         </p>
       </section>
 

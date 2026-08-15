@@ -8,16 +8,6 @@ describe("site config", () => {
     expect(siteConfig.description.length).toBeGreaterThan(0)
   })
 
-  it("expone datos de contacto reales (empresa, dirección, email, teléfono, CIF)", () => {
-    const { contact } = siteConfig
-    expect(contact.company.length).toBeGreaterThan(0)
-    expect(contact.addressLine1.length).toBeGreaterThan(0)
-    expect(contact.addressLine2.length).toBeGreaterThan(0)
-    expect(contact.email).toMatch(/@/)
-    expect(contact.phone.length).toBeGreaterThan(0)
-    expect(contact.vatId.length).toBeGreaterThan(0)
-  })
-
   it("la URL base es una URL https válida", () => {
     expect(siteConfig.url.startsWith("https://")).toBe(true)
     expect(() => new URL(siteConfig.url)).not.toThrow()

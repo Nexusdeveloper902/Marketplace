@@ -1,9 +1,9 @@
 /**
- * Centralized site metadata + business contact info.
+ * Centralized site metadata.
  *
- * Single source of truth for the app name, base URL, OG defaults, and
- * the real business contact details used in the footer, privacy policy,
- * and terms pages. Update values here and they propagate everywhere.
+ * Single source of truth for the app name, base URL and OG defaults used
+ * across the footer, privacy policy and terms pages. Update values here
+ * and they propagate everywhere.
  */
 
 export const siteConfig = {
@@ -29,15 +29,6 @@ export const siteConfig = {
     "marketplace",
     "alta gama",
   ],
-  // Real business contact info surfaced in the footer + legal pages.
-  contact: {
-    company: "Digital Marketplace S.L.",
-    addressLine1: "Calle de Velázquez 53, 3º",
-    addressLine2: "28001 Madrid, España",
-    email: "hola@digital-marketplace.example.com",
-    phone: "+34 910 000 000",
-    vatId: "ES-B12345678",
-  },
   social: {
     twitter: "@digitalmarketplace",
   },

@@ -49,13 +49,13 @@ test.describe("Páginas públicas y SEO", () => {
     await expect(page).toHaveTitle(/Comparar/)
   })
 
-  test("política de privacidad carga con datos de contacto", async ({ page }) => {
+  test("política de privacidad carga", async ({ page }) => {
     const res = await page.goto("/privacidad")
     expect(res?.status()).toBe(200)
     await expect(page).toHaveTitle(/Política de Privacidad/)
     await expect(page.getByText(/Política de Privacidad/).first()).toBeVisible()
-    // Email de contacto enlazado
-    await expect(page.locator('a[href^="mailto:"]').first()).toBeVisible()
+    // La sección "Responsable del tratamiento" debe mencionar el sitio.
+    await expect(page.getByText(/Responsable del tratamiento/)).toBeVisible()
   })
 
   test("términos y condiciones carga", async ({ page }) => {

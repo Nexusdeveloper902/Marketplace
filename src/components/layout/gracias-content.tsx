@@ -1,8 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { CheckCircle2, Sparkles, Mail } from "lucide-react"
-import { siteConfig } from "@/lib/site"
+import { CheckCircle2, Sparkles } from "lucide-react"
 
 /**
  * Client-rendered content for the /gracias (thank you) page. Kept as a
@@ -48,22 +47,6 @@ export function GraciasContent() {
           revises cuando quieras.
         </p>
       </motion.div>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-        className="mt-10 flex items-center gap-2 text-xs text-muted-foreground"
-      >
-        <Mail className="h-3.5 w-3.5" strokeWidth={2} />
-        ¿Necesitas ayuda? Escríbenos a{" "}
-        <a
-          href={`mailto:${siteConfig.contact.email}`}
-          className="font-medium text-[var(--signature)] hover:underline"
-        >
-          {siteConfig.contact.email}
-        </a>
-      </motion.p>
     </section>
   )
 }
