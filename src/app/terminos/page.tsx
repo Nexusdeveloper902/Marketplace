@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 const ACTUALIZADO = "1 de junio de 2026"
 
 export default function TerminosPage() {
-  const { contact } = siteConfig
   return (
     <LegalShell
       titulo="Términos y Condiciones"
@@ -32,9 +31,8 @@ export default function TerminosPage() {
         <h2 className="text-xl font-semibold text-foreground">2. Titular</h2>
         <p className="mt-3">
           El titular de este sitio es{" "}
-          <strong className="text-foreground">{contact.company}</strong>, con
-          domicilio en {contact.addressLine1}, {contact.addressLine2} y CIF{" "}
-          {contact.vatId}.
+          <strong className="text-foreground">{siteConfig.name}</strong>, una
+          experiencia de compra simulada.
         </p>
       </section>
 
@@ -62,7 +60,7 @@ export default function TerminosPage() {
         <h2 className="text-xl font-semibold text-foreground">5. Propiedad intelectual</h2>
         <p className="mt-3">
           El diseño, código, contenidos y marcas del sitio pertenecen a{" "}
-          {contact.company} o a sus licenciantes. Las imágenes de los vehículos
+          {siteConfig.name} o a sus licenciantes. Las imágenes de los vehículos
           se incluyen con fines ilustrativos. Queda prohibida la reproducción
           no autorizada del contenido sin permiso.
         </p>
@@ -81,7 +79,7 @@ export default function TerminosPage() {
       <section>
         <h2 className="text-xl font-semibold text-foreground">7. Limitación de responsabilidad</h2>
         <p className="mt-3">
-          {contact.company} no garantiza la disponibilidad continua del
+          {siteConfig.name} no garantiza la disponibilidad continua del
           servicio ni la ausencia de errores. Dado el carácter simulado del
           sitio, no se realiza ningún cobro ni entrega, y no se asume
           responsabilidad por decisiones basadas en la información mostrada.
