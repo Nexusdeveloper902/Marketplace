@@ -548,12 +548,19 @@ export function CheckoutModal({
               {/* Acciones diferenciadas */}
               <div className="flex flex-col gap-2.5 px-6 pb-6 pt-5">
                 <Link
-                  href="/garaje"
+                  href="/gracias"
                   onClick={onClose}
                   className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:gap-3 hover:opacity-90 active:scale-[0.99]"
                 >
-                  Ver en mi garaje
+                  Ver resumen del pedido
                   <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  href="/garaje"
+                  onClick={onClose}
+                  className="w-full rounded-xl border border-border bg-card px-6 py-3.5 text-center text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+                >
+                  Ver en mi garaje
                 </Link>
                 <Link
                   href="/marketplace"
