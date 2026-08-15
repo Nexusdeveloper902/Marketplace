@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/lib/auth/auth-context";
+import { CookieBanner } from "@/components/layout/cookie-banner";
+import { siteConfig, absoluteUrl, pageTitle } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,36 +18,46 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Digital Marketplace — Vehículos de Alta Gama",
-  description:
-    "Marketplace digital de vehículos de alta gama. Descubre, compara y adquiere los modelos más exclusivos del mundo en una experiencia de compra premium.",
-  keywords: [
-    "Digital Marketplace",
-    "vehículos",
-    "autos",
-    "coches",
-    "deportivos",
-    "supercars",
-    "marketplace",
-    "alta gama",
-  ],
-  authors: [{ name: "Digital Marketplace" }],
-  icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: pageTitle(siteConfig.tagline),
+    template: `%s · ${siteConfig.name}`,
   },
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.name }],
+  applicationName: siteConfig.name,
+  generator: "Next.js",
+  referrer: "origin-when-cross-origin",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "32x32" },
+    ],
+    apple: "/apple-icon",
+  },
+  manifest: "/manifest.webmanifest",
   openGraph: {
-    title: "Digital Marketplace — Vehículos de Alta Gama",
-    description:
-      "Descubre, compara y adquiere los modelos más exclusivos del mundo.",
-    siteName: "Digital Marketplace",
+    title: pageTitle(siteConfig.tagline),
+    description: siteConfig.description,
+    siteName: siteConfig.name,
     type: "website",
-    locale: "es_ES",
+    locale: siteConfig.locale,
+    url: absoluteUrl("/"),
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} — ${siteConfig.tagline}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Marketplace — Vehículos de Alta Gama",
-    description:
-      "Descubre, compara y adquiere los modelos más exclusivos del mundo.",
+    title: pageTitle(siteConfig.tagline),
+    description: siteConfig.description,
+    images: ["/opengraph-image"],
   },
 };
 
@@ -93,6 +106,10 @@ export default function RootLayout({
           {children}
         </AuthProvider>
         <Toaster />
+        <CookieBanner />
+        {/* Vercel Web Analytics — page views tracked automatically.
+            Requires Web Analytics enabled in the Vercel dashboard. */}
+        <Analytics />
       </body>
     </html>
   );
