@@ -25,10 +25,12 @@ interface ReviewDTO {
   user: { name: string | null }
 }
 
+// Matches the shape returned by listReviews() / GET /api/reviews:
+//   { reviews: ReviewDetail[], average: number, count: number }
 interface ReviewsResponse {
   reviews: ReviewDTO[]
-  promedio: number | null
-  total: number
+  average: number
+  count: number
 }
 
 function formatDate(iso: string): string {
@@ -123,8 +125,8 @@ export function ReviewsSection({ vehicleSlug }: { vehicleSlug: string }) {
     }
   }
 
-  const promedio = data?.promedio
-  const total = data?.total ?? 0
+  const promedio = data?.average
+  const total = data?.count ?? 0
 
   return (
     <motion.section

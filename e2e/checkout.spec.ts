@@ -10,22 +10,26 @@ import { test, expect } from "@playwright/test"
  */
 
 const RUN_ID = (process.env.GITHUB_RUN_ID ?? "local") + "-" + Date.now().toString(36)
-const EMAIL = `checkout+${RUN_ID}@luxicar.test`
 const PASSWORD = "E2eTest1234!"
 const NAME = "Checkout E2E"
 
-async function registrar(context: import("@playwright/test").BrowserContext, page: import("@playwright/test").Page) {
+async function registrar(context: import("@playwright/test").BrowserContext, page: import("@playwright/test").Page, suffix: string): Promise<string> {
+  // Each test gets a unique email so a 409 "Ya existe" never blocks the
+  // redirect to /perfil. (CI runs these tests in series; a shared email
+  // would have the second one collide with the first.)
+  const email = `checkout-${suffix}+${RUN_ID}@luxicar.test`
   await page.goto("/registro")
   await page.getByPlaceholder("Juan Pérez").fill(NAME)
-  await page.getByPlaceholder("tu@ejemplo.com").fill(EMAIL)
+  await page.getByPlaceholder("tu@ejemplo.com").fill(email)
   await page.getByPlaceholder("Mínimo 6 caracteres").fill(PASSWORD)
   await page.getByRole("button", { name: /Crear cuenta/ }).click()
   await expect(page).toHaveURL(/\/perfil$/, { timeout: 15_000 })
+  return email
 }
 
 test.describe("Flujo de compra", () => {
   test("agregar al carrito muestra el enlace al checkout", async ({ page, context }) => {
-    await registrar(context, page)
+    await registrar(context, page, "cart")
 
     // Ir al marketplace y abrir el primer detalle de vehículo (la imagen es
     // un enlace con aria-label "Ver detalles del {marca} {modelo}").
@@ -47,7 +51,7 @@ test.describe("Flujo de compra", () => {
   })
 
   test("checkout completo lleva a la página de gracias", async ({ page, context }) => {
-    await registrar(context, page)
+    const contactEmail = await registrar(context, page, "pay")
 
     // Abrir un detalle y añadir al carrito.
     await page.goto("/marketplace")
@@ -69,7 +73,7 @@ test.describe("Flujo de compra", () => {
 
     // Datos de contacto.
     await page.getByPlaceholder("Juan Pérez").first().fill(NAME)
-    await page.getByPlaceholder("juan@ejemplo.com").fill(EMAIL)
+    await page.getByPlaceholder("juan@ejemplo.com").fill(contactEmail)
     await page.getByPlaceholder("+34 600 123 456").fill("+34 600 000 000")
 
     // Ir al paso de pago.
