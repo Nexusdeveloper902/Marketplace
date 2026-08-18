@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUXICAR — Presentación del Proyecto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0e11;
+    --bg-2:#141519;
+    --bg-3:#1a1c21;
+    --accent:#d4b06a;
+    --accent-soft:#a08850;
+    --ink:#e8e6e0;
+    --ink-soft:#a8a59c;
+    --ink-mute:#6e6c64;
+    --line:rgba(255,255,255,0.07);
+    --line-accent:rgba(212,176,106,0.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;overflow:hidden;height:100vh;width:100vw}
+
+  .deck{position:relative;height:100vh;width:100vw}
+  .slide{
+    position:absolute;inset:0;
+    padding:72px 96px;
+    display:flex;flex-direction:column;
+    opacity:0;visibility:hidden;
+    transition:opacity .45s ease;
+    overflow:hidden;
+  }
+  .slide.active{opacity:1;visibility:visible}
+
+  .chrome{
+    position:fixed;top:26px;left:0;right:0;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:0 96px;z-index:100;pointer-events:none;
+  }
+  .brand{font-family:'Fraunces',serif;font-size:18px;font-weight:500;letter-spacing:.18em;color:var(--ink)}
+  .brand .ac{color:var(--accent)}
+  .pagenav{pointer-events:auto;display:flex;align-items:center;gap:16px;font-size:12px;color:var(--ink-mute);font-variant-numeric:tabular-nums}
+  .pagenav button{background:none;border:1px solid var(--line);color:var(--ink-soft);width:32px;height:32px;border-radius:50%;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1}
+  .pagenav button:hover{border-color:var(--line-accent);color:var(--accent)}
+  .pagenav button:disabled{opacity:.2;cursor:not-allowed}
+  .progress{position:fixed;bottom:0;left:0;height:1.5px;background:var(--accent);z-index:100;transition:width .45s ease}
+
+  .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:18px}
+  .eyebrow .sep{color:var(--ink-mute);margin:0 8px}
+  h1.display{font-family:'Fraunces',serif;font-weight:300;line-height:.98;letter-spacing:-.015em}
+  h2.title{font-family:'Fraunces',serif;font-weight:400;line-height:1.05;letter-spacing:-.01em}
+  h2.title .it{font-style:italic;color:var(--accent);font-weight:300}
+
+  /* ===== SLIDE 1 ===== */
+  #s1{justify-content:center}
+  #s1 .mark{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:auto;padding-top:30px}
+  #s1 .mark .ac{color:var(--accent)}
+  #s1 h1{font-size:clamp(68px,10vw,148px)}
+  #s1 .sub{margin-top:24px;font-size:16px;color:var(--ink-soft);max-width:600px;line-height:1.65;font-weight:300}
+  #s1 .meta{margin-top:auto;padding-top:48px;display:flex;gap:56px;border-top:1px solid var(--line);width:100%}
+  #s1 .meta .item{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute)}
+  #s1 .meta .item b{display:block;color:var(--ink);font-family:'Fraunces',serif;font-size:18px;font-weight:400;letter-spacing:0;text-transform:none;margin-top:5px}
+
+  /* ===== slide head ===== */
+  .slide-head{margin-top:20px;margin-bottom:34px}
+  .slide-head h2{font-size:clamp(38px,5vw,68px)}
+
+  /* ===== SLIDE 2 ===== */
+  #s2 .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;flex:1;align-items:start}
+  #s2 .lede{font-family:'Fraunces',serif;font-size:24px;font-weight:300;line-height:1.4;color:var(--ink)}
+  #s2 .lede .gold{color:var(--accent)}
+  #s2 .stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+  #s2 .stat{background:var(--bg-2);padding:24px 22px}
+  #s2 .stat .num{font-family:'Fraunces',serif;font-size:42px;font-weight:400;color:var(--accent);line-height:1}
+  #s2 .stat .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-top:7px}
+  #s2 .pillars{margin-top:22px;display:flex;flex-wrap:wrap;gap:7px}
+  #s2 .pill{font-size:11px;letter-spacing:.06em;padding:6px 13px;border:1px solid var(--line-accent);border-radius:3px;color:var(--ink-soft)}
+
+  /* ===== SLIDE 3 ===== */
+  #s3 .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);flex:1}
+  #s3 .cell{background:var(--bg-2);padding:26px 24px;display:flex;flex-direction:column}
+  #s3 .cell .cat{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+  #s3 .cell .name{font-family:'Fraunces',serif;font-size:23px;font-weight:500;color:var(--ink);line-height:1.1}
+  #s3 .cell .ver{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute);margin-top:3px}
+  #s3 .cell .desc{font-size:12px;color:var(--ink-mute);margin-top:12px;line-height:1.55;font-weight:300}
+
+  /* ===== SLIDE 4 — diagram ===== */
+  #s4 .diagram-wrap{flex:1;display:flex;align-items:center;justify-content:center;position:relative;padding-bottom:24px}
+  #s4 svg{width:100%;height:100%;max-height:520px}
+  .diagram-legend{position:absolute;bottom:8px;right:0;display:flex;gap:22px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute)}
+  .diagram-legend .key{display:flex;align-items:center;gap:7px}
+  .diagram-legend .sw{width:11px;height:2px;border-radius:1px}
+
+  /* ===== SLIDE 5 ===== */
+  #s5 .models{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;flex:1;align-content:start}
+  #s5 .model{border:1px solid var(--line);border-radius:4px;padding:18px 16px;background:var(--bg-2)}
+  #s5 .model .mname{font-family:'Fraunces',serif;font-size:19px;font-weight:500;color:var(--ink)}
+  #s5 .model .mname .id{color:var(--accent-soft);font-family:'JetBrains Mono',monospace;font-size:10px;float:right;margin-top:5px}
+  #s5 .model hr{border:none;border-top:1px solid var(--line);margin:10px 0}
+  #s5 .model .field{font-size:11px;color:var(--ink-soft);line-height:1.8;font-family:'JetBrains Mono',monospace}
+  #s5 .model .field .k{color:var(--ink-mute)}
+  #s5 .model .field .pk{color:var(--accent)}
+  #s5 .model .field .fk{color:#8aa0bd}
+  #s5 .model .rel{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);margin-top:7px;font-family:'Inter',sans-serif}
+
+  /* ===== SLIDE 6 ===== */
+  #s6 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1}
+  #s6 .panel{border:1px solid var(--line);border-radius:4px;padding:30px;background:var(--bg-2)}
+  #s6 .panel h3{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--ink);margin-bottom:4px}
+  #s6 .panel .ph{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  #s6 .panel ul{list-style:none}
+  #s6 .panel li{font-size:13px;color:var(--ink-soft);line-height:1.6;padding:9px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+  #s6 .panel li:last-child{border:none}
+  #s6 .panel li .n{font-family:'JetBrains Mono',monospace;color:var(--accent-soft);font-size:11px;min-width:18px;padding-top:1px}
+  #s6 .panel li b{color:var(--ink);font-weight:600}
+
+  /* ===== SLIDE 7 ===== */
+  #s7 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);flex:1}
+  #s7 .feat{background:var(--bg-2);padding:24px 22px;display:flex;flex-direction:column;gap:8px}
+  #s7 .feat .ic{font-family:'Fraunces',serif;font-size:24px;color:var(--accent);line-height:1}
+  #s7 .feat .ft{font-size:14px;font-weight:600;color:var(--ink)}
+  #s7 .feat .fd{font-size:12px;color:var(--ink-mute);line-height:1.55;font-weight:300}
+
+  /* ===== SLIDE 8 ===== */
+  #s8 .pipeline{display:flex;flex-direction:column;gap:18px;flex:1;justify-content:center}
+  #s8 .flow{display:flex;align-items:stretch;gap:0;margin-bottom:10px}
+  #s8 .step{flex:1;padding:18px 16px;background:var(--bg-2);border:1px solid var(--line);position:relative;display:flex;flex-direction:column;gap:5px}
+  #s8 .step:not(:last-child){border-right:none}
+  #s8 .step:not(:last-child)::after{content:"›";position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:20px;z-index:2;background:var(--bg);width:16px;text-align:center}
+  #s8 .step .sn{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent)}
+  #s8 .step .sname{font-family:'Fraunces',serif;font-size:17px;color:var(--ink)}
+  #s8 .step .scmd{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);margin-top:3px}
+  #s8 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:24px}
+  #s8 .sstat{border-top:1px solid var(--line);padding-top:13px}
+  #s8 .sstat .n{font-family:'Fraunces',serif;font-size:38px;color:var(--accent);line-height:1}
+  #s8 .sstat .l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-top:5px}
+
+  /* ===== SLIDE 9 ===== */
+  #s9 .road{display:flex;flex-direction:column;gap:0;flex:1;justify-content:center}
+  #s9 .phase{display:grid;grid-template-columns:130px 1fr;gap:40px;padding:22px 0;border-bottom:1px solid var(--line);align-items:start}
+  #s9 .phase:last-child{border:none}
+  #s9 .phase .ptag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.08em}
+  #s9 .phase .ptag .done{color:var(--ink-mute)}
+  #s9 .phase .pbody h3{font-family:'Fraunces',serif;font-size:23px;color:var(--ink);font-weight:500}
+  #s9 .phase .pbody p{font-size:13px;color:var(--ink-mute);margin-top:4px;line-height:1.6}
+
+  /* ===== SLIDE 10 ===== */
+  #s10{justify-content:center;align-items:center;text-align:center}
+  #s10 .mark{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:30px}
+  #s10 h1{font-size:clamp(58px,8.5vw,120px)}
+  #s10 .tag{margin-top:22px;font-size:16px;color:var(--ink-soft);max-width:540px;line-height:1.65;font-weight:300}
+  #s10 .divider{width:48px;height:1px;background:var(--accent);margin:36px auto 0}
+
+  .slide.active .reveal{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+  .slide.active .reveal:nth-child(1){animation-delay:.04s}
+  .slide.active .reveal:nth-child(2){animation-delay:.12s}
+  .slide.active .reveal:nth-child(3){animation-delay:.2s}
+  .slide.active .reveal:nth-child(4){animation-delay:.28s}
+  .slide.active .reveal:nth-child(5){animation-delay:.36s}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <div class="brand">LUX<span class="ac">·</span>ICAR</div>
+  <div class="pagenav">
+    <button id="prev" aria-label="Anterior">‹</button>
+    <span id="counter">01 / 10</span>
+    <button id="next" aria-label="Siguiente">›</button>
+  </div>
+</div>
+<div class="progress" id="progress"></div>
+
+<div class="deck">
+
+<!-- SLIDE 1 — PORTADA -->
+<section class="slide active" id="s1">
+  <div class="mark reveal">RESUMEN DEL PROYECTO <span class="ac">/</span> 2026 <span class="ac">/</span> FULL-STACK</div>
+  <h1 class="display reveal">LUX<span class="it" style="font-style:italic;color:var(--accent)">icar</span></h1>
+  <p class="sub reveal">Un marketplace premium de vehículos de alta gama, construido con Next.js 16, React 19 y TypeScript, respaldado por una base de datos relacional real con autenticación, pedidos, inventario, favoritos, reseñas y analítica.</p>
+  <div class="meta reveal">
+    <div class="item">Stack<b>Next.js · Prisma · Postgres</b></div>
+    <div class="item">Catálogo<b>88 vehículos · 30 marcas</b></div>
+    <div class="item">Interfaz<b>En español · 6 temas</b></div>
+    <div class="item">Tests<b>146 unit · 19 E2E</b></div>
+  </div>
+</section>
+
+<!-- SLIDE 2 — VISIÓN GENERAL -->
+<section class="slide" id="s2">
+  <div class="eyebrow reveal">01 <span class="sep">/</span> El proyecto</div>
+  <div class="slide-head"><h2 class="title reveal">Lo que estamos <span class="it">construyendo</span>.</h2></div>
+  <div class="grid">
+    <div class="reveal">
+      <p class="lede">Un marketplace digital <span class="gold">cinematográfico y en tono oscuro</span> para vehículos de alta gama. Especificaciones reales, galerías de imágenes, financiación y comparador — todo respaldado por una base de datos transaccional, no datos simulados.</p>
+      <div class="pillars">
+        <span class="pill">Auth en servidor</span>
+        <span class="pill">Checkout atómico</span>
+        <span class="pill">Consciente del stock</span>
+        <span class="pill">Analítica de admin</span>
+        <span class="pill">Listo para Vercel</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="stats">
+        <div class="stat"><div class="num">88</div><div class="lbl">Vehículos en catálogo</div></div>
+        <div class="stat"><div class="num">30</div><div class="lbl">Marcas</div></div>
+        <div class="stat"><div class="num">8</div><div class="lbl">Modelos de datos</div></div>
+        <div class="stat"><div class="num">11</div><div class="lbl">Rutas de API</div></div>
+        <div class="stat"><div class="num">16</div><div class="lbl">Archivos de tests unitarios</div></div>
+        <div class="stat"><div class="num">19</div><div class="lbl">Tests E2E (Playwright)</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3 — STACK TECNOLÓGICO -->
+<section class="slide" id="s3">
+  <div class="eyebrow reveal">02 <span class="sep">/</span> Tecnología</div>
+  <div class="slide-head"><h2 class="title reveal">El <span class="it">stack</span>.</h2></div>
+  <div class="stack-grid">
+    <div class="cell reveal"><div class="cat">Framework</div><div class="name">Next.js</div><div class="ver">16.1 · App Router</div><div class="desc">Server components, route handlers, Turbopack. Salida standalone para serverless.</div></div>
+    <div class="cell reveal"><div class="cat">UI Runtime</div><div class="name">React</div><div class="ver">19 · TypeScript 5</div><div class="desc">Tipado estricto. Separación de componentes de servidor y cliente.</div></div>
+    <div class="cell reveal"><div class="cat">Runtime / Paquetes</div><div class="name">Bun</div><div class="ver">1.3 · bun:test</div><div class="desc">Instalación, ejecución y tests. Lockfile fijado, sin Jest.</div></div>
+    <div class="cell reveal"><div class="cat">Estilos</div><div class="name">Tailwind v4</div><div class="ver">+ shadcn/ui · Radix</div><div class="desc">Variables CSS, seis paletas de temas. +50 primitivas accesibles.</div></div>
+    <div class="cell reveal"><div class="cat">Estado cliente</div><div class="name">Zustand</div><div class="ver">5 · persist</div><div class="desc">Carrito, comparador, tema, vistos. Solo UI — la BD es la verdad.</div></div>
+    <div class="cell reveal"><div class="cat">Base de datos</div><div class="name">Prisma + Postgres</div><div class="ver">Compatible con Supabase</div><div class="desc">8 modelos relacionales. Migraciones, seed y checkout transaccional.</div></div>
+    <div class="cell reveal"><div class="cat">Animación / Gráficos</div><div class="name">Framer Motion</div><div class="ver">+ Recharts 2.15</div><div class="desc">Transiciones cinematográficas y gráficos del panel de admin.</div></div>
+    <div class="cell reveal"><div class="cat">Autenticación</div><div class="name">JWT propio</div><div class="ver">scrypt · httpOnly</div><div class="desc">Sesiones firmadas sin estado. Rol recargado desde BD cada petición.</div></div>
+    <div class="cell reveal"><div class="cat">Despliegue / CI</div><div class="name">Vercel + GH Actions</div><div class="ver">3 jobs · Postgres 16</div><div class="desc">BD de CI aislada. Gate lint → tests (unit + integración + E2E) → build antes del despliegue.</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 4 — DIAGRAMA DE ARQUITECTURA -->
+<section class="slide" id="s4">
+  <div class="eyebrow reveal">03 <span class="sep">/</span> Arquitectura</div>
+  <div class="slide-head"><h2 class="title reveal">Flujo de <span class="it">petición</span> y capas.</h2></div>
+  <div class="diagram-wrap reveal">
+    <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#d4b06a"/>
+        </marker>
+        <marker id="arrowMute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#6e6c64"/>
+        </marker>
+      </defs>
+
+      <!-- Etiquetas de capa -->
+      <text x="22" y="60" font-size="10" fill="#d4b06a" letter-spacing="3">CLIENTE</text>
+      <text x="22" y="265" font-size="10" fill="#d4b06a" letter-spacing="3">SERVIDOR</text>
+      <text x="22" y="490" font-size="10" fill="#d4b06a" letter-spacing="3">DATOS</text>
+
+      <line x1="0" y1="195" x2="1000" y2="195" stroke="#26282d" stroke-dasharray="2 6"/>
+      <line x1="0" y1="425" x2="1000" y2="425" stroke="#26282d" stroke-dasharray="2 6"/>
+
+      <!-- ===== CAPA CLIENTE ===== -->
+      <g>
+        <rect x="130" y="30" width="250" height="130" rx="6" fill="#141519" stroke="#d4b06a" stroke-opacity="0.25"/>
+        <text x="255" y="56" text-anchor="middle" font-size="10" fill="#d4b06a" letter-spacing="2">NAVEGADOR</text>
+        <text x="255" y="88" text-anchor="middle" font-family="Fraunces,serif" font-size="19" fill="#e8e6e0">React 19 — Cliente</text>
+        <text x="255" y="112" text-anchor="middle" font-size="11" fill="#6e6c64">Componentes de servidor · Suspense</text>
+        <text x="255" y="132" text-anchor="middle" font-size="11" fill="#6e6c64">fetch a /api/* · UI optimista</text>
+      </g>
+      <g>
+        <rect x="620" y="30" width="250" height="130" rx="6" fill="#141519" stroke="#d4b06a" stroke-opacity="0.18"/>
+        <text x="745" y="56" text-anchor="middle" font-size="10" fill="#d4b06a" letter-spacing="2">ESTADO DE UI</text>
+        <text x="745" y="88" text-anchor="middle" font-family="Fraunces,serif" font-size="19" fill="#e8e6e0">Zustand (persist)</text>
+        <text x="745" y="112" text-anchor="middle" font-size="11" fill="#6e6c64">carrito · comparar · tema</text>
+        <text x="745" y="132" text-anchor="middle" font-size="11" fill="#6e6c64">sync de favoritos al iniciar sesión</text>
+      </g>
+      <g>
+        <rect x="420" y="70" width="160" height="42" rx="4" fill="#0d0e11" stroke="#d4b06a" stroke-opacity="0.35" stroke-dasharray="3 3"/>
+        <text x="500" y="96" text-anchor="middle" font-size="10" fill="#d4b06a">luxicar_session · httpOnly</text>
+      </g>
+      <path d="M255,160 C255,205 255,215 255,238" stroke="#d4b06a" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+      <path d="M500,112 C500,165 500,205 500,238" stroke="#6e6c64" stroke-width="1" fill="none" stroke-dasharray="4 3" marker-end="url(#arrowMute)"/>
+
+      <!-- ===== CAPA SERVIDOR ===== -->
+      <g>
+        <rect x="60" y="240" width="230" height="160" rx="6" fill="#161310" stroke="#d4b06a" stroke-opacity="0.3"/>
+        <text x="175" y="266" text-anchor="middle" font-size="10" fill="#d4b06a" letter-spacing="2">PRESENTACIÓN</text>
+        <text x="175" y="298" text-anchor="middle" font-family="Fraunces,serif" font-size="19" fill="#e8e6e0">App Router</text>
+        <text x="175" y="324" text-anchor="middle" font-size="11" fill="#6e6c64">Componentes de servidor</text>
+        <text x="175" y="342" text-anchor="middle" font-size="11" fill="#6e6c64">/marketplace · /vehiculos/[id]</text>
+        <text x="175" y="360" text-anchor="middle" font-size="11" fill="#6e6c64">/marcas · /admin</text>
+        <text x="175" y="386" text-anchor="middle" font-size="10" fill="#7a9a6a">lectura → capa de datos</text>
+      </g>
+      <g>
+        <rect x="340" y="240" width="230" height="160" rx="6" fill="#161310" stroke="#d4b06a" stroke-opacity="0.3"/>
+        <text x="455" y="266" text-anchor="middle" font-size="10" fill="#d4b06a" letter-spacing="2">API / MUTACIONES</text>
+        <text x="455" y="298" text-anchor="middle" font-family="Fraunces,serif" font-size="19" fill="#e8e6e0">Route Handlers</text>
+        <text x="455" y="324" text-anchor="middle" font-size="11" fill="#6e6c64">/api/auth · /api/orders</text>
+        <text x="455" y="342" text-anchor="middle" font-size="11" fill="#6e6c64">/api/favorites · /api/reviews</text>
+        <text x="455" y="360" text-anchor="middle" font-size="11" fill="#6e6c64">/api/vehicles · /api/analytics</text>
+        <text x="455" y="386" text-anchor="middle" font-size="10" fill="#bd6a6a">escritura → guards → datos</text>
+      </g>
+      <g>
+        <rect x="620" y="240" width="210" height="160" rx="6" fill="#161310" stroke="#d4b06a" stroke-opacity="0.3"/>
+        <text x="725" y="266" text-anchor="middle" font-size="10" fill="#d4b06a" letter-spacing="2">SEGURIDAD</text>
+        <text x="725" y="298" text-anchor="middle" font-family="Fraunces,serif" font-size="19" fill="#e8e6e0">Guards y sesión</text>
+        <text x="725" y="324" text-anchor="middle" font-size="11" fill="#6e6c64">requireUser / requireAdmin</text>
+        <text x="725" y="342" text-anchor="middle" font-size="11" fill="#6e6c64">verifySessionToken (HS256)</text>
+        <text x="725" y="360" text-anchor="middle" font-size="11" fill="#6e6c64">rol recargado desde la BD</text>
+        <text x="725" y="386" text-anchor="middle" font-size="10" fill="#6e6c64">hash de contraseña scrypt</text>
+      </g>
+      <g>
+        <rect x="870" y="240" width="110" height="160" rx="6" fill="#141519" stroke="#d4b06a" stroke-opacity="0.18"/>
+        <text x="925" y="266" text-anchor="middle" font-size="10" fill="#d4b06a" letter-spacing="2">TELEMETRÍA</text>
+        <text x="925" y="312" text-anchor="middle" font-family="Fraunces,serif" font-size="15" fill="#e8e6e0">trackEvent</text>
+        <text x="925" y="336" text-anchor="middle" font-size="10" fill="#6e6c64">mejor esfuerzo</text>
+        <text x="925" y="352" text-anchor="middle" font-size="10" fill="#6e6c64">ignora errores</text>
+      </g>
+      <path d="M290,320 L340,320" stroke="#d4b06a" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+      <path d="M570,320 C590,320 600,320 620,320" stroke="#d4b06a" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+      <path d="M830,320 L870,320" stroke="#6e6c64" stroke-width="1" fill="none" stroke-dasharray="4 3" marker-end="url(#arrowMute)"/>
+      <path d="M175,400 C175,430 175,445 175,465" stroke="#d4b06a" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+      <path d="M455,400 C455,430 455,445 455,465" stroke="#d4b06a" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+
+      <!-- ===== CAPA DE DATOS ===== -->
+      <g>
+        <rect x="60" y="465" width="440" height="110" rx="6" fill="#101311" stroke="#d4b06a" stroke-opacity="0.25"/>
+        <text x="280" y="491" text-anchor="middle" font-size="10" fill="#d4b06a" letter-spacing="2">CAPA DE ACCESO A DATOS · src/lib/server/data/*</text>
+        <text x="280" y="523" text-anchor="middle" font-family="Fraunces,serif" font-size="15" fill="#e8e6e0">vehículos · marcas · favoritos · pedidos · reseñas · analítica</text>
+        <text x="280" y="547" text-anchor="middle" font-size="10" fill="#6e6c64">db.$transaction · precio congelado · decremento de stock</text>
+      </g>
+      <g>
+        <rect x="560" y="465" width="170" height="110" rx="6" fill="#101311" stroke="#d4b06a" stroke-opacity="0.25"/>
+        <text x="645" y="491" text-anchor="middle" font-size="10" fill="#d4b06a" letter-spacing="2">ORM</text>
+        <text x="645" y="523" text-anchor="middle" font-family="Fraunces,serif" font-size="18" fill="#e8e6e0">Prisma Client</text>
+        <text x="645" y="549" text-anchor="middle" font-size="11" fill="#6e6c64">singleton · migraciones</text>
+      </g>
+      <g>
+        <rect x="780" y="465" width="200" height="110" rx="6" fill="#101311" stroke="#d4b06a" stroke-opacity="0.35"/>
+        <text x="880" y="491" text-anchor="middle" font-size="10" fill="#d4b06a" letter-spacing="2">PERSISTENCIA</text>
+        <text x="880" y="523" text-anchor="middle" font-family="Fraunces,serif" font-size="18" fill="#e8e6e0">PostgreSQL</text>
+        <text x="880" y="549" text-anchor="middle" font-size="11" fill="#6e6c64">Supabase · 8 modelos</text>
+      </g>
+      <path d="M500,520 L560,520" stroke="#d4b06a" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+      <path d="M730,520 L780,520" stroke="#d4b06a" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+      <path d="M725,400 C745,440 940,440 940,465" stroke="#6e6c64" stroke-width="1" fill="none" stroke-dasharray="4 3" marker-end="url(#arrowMute)"/>
+      <text x="845" y="436" font-size="9" fill="#6e6c64">recarga de rol</text>
+    </svg>
+    <div class="diagram-legend">
+      <div class="key"><div class="sw" style="background:#d4b06a"></div>flujo principal</div>
+      <div class="key"><div class="sw" style="background:#6e6c64"></div>sesión / telemetría</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 — MODELO DE DATOS -->
+<section class="slide" id="s5">
+  <div class="eyebrow reveal">04 <span class="sep">/</span> Dominio</div>
+  <div class="slide-head"><h2 class="title reveal">El <span class="it">modelo de datos</span>.</h2></div>
+  <div class="models">
+    <div class="model reveal">
+      <div class="mname">User<span class="id">cuid</span></div><hr>
+      <div class="field"><span class="pk">id</span> String</div>
+      <div class="field"><span class="k">email</span> String @unique</div>
+      <div class="field"><span class="k">passwordHash</span> String</div>
+      <div class="field"><span class="k">role</span> USER | ADMIN</div>
+      <div class="rel">→ favorites · orders · reviews</div>
+    </div>
+    <div class="model reveal">
+      <div class="mname">Vehicle<span class="id">cuid</span></div><hr>
+      <div class="field"><span class="pk">id</span> cuid · <span class="k">slug</span> @unique</div>
+      <div class="field"><span class="k">marca·modelo·año·precio</span></div>
+      <div class="field"><span class="k">motor·potencia·torque</span></div>
+      <div class="field"><span class="k">stock·available·featured</span></div>
+      <div class="field"><span class="fk">brandId</span> → Brand</div>
+    </div>
+    <div class="model reveal">
+      <div class="mname">Brand<span class="id">cuid</span></div><hr>
+      <div class="field"><span class="pk">id</span> String</div>
+      <div class="field"><span class="k">name</span> @unique</div>
+      <div class="field"><span class="k">slug</span> @unique</div>
+      <div class="field"><span class="k">description</span> String</div>
+      <div class="rel">→ 1:N vehículos</div>
+    </div>
+    <div class="model reveal">
+      <div class="mname">Favorite<span class="id">M:N</span></div><hr>
+      <div class="field"><span class="pk">id</span> String</div>
+      <div class="field"><span class="fk">userId</span> → User</div>
+      <div class="field"><span class="fk">vehicleId</span> → Vehicle</div>
+      <div class="field"><span class="k">@@unique</span> [userId,vehicleId]</div>
+      <div class="rel">inserción idempotente</div>
+    </div>
+    <div class="model reveal">
+      <div class="mname">Order<span class="id">cuid</span></div><hr>
+      <div class="field"><span class="pk">id</span> · <span class="k">number</span> LXC-YYYY-NNNNN</div>
+      <div class="field"><span class="fk">userId</span> → User</div>
+      <div class="field"><span class="k">status</span> PENDING…CANCELLED</div>
+      <div class="field"><span class="k">total</span> Int</div>
+      <div class="rel">→ 1:N OrderItem</div>
+    </div>
+    <div class="model reveal">
+      <div class="mname">OrderItem<span class="id">cuid</span></div><hr>
+      <div class="field"><span class="fk">orderId</span> → Order</div>
+      <div class="field"><span class="fk">vehicleId</span> → Vehicle</div>
+      <div class="field"><span class="k">priceAtPurchase</span> congelado</div>
+      <div class="field"><span class="k">quantity</span> Int</div>
+      <div class="rel">@@unique [orderId,vehicleId]</div>
+    </div>
+    <div class="model reveal">
+      <div class="mname">Review<span class="id">cuid</span></div><hr>
+      <div class="field"><span class="fk">userId</span> · <span class="fk">vehicleId</span></div>
+      <div class="field"><span class="k">rating</span> Int 1–5</div>
+      <div class="field"><span class="k">comment</span> String</div>
+      <div class="field"><span class="k">@@unique</span> por usuario+vehículo</div>
+      <div class="rel">requiere pedido completado</div>
+    </div>
+    <div class="model reveal">
+      <div class="mname">Event<span class="id">cuid</span></div><hr>
+      <div class="field"><span class="k">type</span> VEHICLE_VIEWED…</div>
+      <div class="field"><span class="fk">userId?</span> · <span class="fk">vehicleId?</span></div>
+      <div class="field"><span class="fk">orderId?</span></div>
+      <div class="field"><span class="k">metadata</span> JSON</div>
+      <div class="rel">analítica ligera</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6 — BACKEND Y SEGURIDAD -->
+<section class="slide" id="s6">
+  <div class="eyebrow reveal">05 <span class="sep">/</span> Backend</div>
+  <div class="slide-head"><h2 class="title reveal">Seguridad y <span class="it">transacciones</span>.</h2></div>
+  <div class="two-col">
+    <div class="panel reveal">
+      <div class="ph">Modelo de autenticación</div>
+      <h3>Sin estado, nunca confiado</h3>
+      <ul>
+        <li><span class="n">01</span><div><b>Token firmado tipo JWT</b> en cookie httpOnly <code>luxicar_session</code>. El payload solo lleva <code>sub</code> (userId).</div></li>
+        <li><span class="n">02</span><div><b>Rol recargado desde la BD</b> en cada petición — los permisos nunca se confían al cliente.</div></li>
+        <li><span class="n">03</span><div><b>Hash de contraseña con scrypt</b> (<code>scrypt:&lt;salt&gt;:&lt;hash&gt;</code>), sin dependencias externas, sin texto plano.</div></li>
+        <li><span class="n">04</span><div><b>Guards</b>: <code>requireUser</code> → /login, <code>requireAdmin</code> → /admin/login, redirecciones según rol.</div></li>
+        <li><span class="n">05</span><div><b>Favoritos de invitado fusionados</b> en la BD al iniciar sesión. Sin tabla de sesiones — apto para serverless.</div></li>
+      </ul>
+    </div>
+    <div class="panel reveal">
+      <div class="ph">Integridad del checkout</div>
+      <h3>Atómico y a prueba de sobreventa</h3>
+      <ul>
+        <li><span class="n">01</span><div><b>Una sola transacción de Prisma</b> valida existencia, disponibilidad y stock de cada artículo.</div></li>
+        <li><span class="n">02</span><div><b>El precio de la BD es autoritativo</b> — nunca se usa el del cliente; <code>priceAtPurchase</code> se congela.</div></li>
+        <li><span class="n">03</span><div><b>Stock decrementado</b> dentro de la tx; <code>available=false</code> al llegar a cero.</div></li>
+        <li><span class="n">04</span><div><b>Número de pedido legible</b> <code>LXC-2026-00042</code>, secuenciado por año dentro de la tx.</div></li>
+        <li><span class="n">05</span><div><b>Errores tipados</b> — <code>CheckoutError</code> con códigos EMPTY / INVALID_VEHICLE / UNAVAILABLE / INSUFFICIENT_STOCK.</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7 — FUNCIONES -->
+<section class="slide" id="s7">
+  <div class="eyebrow reveal">06 <span class="sep">/</span> Capacidades</div>
+  <div class="slide-head"><h2 class="title reveal">Superficie de <span class="it">funciones</span>.</h2></div>
+  <div class="feat-grid">
+    <div class="feat reveal"><div class="ic">✦</div><div class="ft">Catálogo y búsqueda</div><div class="fd">88 vehículos de 30 marcas con especificaciones completas — motor, potencia, par, transmisión, 0–100, velocidad máxima.</div></div>
+    <div class="feat reveal"><div class="ic">◐</div><div class="ft">Detalle de vehículo</div><div class="fd">Galerías de imágenes, vehículos relacionados, calculadora de financiación y reseñas con compra verificada.</div></div>
+    <div class="feat reveal"><div class="ic">⌖</div><div class="ft">Comparador</div><div class="fd">Comparación lado a lado de hasta 3 vehículos en todas las dimensiones de especificación.</div></div>
+    <div class="feat reveal"><div class="ic">♡</div><div class="ft">Favoritos</div><div class="fd">Respaldados en BD, por usuario. Los favoritos de invitado se fusionan con la cuenta al iniciar sesión.</div></div>
+    <div class="feat reveal"><div class="ic">▣</div><div class="ft">Carrito y checkout</div><div class="fd">Checkout en modal con transacción atómica, precios congelados y decremento de inventario.</div></div>
+    <div class="feat reveal"><div class="ic">◈</div><div class="ft">Garaje y pedidos</div><div class="fd">Vehículos comprados con valor total acumulado; historial de pedidos filtrado por propietario.</div></div>
+    <div class="feat reveal"><div class="ic">◉</div><div class="ft">Páginas de marca</div><div class="fd">Índice por fabricante con conteo de vehículos y rangos de precios, rutas basadas en slug.</div></div>
+    <div class="feat reveal"><div class="ic">▦</div><div class="ft">Panel de admin</div><div class="fd">Analítica real desde BD — KPIs, ventas por marca/categoría, top vehículos, gráficos de 36 meses.</div></div>
+    <div class="feat reveal"><div class="ic">✧</div><div class="ft">Seis temas</div><div class="fd">Paletas cinematográficas oscuras seleccionables, persistidas en el cliente vía Zustand.</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 8 — TESTING Y CI -->
+<section class="slide" id="s8">
+  <div class="eyebrow reveal">07 <span class="sep">/</span> Calidad</div>
+  <div class="slide-head"><h2 class="title reveal">Testing y <span class="it">CI</span>.</h2></div>
+  <div class="pipeline">
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px">
+      <div style="border:1px solid var(--line);border-radius:4px;padding:20px 18px;background:var(--bg-2)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em">NIVEL 1 · UNIT</div>
+        <div style="font-family:'Fraunces,serif;font-size:20px;color:var(--ink);margin-top:8px">Tests unitarios</div>
+        <div style="font-size:12px;color:var(--ink-mute);line-height:1.55;margin-top:8px;font-weight:300">Bun:test, sin BD. Helpers puros: <code style="color:var(--accent-soft);font-family:'JetBrains Mono',monospace">cn()</code>, formato de precio, sesión, password, mappers, store.</div>
+        <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--accent);margin-top:10px">16 <span style="font-size:13px;color:var(--ink-mute);font-family:'Inter',sans-serif">archivos</span></div>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:4px;padding:20px 18px;background:var(--bg-2)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em">NIVEL 2 · INTEGRACIÓN</div>
+        <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--ink);margin-top:8px">Contra BD real</div>
+        <div style="font-size:12px;color:var(--ink-mute);line-height:1.55;margin-top:8px;font-weight:300">Postgres sembrado. Atomicidad del checkout, sobreventa, propiedad de pedidos, autorización de reseñas, agregación del panel.</div>
+        <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--accent);margin-top:10px">146 <span style="font-size:13px;color:var(--ink-mute);font-family:'Inter',sans-serif">tests</span></div>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:4px;padding:20px 18px;background:var(--bg-2)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em">NIVEL 3 · E2E</div>
+        <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--ink);margin-top:8px">Playwright</div>
+        <div style="font-size:12px;color:var(--ink-mute);line-height:1.55;margin-top:8px;font-weight:300">Stack completo en vivo. Auth (registro→perfil→logout), flujo de compra completo, smoke de páginas públicas y SEO.</div>
+        <div style="font-family:'Fraunces',serif;font-size:30px;color:var(--accent);margin-top:10px">19 <span style="font-size:13px;color:var(--ink-mute);font-family:'Inter',sans-serif">tests</span></div>
+      </div>
+    </div>
+    <div class="flow reveal">
+      <div class="step"><div class="sn">01</div><div class="sname">Instalar</div><div class="scmd">bun install --frozen-lockfile</div></div>
+      <div class="step"><div class="sn">02</div><div class="sname">Configurar BD</div><div class="scmd">bun run db:setup</div></div>
+      <div class="step"><div class="sn">03</div><div class="sname">Lint</div><div class="scmd">bun run lint</div></div>
+      <div class="step"><div class="sn">04</div><div class="sname">Tests</div><div class="scmd">bun test · playwright</div></div>
+      <div class="step"><div class="sn">05</div><div class="sname">Build</div><div class="scmd">bun run build</div></div>
+    </div>
+    <div class="reveal">
+      <div class="stats-row">
+        <div class="sstat"><div class="n">3</div><div class="l">Jobs de CI · unit · integración · e2e</div></div>
+        <div class="sstat"><div class="n">PG 16</div><div class="l">Postgres aislado por job</div></div>
+        <div class="sstat"><div class="n">165</div><div class="l">Tests en total</div></div>
+        <div class="sstat"><div class="n">0</div><div class="l">BD de producción tocada</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9 — ROADMAP -->
+<section class="slide" id="s9">
+  <div class="eyebrow reveal">08 <span class="sep">/</span> Hoja de ruta</div>
+  <div class="slide-head"><h2 class="title reveal">En dónde <span class="it">está</span>.</h2></div>
+  <div class="road">
+    <div class="phase reveal">
+      <div class="ptag"><span class="done">FASE 01 ✓</span></div>
+      <div class="pbody"><h3>Frontend estático</h3><p>Catálogo, páginas de detalle, carrito, comparador, garaje, temas — todo en el cliente con Zustand. ✅ Entregado.</p></div>
+    </div>
+    <div class="phase reveal">
+      <div class="ptag"><span class="done">FASE 02 ✓</span></div>
+      <div class="pbody"><h3>Mejora full-stack</h3><p>Prisma + Postgres, auth en servidor, rutas de API, checkout transaccional, analítica de admin desde BD. ✅ Entregado.</p></div>
+    </div>
+    <div class="phase reveal">
+      <div class="ptag"><span class="done">FASE 03 ✓</span></div>
+      <div class="pbody"><h3>Testing E2E</h3><p>Suite completa de Playwright: autenticación, flujo de compra y smoke de páginas públicas con SEO, contra el stack real en CI. ✅ Entregado.</p></div>
+    </div>
+    <div class="phase reveal">
+      <div class="ptag">FASE 04 ◐</div>
+      <div class="pbody"><h3>Endurecimiento</h3><p>Rate limiting, rotación de credenciales demo y ampliación de cobertura E2E a casos límite y errores.</p></div>
+    </div>
+    <div class="phase reveal">
+      <div class="ptag">FASE 05 ○</div>
+      <div class="pbody"><h3>Escalar y extender</h3><p>Integración de pagos reales, paginación en servidor a escala, i18n más allá del español y contenido CMS por marca.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 — CIERRE -->
+<section class="slide" id="s10">
+  <div class="mark reveal">FIN DEL RESUMEN</div>
+  <h1 class="display reveal">Conduce la <span class="it" style="font-style:italic;color:var(--accent)">experiencia</span>.</h1>
+  <p class="tag reveal">Un marketplace cinematográfico con una columna transaccional real — construido para desplegar en Vercel, testeado contra un Postgres aislado y listo para lo que viene.</p>
+  <div class="divider reveal"></div>
+</section>
+
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  let idx = 0;
+  const total = slides.length;
+  function show(n){
+    idx = Math.max(0, Math.min(total-1, n));
+    slides.forEach((s,i)=>s.classList.toggle('active', i===idx));
+    counter.textContent = String(idx+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+    progress.style.width = ((idx+1)/total*100) + '%';
+    prevBtn.disabled = idx===0;
+    nextBtn.disabled = idx===total-1;
+  }
+  prevBtn.addEventListener('click',()=>show(idx-1));
+  nextBtn.addEventListener('click',()=>show(idx+1));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' ') show(idx+1);
+    if(e.key==='ArrowLeft') show(idx-1);
+  });
+  show(0);
+</script>
+</body>
+</html>
