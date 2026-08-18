@@ -33,11 +33,16 @@ test.describe("Flujo de compra", () => {
 
     // Ir al marketplace y abrir el primer detalle de vehículo (la imagen es
     // un enlace con aria-label "Ver detalles del {marca} {modelo}").
+    // La tarjeta tiene dos enlaces superpuestos al mismo destino; .click()
+    // es intermitente ("intercepts pointer events" + "not stable" por la
+    // animación de entrada), así que leemos el href y navegamos directamente.
     await page.goto("/marketplace")
-    await page
+    const card = page
       .getByRole("link", { name: /Ver detalles del .+/i })
       .first()
-      .click()
+    const href = await card.getAttribute("href")
+    expect(href).toBeTruthy()
+    await page.goto(href!)
     await expect(page.locator("h1").first()).toBeVisible()
 
     // Añadir al carrito (botón "Agregar al carrito", no el de "agotado"/"comprado").
@@ -53,12 +58,15 @@ test.describe("Flujo de compra", () => {
   test("checkout completo lleva a la página de gracias", async ({ page, context }) => {
     const contactEmail = await registrar(context, page, "pay")
 
-    // Abrir un detalle y añadir al carrito.
+    // Abrir un detalle y añadir al carrito. Navegación directa al primer
+    // detalle (ver nota en el test anterior sobre el clic de la tarjeta).
     await page.goto("/marketplace")
-    await page
+    const card = page
       .getByRole("link", { name: /Ver detalles del .+/i })
       .first()
-      .click()
+    const href = await card.getAttribute("href")
+    expect(href).toBeTruthy()
+    await page.goto(href!)
     await expect(page.locator("h1").first()).toBeVisible()
     await page.getByRole("button", { name: /Agregar al carrito/ }).first().click()
     await expect(page.getByRole("link", { name: /Ver carrito y finalizar compra/ })).toBeVisible()

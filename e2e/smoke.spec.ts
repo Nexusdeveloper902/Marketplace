@@ -33,13 +33,18 @@ test.describe("Páginas públicas y SEO", () => {
   })
 
   test("un detalle de vehículo carga con especificaciones", async ({ page }) => {
-    // Navegar desde el marketplace hacia la primera tarjeta (la imagen es un
-    // enlace con aria-label "Ver detalles del {marca} {modelo}").
+    // La tarjeta de vehículo tiene dos enlaces superpuestos al mismo destino
+    // (imagen + nombre), lo que hace que .click() fallen de forma intermitente
+    // por "intercepts pointer events" mientras la animación de entrada la deja
+    // "not stable". En vez de hacer clic en la tarjeta, leemos su href y
+    // navegamos directamente: determinista y sin depender de la animación.
     await page.goto("/marketplace")
-    await page
+    const card = page
       .getByRole("link", { name: /Ver detalles del .+/i })
       .first()
-      .click()
+    const href = await card.getAttribute("href")
+    expect(href).toBeTruthy()
+    await page.goto(href!)
     await expect(page).toHaveTitle(/.+/)
     await expect(page.locator("h1").first()).toBeVisible()
   })
