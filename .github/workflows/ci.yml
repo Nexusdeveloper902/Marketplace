@@ -59,6 +59,7 @@ jobs:
 
     env:
       DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/luxicar_test"
+      DIRECT_URL: "postgresql://postgres:postgres@localhost:5432/luxicar_test"
       AUTH_SECRET: "ci-luxicar-test-secret"
 
     steps:
@@ -119,6 +120,7 @@ jobs:
 
     env:
       DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/luxicar_test"
+      DIRECT_URL: "postgresql://postgres:postgres@localhost:5432/luxicar_test"
       AUTH_SECRET: "ci-luxicar-test-secret"
 
     steps:
