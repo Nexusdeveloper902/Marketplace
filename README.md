@@ -128,15 +128,28 @@ model. PostgreSQL is required because the app runs on Vercel serverless, where a
 local file database (SQLite) cannot persist writes at runtime.
 
 A hosted Postgres works out of the box — **Supabase** is the recommended option.
-Use the **session-mode pooler** connection string (port `5432`), which supports
-both Prisma migrations and runtime queries:
+The app uses **two** connection strings so that serverless runtime queries and
+migrations don't fight over the same pool:
+
+- **`DATABASE_URL`** (runtime, queried on every request) → the **transaction-mode
+  pooler** on port `6543`, with `?pgbouncer=true&connection_limit=1`. Transaction
+  mode multiplexes many short-lived serverless connections over a small backend
+  pool, so it does not exhaust Supabase's `pool_size` (default 15). The
+  `connection_limit=1` caps each function instance to one client connection.
+- **`DIRECT_URL`** (migrations / `prisma migrate deploy`) → the **direct
+  connection** on port `5432` of the `db.*` host. Prisma Migrate needs prepared
+  statements and a dedicated session, which transaction-mode pooling rejects.
 
 ```
-postgresql://postgres.<PROJECT_REF>:<PASSWORD>@aws-0-<REGION>.pooler.supabase.com:5432/postgres
+DATABASE_URL=postgresql://postgres.<PROJECT_REF>:<PASSWORD>@aws-0-<REGION>.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1
+DIRECT_URL=postgresql://postgres.<PASSWORD>@db.<PROJECT_REF>.supabase.co:5432/postgres
 ```
 
-(The transaction pooler on port `6543` does not support Prisma's schema engine
-for migrations.)
+> Do **not** use the session-mode pooler (port `5432` on `pooler.supabase.com`)
+> for `DATABASE_URL`. In session mode every client connection holds a dedicated
+> backend connection, so a few concurrent Vercel functions quickly exhaust the
+> 15-slot session pool (`FATAL: EMAXCONNSESSION`). Use the direct connection
+> (`db.*`) for migrations instead.
 
 ### Models
 
@@ -235,21 +248,29 @@ Environment Variables** (never commit secrets — `.env` is gitignored):
 
 | Variable       | Required | Description                                                                 |
 | -------------- | -------- | --------------------------------------------------------------------------- |
-| `DATABASE_URL` | yes      | PostgreSQL connection URL (Supabase session pooler recommended).           |
+| `DATABASE_URL` | yes      | Runtime connection — Supabase **transaction pooler** (port `6543`), with `?pgbouncer=true&connection_limit=1`. |
+| `DIRECT_URL`  | yes      | Migration connection — Supabase **direct** connection (`db.*` host, port `5432`). Used by `prisma migrate deploy`. |
 | `AUTH_SECRET`  | prod     | Session signing secret (≥ 16 chars). Generate with `openssl rand -hex 32`. |
 
 ### Vercel deployment
 
-1. Create a Supabase project and copy the **session-mode pooler** connection
-   string (port `5432`) as `DATABASE_URL`.
-2. Generate `AUTH_SECRET` and add it.
-3. Set both in **Vercel → Settings → Environment Variables** for Production
+1. Create a Supabase project.
+2. Set `DATABASE_URL` to the **transaction-mode pooler** URL (port `6543`) and
+   append `?pgbouncer=true&connection_limit=1` — this is what runtime queries
+   use. Do **not** use the session pooler (port `5432` on `pooler.supabase.com`)
+   here; it exhausts Supabase's 15-slot session pool under serverless load
+   (`FATAL: EMAXCONNSESSION`).
+3. Set `DIRECT_URL` to the **direct** connection (`db.<PROJECT_REF>.supabase.co`
+   port `5432`) — `prisma migrate deploy` runs against this during the build.
+4. Generate `AUTH_SECRET` and add it.
+5. Set all three in **Vercel → Settings → Environment Variables** for Production
    and Preview.
-4. The `vercel-build` script runs `prisma generate && prisma migrate deploy
-   && next build` automatically — migrations are applied during the build.
-5. Seed the database **once** (the DB is persistent, so do not seed on every
-   build): run `bun run db:seed` locally with `DATABASE_URL` set to the
-   Supabase URL, or via a one-off Vercel task.
+6. The `vercel-build` script runs `prisma generate && prisma migrate deploy
+   && next build` automatically — migrations use `DIRECT_URL` and are applied
+   during the build.
+7. Seed the database **once** (the DB is persistent, so do not seed on every
+   build): run `bun run db:seed` locally with `DIRECT_URL` set to the
+   Supabase direct connection, or via a one-off Vercel task.
 
 > **Deployment Protection:** if login/API calls return `401 Protected
 > deployment`, disable Vercel Authentication (Settings → Deployment
