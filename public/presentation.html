@@ -125,6 +125,7 @@
 
   /* ===== SLIDE 8 ===== */
   #s8 .pipeline{display:flex;flex-direction:column;gap:18px;flex:1;justify-content:center}
+  #s8 .ci-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px}
   #s8 .flow{display:flex;align-items:stretch;gap:0;margin-bottom:10px}
   #s8 .step{flex:1;padding:18px 16px;background:var(--bg-2);border:1px solid var(--line);position:relative;display:flex;flex-direction:column;gap:5px}
   #s8 .step:not(:last-child){border-right:none}
@@ -160,6 +161,84 @@
   .slide.active .reveal:nth-child(4){animation-delay:.28s}
   .slide.active .reveal:nth-child(5){animation-delay:.36s}
   @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+  /* ===== RESPONSIVE — mobile (≤760px) =====
+     The deck is a fixed full-viewport slide system (100vh / overflow:hidden)
+     built for desktop projection. On phones we switch to a scrollable,
+     single-column reading layout so every slide's content is reachable. */
+  @media (max-width:760px){
+    html,body{height:auto;min-height:100vh;overflow:auto}
+    .deck{height:auto;min-height:100vh;width:100%}
+    /* every slide becomes a normal, scrollable section instead of an
+       absolutely-positioned, clipped viewport */
+    .slide{
+      position:relative;inset:auto;
+      min-height:100vh;height:auto;
+      padding:64px 22px 32px;
+      opacity:1;visibility:visible;
+      overflow:visible;
+    }
+    .slide:not(.active){opacity:1;visibility:visible}
+    /* keep the reveal animation from permanently hiding content */
+    .slide .reveal{animation:none !important;opacity:1;transform:none}
+
+    .chrome{top:0;padding:0 22px;height:48px;align-items:center}
+    .brand{font-size:15px}
+    .pagenav{gap:10px}
+    .pagenav button{width:30px;height:30px;font-size:14px}
+
+    .eyebrow{margin-bottom:12px}
+    .slide-head{margin-top:10px;margin-bottom:22px}
+    .slide-head h2{font-size:clamp(30px,9vw,46px)}
+
+    /* slide 1 — portada */
+    #s1 .mark{padding-top:18px}
+    #s1 h1{font-size:clamp(54px,17vw,96px)}
+    #s1 .sub{font-size:15px;margin-top:18px}
+    #s1 .meta{flex-wrap:wrap;gap:24px;margin-top:36px;padding-top:26px}
+    #s1 .meta .item b{font-size:15px;margin-top:3px}
+
+    /* slide 2 — vision: two columns → stack, stats stay 2-wide */
+    #s2 .grid{grid-template-columns:1fr;gap:28px}
+    #s2 .lede{font-size:19px}
+
+    /* slide 3 — stack: 3 columns → 1, full text */
+    #s3 .stack-grid{grid-template-columns:1fr;gap:1px}
+
+    /* slide 4 — diagram: let the SVG scale, scroll if needed */
+    #s4 .diagram-wrap{padding-bottom:30px}
+    #s4 svg{max-height:none;height:auto}
+    .diagram-legend{position:relative;bottom:auto;right:auto;flex-wrap:wrap;margin-top:14px;gap:14px}
+
+    /* slide 5 — models: 4 columns → 1 */
+    #s5 .models{grid-template-columns:1fr;gap:11px}
+
+    /* slide 6 — backend: two panels stack */
+    #s6 .two-col{grid-template-columns:1fr;gap:22px}
+    #s6 .panel{padding:22px}
+    #s6 .panel h3{font-size:21px}
+
+    /* slide 7 — features: 3 columns → 1 */
+    #s7 .feat-grid{grid-template-columns:1fr;gap:1px}
+
+    /* slide 8 — CI cards: 3 → 1; pipeline steps wrap; stats stack */
+    #s8 .ci-cards{grid-template-columns:1fr;gap:12px;margin-bottom:14px}
+    #s8 .flow{flex-wrap:wrap;gap:8px;margin-bottom:6px}
+    #s8 .step{flex:1 1 100%;min-width:0}
+    /* horizontal arrows don't make sense in a wrapped vertical list */
+    #s8 .step:not(:last-child)::after{content:none}
+    #s8 .step:not(:last-child){border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    #s8 .stats-row{grid-template-columns:1fr 1fr;gap:16px}
+    #s8 .sstat .n{font-size:30px}
+
+    /* slide 9 — roadmap: 130px tag column collapses */
+    #s9 .phase{grid-template-columns:1fr;gap:6px;padding:16px 0}
+    #s9 .phase .pbody h3{font-size:19px}
+
+    /* slide 10 — closing */
+    #s10 h1{font-size:clamp(40px,11vw,72px)}
+    #s10 .tag{font-size:15px;margin-top:16px}
+  }
 </style>
 </head>
 <body>
@@ -475,7 +554,7 @@
   <div class="eyebrow reveal">07 <span class="sep">/</span> Calidad</div>
   <div class="slide-head"><h2 class="title reveal">Testing y <span class="it">CI</span>.</h2></div>
   <div class="pipeline">
-    <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px">
+    <div class="reveal ci-cards">
       <div style="border:1px solid var(--line);border-radius:4px;padding:20px 18px;background:var(--bg-2)">
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em">NIVEL 1 · UNIT</div>
         <div style="font-family:'Fraunces,serif;font-size:20px;color:var(--ink);margin-top:8px">Tests unitarios</div>
@@ -566,6 +645,9 @@
     progress.style.width = ((idx+1)/total*100) + '%';
     prevBtn.disabled = idx===0;
     nextBtn.disabled = idx===total-1;
+    // On the scrollable mobile layout, bring the target slide into view.
+    // Harmless on desktop where the active slide already fills the viewport.
+    slides[idx].scrollIntoView({behavior:'smooth',block:'start'});
   }
   prevBtn.addEventListener('click',()=>show(idx-1));
   nextBtn.addEventListener('click',()=>show(idx+1));
