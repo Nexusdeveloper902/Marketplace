@@ -67,3 +67,5 @@ server.log
 
 # SQLite runtime database (auto-created & seeded on first run)
 server/database/marketplace.db*
+
+!tools/local-api.js
