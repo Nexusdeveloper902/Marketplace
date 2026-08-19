@@ -1,310 +1,169 @@
 # Digital Marketplace
 
-A full-stack **premium marketplace of high-end vehicles** built with
-Next.js 16, React 19, and TypeScript. The UI is in Spanish, uses a dark cinematic
-theme with six selectable color themes, and is backed by a real relational
-database (Prisma + PostgreSQL, Supabase-compatible) with server-side
-authentication, orders, inventory, favorites, reviews, and analytics. Client UI
-state (cart, comparison list, theme, recently viewed) is still held in Zustand,
-but the source of truth for users, vehicles, orders, favorites, reviews, and
-inventory is the database.
+A full-stack **premium marketplace of high-end vehicles**, migrated from a
+Next.js 16/React 19 application to a **traditional full-stack web app**:
 
-The catalog ships with 88 real vehicles across 30 brands, each with real
-specifications and image galleries.
+```
+HTML + CSS + Vanilla JavaScript (no frameworks)
+        ↓  fetch()
+Express.js REST API
+        ↓
+SQLite (better-sqlite3)
+```
+
+The UI is entirely in Spanish, preserves the original dark cinematic design with
+six selectable color themes, the original flows (checkout, reviews, favorites,
+comparator, garage, orders), and the admin dashboard with real-time analytics.
 
 ## Tech stack
 
-- **Next.js 16** (App Router, Turbopack) + **React 19**
-- **TypeScript** (strict)
-- **Bun** as the package manager and runtime
-- **Tailwind CSS v4** + **shadcn/ui** + **Radix UI** primitives
-- **Zustand** (with `persist` middleware) for client state
-- **Prisma** + **PostgreSQL** (Supabase-compatible — see [Database](#database))
-- **Framer Motion** for transitions, **Recharts** for the admin dashboard charts
+- **Frontend**: HTML5 + CSS (handcrafted, ported from Tailwind output) + Vanilla
+  JavaScript ES modules. No React, no Next.js, no build step.
+- **Backend**: Node.js + Express.js REST API
+- **Database**: SQLite via `better-sqlite3` (in-file, auto-created & seeded on
+  first run)
+- **Deps**: `express`, `better-sqlite3` (2 production dependencies)
 
 ## Getting started
 
-### Prerequisites
-
-- [Bun](https://bun.sh/) (the project pins `bun-types` and ships a `bun.lock`)
-- Node.js 22+ (only if you can't use Bun)
-
-### Install dependencies
-
 ```bash
-bun install
+npm install
+npm start
 ```
 
-### Run the dev server
+Then open **http://localhost:3000**.
 
-```bash
-bun run dev
-```
+Optional dev command (same as start, kept for parity): `npm run dev`.
 
-The app starts on <http://localhost:3000>.
+The first time it runs, the server creates `server/database/marketplace.db`,
+applies `server/database/schema.sql` and executes `server/database/seed.js`:
+88 vehicles across 30 brands, 9 demo users, ~60 historical orders, favorites,
+reviews, and analytic events. To reset the database, stop the server, delete
+`server/database/marketplace.db`, and restart.
 
-## Available scripts
+### Demo accounts
 
-| Script            | Description                                                                  |
-| ----------------- | ---------------------------------------------------------------------------- |
-| `bun run dev`     | Start the Next.js dev server on port 3000 (logs to `dev.log`)                |
-| `bun run build`   | Production build; copies static assets into `.next/standalone` when present  |
-| `bun run start`   | Run the standalone production server (`bun .next/standalone/server.js`)      |
-| `bun run lint`    | Run ESLint (flat config in `eslint.config.mjs`)                              |
-| `bun run test`    | Run the unit tests with Bun's built-in test runner (`bun test`)              |
-| `bun run db:push` | Push the Prisma schema to the database (`--accept-data-loss`)                |
-| `bun run db:generate` | Regenerate the Prisma Client                                             |
-| `bun run db:migrate`  | Create and apply a Prisma migration                                       |
-| `bun run db:reset`    | Reset the database and re-run migrations                                  |
+| Role  | Email               | Password  |
+|-------|---------------------|-----------|
+| Admin | admin@luxicar.com   | admin123  |
+| User  | carlos@demo.com     | demo1234  |
+| User  | maria@demo.com      | demo1234  |
+| User  | juan@demo.com       | demo1234  |
+| User  | ana@demo.com        | demo1234  |
+| User  | pedro@demo.com      | demo1234  |
+| User  | laura@demo.com      | demo1234  |
+| User  | diego@demo.com      | demo1234  |
+| User  | sofia@demo.com      | demo1234  |
 
 ## Project structure
 
 ```
-src/
-├── app/                      # Next.js App Router routes
-│   ├── page.tsx              # Landing page (hero + cinematic showcase)
-│   ├── marketplace/page.tsx  # Browse, search and filter the catalog
-│   ├── vehiculos/[id]/page.tsx  # Vehicle detail view
-│   ├── garaje/page.tsx       # Purchased vehicles ("garage")
-│   ├── carrito/page.tsx      # Shopping cart + checkout
-│   ├── favoritos/page.tsx    # Favorites
-│   ├── comparar/page.tsx     # Side-by-side comparator (up to 3)
-│   ├── marcas/page.tsx       # All brands index
-│   ├── marcas/[marca]/page.tsx  # Brand detail
-│   ├── admin/                # Admin dashboard (login + real DB-backed analytics)
-│   ├── api/                  # REST API: auth, vehicles, favorites, orders, reviews, analytics
-│   ├── layout.tsx            # Root layout, metadata, theme bootstrap
-│   └── globals.css           # Global styles + theme CSS variables
-├── components/
-│   ├── landing/              # Hero, cinematic showcase, featured, brands
-│   ├── layout/               # Header, footer, site shell, theme toggles
-│   ├── marketplace/          # Cards, views, compare/favorite buttons, checkout, reviews
-│   └── ui/                   # shadcn/ui primitives
-├── data/vehicles.ts          # Vehicle catalog (88 vehicles, 30 brands) — imported by the seed
-├── lib/
-│   ├── utils.ts              # `cn()` (clsx + tailwind-merge)
-│   ├── format.ts             # `formatearPrecio` / `formatearNumero` (es-ES, USD)
-│   ├── db.ts                 # Prisma client singleton
-│   ├── auth/                 # Auth context + favorites-sync hook (client)
-│   ├── server/               # Backend: password, session, guards, http, events
-│   │   └── data/             # Data-access layer: vehicles, brands, favorites, orders, reviews, analytics
-│   └── admin/datos-sinteticos.ts  # Deterministic synthetic dashboard fallback
-├── store/                    # Zustand stores (client UI state only)
-│   ├── use-store.ts          # Cart, garage, favorites, compare, recents
-│   └── use-tema.ts           # Theme selection (6 themes)
-├── hooks/                    # use-hydrated, use-mobile, use-toast
-└── types/vehicle.ts          # Vehicle types and filter constants
+server/
+  server.js            express app (static + /api)
+  routes/              auth, vehicles, brands, favorites, orders, reviews, analytics
+  controllers/         request-handling logic
+  middleware/          session + guards (attachUser/requireUser/requireAdmin)
+  lib/                 password (scrypt), session token (JWT-like cookie)
+  database/
+    database.js        better-sqlite3 connection & init
+    schema.sql         relational schema (users, vehicles, orders, ...)
+    seed.js            demo data import
+    vehicles-data.js   88-vehicle catalog
+public/
+  index.html           landing page
+  pages/               one HTML per route (marketplace, vehiculos, marcas, ...)
+  css/app.css          hand-crafted stylesheet (ported from Tailwind output)
+  js2/                 vanilla JS ES modules
+  vehicles/            vehicle image galleries (public/<slug>/1..4)
+  icon.svg, logo.svg
+tools/
+  migrate-frontend.js  builds the static frontend-only bundle (frontend/)
+  dump-seed.js         dumps SQLite tables as the SEED for that bundle
+package.json
+README.md
 ```
 
-## Features
+## Frontend-only build (no backend at all)
 
-- **Catalog browsing** with search and filters by brand.
-- **Vehicle detail** pages with image galleries and full specifications
-  (engine, power, torque, transmission, fuel, drivetrain, top speed, 0–100).
-- **Shopping cart** with a checkout modal and financing calculator.
-- **Garage** of purchased vehicles with running total value.
-- **Favorites** and a side-by-side **comparator** (up to 3 vehicles).
-- **Brand pages** per manufacturer.
-- **Admin dashboard** (`/admin`) with 36 months of synthetic sales analytics,
-  KPIs, and charts. The data is generated deterministically from a seeded PRNG.
-- **Theming**: six premium dark themes selectable from the header toggle.
-
-## Admin access
-
-The admin dashboard (`/admin`) is protected by **real server-side authentication**.
-A demo admin account is created by the seed script:
-
-- Email: `admin@luxicar.com`
-- Password: `admin123`
-
-> These are demo credentials for local development only. Set `AUTH_SECRET` and
-> rotate the admin password before any real deployment.
-
-## Database
-
-The project uses **Prisma** as its data access layer over **PostgreSQL**. The
-schema in [`prisma/schema.prisma`](prisma/schema.prisma) defines the full domain
-model. PostgreSQL is required because the app runs on Vercel serverless, where a
-local file database (SQLite) cannot persist writes at runtime.
-
-A hosted Postgres works out of the box — **Supabase** is the recommended option.
-The app uses **two** connection strings so that serverless runtime queries and
-migrations don't fight over the same pool:
-
-- **`DATABASE_URL`** (runtime, queried on every request) → the **transaction-mode
-  pooler** on port `6543`, with `?pgbouncer=true&connection_limit=1`. Transaction
-  mode multiplexes many short-lived serverless connections over a small backend
-  pool, so it does not exhaust Supabase's `pool_size` (default 15). The
-  `connection_limit=1` caps each function instance to one client connection.
-- **`DIRECT_URL`** (migrations / `prisma migrate deploy`) → the **direct
-  connection** on port `5432` of the `db.*` host. Prisma Migrate needs prepared
-  statements and a dedicated session, which transaction-mode pooling rejects.
-
-```
-DATABASE_URL=postgresql://postgres.<PROJECT_REF>:<PASSWORD>@aws-0-<REGION>.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1
-DIRECT_URL=postgresql://postgres.<PASSWORD>@db.<PROJECT_REF>.supabase.co:5432/postgres
-```
-
-> Do **not** use the session-mode pooler (port `5432` on `pooler.supabase.com`)
-> for `DATABASE_URL`. In session mode every client connection holds a dedicated
-> backend connection, so a few concurrent Vercel functions quickly exhaust the
-> 15-slot session pool (`FATAL: EMAXCONNSESSION`). Use the direct connection
-> (`db.*`) for migrations instead.
-
-### Models
-
-| Model       | Purpose                                                                     |
-| ----------- | --------------------------------------------------------------------------- |
-| `User`      | id, name, email, passwordHash, role (`USER`/`ADMIN`), timestamps            |
-| `Brand`     | id, name, slug, description, timestamps                                     |
-| `Vehicle`   | Full catalog (marca, modelo, año, precio, motor, …) + `stock`, `available`, `featured`, `brandId`, timestamps |
-| `Favorite`  | many-to-many User ↔ Vehicle (unique `userId_vehicleId`)                     |
-| `Order`     | id, number (`LXC-YYYY-NNNNN`), userId, status, total, timestamps            |
-| `OrderItem` | orderId, vehicleId, `priceAtPurchase` (frozen), quantity                    |
-| `Review`    | userId, vehicleId, rating (1–5), comment (unique per user+vehicle)          |
-| `Event`     | Lightweight analytics: type, userId, vehicleId, orderId, metadata, timestamp |
-
-### Migrations, seed, and setup
+`tools/migrate-frontend.js` concatenates `public/js2/` + the pages into
+`frontend/`, replacing every `fetch("/api/...")` call with an in-browser
+localStorage-backed mini-API (`tools/local-api.js`). Data comes from a `SEED`
+object dumped live from SQLite by `tools/dump-seed.js` (demo passwords are
+embedded in plaintext — the bundle cannot verify scrypt hashes; this variant
+is demo/presentation only, never production).
 
 ```bash
-bun run db:generate   # regenerate the Prisma Client
-bun run db:migrate    # create + apply a migration (dev)
-bun run db:push       # push the schema directly (--accept-data-loss)
-bun run db:seed       # seed vehicles/brands/demo users/orders/reviews/events
-bun run db:reset      # reset the DB and re-run migrations + seed
-bun run db:setup      # generate + migrate deploy + seed (production-style)
+node tools/migrate-frontend.js
+cd frontend && python3 -m http.server 8090   # or any static server
 ```
 
-The seed imports the existing 88 vehicles from [`src/data/vehicles.ts`](src/data/vehicles.ts)
-without rewriting the catalog, and is **deterministic and safely rerunnable**
-(upserts keyed by email/slug). It also creates 8 demo users, ~60 historical
-orders, demo favorites, reviews, and analytics events so the admin dashboard is
-populated immediately.
+Then open **http://localhost:8090/index.html**.
 
-## Architecture
+## API endpoints (Express)
 
 ```
-Next.js (App Router)
-        ↓
-API routes / Server Components / Server Actions
-        ↓
-Prisma data-access layer (src/lib/server/data/*)
-        ↓
-Database (PostgreSQL / Supabase)
+POST   /api/auth/register
+POST   /api/auth/login
+POST   /api/auth/logout
+GET    /api/auth/me
+
+GET    /api/vehicles              (list w/ filters + pagination; ?all=1 returns all)
+GET    /api/vehicles/:id          (slug lookup)
+GET    /api/brands                (brand summaries)
+GET    /api/brands/:slug          (brand + its vehicles)
+
+GET    /api/favorites             (auth)
+POST   /api/favorites             { slug } (auth)
+DELETE /api/favorites/:slug       (auth)
+
+GET    /api/orders                (auth; admin sees all)
+POST   /api/orders                { items: [{ vehicleSlug, quantity }] } (auth)
+GET    /api/orders/:id            (ownership-filtered)
+
+GET    /api/reviews?vehicleSlug=…
+POST   /api/reviews               { vehicleSlug, rating, comment } (auth)
+
+GET    /api/analytics/dashboard   (admin only)
+GET    /api/health
 ```
 
-- **Server components** fetch vehicles/brands directly from the Prisma data layer
-  (`/marketplace`, `/vehiculos/[id]`, `/marcas`, `/marcas/[marca]`).
-- **API routes** (`/api/auth/*`, `/api/vehicles`, `/api/favorites`, `/api/orders`,
-  `/api/reviews`, `/api/analytics`) handle mutations with HTTP semantics.
-- **Zustand** retains only client UI state: temporary cart, comparison list,
-  theme, recently viewed, and optimistic UI. Favorites/orders/reviews/inventory
-  are backend-owned.
+Static pages are served from `public/index.html` and `public/pages/*.html` for
+the routes `/`, `/marketplace`, `/vehiculos/:slug`, `/marcas`, `/marcas/:slug`,
+`/favoritos`, `/comparar`, `/garaje`, `/carrito`, `/gracias`, `/login`,
+`/registro`, `/perfil`, `/pedidos`, `/privacidad`, `/terminos`, `/admin`, and
+`/admin/login`. Unknown HTML routes return the styled `404.html`.
 
-## Authentication
+## Data model
 
-Stateless **signed JWT-like sessions** stored in an `httpOnly` cookie
-(`luxicar_session`). The token payload carries only the `userId`; the full user
-record (including role) is **always reloaded from the database on the server**, so
-permissions are never trusted from the client.
+- **users**: id (cuid), email (unique), name, passwordHash (scrypt), role
+  (USER | ADMIN), createdAt
+- **vehicles**: id (cuid), slug (unique), marca, modelo, año, precio, motor,
+  potencia, torque, transmision, combustible, traccion, velocidadMaxima,
+  aceleracion0a100, categoria, descripcion, imagenes (JSON array), destacado,
+  stock, available
+- **brands**: id, slug (unique), name
+- **favorites**: id, userId, vehicleId (unique user+vehicle)
+- **orders**: id (cuid), number (LXC-YYYY-NNNNN unique), userId, status
+  (PENDING | PROCESSING | COMPLETED | CANCELLED), total, createdAt
+- **order_items**: id, orderId, vehicleId, quantity, priceAtPurchase
+- **reviews**: id, userId, vehicleId, rating (1–5), comment, createdAt
+  (unique per user+vehicle)
+- **events**: id, type, userId, vehicleId, orderId, metadata (JSON), createdAt
 
-- Passwords are hashed with Node `scrypt` (`src/lib/server/password.ts`) — no
-  plaintext, no external dependency.
-- `requireUser` / `requireAdmin` guards protect server routes and UI pages.
-- On login, guest favorites are merged into the user's DB favorites.
+## Migration notes
 
-Set `AUTH_SECRET` (≥ 16 chars) in production. In development a fixed fallback is
-used so seeding/preview works, but a missing/short secret throws in production.
-
-## Testing
-
-Unit tests use Bun's built-in test runner (`bun:test`) and are colocated with the
-source as `*.test.ts` files. They cover pure helpers **and** real backend
-business logic against the seeded PostgreSQL database:
-
-- [`src/lib/utils.test.ts`](src/lib/utils.test.ts) — `cn()` class helper
-- [`src/lib/format.test.ts`](src/lib/format.test.ts) — price/number formatting
-- [`src/lib/admin/datos-sinteticos.test.ts`](src/lib/admin/datos-sinteticos.test.ts) —
-  structural invariants of the synthetic dashboard generator (fallback)
-- [`src/lib/server/password.test.ts`](src/lib/server/password.test.ts) — hashing/verification
-- [`src/lib/server/session.test.ts`](src/lib/server/session.test.ts) — token sign/verify/tamper/expiry
-- [`src/lib/server/data/orders.test.ts`](src/lib/server/data/orders.test.ts) — checkout atomicity,
-  inventory reduction, oversell prevention, order ownership, favorites, reviews authorization
-- [`src/lib/server/data/analytics.test.ts`](src/lib/server/data/analytics.test.ts) — real dashboard aggregation
-
-> DB-backed tests create an isolated test user and clean up after themselves;
-> they require a seeded database (`bun run db:seed`) to find a vehicle fixture.
-
-Run them with:
-
-```bash
-bun test
-```
-
-## Environment variables
-
-Configure these in `.env` (local) and in **Vercel → Project Settings →
-Environment Variables** (never commit secrets — `.env` is gitignored):
-
-| Variable       | Required | Description                                                                 |
-| -------------- | -------- | --------------------------------------------------------------------------- |
-| `DATABASE_URL` | yes      | Runtime connection — Supabase **transaction pooler** (port `6543`), with `?pgbouncer=true&connection_limit=1`. |
-| `DIRECT_URL`  | yes      | Migration connection — Supabase **direct** connection (`db.*` host, port `5432`). Used by `prisma migrate deploy`. |
-| `AUTH_SECRET`  | prod     | Session signing secret (≥ 16 chars). Generate with `openssl rand -hex 32`. |
-
-### Vercel deployment
-
-1. Create a Supabase project.
-2. Set `DATABASE_URL` to the **transaction-mode pooler** URL (port `6543`) and
-   append `?pgbouncer=true&connection_limit=1` — this is what runtime queries
-   use. Do **not** use the session pooler (port `5432` on `pooler.supabase.com`)
-   here; it exhausts Supabase's 15-slot session pool under serverless load
-   (`FATAL: EMAXCONNSESSION`).
-3. Set `DIRECT_URL` to the **direct** connection (`db.<PROJECT_REF>.supabase.co`
-   port `5432`) — `prisma migrate deploy` runs against this during the build.
-4. Generate `AUTH_SECRET` and add it.
-5. Set all three in **Vercel → Settings → Environment Variables** for Production
-   and Preview.
-6. The `vercel-build` script runs `prisma generate && prisma migrate deploy
-   && next build` automatically — migrations use `DIRECT_URL` and are applied
-   during the build.
-7. Seed the database **once** (the DB is persistent, so do not seed on every
-   build): run `bun run db:seed` locally with `DIRECT_URL` set to the
-   Supabase direct connection, or via a one-off Vercel task.
-
-> **Deployment Protection:** if login/API calls return `401 Protected
-> deployment`, disable Vercel Authentication (Settings → Deployment
-> Protection) or generate a Protection Bypass secret for automation.
-
-## CI/CD
-
-A GitHub Actions workflow in [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
-runs on every pull request and push to `main`. It spins up an **isolated
-PostgreSQL service container**, applies migrations, seeds it, then runs lint,
-tests, and a production build — so the shared production database is never
-touched by CI. In-progress runs on the same branch are cancelled when a new
-commit is pushed.
-
-| Step    | Command              |
-| ------- | -------------------- |
-| Install | `bun install --frozen-lockfile` |
-| DB      | `bun run db:setup` (migrate + seed the CI Postgres) |
-| Lint    | `bun run lint`       |
-| Test    | `bun test`           |
-| Build   | `bun run build`      |
-
-The project is deployed to **Vercel**, which builds and deploys on its own
-integration (preview deployments per PR, production on merges to `main`). The
-GitHub Actions pipeline is a quality gate that runs before Vercel's deployment.
-
-## Production deployment
-
-`bun run build` produces a standalone server in `.next/standalone`. Start it with:
-
-```bash
-bun run start
-```
-
-A [`Caddyfile`](Caddyfile) is included for reverse-proxying the app (default
-upstream `localhost:3000`). On Vercel the standalone output is automatically
-disabled (see [`next.config.ts`](next.config.ts)).
+- The original Next.js/Prisma/PostgreSQL stack was replaced entirely; nothing
+  in `server/`, `public/`, or the flows depends on build tooling. No React, no
+  Next.js runtime, no PostgreSQL/Supabase. Works fully offline on localhost.
+- Session: signed JWT-like token in an `httpOnly` cookie (`luxicar_session`),
+  30-day expiry; the full user/role is re-read from SQLite per request.
+- Frontend pages are plain HTML + one `<script type="module"
+  src="/js2/pages/<page>.js">` each; interactivity is `fetch()` + DOM
+  manipulation. URL state powers the marketplace filters, like the original.
+- Client UI state (cart, comparator, garage, theme) is kept in `localStorage`
+  and mirrored to the server where needed (favorites are server-persisted;
+  orders, reviews, admin analytics are fully server-side).
+- Charts in the admin dashboard are hand-rolled inline SVG (the original used
+  Recharts). The financing simulator on each vehicle page is pure client JS.
+- Both the Tailwind visual fidelity and the six-color theme switcher are
+  preserved in `public/css/app.css`.

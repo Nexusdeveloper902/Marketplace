@@ -64,3 +64,6 @@ server.log
 # Playwright
 /playwright-report
 /test-results
+
+# SQLite runtime database (auto-created & seeded on first run)
+server/database/marketplace.db*
