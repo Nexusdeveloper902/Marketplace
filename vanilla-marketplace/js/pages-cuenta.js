@@ -177,72 +177,64 @@ function pageComparar() {
 // GARAJE
 // ---------------------------------------------------------------------------
 function pageGaraje() {
+  if (!Auth.isAuthenticated()) {
+    return { redirect: "/login?redirect=/garaje" };
+  }
   const user = Auth.user();
 
   let contenido;
-  if (!user) {
-    contenido = emptyStateHtml({
-      icono: "LogIn",
-      titulo: "Inicia sesión para ver tu garaje",
-      descripcion: "Tu garaje privado muestra los vehículos que has adquirido. Inicia sesión para acceder a tu colección.",
-      ctaLabel: "Iniciar sesión",
-      ctaHref: "/login?redirect=/garaje",
-    });
-  } else {
-    const completados = DB.pedidosDe(user.email).filter((p) => p.status === "COMPLETED");
-    const compras = new Map();
-    completados.forEach((p) => {
-      p.items.forEach((it) => {
-        compras.set(it.vehicleSlug, {
-          vehicleSlug: it.vehicleSlug,
-          orderNumber: p.number,
-          fecha: p.createdAt,
-          precio: it.priceAtPurchase,
-        });
+  const completados = DB.pedidosDe(user.email).filter((p) => p.status === "COMPLETED");
+  const compras = new Map();
+  completados.forEach((p) => {
+    p.items.forEach((it) => {
+      compras.set(it.vehicleSlug, {
+        vehicleSlug: it.vehicleSlug,
+        orderNumber: p.number,
+        fecha: p.createdAt,
+        precio: it.priceAtPurchase,
       });
     });
-    const items = Array.from(compras.values())
-      .map((c) => ({ compra: c, vehiculo: DB.vehiculo(c.vehicleSlug) }))
-      .filter((x) => x.vehiculo);
-    const valorTotal = items.reduce((s, x) => s + x.compra.precio, 0);
+  });
+  const items = Array.from(compras.values())
+    .map((c) => ({ compra: c, vehiculo: DB.vehiculo(c.vehicleSlug) }))
+    .filter((x) => x.vehiculo);
+  const valorTotal = items.reduce((s, x) => s + x.compra.precio, 0);
 
-    if (items.length === 0) {
-      contenido =
-        emptyStateHtml({
-          icono: "CarFront",
-          titulo: "Tu colección comienza aquí",
-          descripcion: "Los vehículos que adquieras aparecerán en tu garaje privado, listos para que los inspecciones cuando quieras.",
-          ctaLabel: "Explorar marketplace",
-          ctaHref: "/marketplace",
-        });
-    } else {
-      contenido =
-        '<div class="mt-5 flex flex-wrap items-center gap-x-8 gap-y-3">' +
+  if (items.length === 0) {
+    contenido =
+      emptyStateHtml({
+        icono: "CarFront",
+        titulo: "Tu colección comienza aquí",
+        descripcion: "Los vehículos que adquieras aparecerán en tu garaje privado, listos para que los inspecciones cuando quieras.",
+        ctaLabel: "Explorar marketplace",
+        ctaHref: "/marketplace",
+      });
+  } else {
+    contenido =
+      '<div class="mt-5 flex flex-wrap items-center gap-x-8 gap-y-3">' +
+      "<div>" +
+      '<p class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Vehículos</p>' +
+      '<p class="text-2xl font-semibold tracking-tight text-foreground">' + items.length + "</p>" +
+      "</div>" +
+      '<div class="hidden h-10 w-px bg-border sm:block"></div>' +
+      "<div>" +
+      '<p class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Valor total</p>' +
+      '<p class="text-2xl font-semibold tracking-tight text-foreground">' + formatearPrecio(valorTotal) + "</p>" +
+      "</div></div>" +
+      '<section class="mt-8 pb-4"><div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-6">' +
+      items.map((x, i) =>
         "<div>" +
-        '<p class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Vehículos</p>' +
-        '<p class="text-2xl font-semibold tracking-tight text-foreground">' + items.length + "</p>" +
-        "</div>" +
-        '<div class="hidden h-10 w-px bg-border sm:block"></div>' +
-        "<div>" +
-        '<p class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Valor total</p>' +
-        '<p class="text-2xl font-semibold tracking-tight text-foreground">' + formatearPrecio(valorTotal) + "</p>" +
-        "</div></div>" +
-        '<section class="mt-8 pb-4"><div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-6">' +
-        items.map((x, i) =>
-          "<div>" +
-          vehicleCard(x.vehiculo, { variante: "garaje", etiquetaBoton: "Inspeccionar", index: i }) +
-          '<div class="mt-2 rounded-xl border border-border/40 bg-card/60 p-3 text-xs">' +
-          '<p class="font-mono text-[10px] text-muted-foreground">' + esc(x.compra.orderNumber) + "</p>" +
-          '<p class="mt-0.5 text-muted-foreground">Comprado el ' + formatearFecha(x.compra.fecha) + "</p>" +
-          '<p class="mt-0.5 font-medium text-foreground">' + formatearPrecio(x.compra.precio) + "</p>" +
-          "</div></div>"
-        ).join("") +
-        "</div></section>";
-    }
+        vehicleCard(x.vehiculo, { variante: "garaje", etiquetaBoton: "Inspeccionar", index: i }) +
+        '<div class="mt-2 rounded-xl border border-border/40 bg-card/60 p-3 text-xs">' +
+        '<p class="font-mono text-[10px] text-muted-foreground">' + esc(x.compra.orderNumber) + "</p>" +
+        '<p class="mt-0.5 text-muted-foreground">Comprado el ' + formatearFecha(x.compra.fecha) + "</p>" +
+        '<p class="mt-0.5 font-medium text-foreground">' + formatearPrecio(x.compra.precio) + "</p>" +
+        "</div></div>"
+      ).join("") +
+      "</div></section>";
   }
 
   const vacio =
-    !user ||
     DB.pedidosDe(user.email).filter((p) => p.status === "COMPLETED").length === 0;
   const html =
     '<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">' +
@@ -681,6 +673,12 @@ function abrirCheckout(datosIniciales) {
     );
   }
   if (Tienda.estado.carrito.length === 0) return;
+
+  if (!Auth.isAuthenticated()) {
+    toast("Inicia sesión para continuar", "Necesitas una cuenta para finalizar la compra.");
+    navigate("/login?redirect=/carrito");
+    return;
+  }
 
   checkoutState.abierto = true;
   checkoutState.paso = "datos";

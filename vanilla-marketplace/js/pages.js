@@ -450,7 +450,8 @@ function pageMarcas() {
 // MARCA (detalle)
 // ---------------------------------------------------------------------------
 function pageMarca(slug) {
-  const marca = DB.marcas().find((m) => m.slug === slug);
+  const slugNorm = String(slug || "").toLowerCase();
+  const marca = DB.marcas().find((m) => m.slug === slugNorm);
   const orden = SEED.ordenRelevancia || [];
   const vehiculos = DB.vehiculos()
     .filter((v) => marca && v.marca === marca.name)
@@ -805,6 +806,7 @@ function mountReviews(container, v) {
   const slug = v.id;
   let escribiendo = false;
   let rating = 5;
+  let comentario = "";
   let enviando = false;
   let error = "";
 
@@ -835,7 +837,7 @@ function mountReviews(container, v) {
         "</div></div>" +
         "<div>" +
         '<label class="mb-1.5 block text-[11px] font-medium uppercase tracking-wider text-muted-foreground" for="review-comment">Comentario (opcional)</label>' +
-        '<textarea id="review-comment" rows="3" maxlength="500" placeholder="Cuéntanos tu experiencia con este vehículo…" class="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-2 focus:ring-ring/30"></textarea>' +
+        '<textarea id="review-comment" rows="3" maxlength="500" placeholder="Cuéntanos tu experiencia con este vehículo…" class="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 focus:ring-2 focus:ring-ring/30">' + esc(comentario) + "</textarea>" +
         "</div>" +
         (error
           ? '<div class="flex items-center gap-2 rounded-lg border border-[var(--destructive)]/30 bg-[var(--destructive)]/10 px-3 py-2 text-sm text-[var(--destructive)]">' + icon("AlertCircle", "h-4 w-4 shrink-0") + "<span>" + esc(error) + "</span></div>"
@@ -899,9 +901,11 @@ function mountReviews(container, v) {
       lista;
 
     const write = container.querySelector("#review-write");
-    if (write) write.addEventListener("click", () => { escribiendo = true; error = ""; render(); });
+    if (write) write.addEventListener("click", () => { escribiendo = true; error = ""; comentario = ""; render(); });
     const cancel = container.querySelector("#review-cancel");
-    if (cancel) cancel.addEventListener("click", () => { escribiendo = false; error = ""; render(); });
+    if (cancel) cancel.addEventListener("click", () => { escribiendo = false; error = ""; comentario = ""; render(); });
+    const textarea = container.querySelector("#review-comment");
+    if (textarea) textarea.addEventListener("input", () => { comentario = textarea.value; });
     container.querySelectorAll("[data-review-star]").forEach((b) => {
       b.addEventListener("click", () => {
         rating = parseInt(b.getAttribute("data-review-star"), 10);
@@ -914,15 +918,16 @@ function mountReviews(container, v) {
         e.preventDefault();
         const u = Auth.user();
         if (!u) return;
+        const comment = comentario;
         enviando = true;
         error = "";
         render();
-        const comment = (container.querySelector("#review-comment") || {}).value || "";
         setTimeout(() => {
           const res = DB.crearReview(slug, u.email, rating, comment);
           enviando = false;
           if (res.ok) {
             escribiendo = false;
+            comentario = "";
             toast("Reseña publicada", "Gracias por compartir tu experiencia.");
           } else {
             error = res.error || "No se pudo publicar la reseña.";

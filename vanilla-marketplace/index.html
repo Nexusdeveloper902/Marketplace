@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vehículos de Alta Gama · Digital Marketplace</title>
   <meta name="description" content="Marketplace digital de vehículos de alta gama. Descubre, compara y adquiere los modelos más exclusivos del mundo en una experiencia de compra premium." />
+  <!-- Base relativa para file://; en HTTP(S) se reescribe a "/" para que los
+       deep-links (/vehiculos/…) resuelvan los assets desde la raíz. -->
+  <base id="base-url" href="./" />
+  <script>
+    if (location.protocol !== "file:") document.getElementById("base-url").setAttribute("href", "/");
+  </script>
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
-  <!-- Base para que las rutas relativas de assets funcionen igual al abrir el
-       archivo directamente (file://) que al servirlo con cualquier ruta SPA. -->
-  <base href="./" />
   <script>
     // Aplicación temprana del tema visual para evitar parpadeo (FOUC).
     (function () {

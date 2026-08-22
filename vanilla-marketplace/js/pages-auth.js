@@ -79,12 +79,17 @@ function authSubmitHtml(texto, cargando, textoCargando, extra) {
 
 // Habilita el botón de envío solo cuando todos los campos tienen valor
 // (igual que `disabled={cargando || !campo…}` en los formularios originales).
-function authVigilarSubmit(formId, campoIds) {
+// `validadores` permite exigir formato por campo (email, longitud mínima…).
+function authVigilarSubmit(formId, campoIds, validadores) {
   const form = document.getElementById(formId);
   if (!form) return;
   const btn = form.querySelector('button[type="submit"]');
   const revisar = () => {
-    btn.disabled = campoIds.some((id) => !document.getElementById(id).value.trim());
+    btn.disabled = campoIds.some((id) => {
+      const valor = document.getElementById(id).value;
+      const fn = validadores && validadores[id];
+      return fn ? !fn(valor) : !valor.trim();
+    });
   };
   campoIds.forEach((id) => document.getElementById(id).addEventListener("input", revisar));
   revisar();
@@ -138,6 +143,7 @@ function pageLogin(params) {
           }
           Auth.mergeGuestFavorites(Tienda.estado.favoritos);
           Auth.syncFavoritesFromAccount();
+          Auth.syncGarageFromAccount();
           navigate(redirect);
         }, 500);
       });
@@ -172,7 +178,11 @@ function pageRegistro(params) {
       formHtml,
     }),
     mount() {
-      authVigilarSubmit("registro-form", ["reg-nombre", "reg-email", "reg-password"]);
+      authVigilarSubmit("registro-form", ["reg-nombre", "reg-email", "reg-password"], {
+        "reg-nombre": (v) => v.trim().length >= 2,
+        "reg-email": (v) => /^\S+@\S+\.\S+$/.test(v.trim()),
+        "reg-password": (v) => v.length >= 6,
+      });
       const form = document.getElementById("registro-form");
       if (!form) return;
       form.addEventListener("submit", (e) => {
@@ -194,6 +204,7 @@ function pageRegistro(params) {
           }
           Auth.mergeGuestFavorites(Tienda.estado.favoritos);
           Auth.syncFavoritesFromAccount();
+          Auth.syncGarageFromAccount();
           navigate(redirect);
         }, 500);
       });

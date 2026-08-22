@@ -126,6 +126,10 @@ const Tienda = (function () {
       emitir();
     },
     estaComprado(id) { return estado.garaje.includes(id); },
+    setGaraje(ids) {
+      estado.garaje = dedup(ids);
+      emitir();
+    },
     finalizarCompra() {
       if (!estado.carrito.length) return;
       estado.garaje = dedup(estado.garaje.concat(estado.carrito));
@@ -433,7 +437,20 @@ const Auth = (function () {
     },
     logout() {
       try { localStorage.removeItem(KEY_SESION); } catch (e) {}
+      // El garaje en memoria pertenece a la cuenta que sale: no debe quedar
+      // visible (badges "Comprado", contador del header) para el siguiente usuario.
+      Tienda.setGaraje([]);
       emitir();
+    },
+    /** Reconstruye el garaje de la tienda desde los pedidos completados de la cuenta. */
+    syncGarageFromAccount() {
+      const u = this.user();
+      if (!u) return;
+      const ids = [];
+      DB.pedidosDe(u.email)
+        .filter((p) => p.status === "COMPLETED")
+        .forEach((p) => p.items.forEach((it) => ids.push(it.vehicleSlug)));
+      Tienda.setGaraje(ids);
     },
     /** Fusiona los favoritos de invitado con los de la cuenta (como /api/favorites merge). */
     mergeGuestFavorites(slugs) {
