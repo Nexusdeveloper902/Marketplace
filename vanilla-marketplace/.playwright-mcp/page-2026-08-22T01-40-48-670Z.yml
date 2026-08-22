@@ -1,0 +1,11 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - paragraph [ref=e9]: Error 404
+    - heading "Página no encontrada" [level=1] [ref=e10]
+    - paragraph [ref=e11]: La página que buscas no existe o se ha movido. Vuelve al inicio o explora nuestra colección de vehículos de alta gama.
+    - generic [ref=e12]:
+      - link "Volver al inicio" [ref=e13] [cursor=pointer]:
+        - /url: /
+      - link "Explorar vehículos" [ref=e16] [cursor=pointer]:
+        - /url: /marketplace
+    - paragraph [ref=e17]: Digital Marketplace · Vehículos de Alta Gama

@@ -1,0 +1,353 @@
+- generic [ref=f2e2]:
+  - generic [ref=f2e3]:
+    - banner [ref=f2e4]:
+      - generic [ref=f2e5]:
+        - link "Ir al inicio" [ref=f2e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f2e11]:
+            - generic [ref=f2e12]: Digital Marketplace
+            - generic [ref=f2e13]: Alta Gama
+        - navigation [ref=f2e14]:
+          - link "Inicio" [ref=f2e15] [cursor=pointer]:
+            - /url: /
+          - link "Marketplace" [ref=f2e21] [cursor=pointer]:
+            - /url: /marketplace
+          - link "Marcas" [ref=f2e28] [cursor=pointer]:
+            - /url: /marcas
+          - link "Favoritos" [ref=f2e34] [cursor=pointer]:
+            - /url: /favoritos
+          - link "Comparar" [ref=f2e38] [cursor=pointer]:
+            - /url: /comparar
+          - link "Mi Garaje" [ref=f2e47] [cursor=pointer]:
+            - /url: /garaje
+        - generic [ref=f2e52]:
+          - button "Cambiar tema" [ref=f2e55]
+          - link "Iniciar sesión" [ref=f2e62] [cursor=pointer]:
+            - /url: /login
+            - generic [ref=f2e66]: Entrar
+          - link "Carrito con 0 vehículo(s)" [ref=f2e67] [cursor=pointer]:
+            - /url: /carrito
+    - main [ref=f2e73]:
+      - generic [ref=f2e74]:
+        - img "Porsche 911 Carrera" [ref=f2e77]
+        - generic [ref=f2e81]:
+          - paragraph [ref=f2e82]: Digital Marketplace · Alta Gama
+          - heading "Pura adrenalina" [level=1] [ref=f2e83]: Puraadrenalina
+          - paragraph [ref=f2e84]: Los automóviles más extraordinarios del mundo, reunidos en una sola colección.
+          - link "Explorar vehículos" [ref=f2e86] [cursor=pointer]:
+            - /url: /marketplace
+      - generic [ref=f2e93]:
+        - generic [ref=f2e94]:
+          - generic [ref=f2e95]:
+            - paragraph [ref=f2e96]: Nuestra Selección
+            - heading "Potencia sin compromisos" [level=2] [ref=f2e97]: Potencia sincompromisos
+          - link "Ver todo el catálogo" [ref=f2e99] [cursor=pointer]:
+            - /url: /marketplace
+        - generic [ref=f2e102]:
+          - article [ref=f2e103]:
+            - generic [ref=f2e104]:
+              - link "Ver detalles del McLaren 750S" [ref=f2e105] [cursor=pointer]:
+                - /url: /vehiculos/mclaren-750s
+                - img "McLaren 750S 2024" [ref=f2e107]
+              - generic: Superdeportivo
+              - generic [ref=f2e108]:
+                - button "Añadir McLaren 750S al comparador" [ref=f2e109]
+                - button "Añadir McLaren 750S a favoritos" [ref=f2e117]
+              - link [ref=f2e120] [cursor=pointer]:
+                - /url: /vehiculos/mclaren-750s
+                - paragraph [ref=f2e121]: McLaren
+                - heading "750S" [level=3] [ref=f2e122]
+                - paragraph [ref=f2e123]: 2024 · Superdeportivo
+            - generic [ref=f2e124]:
+              - generic [ref=f2e125]:
+                - generic [ref=f2e126]:
+                  - paragraph [ref=f2e127]: Precio
+                  - paragraph [ref=f2e128]: 324.000 US$
+                - generic [ref=f2e129]:
+                  - generic [ref=f2e130]:
+                    - paragraph [ref=f2e131]: Potencia
+                    - paragraph [ref=f2e132]: 740 HP
+                  - generic [ref=f2e136]:
+                    - paragraph [ref=f2e137]: 0-100
+                    - paragraph [ref=f2e138]: 2.8s
+              - generic [ref=f2e139]:
+                - button "Agregar al carrito" [ref=f2e140]
+                - link "Explorar vehículo" [ref=f2e146] [cursor=pointer]:
+                  - /url: /vehiculos/mclaren-750s
+          - article [ref=f2e150]:
+            - generic [ref=f2e151]:
+              - link "Ver detalles del Rolls-Royce Ghost" [ref=f2e152] [cursor=pointer]:
+                - /url: /vehiculos/rolls-royce-ghost
+                - img "Rolls-Royce Ghost 2024" [ref=f2e154]
+              - generic: Edición exclusiva
+              - generic [ref=f2e155]:
+                - button "Añadir Rolls-Royce Ghost al comparador" [ref=f2e156]
+                - button "Añadir Rolls-Royce Ghost a favoritos" [ref=f2e164]
+              - link [ref=f2e167] [cursor=pointer]:
+                - /url: /vehiculos/rolls-royce-ghost
+                - paragraph [ref=f2e168]: Rolls-Royce
+                - heading "Ghost" [level=3] [ref=f2e169]
+                - paragraph [ref=f2e170]: 2024 · Sedán
+            - generic [ref=f2e171]:
+              - generic [ref=f2e172]:
+                - generic [ref=f2e173]:
+                  - paragraph [ref=f2e174]: Precio
+                  - paragraph [ref=f2e175]: 355.000 US$
+                - generic [ref=f2e176]:
+                  - generic [ref=f2e177]:
+                    - paragraph [ref=f2e178]: Potencia
+                    - paragraph [ref=f2e179]: 563 HP
+                  - generic [ref=f2e183]:
+                    - paragraph [ref=f2e184]: 0-100
+                    - paragraph [ref=f2e185]: 4.7s
+              - generic [ref=f2e186]:
+                - button "Agregar al carrito" [ref=f2e187]
+                - link "Explorar vehículo" [ref=f2e193] [cursor=pointer]:
+                  - /url: /vehiculos/rolls-royce-ghost
+          - article [ref=f2e197]:
+            - generic [ref=f2e198]:
+              - link "Ver detalles del Lamborghini Revuelto" [ref=f2e199] [cursor=pointer]:
+                - /url: /vehiculos/lamborghini-revuelto
+                - img "Lamborghini Revuelto 2024" [ref=f2e201]
+              - generic: Superdeportivo
+              - generic [ref=f2e202]:
+                - button "Añadir Lamborghini Revuelto al comparador" [ref=f2e203]
+                - button "Añadir Lamborghini Revuelto a favoritos" [ref=f2e211]
+              - link [ref=f2e214] [cursor=pointer]:
+                - /url: /vehiculos/lamborghini-revuelto
+                - paragraph [ref=f2e215]: Lamborghini
+                - heading "Revuelto" [level=3] [ref=f2e216]
+                - paragraph [ref=f2e217]: 2024 · Superdeportivo
+            - generic [ref=f2e218]:
+              - generic [ref=f2e219]:
+                - generic [ref=f2e220]:
+                  - paragraph [ref=f2e221]: Precio
+                  - paragraph [ref=f2e222]: 608.000 US$
+                - generic [ref=f2e223]:
+                  - generic [ref=f2e224]:
+                    - paragraph [ref=f2e225]: Potencia
+                    - paragraph [ref=f2e226]: 1015 HP
+                  - generic [ref=f2e230]:
+                    - paragraph [ref=f2e231]: 0-100
+                    - paragraph [ref=f2e232]: 2.5s
+              - generic [ref=f2e233]:
+                - button "Agregar al carrito" [ref=f2e234]
+                - link "Explorar vehículo" [ref=f2e240] [cursor=pointer]:
+                  - /url: /vehiculos/lamborghini-revuelto
+          - article [ref=f2e244]:
+            - generic [ref=f2e245]:
+              - link "Ver detalles del Porsche Taycan Turbo S" [ref=f2e246] [cursor=pointer]:
+                - /url: /vehiculos/porsche-taycan-turbos
+                - img "Porsche Taycan Turbo S 2024" [ref=f2e248]
+              - generic: Eléctrico
+              - generic [ref=f2e249]:
+                - button "Añadir Porsche Taycan Turbo S al comparador" [ref=f2e250]
+                - button "Añadir Porsche Taycan Turbo S a favoritos" [ref=f2e258]
+              - link [ref=f2e261] [cursor=pointer]:
+                - /url: /vehiculos/porsche-taycan-turbos
+                - paragraph [ref=f2e262]: Porsche
+                - heading "Taycan Turbo S" [level=3] [ref=f2e263]
+                - paragraph [ref=f2e264]: 2024 · Sedán
+            - generic [ref=f2e265]:
+              - generic [ref=f2e266]:
+                - generic [ref=f2e267]:
+                  - paragraph [ref=f2e268]: Precio
+                  - paragraph [ref=f2e269]: 192.900 US$
+                - generic [ref=f2e270]:
+                  - generic [ref=f2e271]:
+                    - paragraph [ref=f2e272]: Potencia
+                    - paragraph [ref=f2e273]: 750 HP
+                  - generic [ref=f2e277]:
+                    - paragraph [ref=f2e278]: 0-100
+                    - paragraph [ref=f2e279]: 2.8s
+              - generic [ref=f2e280]:
+                - button "Agregar al carrito" [ref=f2e281]
+                - link "Explorar vehículo" [ref=f2e287] [cursor=pointer]:
+                  - /url: /vehiculos/porsche-taycan-turbos
+          - article [ref=f2e291]:
+            - generic [ref=f2e292]:
+              - link "Ver detalles del Rivian R1T" [ref=f2e293] [cursor=pointer]:
+                - /url: /vehiculos/rivian-r1t
+                - img "Rivian R1T 2024" [ref=f2e295]
+              - generic: Eléctrico
+              - generic [ref=f2e296]:
+                - button "Añadir Rivian R1T al comparador" [ref=f2e297]
+                - button "Añadir Rivian R1T a favoritos" [ref=f2e305]
+              - link [ref=f2e308] [cursor=pointer]:
+                - /url: /vehiculos/rivian-r1t
+                - paragraph [ref=f2e309]: Rivian
+                - heading "R1T" [level=3] [ref=f2e310]
+                - paragraph [ref=f2e311]: 2024 · Pickup
+            - generic [ref=f2e312]:
+              - generic [ref=f2e313]:
+                - generic [ref=f2e314]:
+                  - paragraph [ref=f2e315]: Precio
+                  - paragraph [ref=f2e316]: 71.700 US$
+                - generic [ref=f2e317]:
+                  - generic [ref=f2e318]:
+                    - paragraph [ref=f2e319]: Potencia
+                    - paragraph [ref=f2e320]: 835 HP
+                  - generic [ref=f2e324]:
+                    - paragraph [ref=f2e325]: 0-100
+                    - paragraph [ref=f2e326]: 3s
+              - generic [ref=f2e327]:
+                - button "Agregar al carrito" [ref=f2e328]
+                - link "Explorar vehículo" [ref=f2e334] [cursor=pointer]:
+                  - /url: /vehiculos/rivian-r1t
+          - article [ref=f2e338]:
+            - generic [ref=f2e339]:
+              - link "Ver detalles del Dodge Challenger SRT Demon 170" [ref=f2e340] [cursor=pointer]:
+                - /url: /vehiculos/dodge-demon-170
+                - img "Dodge Challenger SRT Demon 170 2023" [ref=f2e342]
+              - generic: Dodge
+              - generic [ref=f2e343]:
+                - button "Añadir Dodge Challenger SRT Demon 170 al comparador" [ref=f2e344]
+                - button "Añadir Dodge Challenger SRT Demon 170 a favoritos" [ref=f2e352]
+              - link [ref=f2e355] [cursor=pointer]:
+                - /url: /vehiculos/dodge-demon-170
+                - paragraph [ref=f2e356]: Dodge
+                - heading "Challenger SRT Demon 170" [level=3] [ref=f2e357]
+                - paragraph [ref=f2e358]: 2023 · Coupé
+            - generic [ref=f2e359]:
+              - generic [ref=f2e360]:
+                - generic [ref=f2e361]:
+                  - paragraph [ref=f2e362]: Precio
+                  - paragraph [ref=f2e363]: 96.666 US$
+                - generic [ref=f2e364]:
+                  - generic [ref=f2e365]:
+                    - paragraph [ref=f2e366]: Potencia
+                    - paragraph [ref=f2e367]: 1025 HP
+                  - generic [ref=f2e371]:
+                    - paragraph [ref=f2e372]: 0-100
+                    - paragraph [ref=f2e373]: 1.66s
+              - generic [ref=f2e374]:
+                - button "Agregar al carrito" [ref=f2e375]
+                - link "Explorar vehículo" [ref=f2e381] [cursor=pointer]:
+                  - /url: /vehiculos/dodge-demon-170
+      - generic [ref=f2e385]:
+        - img "Lamborghini Revuelto" [ref=f2e388]
+        - generic [ref=f2e392]:
+          - paragraph [ref=f2e393]: Lamborghini
+          - heading "Revuelto" [level=2] [ref=f2e394]
+          - paragraph [ref=f2e395]: Ingeniería que redefine los límites. Una síntesis perfecta entre tradición y futuro.
+          - generic [ref=f2e396]:
+            - generic [ref=f2e397]:
+              - paragraph [ref=f2e398]: "1015"
+              - paragraph [ref=f2e399]: Caballos
+            - generic [ref=f2e401]:
+              - paragraph [ref=f2e402]: 2.5s
+              - paragraph [ref=f2e403]: 0—100 km/h
+            - generic [ref=f2e405]:
+              - paragraph [ref=f2e406]: "350"
+              - paragraph [ref=f2e407]: Vel. máxima km/h
+          - link "Descubrir el vehículo" [ref=f2e409] [cursor=pointer]:
+            - /url: /vehiculos/lamborghini-revuelto
+      - generic [ref=f2e414]:
+        - generic [ref=f2e415]:
+          - paragraph [ref=f2e416]: El lujo en movimiento
+          - heading "Diseñado para los amantes del detalle" [level=2] [ref=f2e417]: Diseñado para losamantes del detalle
+        - generic [ref=f2e418]:
+          - generic [ref=f2e419]:
+            - heading "Autenticidad garantizada" [level=3] [ref=f2e424]
+            - paragraph [ref=f2e425]: Especificaciones verificadas de fábrica en cada modelo del catálogo.
+          - generic [ref=f2e426]:
+            - heading "Rendimiento comprobado" [level=3] [ref=f2e431]
+            - paragraph [ref=f2e432]: Datos técnicos precisos de los motores más extraordinarios del mundo.
+          - generic [ref=f2e433]:
+            - heading "Selección curada" [level=3] [ref=f2e437]
+            - paragraph [ref=f2e438]: Una colección cuidadosamente elegida entre las marcas más prestigiosas.
+          - generic [ref=f2e439]:
+            - heading "Experiencia premium" [level=3] [ref=f2e444]
+            - paragraph [ref=f2e445]: Cada detalle diseñado para que explorar sea tan emocionante como conducir.
+      - generic [ref=f2e446]:
+        - generic [ref=f2e447]:
+          - paragraph [ref=f2e448]: Las casas más prestigiosas
+          - heading "Marcas que definen épocas" [level=2] [ref=f2e449]: Marcas quedefinen épocas
+          - paragraph [ref=f2e450]: Trabajamos con los fabricantes más legendarios del mundo para ofrecerte lo mejor de cada casa.
+        - generic [ref=f2e451]:
+          - generic [ref=f2e452]: Aston Martin
+          - generic [ref=f2e454]: Audi
+          - generic [ref=f2e456]: BMW
+          - generic [ref=f2e458]: BYD
+          - generic [ref=f2e460]: Bentley
+          - generic [ref=f2e462]: Chevrolet
+          - generic [ref=f2e464]: Dodge
+          - generic [ref=f2e466]: Ferrari
+          - generic [ref=f2e468]: Ford
+          - generic [ref=f2e470]: Honda
+          - generic [ref=f2e472]: Hyundai
+          - generic [ref=f2e474]: Jeep
+          - generic [ref=f2e476]: Kia
+          - generic [ref=f2e478]: Lamborghini
+          - generic [ref=f2e480]: Lexus
+          - generic [ref=f2e482]: Mazda
+          - generic [ref=f2e484]: McLaren
+          - generic [ref=f2e486]: Mercedes-Benz
+          - generic [ref=f2e488]: Nissan
+          - generic [ref=f2e490]: Peugeot
+          - generic [ref=f2e492]: Porsche
+          - generic [ref=f2e494]: Renault
+          - generic [ref=f2e496]: Rivian
+          - generic [ref=f2e498]: Rolls-Royce
+          - generic [ref=f2e500]: Subaru
+          - generic [ref=f2e502]: Suzuki
+          - generic [ref=f2e504]: Tesla
+          - generic [ref=f2e506]: Toyota
+          - generic [ref=f2e508]: Volkswagen
+          - generic [ref=f2e510]: Volvo
+        - link "Explorar todos los vehículos" [ref=f2e513] [cursor=pointer]:
+          - /url: /marketplace
+    - generic [ref=f2e517]:
+      - paragraph [ref=f2e518]: Digital Marketplace · Vehículos de Alta Gama
+      - heading "Tu próximo vehículo te espera." [level=2] [ref=f2e519]
+      - paragraph [ref=f2e520]: Explora la colección, compara y reserva el modelo que siempre quisiste. Experiencia de compra premium, de principio a fin.
+      - generic [ref=f2e521]:
+        - link "Explorar vehículos" [ref=f2e522] [cursor=pointer]:
+          - /url: /marketplace
+        - link "Ver marcas" [ref=f2e525] [cursor=pointer]:
+          - /url: /marcas
+    - contentinfo [ref=f2e526]:
+      - generic [ref=f2e527]:
+        - generic [ref=f2e528]:
+          - link "Ir al inicio" [ref=f2e530] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f2e535]: Digital Marketplace
+          - navigation [ref=f2e536]:
+            - generic [ref=f2e537]:
+              - paragraph [ref=f2e538]: Explorar
+              - link "Marketplace" [ref=f2e539] [cursor=pointer]:
+                - /url: /marketplace
+              - link "Marcas" [ref=f2e540] [cursor=pointer]:
+                - /url: /marcas
+              - link "Comparar" [ref=f2e541] [cursor=pointer]:
+                - /url: /comparar
+            - generic [ref=f2e542]:
+              - paragraph [ref=f2e543]: Cuenta
+              - link "Favoritos" [ref=f2e544] [cursor=pointer]:
+                - /url: /favoritos
+              - link "Mi Garaje" [ref=f2e545] [cursor=pointer]:
+                - /url: /garaje
+              - link "Carrito" [ref=f2e546] [cursor=pointer]:
+                - /url: /carrito
+            - generic [ref=f2e547]:
+              - paragraph [ref=f2e548]: Legal
+              - link "Privacidad" [ref=f2e549] [cursor=pointer]:
+                - /url: /privacidad
+              - link "Términos" [ref=f2e550] [cursor=pointer]:
+                - /url: /terminos
+        - generic [ref=f2e551]:
+          - paragraph [ref=f2e552]: © 2026 Digital Marketplace. Todos los derechos reservados.
+          - paragraph [ref=f2e553]: Experiencia de compra simulada.
+  - region "Banner de consentimiento de cookies" [ref=f2e554]:
+    - generic [ref=f2e556]:
+      - generic [ref=f2e560]:
+        - paragraph [ref=f2e561]: Cookies y privacidad
+        - paragraph [ref=f2e562]:
+          - text: Usamos cookies propias para el funcionamiento del sitio y de análisis anónimo para entender cómo se usa. Puedes aceptar o rechazar el análisis en cualquier momento. Lee nuestra
+          - link "política de privacidad" [ref=f2e563] [cursor=pointer]:
+            - /url: /privacidad
+          - text: .
+        - generic [ref=f2e564]:
+          - button "Aceptar todo" [ref=f2e565]
+          - button "Solo necesarias" [ref=f2e566]
+      - button "Cerrar banner de cookies" [ref=f2e567]

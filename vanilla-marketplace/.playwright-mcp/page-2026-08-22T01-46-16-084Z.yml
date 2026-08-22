@@ -1,0 +1,2742 @@
+- generic [ref=f6e3]:
+  - banner [ref=f6e4]:
+    - generic [ref=f6e5]:
+      - link "Ir al inicio" [ref=f6e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f6e11]:
+          - generic [ref=f6e12]: Digital Marketplace
+          - generic [ref=f6e13]: Alta Gama
+      - navigation [ref=f6e14]:
+        - link "Inicio" [ref=f6e15] [cursor=pointer]:
+          - /url: /
+        - link "Marketplace" [ref=f6e20] [cursor=pointer]:
+          - /url: /marketplace
+        - link "Marcas" [ref=f6e28] [cursor=pointer]:
+          - /url: /marcas
+        - link "Favoritos" [ref=f6e34] [cursor=pointer]:
+          - /url: /favoritos
+        - link "Comparar" [ref=f6e38] [cursor=pointer]:
+          - /url: /comparar
+        - link "Mi Garaje" [ref=f6e47] [cursor=pointer]:
+          - /url: /garaje
+      - generic [ref=f6e52]:
+        - button "Cambiar tema" [ref=f6e55]
+        - link "Iniciar sesión" [ref=f6e62] [cursor=pointer]:
+          - /url: /login
+          - generic [ref=f6e66]: Entrar
+        - link "Carrito con 0 vehículo(s)" [ref=f6e67] [cursor=pointer]:
+          - /url: /carrito
+  - main [ref=f6e73]:
+    - generic [ref=f6e74]:
+      - generic [ref=f6e76]:
+        - generic [ref=f6e77]: Catálogo completo · 88 modelos
+        - heading "Descubre el vehículo ideal para ti" [level=1] [ref=f6e78]: Descubre el vehículoideal para ti
+      - generic [ref=f6e79]:
+        - generic [ref=f6e80]:
+          - textbox "Buscar vehículos" [ref=f6e82]:
+            - /placeholder: Buscar por marca o modelo…
+          - combobox "Ordenar por" [ref=f6e85]:
+            - option "Relevancia" [selected]
+            - 'option "Precio: menor a mayor"'
+            - 'option "Precio: mayor a menor"'
+            - 'option "Año: más reciente"'
+            - 'option "Potencia: mayor a menor"'
+        - generic [ref=f6e86]:
+          - button "Todas" [ref=f6e87]
+          - button "Aston Martin" [ref=f6e88]
+          - button "Audi" [ref=f6e89]
+          - button "BMW" [ref=f6e90]
+          - button "BYD" [ref=f6e91]
+          - button "Bentley" [ref=f6e92]
+          - button "Chevrolet" [ref=f6e93]
+          - button "Dodge" [ref=f6e94]
+          - button "Ferrari" [ref=f6e95]
+          - button "Ford" [ref=f6e96]
+          - button "Honda" [ref=f6e97]
+          - button "Hyundai" [ref=f6e98]
+          - button "Jeep" [ref=f6e99]
+          - button "Kia" [ref=f6e100]
+          - button "Lamborghini" [ref=f6e101]
+          - button "Lexus" [ref=f6e102]
+          - button "Mazda" [ref=f6e103]
+          - button "McLaren" [ref=f6e104]
+          - button "Mercedes-Benz" [ref=f6e105]
+          - button "Nissan" [ref=f6e106]
+          - button "Peugeot" [ref=f6e107]
+          - button "Porsche" [ref=f6e108]
+          - button "Renault" [ref=f6e109]
+          - button "Rivian" [ref=f6e110]
+          - button "Rolls-Royce" [ref=f6e111]
+          - button "Subaru" [ref=f6e112]
+          - button "Suzuki" [ref=f6e113]
+          - button "Tesla" [ref=f6e114]
+          - button "Toyota" [ref=f6e115]
+          - button "Volkswagen" [ref=f6e116]
+          - button "Volvo" [ref=f6e117]
+        - generic [ref=f6e118]: 86 resultados
+      - generic [ref=f6e122]:
+        - complementary [ref=f6e123]:
+          - generic [ref=f6e125]:
+            - heading "Filtros" [level=2] [ref=f6e128]
+            - generic [ref=f6e129]:
+              - paragraph [ref=f6e130]: Categoría
+              - generic [ref=f6e131]:
+                - button "Sedán" [ref=f6e132]
+                - button "SUV" [ref=f6e133]
+                - button "Coupé" [ref=f6e134]
+                - button "Hatchback" [ref=f6e135]
+                - button "Convertible" [ref=f6e136]
+                - button "Pickup" [ref=f6e137]
+                - button "Deportivo" [ref=f6e138]
+                - button "Superdeportivo" [ref=f6e139]
+                - button "Familiar" [ref=f6e140]
+            - generic [ref=f6e141]:
+              - paragraph [ref=f6e142]: "Precio: 20.000 - 600.000"
+              - slider "Precio mínimo" [ref=f6e143] [cursor=pointer]: "20000"
+              - slider "Precio máximo" [ref=f6e144] [cursor=pointer]: "600000"
+              - generic [ref=f6e145]:
+                - generic [ref=f6e146]: "Mín: 20.000"
+                - generic [ref=f6e147]: "Máx: 600.000"
+            - generic [ref=f6e148]:
+              - paragraph [ref=f6e149]: "Año: 2020 - 2024"
+              - slider "Año mínimo" [ref=f6e150] [cursor=pointer]: "2020"
+              - slider "Año máximo" [ref=f6e151] [cursor=pointer]: "2024"
+            - generic [ref=f6e152]:
+              - paragraph [ref=f6e153]: "Potencia mín: 0 HP"
+              - slider "Potencia mínima" [ref=f6e154] [cursor=pointer]: "0"
+            - generic [ref=f6e155]:
+              - paragraph [ref=f6e156]: Combustible
+              - generic [ref=f6e157]:
+                - button "Gasolina" [ref=f6e158]
+                - button "Híbrido" [ref=f6e159]
+                - button "Eléctrico" [ref=f6e160]
+                - button "Diésel" [ref=f6e161]
+            - generic [ref=f6e162]:
+              - paragraph [ref=f6e163]: Tracción
+              - generic [ref=f6e164]:
+                - button "AWD" [ref=f6e165]
+                - button "RWD" [ref=f6e166]
+                - button "FWD" [ref=f6e167]
+                - button "4WD" [ref=f6e168]
+        - generic [ref=f6e170]:
+          - article [ref=f6e171]:
+            - generic [ref=f6e172]:
+              - link "Ver detalles del Aston Martin DB12" [ref=f6e173] [cursor=pointer]:
+                - /url: /vehiculos/aston-martin-db12
+                - img "Aston Martin DB12 2024" [ref=f6e175]
+              - generic: Edición exclusiva
+              - generic [ref=f6e176]:
+                - button "Añadir Aston Martin DB12 al comparador" [ref=f6e177]
+                - button "Añadir Aston Martin DB12 a favoritos" [ref=f6e185]
+              - link [ref=f6e188] [cursor=pointer]:
+                - /url: /vehiculos/aston-martin-db12
+                - paragraph [ref=f6e189]: Aston Martin
+                - heading "DB12" [level=3] [ref=f6e190]
+                - paragraph [ref=f6e191]: 2024 · Coupé
+            - generic [ref=f6e192]:
+              - generic [ref=f6e193]:
+                - generic [ref=f6e194]:
+                  - paragraph [ref=f6e195]: Precio
+                  - paragraph [ref=f6e196]: 245.000 US$
+                - generic [ref=f6e197]:
+                  - generic [ref=f6e198]:
+                    - paragraph [ref=f6e199]: Potencia
+                    - paragraph [ref=f6e200]: 671 HP
+                  - generic [ref=f6e204]:
+                    - paragraph [ref=f6e205]: 0-100
+                    - paragraph [ref=f6e206]: 3.6s
+              - generic [ref=f6e207]:
+                - button "Agregar al carrito" [ref=f6e208]
+                - link "Explorar vehículo" [ref=f6e214] [cursor=pointer]:
+                  - /url: /vehiculos/aston-martin-db12
+          - article [ref=f6e218]:
+            - generic [ref=f6e219]:
+              - link "Ver detalles del Aston Martin Vantage" [ref=f6e220] [cursor=pointer]:
+                - /url: /vehiculos/aston-martin-vantage
+                - img "Aston Martin Vantage 2024" [ref=f6e222]
+              - generic: Nuevo
+              - generic [ref=f6e223]:
+                - button "Añadir Aston Martin Vantage al comparador" [ref=f6e224]
+                - button "Añadir Aston Martin Vantage a favoritos" [ref=f6e232]
+              - link [ref=f6e235] [cursor=pointer]:
+                - /url: /vehiculos/aston-martin-vantage
+                - paragraph [ref=f6e236]: Aston Martin
+                - heading "Vantage" [level=3] [ref=f6e237]
+                - paragraph [ref=f6e238]: 2024 · Coupé
+            - generic [ref=f6e239]:
+              - generic [ref=f6e240]:
+                - generic [ref=f6e241]:
+                  - paragraph [ref=f6e242]: Precio
+                  - paragraph [ref=f6e243]: 191.000 US$
+                - generic [ref=f6e244]:
+                  - generic [ref=f6e245]:
+                    - paragraph [ref=f6e246]: Potencia
+                    - paragraph [ref=f6e247]: 656 HP
+                  - generic [ref=f6e251]:
+                    - paragraph [ref=f6e252]: 0-100
+                    - paragraph [ref=f6e253]: 3.5s
+              - generic [ref=f6e254]:
+                - button "Agregar al carrito" [ref=f6e255]
+                - link "Explorar vehículo" [ref=f6e261] [cursor=pointer]:
+                  - /url: /vehiculos/aston-martin-vantage
+          - article [ref=f6e265]:
+            - generic [ref=f6e266]:
+              - link "Ver detalles del BMW M4 Competition" [ref=f6e267] [cursor=pointer]:
+                - /url: /vehiculos/bmw-m4-competition
+                - img "BMW M4 Competition 2024" [ref=f6e269]
+              - generic: Nuevo
+              - generic [ref=f6e270]:
+                - button "Añadir BMW M4 Competition al comparador" [ref=f6e271]
+                - button "Añadir BMW M4 Competition a favoritos" [ref=f6e279]
+              - link [ref=f6e282] [cursor=pointer]:
+                - /url: /vehiculos/bmw-m4-competition
+                - paragraph [ref=f6e283]: BMW
+                - heading "M4 Competition" [level=3] [ref=f6e284]
+                - paragraph [ref=f6e285]: 2024 · Coupé
+            - generic [ref=f6e286]:
+              - generic [ref=f6e287]:
+                - generic [ref=f6e288]:
+                  - paragraph [ref=f6e289]: Precio
+                  - paragraph [ref=f6e290]: 79.100 US$
+                - generic [ref=f6e291]:
+                  - generic [ref=f6e292]:
+                    - paragraph [ref=f6e293]: Potencia
+                    - paragraph [ref=f6e294]: 503 HP
+                  - generic [ref=f6e298]:
+                    - paragraph [ref=f6e299]: 0-100
+                    - paragraph [ref=f6e300]: 3.5s
+              - generic [ref=f6e301]:
+                - button "Agregar al carrito" [ref=f6e302]
+                - link "Explorar vehículo" [ref=f6e308] [cursor=pointer]:
+                  - /url: /vehiculos/bmw-m4-competition
+          - article [ref=f6e312]:
+            - generic [ref=f6e313]:
+              - link "Ver detalles del Chevrolet Corvette Z06" [ref=f6e314] [cursor=pointer]:
+                - /url: /vehiculos/chevrolet-corvette-z06
+                - img "Chevrolet Corvette Z06 2024" [ref=f6e316]
+              - generic: Superdeportivo
+              - generic [ref=f6e317]:
+                - button "Añadir Chevrolet Corvette Z06 al comparador" [ref=f6e318]
+                - button "Añadir Chevrolet Corvette Z06 a favoritos" [ref=f6e326]
+              - link [ref=f6e329] [cursor=pointer]:
+                - /url: /vehiculos/chevrolet-corvette-z06
+                - paragraph [ref=f6e330]: Chevrolet
+                - heading "Corvette Z06" [level=3] [ref=f6e331]
+                - paragraph [ref=f6e332]: 2024 · Superdeportivo
+            - generic [ref=f6e333]:
+              - generic [ref=f6e334]:
+                - generic [ref=f6e335]:
+                  - paragraph [ref=f6e336]: Precio
+                  - paragraph [ref=f6e337]: 112.700 US$
+                - generic [ref=f6e338]:
+                  - generic [ref=f6e339]:
+                    - paragraph [ref=f6e340]: Potencia
+                    - paragraph [ref=f6e341]: 670 HP
+                  - generic [ref=f6e345]:
+                    - paragraph [ref=f6e346]: 0-100
+                    - paragraph [ref=f6e347]: 2.6s
+              - generic [ref=f6e348]:
+                - button "Agregar al carrito" [ref=f6e349]
+                - link "Explorar vehículo" [ref=f6e355] [cursor=pointer]:
+                  - /url: /vehiculos/chevrolet-corvette-z06
+          - article [ref=f6e359]:
+            - generic [ref=f6e360]:
+              - link "Ver detalles del Hyundai i30 N" [ref=f6e361] [cursor=pointer]:
+                - /url: /vehiculos/hyundai-i30n
+                - img "Hyundai i30 N 2024" [ref=f6e363]
+              - generic: Nuevo
+              - generic [ref=f6e364]:
+                - button "Añadir Hyundai i30 N al comparador" [ref=f6e365]
+                - button "Añadir Hyundai i30 N a favoritos" [ref=f6e373]
+              - link [ref=f6e376] [cursor=pointer]:
+                - /url: /vehiculos/hyundai-i30n
+                - paragraph [ref=f6e377]: Hyundai
+                - heading "i30 N" [level=3] [ref=f6e378]
+                - paragraph [ref=f6e379]: 2024 · Hatchback
+            - generic [ref=f6e380]:
+              - generic [ref=f6e381]:
+                - generic [ref=f6e382]:
+                  - paragraph [ref=f6e383]: Precio
+                  - paragraph [ref=f6e384]: 35.000 US$
+                - generic [ref=f6e385]:
+                  - generic [ref=f6e386]:
+                    - paragraph [ref=f6e387]: Potencia
+                    - paragraph [ref=f6e388]: 280 HP
+                  - generic [ref=f6e392]:
+                    - paragraph [ref=f6e393]: 0-100
+                    - paragraph [ref=f6e394]: 5.9s
+              - generic [ref=f6e395]:
+                - button "Agregar al carrito" [ref=f6e396]
+                - link "Explorar vehículo" [ref=f6e402] [cursor=pointer]:
+                  - /url: /vehiculos/hyundai-i30n
+          - article [ref=f6e406]:
+            - generic [ref=f6e407]:
+              - link "Ver detalles del Jeep Wrangler Rubicon 392" [ref=f6e408] [cursor=pointer]:
+                - /url: /vehiculos/jeep-wrangler-rubicon
+                - img "Jeep Wrangler Rubicon 392 2024" [ref=f6e410]
+              - generic: Nuevo
+              - generic [ref=f6e411]:
+                - button "Añadir Jeep Wrangler Rubicon 392 al comparador" [ref=f6e412]
+                - button "Añadir Jeep Wrangler Rubicon 392 a favoritos" [ref=f6e420]
+              - link [ref=f6e423] [cursor=pointer]:
+                - /url: /vehiculos/jeep-wrangler-rubicon
+                - paragraph [ref=f6e424]: Jeep
+                - heading "Wrangler Rubicon 392" [level=3] [ref=f6e425]
+                - paragraph [ref=f6e426]: 2024 · SUV
+            - generic [ref=f6e427]:
+              - generic [ref=f6e428]:
+                - generic [ref=f6e429]:
+                  - paragraph [ref=f6e430]: Precio
+                  - paragraph [ref=f6e431]: 85.000 US$
+                - generic [ref=f6e432]:
+                  - generic [ref=f6e433]:
+                    - paragraph [ref=f6e434]: Potencia
+                    - paragraph [ref=f6e435]: 470 HP
+                  - generic [ref=f6e439]:
+                    - paragraph [ref=f6e440]: 0-100
+                    - paragraph [ref=f6e441]: 4.5s
+              - generic [ref=f6e442]:
+                - button "Agregar al carrito" [ref=f6e443]
+                - link "Explorar vehículo" [ref=f6e449] [cursor=pointer]:
+                  - /url: /vehiculos/jeep-wrangler-rubicon
+          - article [ref=f6e453]:
+            - generic [ref=f6e454]:
+              - link "Ver detalles del Kia EV6 GT" [ref=f6e455] [cursor=pointer]:
+                - /url: /vehiculos/kia-ev6-gt
+                - img "Kia EV6 GT 2024" [ref=f6e457]
+              - generic: Eléctrico
+              - generic [ref=f6e458]:
+                - button "Añadir Kia EV6 GT al comparador" [ref=f6e459]
+                - button "Añadir Kia EV6 GT a favoritos" [ref=f6e467]
+              - link [ref=f6e470] [cursor=pointer]:
+                - /url: /vehiculos/kia-ev6-gt
+                - paragraph [ref=f6e471]: Kia
+                - heading "EV6 GT" [level=3] [ref=f6e472]
+                - paragraph [ref=f6e473]: 2024 · SUV
+            - generic [ref=f6e474]:
+              - generic [ref=f6e475]:
+                - generic [ref=f6e476]:
+                  - paragraph [ref=f6e477]: Precio
+                  - paragraph [ref=f6e478]: 61.000 US$
+                - generic [ref=f6e479]:
+                  - generic [ref=f6e480]:
+                    - paragraph [ref=f6e481]: Potencia
+                    - paragraph [ref=f6e482]: 576 HP
+                  - generic [ref=f6e486]:
+                    - paragraph [ref=f6e487]: 0-100
+                    - paragraph [ref=f6e488]: 3.5s
+              - generic [ref=f6e489]:
+                - button "Agregar al carrito" [ref=f6e490]
+                - link "Explorar vehículo" [ref=f6e496] [cursor=pointer]:
+                  - /url: /vehiculos/kia-ev6-gt
+          - article [ref=f6e500]:
+            - generic [ref=f6e501]:
+              - link "Ver detalles del Kia Stinger GT" [ref=f6e502] [cursor=pointer]:
+                - /url: /vehiculos/kia-stinger-gt
+                - img "Kia Stinger GT 2023" [ref=f6e504]
+              - generic: Kia
+              - generic [ref=f6e505]:
+                - button "Añadir Kia Stinger GT al comparador" [ref=f6e506]
+                - button "Añadir Kia Stinger GT a favoritos" [ref=f6e514]
+              - link [ref=f6e517] [cursor=pointer]:
+                - /url: /vehiculos/kia-stinger-gt
+                - paragraph [ref=f6e518]: Kia
+                - heading "Stinger GT" [level=3] [ref=f6e519]
+                - paragraph [ref=f6e520]: 2023 · Sedán
+            - generic [ref=f6e521]:
+              - generic [ref=f6e522]:
+                - generic [ref=f6e523]:
+                  - paragraph [ref=f6e524]: Precio
+                  - paragraph [ref=f6e525]: 50.000 US$
+                - generic [ref=f6e526]:
+                  - generic [ref=f6e527]:
+                    - paragraph [ref=f6e528]: Potencia
+                    - paragraph [ref=f6e529]: 365 HP
+                  - generic [ref=f6e533]:
+                    - paragraph [ref=f6e534]: 0-100
+                    - paragraph [ref=f6e535]: 4.7s
+              - generic [ref=f6e536]:
+                - button "Agregar al carrito" [ref=f6e537]
+                - link "Explorar vehículo" [ref=f6e543] [cursor=pointer]:
+                  - /url: /vehiculos/kia-stinger-gt
+          - article [ref=f6e547]:
+            - generic [ref=f6e548]:
+              - link "Ver detalles del Lamborghini Huracán EVO" [ref=f6e549] [cursor=pointer]:
+                - /url: /vehiculos/lamborghini-huracan-evo
+                - img "Lamborghini Huracán EVO 2023" [ref=f6e551]
+              - generic: Superdeportivo
+              - generic [ref=f6e552]:
+                - button "Añadir Lamborghini Huracán EVO al comparador" [ref=f6e553]
+                - button "Añadir Lamborghini Huracán EVO a favoritos" [ref=f6e561]
+              - link [ref=f6e564] [cursor=pointer]:
+                - /url: /vehiculos/lamborghini-huracan-evo
+                - paragraph [ref=f6e565]: Lamborghini
+                - heading "Huracán EVO" [level=3] [ref=f6e566]
+                - paragraph [ref=f6e567]: 2023 · Superdeportivo
+            - generic [ref=f6e568]:
+              - generic [ref=f6e569]:
+                - generic [ref=f6e570]:
+                  - paragraph [ref=f6e571]: Precio
+                  - paragraph [ref=f6e572]: 249.870 US$
+                - generic [ref=f6e573]:
+                  - generic [ref=f6e574]:
+                    - paragraph [ref=f6e575]: Potencia
+                    - paragraph [ref=f6e576]: 631 HP
+                  - generic [ref=f6e580]:
+                    - paragraph [ref=f6e581]: 0-100
+                    - paragraph [ref=f6e582]: 2.9s
+              - generic [ref=f6e583]:
+                - button "Agregar al carrito" [ref=f6e584]
+                - link "Explorar vehículo" [ref=f6e590] [cursor=pointer]:
+                  - /url: /vehiculos/lamborghini-huracan-evo
+          - article [ref=f6e594]:
+            - generic [ref=f6e595]:
+              - link "Ver detalles del Mercedes-Benz S63 AMG" [ref=f6e596] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-s63-amg
+                - img "Mercedes-Benz S63 AMG 2024" [ref=f6e598]
+              - generic: Edición exclusiva
+              - generic [ref=f6e599]:
+                - button "Añadir Mercedes-Benz S63 AMG al comparador" [ref=f6e600]
+                - button "Añadir Mercedes-Benz S63 AMG a favoritos" [ref=f6e608]
+              - link [ref=f6e611] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-s63-amg
+                - paragraph [ref=f6e612]: Mercedes-Benz
+                - heading "S63 AMG" [level=3] [ref=f6e613]
+                - paragraph [ref=f6e614]: 2024 · Sedán
+            - generic [ref=f6e615]:
+              - generic [ref=f6e616]:
+                - generic [ref=f6e617]:
+                  - paragraph [ref=f6e618]: Precio
+                  - paragraph [ref=f6e619]: 230.000 US$
+                - generic [ref=f6e620]:
+                  - generic [ref=f6e621]:
+                    - paragraph [ref=f6e622]: Potencia
+                    - paragraph [ref=f6e623]: 791 HP
+                  - generic [ref=f6e627]:
+                    - paragraph [ref=f6e628]: 0-100
+                    - paragraph [ref=f6e629]: 3.2s
+              - generic [ref=f6e630]:
+                - button "Agregar al carrito" [ref=f6e631]
+                - link "Explorar vehículo" [ref=f6e637] [cursor=pointer]:
+                  - /url: /vehiculos/mercedes-s63-amg
+          - article [ref=f6e641]:
+            - generic [ref=f6e642]:
+              - link "Ver detalles del Nissan Z Nismo" [ref=f6e643] [cursor=pointer]:
+                - /url: /vehiculos/nissan-z-nismo
+                - img "Nissan Z Nismo 2024" [ref=f6e645]
+              - generic: Nuevo
+              - generic [ref=f6e646]:
+                - button "Añadir Nissan Z Nismo al comparador" [ref=f6e647]
+                - button "Añadir Nissan Z Nismo a favoritos" [ref=f6e655]
+              - link [ref=f6e658] [cursor=pointer]:
+                - /url: /vehiculos/nissan-z-nismo
+                - paragraph [ref=f6e659]: Nissan
+                - heading "Z Nismo" [level=3] [ref=f6e660]
+                - paragraph [ref=f6e661]: 2024 · Coupé
+            - generic [ref=f6e662]:
+              - generic [ref=f6e663]:
+                - generic [ref=f6e664]:
+                  - paragraph [ref=f6e665]: Precio
+                  - paragraph [ref=f6e666]: 52.970 US$
+                - generic [ref=f6e667]:
+                  - generic [ref=f6e668]:
+                    - paragraph [ref=f6e669]: Potencia
+                    - paragraph [ref=f6e670]: 420 HP
+                  - generic [ref=f6e674]:
+                    - paragraph [ref=f6e675]: 0-100
+                    - paragraph [ref=f6e676]: 4s
+              - generic [ref=f6e677]:
+                - button "Agregar al carrito" [ref=f6e678]
+                - link "Explorar vehículo" [ref=f6e684] [cursor=pointer]:
+                  - /url: /vehiculos/nissan-z-nismo
+          - article [ref=f6e688]:
+            - generic [ref=f6e689]:
+              - link "Ver detalles del Suzuki Swift Sport" [ref=f6e690] [cursor=pointer]:
+                - /url: /vehiculos/suzuki-swift-sport
+                - img "Suzuki Swift Sport 2024" [ref=f6e692]
+              - generic: Nuevo
+              - generic [ref=f6e693]:
+                - button "Añadir Suzuki Swift Sport al comparador" [ref=f6e694]
+                - button "Añadir Suzuki Swift Sport a favoritos" [ref=f6e702]
+              - link [ref=f6e705] [cursor=pointer]:
+                - /url: /vehiculos/suzuki-swift-sport
+                - paragraph [ref=f6e706]: Suzuki
+                - heading "Swift Sport" [level=3] [ref=f6e707]
+                - paragraph [ref=f6e708]: 2024 · Hatchback
+            - generic [ref=f6e709]:
+              - generic [ref=f6e710]:
+                - generic [ref=f6e711]:
+                  - paragraph [ref=f6e712]: Precio
+                  - paragraph [ref=f6e713]: 22.000 US$
+                - generic [ref=f6e714]:
+                  - generic [ref=f6e715]:
+                    - paragraph [ref=f6e716]: Potencia
+                    - paragraph [ref=f6e717]: 129 HP
+                  - generic [ref=f6e721]:
+                    - paragraph [ref=f6e722]: 0-100
+                    - paragraph [ref=f6e723]: 8.1s
+              - generic [ref=f6e724]:
+                - button "Agregar al carrito" [ref=f6e725]
+                - link "Explorar vehículo" [ref=f6e731] [cursor=pointer]:
+                  - /url: /vehiculos/suzuki-swift-sport
+          - article [ref=f6e735]:
+            - generic [ref=f6e736]:
+              - link "Ver detalles del Tesla Model S Plaid" [ref=f6e737] [cursor=pointer]:
+                - /url: /vehiculos/tesla-model-s-plaid
+                - img "Tesla Model S Plaid 2024" [ref=f6e739]
+              - generic: Eléctrico
+              - generic [ref=f6e740]:
+                - button "Añadir Tesla Model S Plaid al comparador" [ref=f6e741]
+                - button "Añadir Tesla Model S Plaid a favoritos" [ref=f6e749]
+              - link [ref=f6e752] [cursor=pointer]:
+                - /url: /vehiculos/tesla-model-s-plaid
+                - paragraph [ref=f6e753]: Tesla
+                - heading "Model S Plaid" [level=3] [ref=f6e754]
+                - paragraph [ref=f6e755]: 2024 · Sedán
+            - generic [ref=f6e756]:
+              - generic [ref=f6e757]:
+                - generic [ref=f6e758]:
+                  - paragraph [ref=f6e759]: Precio
+                  - paragraph [ref=f6e760]: 89.990 US$
+                - generic [ref=f6e761]:
+                  - generic [ref=f6e762]:
+                    - paragraph [ref=f6e763]: Potencia
+                    - paragraph [ref=f6e764]: 1020 HP
+                  - generic [ref=f6e768]:
+                    - paragraph [ref=f6e769]: 0-100
+                    - paragraph [ref=f6e770]: 2.1s
+              - generic [ref=f6e771]:
+                - button "Agregar al carrito" [ref=f6e772]
+                - link "Explorar vehículo" [ref=f6e778] [cursor=pointer]:
+                  - /url: /vehiculos/tesla-model-s-plaid
+          - article [ref=f6e782]:
+            - generic [ref=f6e783]:
+              - link "Ver detalles del Audi e-tron GT RS" [ref=f6e784] [cursor=pointer]:
+                - /url: /vehiculos/audi-etron-gt
+                - img "Audi e-tron GT RS 2024" [ref=f6e786]
+              - generic: Eléctrico
+              - generic [ref=f6e787]:
+                - button "Añadir Audi e-tron GT RS al comparador" [ref=f6e788]
+                - button "Añadir Audi e-tron GT RS a favoritos" [ref=f6e796]
+              - link [ref=f6e799] [cursor=pointer]:
+                - /url: /vehiculos/audi-etron-gt
+                - paragraph [ref=f6e800]: Audi
+                - heading "e-tron GT RS" [level=3] [ref=f6e801]
+                - paragraph [ref=f6e802]: 2024 · Sedán
+            - generic [ref=f6e803]:
+              - generic [ref=f6e804]:
+                - generic [ref=f6e805]:
+                  - paragraph [ref=f6e806]: Precio
+                  - paragraph [ref=f6e807]: 147.000 US$
+                - generic [ref=f6e808]:
+                  - generic [ref=f6e809]:
+                    - paragraph [ref=f6e810]: Potencia
+                    - paragraph [ref=f6e811]: 637 HP
+                  - generic [ref=f6e815]:
+                    - paragraph [ref=f6e816]: 0-100
+                    - paragraph [ref=f6e817]: 3.1s
+              - generic [ref=f6e818]:
+                - button "Agregar al carrito" [ref=f6e819]
+                - link "Explorar vehículo" [ref=f6e825] [cursor=pointer]:
+                  - /url: /vehiculos/audi-etron-gt
+          - article [ref=f6e829]:
+            - generic [ref=f6e830]:
+              - link "Ver detalles del Audi R8 V10 Performance" [ref=f6e831] [cursor=pointer]:
+                - /url: /vehiculos/audi-r8-v10
+                - img "Audi R8 V10 Performance 2023" [ref=f6e833]
+              - generic: Superdeportivo
+              - generic [ref=f6e834]:
+                - button "Añadir Audi R8 V10 Performance al comparador" [ref=f6e835]
+                - button "Añadir Audi R8 V10 Performance a favoritos" [ref=f6e843]
+              - link [ref=f6e846] [cursor=pointer]:
+                - /url: /vehiculos/audi-r8-v10
+                - paragraph [ref=f6e847]: Audi
+                - heading "R8 V10 Performance" [level=3] [ref=f6e848]
+                - paragraph [ref=f6e849]: 2023 · Superdeportivo
+            - generic [ref=f6e850]:
+              - generic [ref=f6e851]:
+                - generic [ref=f6e852]:
+                  - paragraph [ref=f6e853]: Precio
+                  - paragraph [ref=f6e854]: 158.000 US$
+                - generic [ref=f6e855]:
+                  - generic [ref=f6e856]:
+                    - paragraph [ref=f6e857]: Potencia
+                    - paragraph [ref=f6e858]: 602 HP
+                  - generic [ref=f6e862]:
+                    - paragraph [ref=f6e863]: 0-100
+                    - paragraph [ref=f6e864]: 3.2s
+              - generic [ref=f6e865]:
+                - button "Agregar al carrito" [ref=f6e866]
+                - link "Explorar vehículo" [ref=f6e872] [cursor=pointer]:
+                  - /url: /vehiculos/audi-r8-v10
+          - article [ref=f6e876]:
+            - generic [ref=f6e877]:
+              - link "Ver detalles del Audi RS6 Avant" [ref=f6e878] [cursor=pointer]:
+                - /url: /vehiculos/audi-rs6-avant
+                - img "Audi RS6 Avant 2024" [ref=f6e880]
+              - generic: Nuevo
+              - generic [ref=f6e881]:
+                - button "Añadir Audi RS6 Avant al comparador" [ref=f6e882]
+                - button "Añadir Audi RS6 Avant a favoritos" [ref=f6e890]
+              - link [ref=f6e893] [cursor=pointer]:
+                - /url: /vehiculos/audi-rs6-avant
+                - paragraph [ref=f6e894]: Audi
+                - heading "RS6 Avant" [level=3] [ref=f6e895]
+                - paragraph [ref=f6e896]: 2024 · Familiar
+            - generic [ref=f6e897]:
+              - generic [ref=f6e898]:
+                - generic [ref=f6e899]:
+                  - paragraph [ref=f6e900]: Precio
+                  - paragraph [ref=f6e901]: 126.890 US$
+                - generic [ref=f6e902]:
+                  - generic [ref=f6e903]:
+                    - paragraph [ref=f6e904]: Potencia
+                    - paragraph [ref=f6e905]: 591 HP
+                  - generic [ref=f6e909]:
+                    - paragraph [ref=f6e910]: 0-100
+                    - paragraph [ref=f6e911]: 3.6s
+              - generic [ref=f6e912]:
+                - button "Agregar al carrito" [ref=f6e913]
+                - link "Explorar vehículo" [ref=f6e919] [cursor=pointer]:
+                  - /url: /vehiculos/audi-rs6-avant
+          - article [ref=f6e923]:
+            - generic [ref=f6e924]:
+              - link "Ver detalles del Audi RS7 Sportback" [ref=f6e925] [cursor=pointer]:
+                - /url: /vehiculos/audi-rs7-sportback
+                - img "Audi RS7 Sportback 2024" [ref=f6e927]
+              - generic: Nuevo
+              - generic [ref=f6e928]:
+                - button "Añadir Audi RS7 Sportback al comparador" [ref=f6e929]
+                - button "Añadir Audi RS7 Sportback a favoritos" [ref=f6e937]
+              - link [ref=f6e940] [cursor=pointer]:
+                - /url: /vehiculos/audi-rs7-sportback
+                - paragraph [ref=f6e941]: Audi
+                - heading "RS7 Sportback" [level=3] [ref=f6e942]
+                - paragraph [ref=f6e943]: 2024 · Coupé
+            - generic [ref=f6e944]:
+              - generic [ref=f6e945]:
+                - generic [ref=f6e946]:
+                  - paragraph [ref=f6e947]: Precio
+                  - paragraph [ref=f6e948]: 128.000 US$
+                - generic [ref=f6e949]:
+                  - generic [ref=f6e950]:
+                    - paragraph [ref=f6e951]: Potencia
+                    - paragraph [ref=f6e952]: 591 HP
+                  - generic [ref=f6e956]:
+                    - paragraph [ref=f6e957]: 0-100
+                    - paragraph [ref=f6e958]: 3.6s
+              - generic [ref=f6e959]:
+                - button "Agregar al carrito" [ref=f6e960]
+                - link "Explorar vehículo" [ref=f6e966] [cursor=pointer]:
+                  - /url: /vehiculos/audi-rs7-sportback
+          - article [ref=f6e970]:
+            - generic [ref=f6e971]:
+              - link "Ver detalles del Audi SQ8" [ref=f6e972] [cursor=pointer]:
+                - /url: /vehiculos/audi-sq8
+                - img "Audi SQ8 2024" [ref=f6e974]
+              - generic: Nuevo
+              - generic [ref=f6e975]:
+                - button "Añadir Audi SQ8 al comparador" [ref=f6e976]
+                - button "Añadir Audi SQ8 a favoritos" [ref=f6e984]
+              - link [ref=f6e987] [cursor=pointer]:
+                - /url: /vehiculos/audi-sq8
+                - paragraph [ref=f6e988]: Audi
+                - heading "SQ8" [level=3] [ref=f6e989]
+                - paragraph [ref=f6e990]: 2024 · SUV
+            - generic [ref=f6e991]:
+              - generic [ref=f6e992]:
+                - generic [ref=f6e993]:
+                  - paragraph [ref=f6e994]: Precio
+                  - paragraph [ref=f6e995]: 95.000 US$
+                - generic [ref=f6e996]:
+                  - generic [ref=f6e997]:
+                    - paragraph [ref=f6e998]: Potencia
+                    - paragraph [ref=f6e999]: 500 HP
+                  - generic [ref=f6e1003]:
+                    - paragraph [ref=f6e1004]: 0-100
+                    - paragraph [ref=f6e1005]: 4.1s
+              - generic [ref=f6e1006]:
+                - button "Agregar al carrito" [ref=f6e1007]
+                - link "Explorar vehículo" [ref=f6e1013] [cursor=pointer]:
+                  - /url: /vehiculos/audi-sq8
+          - article [ref=f6e1017]:
+            - generic [ref=f6e1018]:
+              - link "Ver detalles del Bentley Bentayga EWB" [ref=f6e1019] [cursor=pointer]:
+                - /url: /vehiculos/bentley-bentayga
+                - img "Bentley Bentayga EWB 2024" [ref=f6e1021]
+              - generic: Edición exclusiva
+              - generic [ref=f6e1022]:
+                - button "Añadir Bentley Bentayga EWB al comparador" [ref=f6e1023]
+                - button "Añadir Bentley Bentayga EWB a favoritos" [ref=f6e1031]
+              - link [ref=f6e1034] [cursor=pointer]:
+                - /url: /vehiculos/bentley-bentayga
+                - paragraph [ref=f6e1035]: Bentley
+                - heading "Bentayga EWB" [level=3] [ref=f6e1036]
+                - paragraph [ref=f6e1037]: 2024 · SUV
+            - generic [ref=f6e1038]:
+              - generic [ref=f6e1039]:
+                - generic [ref=f6e1040]:
+                  - paragraph [ref=f6e1041]: Precio
+                  - paragraph [ref=f6e1042]: 246.000 US$
+                - generic [ref=f6e1043]:
+                  - generic [ref=f6e1044]:
+                    - paragraph [ref=f6e1045]: Potencia
+                    - paragraph [ref=f6e1046]: 542 HP
+                  - generic [ref=f6e1050]:
+                    - paragraph [ref=f6e1051]: 0-100
+                    - paragraph [ref=f6e1052]: 4.5s
+              - generic [ref=f6e1053]:
+                - button "Agregar al carrito" [ref=f6e1054]
+                - link "Explorar vehículo" [ref=f6e1060] [cursor=pointer]:
+                  - /url: /vehiculos/bentley-bentayga
+          - article [ref=f6e1064]:
+            - generic [ref=f6e1065]:
+              - link "Ver detalles del Bentley Continental GT Speed" [ref=f6e1066] [cursor=pointer]:
+                - /url: /vehiculos/bentley-continental-gt
+                - img "Bentley Continental GT Speed 2024" [ref=f6e1068]
+              - generic: Edición exclusiva
+              - generic [ref=f6e1069]:
+                - button "Añadir Bentley Continental GT Speed al comparador" [ref=f6e1070]
+                - button "Añadir Bentley Continental GT Speed a favoritos" [ref=f6e1078]
+              - link [ref=f6e1081] [cursor=pointer]:
+                - /url: /vehiculos/bentley-continental-gt
+                - paragraph [ref=f6e1082]: Bentley
+                - heading "Continental GT Speed" [level=3] [ref=f6e1083]
+                - paragraph [ref=f6e1084]: 2024 · Coupé
+            - generic [ref=f6e1085]:
+              - generic [ref=f6e1086]:
+                - generic [ref=f6e1087]:
+                  - paragraph [ref=f6e1088]: Precio
+                  - paragraph [ref=f6e1089]: 287.000 US$
+                - generic [ref=f6e1090]:
+                  - generic [ref=f6e1091]:
+                    - paragraph [ref=f6e1092]: Potencia
+                    - paragraph [ref=f6e1093]: 650 HP
+                  - generic [ref=f6e1097]:
+                    - paragraph [ref=f6e1098]: 0-100
+                    - paragraph [ref=f6e1099]: 3.5s
+              - generic [ref=f6e1100]:
+                - button "Agregar al carrito" [ref=f6e1101]
+                - link "Explorar vehículo" [ref=f6e1107] [cursor=pointer]:
+                  - /url: /vehiculos/bentley-continental-gt
+          - article [ref=f6e1111]:
+            - generic [ref=f6e1112]:
+              - link "Ver detalles del BMW i7 xDrive60" [ref=f6e1113] [cursor=pointer]:
+                - /url: /vehiculos/bmw-i7
+                - img "BMW i7 xDrive60 2024" [ref=f6e1115]
+              - generic: Eléctrico
+              - generic [ref=f6e1116]:
+                - button "Añadir BMW i7 xDrive60 al comparador" [ref=f6e1117]
+                - button "Añadir BMW i7 xDrive60 a favoritos" [ref=f6e1125]
+              - link [ref=f6e1128] [cursor=pointer]:
+                - /url: /vehiculos/bmw-i7
+                - paragraph [ref=f6e1129]: BMW
+                - heading "i7 xDrive60" [level=3] [ref=f6e1130]
+                - paragraph [ref=f6e1131]: 2024 · Sedán
+            - generic [ref=f6e1132]:
+              - generic [ref=f6e1133]:
+                - generic [ref=f6e1134]:
+                  - paragraph [ref=f6e1135]: Precio
+                  - paragraph [ref=f6e1136]: 120.000 US$
+                - generic [ref=f6e1137]:
+                  - generic [ref=f6e1138]:
+                    - paragraph [ref=f6e1139]: Potencia
+                    - paragraph [ref=f6e1140]: 536 HP
+                  - generic [ref=f6e1144]:
+                    - paragraph [ref=f6e1145]: 0-100
+                    - paragraph [ref=f6e1146]: 4.5s
+              - generic [ref=f6e1147]:
+                - button "Agregar al carrito" [ref=f6e1148]
+                - link "Explorar vehículo" [ref=f6e1154] [cursor=pointer]:
+                  - /url: /vehiculos/bmw-i7
+          - article [ref=f6e1158]:
+            - generic [ref=f6e1159]:
+              - link "Ver detalles del BMW i8" [ref=f6e1160] [cursor=pointer]:
+                - /url: /vehiculos/bmw-i8
+                - img "BMW i8 2020" [ref=f6e1162]
+              - generic: BMW
+              - generic [ref=f6e1163]:
+                - button "Añadir BMW i8 al comparador" [ref=f6e1164]
+                - button "Añadir BMW i8 a favoritos" [ref=f6e1172]
+              - link [ref=f6e1175] [cursor=pointer]:
+                - /url: /vehiculos/bmw-i8
+                - paragraph [ref=f6e1176]: BMW
+                - heading "i8" [level=3] [ref=f6e1177]
+                - paragraph [ref=f6e1178]: 2020 · Coupé
+            - generic [ref=f6e1179]:
+              - generic [ref=f6e1180]:
+                - generic [ref=f6e1181]:
+                  - paragraph [ref=f6e1182]: Precio
+                  - paragraph [ref=f6e1183]: 147.500 US$
+                - generic [ref=f6e1184]:
+                  - generic [ref=f6e1185]:
+                    - paragraph [ref=f6e1186]: Potencia
+                    - paragraph [ref=f6e1187]: 369 HP
+                  - generic [ref=f6e1191]:
+                    - paragraph [ref=f6e1192]: 0-100
+                    - paragraph [ref=f6e1193]: 4.4s
+              - generic [ref=f6e1194]:
+                - button "Agregar al carrito" [ref=f6e1195]
+                - link "Explorar vehículo" [ref=f6e1201] [cursor=pointer]:
+                  - /url: /vehiculos/bmw-i8
+          - article [ref=f6e1205]:
+            - generic [ref=f6e1206]:
+              - link "Ver detalles del BMW M5 CS" [ref=f6e1207] [cursor=pointer]:
+                - /url: /vehiculos/bmw-m5-cs
+                - img "BMW M5 CS 2022" [ref=f6e1209]
+              - generic: BMW
+              - generic [ref=f6e1210]:
+                - button "Añadir BMW M5 CS al comparador" [ref=f6e1211]
+                - button "Añadir BMW M5 CS a favoritos" [ref=f6e1219]
+              - link [ref=f6e1222] [cursor=pointer]:
+                - /url: /vehiculos/bmw-m5-cs
+                - paragraph [ref=f6e1223]: BMW
+                - heading "M5 CS" [level=3] [ref=f6e1224]
+                - paragraph [ref=f6e1225]: 2022 · Sedán
+            - generic [ref=f6e1226]:
+              - generic [ref=f6e1227]:
+                - generic [ref=f6e1228]:
+                  - paragraph [ref=f6e1229]: Precio
+                  - paragraph [ref=f6e1230]: 142.000 US$
+                - generic [ref=f6e1231]:
+                  - generic [ref=f6e1232]:
+                    - paragraph [ref=f6e1233]: Potencia
+                    - paragraph [ref=f6e1234]: 627 HP
+                  - generic [ref=f6e1238]:
+                    - paragraph [ref=f6e1239]: 0-100
+                    - paragraph [ref=f6e1240]: 2.9s
+              - generic [ref=f6e1241]:
+                - button "Agregar al carrito" [ref=f6e1242]
+                - link "Explorar vehículo" [ref=f6e1248] [cursor=pointer]:
+                  - /url: /vehiculos/bmw-m5-cs
+          - article [ref=f6e1252]:
+            - generic [ref=f6e1253]:
+              - link "Ver detalles del BMW X5 M Competition" [ref=f6e1254] [cursor=pointer]:
+                - /url: /vehiculos/bmw-x5m-competition
+                - img "BMW X5 M Competition 2024" [ref=f6e1256]
+              - generic: Nuevo
+              - generic [ref=f6e1257]:
+                - button "Añadir BMW X5 M Competition al comparador" [ref=f6e1258]
+                - button "Añadir BMW X5 M Competition a favoritos" [ref=f6e1266]
+              - link [ref=f6e1269] [cursor=pointer]:
+                - /url: /vehiculos/bmw-x5m-competition
+                - paragraph [ref=f6e1270]: BMW
+                - heading "X5 M Competition" [level=3] [ref=f6e1271]
+                - paragraph [ref=f6e1272]: 2024 · SUV
+            - generic [ref=f6e1273]:
+              - generic [ref=f6e1274]:
+                - generic [ref=f6e1275]:
+                  - paragraph [ref=f6e1276]: Precio
+                  - paragraph [ref=f6e1277]: 122.300 US$
+                - generic [ref=f6e1278]:
+                  - generic [ref=f6e1279]:
+                    - paragraph [ref=f6e1280]: Potencia
+                    - paragraph [ref=f6e1281]: 617 HP
+                  - generic [ref=f6e1285]:
+                    - paragraph [ref=f6e1286]: 0-100
+                    - paragraph [ref=f6e1287]: 3.7s
+              - generic [ref=f6e1288]:
+                - button "Agregar al carrito" [ref=f6e1289]
+                - link "Explorar vehículo" [ref=f6e1295] [cursor=pointer]:
+                  - /url: /vehiculos/bmw-x5m-competition
+          - article [ref=f6e1299]:
+            - generic [ref=f6e1300]:
+              - link "Ver detalles del BYD Han EV" [ref=f6e1301] [cursor=pointer]:
+                - /url: /vehiculos/byd-han-ev
+                - img "BYD Han EV 2024" [ref=f6e1303]
+              - generic: Eléctrico
+              - generic [ref=f6e1304]:
+                - button "Añadir BYD Han EV al comparador" [ref=f6e1305]
+                - button "Añadir BYD Han EV a favoritos" [ref=f6e1313]
+              - link [ref=f6e1316] [cursor=pointer]:
+                - /url: /vehiculos/byd-han-ev
+                - paragraph [ref=f6e1317]: BYD
+                - heading "Han EV" [level=3] [ref=f6e1318]
+                - paragraph [ref=f6e1319]: 2024 · Sedán
+            - generic [ref=f6e1320]:
+              - generic [ref=f6e1321]:
+                - generic [ref=f6e1322]:
+                  - paragraph [ref=f6e1323]: Precio
+                  - paragraph [ref=f6e1324]: 45.000 US$
+                - generic [ref=f6e1325]:
+                  - generic [ref=f6e1326]:
+                    - paragraph [ref=f6e1327]: Potencia
+                    - paragraph [ref=f6e1328]: 517 HP
+                  - generic [ref=f6e1332]:
+                    - paragraph [ref=f6e1333]: 0-100
+                    - paragraph [ref=f6e1334]: 3.9s
+              - generic [ref=f6e1335]:
+                - button "Agregar al carrito" [ref=f6e1336]
+                - link "Explorar vehículo" [ref=f6e1342] [cursor=pointer]:
+                  - /url: /vehiculos/byd-han-ev
+          - article [ref=f6e1346]:
+            - generic [ref=f6e1347]:
+              - link "Ver detalles del BYD Seal" [ref=f6e1348] [cursor=pointer]:
+                - /url: /vehiculos/byd-seal
+                - img "BYD Seal 2024" [ref=f6e1350]
+              - generic: Eléctrico
+              - generic [ref=f6e1351]:
+                - button "Añadir BYD Seal al comparador" [ref=f6e1352]
+                - button "Añadir BYD Seal a favoritos" [ref=f6e1360]
+              - link [ref=f6e1363] [cursor=pointer]:
+                - /url: /vehiculos/byd-seal
+                - paragraph [ref=f6e1364]: BYD
+                - heading "Seal" [level=3] [ref=f6e1365]
+                - paragraph [ref=f6e1366]: 2024 · Sedán
+            - generic [ref=f6e1367]:
+              - generic [ref=f6e1368]:
+                - generic [ref=f6e1369]:
+                  - paragraph [ref=f6e1370]: Precio
+                  - paragraph [ref=f6e1371]: 38.000 US$
+                - generic [ref=f6e1372]:
+                  - generic [ref=f6e1373]:
+                    - paragraph [ref=f6e1374]: Potencia
+                    - paragraph [ref=f6e1375]: 523 HP
+                  - generic [ref=f6e1379]:
+                    - paragraph [ref=f6e1380]: 0-100
+                    - paragraph [ref=f6e1381]: 3.8s
+              - generic [ref=f6e1382]:
+                - button "Agregar al carrito" [ref=f6e1383]
+                - link "Explorar vehículo" [ref=f6e1389] [cursor=pointer]:
+                  - /url: /vehiculos/byd-seal
+          - article [ref=f6e1393]:
+            - generic [ref=f6e1394]:
+              - link "Ver detalles del Chevrolet Camaro ZL1" [ref=f6e1395] [cursor=pointer]:
+                - /url: /vehiculos/chevrolet-camaro-zl1
+                - img "Chevrolet Camaro ZL1 2024" [ref=f6e1397]
+              - generic: Nuevo
+              - generic [ref=f6e1398]:
+                - button "Añadir Chevrolet Camaro ZL1 al comparador" [ref=f6e1399]
+                - button "Añadir Chevrolet Camaro ZL1 a favoritos" [ref=f6e1407]
+              - link [ref=f6e1410] [cursor=pointer]:
+                - /url: /vehiculos/chevrolet-camaro-zl1
+                - paragraph [ref=f6e1411]: Chevrolet
+                - heading "Camaro ZL1" [level=3] [ref=f6e1412]
+                - paragraph [ref=f6e1413]: 2024 · Coupé
+            - generic [ref=f6e1414]:
+              - generic [ref=f6e1415]:
+                - generic [ref=f6e1416]:
+                  - paragraph [ref=f6e1417]: Precio
+                  - paragraph [ref=f6e1418]: 76.995 US$
+                - generic [ref=f6e1419]:
+                  - generic [ref=f6e1420]:
+                    - paragraph [ref=f6e1421]: Potencia
+                    - paragraph [ref=f6e1422]: 650 HP
+                  - generic [ref=f6e1426]:
+                    - paragraph [ref=f6e1427]: 0-100
+                    - paragraph [ref=f6e1428]: 3.5s
+              - generic [ref=f6e1429]:
+                - button "Agregar al carrito" [ref=f6e1430]
+                - link "Explorar vehículo" [ref=f6e1436] [cursor=pointer]:
+                  - /url: /vehiculos/chevrolet-camaro-zl1
+          - article [ref=f6e1440]:
+            - generic [ref=f6e1441]:
+              - link "Ver detalles del Chevrolet Silverado ZR2" [ref=f6e1442] [cursor=pointer]:
+                - /url: /vehiculos/chevrolet-silverado-zr2
+                - img "Chevrolet Silverado ZR2 2024" [ref=f6e1444]
+              - generic: Nuevo
+              - generic [ref=f6e1445]:
+                - button "Añadir Chevrolet Silverado ZR2 al comparador" [ref=f6e1446]
+                - button "Añadir Chevrolet Silverado ZR2 a favoritos" [ref=f6e1454]
+              - link [ref=f6e1457] [cursor=pointer]:
+                - /url: /vehiculos/chevrolet-silverado-zr2
+                - paragraph [ref=f6e1458]: Chevrolet
+                - heading "Silverado ZR2" [level=3] [ref=f6e1459]
+                - paragraph [ref=f6e1460]: 2024 · Pickup
+            - generic [ref=f6e1461]:
+              - generic [ref=f6e1462]:
+                - generic [ref=f6e1463]:
+                  - paragraph [ref=f6e1464]: Precio
+                  - paragraph [ref=f6e1465]: 72.175 US$
+                - generic [ref=f6e1466]:
+                  - generic [ref=f6e1467]:
+                    - paragraph [ref=f6e1468]: Potencia
+                    - paragraph [ref=f6e1469]: 420 HP
+                  - generic [ref=f6e1473]:
+                    - paragraph [ref=f6e1474]: 0-100
+                    - paragraph [ref=f6e1475]: 5.8s
+              - generic [ref=f6e1476]:
+                - button "Agregar al carrito" [ref=f6e1477]
+                - link "Explorar vehículo" [ref=f6e1483] [cursor=pointer]:
+                  - /url: /vehiculos/chevrolet-silverado-zr2
+          - article [ref=f6e1487]:
+            - generic [ref=f6e1488]:
+              - link "Ver detalles del Chevrolet Tahoe RST" [ref=f6e1489] [cursor=pointer]:
+                - /url: /vehiculos/chevrolet-tahoe-rst
+                - img "Chevrolet Tahoe RST 2024" [ref=f6e1491]
+              - generic: Nuevo
+              - generic [ref=f6e1492]:
+                - button "Añadir Chevrolet Tahoe RST al comparador" [ref=f6e1493]
+                - button "Añadir Chevrolet Tahoe RST a favoritos" [ref=f6e1501]
+              - link [ref=f6e1504] [cursor=pointer]:
+                - /url: /vehiculos/chevrolet-tahoe-rst
+                - paragraph [ref=f6e1505]: Chevrolet
+                - heading "Tahoe RST" [level=3] [ref=f6e1506]
+                - paragraph [ref=f6e1507]: 2024 · SUV
+            - generic [ref=f6e1508]:
+              - generic [ref=f6e1509]:
+                - generic [ref=f6e1510]:
+                  - paragraph [ref=f6e1511]: Precio
+                  - paragraph [ref=f6e1512]: 65.200 US$
+                - generic [ref=f6e1513]:
+                  - generic [ref=f6e1514]:
+                    - paragraph [ref=f6e1515]: Potencia
+                    - paragraph [ref=f6e1516]: 420 HP
+                  - generic [ref=f6e1520]:
+                    - paragraph [ref=f6e1521]: 0-100
+                    - paragraph [ref=f6e1522]: 5.9s
+              - generic [ref=f6e1523]:
+                - button "Agregar al carrito" [ref=f6e1524]
+                - link "Explorar vehículo" [ref=f6e1530] [cursor=pointer]:
+                  - /url: /vehiculos/chevrolet-tahoe-rst
+          - article [ref=f6e1534]:
+            - generic [ref=f6e1535]:
+              - link "Ver detalles del Dodge Challenger SRT Demon 170" [ref=f6e1536] [cursor=pointer]:
+                - /url: /vehiculos/dodge-demon-170
+                - img "Dodge Challenger SRT Demon 170 2023" [ref=f6e1538]
+              - generic: Dodge
+              - generic [ref=f6e1539]:
+                - button "Añadir Dodge Challenger SRT Demon 170 al comparador" [ref=f6e1540]
+                - button "Añadir Dodge Challenger SRT Demon 170 a favoritos" [ref=f6e1548]
+              - link [ref=f6e1551] [cursor=pointer]:
+                - /url: /vehiculos/dodge-demon-170
+                - paragraph [ref=f6e1552]: Dodge
+                - heading "Challenger SRT Demon 170" [level=3] [ref=f6e1553]
+                - paragraph [ref=f6e1554]: 2023 · Coupé
+            - generic [ref=f6e1555]:
+              - generic [ref=f6e1556]:
+                - generic [ref=f6e1557]:
+                  - paragraph [ref=f6e1558]: Precio
+                  - paragraph [ref=f6e1559]: 96.666 US$
+                - generic [ref=f6e1560]:
+                  - generic [ref=f6e1561]:
+                    - paragraph [ref=f6e1562]: Potencia
+                    - paragraph [ref=f6e1563]: 1025 HP
+                  - generic [ref=f6e1567]:
+                    - paragraph [ref=f6e1568]: 0-100
+                    - paragraph [ref=f6e1569]: 1.66s
+              - generic [ref=f6e1570]:
+                - button "Agregar al carrito" [ref=f6e1571]
+                - link "Explorar vehículo" [ref=f6e1577] [cursor=pointer]:
+                  - /url: /vehiculos/dodge-demon-170
+          - article [ref=f6e1581]:
+            - generic [ref=f6e1582]:
+              - link "Ver detalles del Dodge Charger Hellcat Redeye" [ref=f6e1583] [cursor=pointer]:
+                - /url: /vehiculos/dodge-charger-hellcat
+                - img "Dodge Charger Hellcat Redeye 2023" [ref=f6e1585]
+              - generic: Dodge
+              - generic [ref=f6e1586]:
+                - button "Añadir Dodge Charger Hellcat Redeye al comparador" [ref=f6e1587]
+                - button "Añadir Dodge Charger Hellcat Redeye a favoritos" [ref=f6e1595]
+              - link [ref=f6e1598] [cursor=pointer]:
+                - /url: /vehiculos/dodge-charger-hellcat
+                - paragraph [ref=f6e1599]: Dodge
+                - heading "Charger Hellcat Redeye" [level=3] [ref=f6e1600]
+                - paragraph [ref=f6e1601]: 2023 · Sedán
+            - generic [ref=f6e1602]:
+              - generic [ref=f6e1603]:
+                - generic [ref=f6e1604]:
+                  - paragraph [ref=f6e1605]: Precio
+                  - paragraph [ref=f6e1606]: 82.000 US$
+                - generic [ref=f6e1607]:
+                  - generic [ref=f6e1608]:
+                    - paragraph [ref=f6e1609]: Potencia
+                    - paragraph [ref=f6e1610]: 797 HP
+                  - generic [ref=f6e1614]:
+                    - paragraph [ref=f6e1615]: 0-100
+                    - paragraph [ref=f6e1616]: 3.6s
+              - generic [ref=f6e1617]:
+                - button "Agregar al carrito" [ref=f6e1618]
+                - link "Explorar vehículo" [ref=f6e1624] [cursor=pointer]:
+                  - /url: /vehiculos/dodge-charger-hellcat
+          - article [ref=f6e1628]:
+            - generic [ref=f6e1629]:
+              - link "Ver detalles del Ferrari 296 GTB" [ref=f6e1630] [cursor=pointer]:
+                - /url: /vehiculos/ferrari-296-gtb
+                - img "Ferrari 296 GTB 2023" [ref=f6e1632]
+              - generic: Superdeportivo
+              - generic [ref=f6e1633]:
+                - button "Añadir Ferrari 296 GTB al comparador" [ref=f6e1634]
+                - button "Añadir Ferrari 296 GTB a favoritos" [ref=f6e1642]
+              - link [ref=f6e1645] [cursor=pointer]:
+                - /url: /vehiculos/ferrari-296-gtb
+                - paragraph [ref=f6e1646]: Ferrari
+                - heading "296 GTB" [level=3] [ref=f6e1647]
+                - paragraph [ref=f6e1648]: 2023 · Superdeportivo
+            - generic [ref=f6e1649]:
+              - generic [ref=f6e1650]:
+                - generic [ref=f6e1651]:
+                  - paragraph [ref=f6e1652]: Precio
+                  - paragraph [ref=f6e1653]: 322.986 US$
+                - generic [ref=f6e1654]:
+                  - generic [ref=f6e1655]:
+                    - paragraph [ref=f6e1656]: Potencia
+                    - paragraph [ref=f6e1657]: 830 HP
+                  - generic [ref=f6e1661]:
+                    - paragraph [ref=f6e1662]: 0-100
+                    - paragraph [ref=f6e1663]: 2.9s
+              - generic [ref=f6e1664]:
+                - button "Agregar al carrito" [ref=f6e1665]
+                - link "Explorar vehículo" [ref=f6e1671] [cursor=pointer]:
+                  - /url: /vehiculos/ferrari-296-gtb
+          - article [ref=f6e1675]:
+            - generic [ref=f6e1676]:
+              - link "Ver detalles del Ferrari Roma" [ref=f6e1677] [cursor=pointer]:
+                - /url: /vehiculos/ferrari-roma
+                - img "Ferrari Roma 2023" [ref=f6e1679]
+              - generic: Edición exclusiva
+              - generic [ref=f6e1680]:
+                - button "Añadir Ferrari Roma al comparador" [ref=f6e1681]
+                - button "Añadir Ferrari Roma a favoritos" [ref=f6e1689]
+              - link [ref=f6e1692] [cursor=pointer]:
+                - /url: /vehiculos/ferrari-roma
+                - paragraph [ref=f6e1693]: Ferrari
+                - heading "Roma" [level=3] [ref=f6e1694]
+                - paragraph [ref=f6e1695]: 2023 · Coupé
+            - generic [ref=f6e1696]:
+              - generic [ref=f6e1697]:
+                - generic [ref=f6e1698]:
+                  - paragraph [ref=f6e1699]: Precio
+                  - paragraph [ref=f6e1700]: 243.308 US$
+                - generic [ref=f6e1701]:
+                  - generic [ref=f6e1702]:
+                    - paragraph [ref=f6e1703]: Potencia
+                    - paragraph [ref=f6e1704]: 612 HP
+                  - generic [ref=f6e1708]:
+                    - paragraph [ref=f6e1709]: 0-100
+                    - paragraph [ref=f6e1710]: 3.4s
+              - generic [ref=f6e1711]:
+                - button "Agregar al carrito" [ref=f6e1712]
+                - link "Explorar vehículo" [ref=f6e1718] [cursor=pointer]:
+                  - /url: /vehiculos/ferrari-roma
+          - article [ref=f6e1722]:
+            - generic [ref=f6e1723]:
+              - link "Ver detalles del Ferrari SF90 Stradale" [ref=f6e1724] [cursor=pointer]:
+                - /url: /vehiculos/ferrari-sf90-stradale
+                - img "Ferrari SF90 Stradale 2023" [ref=f6e1726]
+              - generic: Superdeportivo
+              - generic [ref=f6e1727]:
+                - button "Añadir Ferrari SF90 Stradale al comparador" [ref=f6e1728]
+                - button "Añadir Ferrari SF90 Stradale a favoritos" [ref=f6e1736]
+              - link [ref=f6e1739] [cursor=pointer]:
+                - /url: /vehiculos/ferrari-sf90-stradale
+                - paragraph [ref=f6e1740]: Ferrari
+                - heading "SF90 Stradale" [level=3] [ref=f6e1741]
+                - paragraph [ref=f6e1742]: 2023 · Superdeportivo
+            - generic [ref=f6e1743]:
+              - generic [ref=f6e1744]:
+                - generic [ref=f6e1745]:
+                  - paragraph [ref=f6e1746]: Precio
+                  - paragraph [ref=f6e1747]: 507.300 US$
+                - generic [ref=f6e1748]:
+                  - generic [ref=f6e1749]:
+                    - paragraph [ref=f6e1750]: Potencia
+                    - paragraph [ref=f6e1751]: 986 HP
+                  - generic [ref=f6e1755]:
+                    - paragraph [ref=f6e1756]: 0-100
+                    - paragraph [ref=f6e1757]: 2.5s
+              - generic [ref=f6e1758]:
+                - button "Agregar al carrito" [ref=f6e1759]
+                - link "Explorar vehículo" [ref=f6e1765] [cursor=pointer]:
+                  - /url: /vehiculos/ferrari-sf90-stradale
+          - article [ref=f6e1769]:
+            - generic [ref=f6e1770]:
+              - link "Ver detalles del Ford Bronco Raptor" [ref=f6e1771] [cursor=pointer]:
+                - /url: /vehiculos/ford-bronco-raptor
+                - img "Ford Bronco Raptor 2024" [ref=f6e1773]
+              - generic: Nuevo
+              - generic [ref=f6e1774]:
+                - button "Añadir Ford Bronco Raptor al comparador" [ref=f6e1775]
+                - button "Añadir Ford Bronco Raptor a favoritos" [ref=f6e1783]
+              - link [ref=f6e1786] [cursor=pointer]:
+                - /url: /vehiculos/ford-bronco-raptor
+                - paragraph [ref=f6e1787]: Ford
+                - heading "Bronco Raptor" [level=3] [ref=f6e1788]
+                - paragraph [ref=f6e1789]: 2024 · SUV
+            - generic [ref=f6e1790]:
+              - generic [ref=f6e1791]:
+                - generic [ref=f6e1792]:
+                  - paragraph [ref=f6e1793]: Precio
+                  - paragraph [ref=f6e1794]: 89.535 US$
+                - generic [ref=f6e1795]:
+                  - generic [ref=f6e1796]:
+                    - paragraph [ref=f6e1797]: Potencia
+                    - paragraph [ref=f6e1798]: 418 HP
+                  - generic [ref=f6e1802]:
+                    - paragraph [ref=f6e1803]: 0-100
+                    - paragraph [ref=f6e1804]: 5.5s
+              - generic [ref=f6e1805]:
+                - button "Agregar al carrito" [ref=f6e1806]
+                - link "Explorar vehículo" [ref=f6e1812] [cursor=pointer]:
+                  - /url: /vehiculos/ford-bronco-raptor
+          - article [ref=f6e1816]:
+            - generic [ref=f6e1817]:
+              - link "Ver detalles del Ford F-150 Raptor R" [ref=f6e1818] [cursor=pointer]:
+                - /url: /vehiculos/ford-f150-raptor-r
+                - img "Ford F-150 Raptor R 2024" [ref=f6e1820]
+              - generic: Nuevo
+              - generic [ref=f6e1821]:
+                - button "Añadir Ford F-150 Raptor R al comparador" [ref=f6e1822]
+                - button "Añadir Ford F-150 Raptor R a favoritos" [ref=f6e1830]
+              - link [ref=f6e1833] [cursor=pointer]:
+                - /url: /vehiculos/ford-f150-raptor-r
+                - paragraph [ref=f6e1834]: Ford
+                - heading "F-150 Raptor R" [level=3] [ref=f6e1835]
+                - paragraph [ref=f6e1836]: 2024 · Pickup
+            - generic [ref=f6e1837]:
+              - generic [ref=f6e1838]:
+                - generic [ref=f6e1839]:
+                  - paragraph [ref=f6e1840]: Precio
+                  - paragraph [ref=f6e1841]: 109.145 US$
+                - generic [ref=f6e1842]:
+                  - generic [ref=f6e1843]:
+                    - paragraph [ref=f6e1844]: Potencia
+                    - paragraph [ref=f6e1845]: 720 HP
+                  - generic [ref=f6e1849]:
+                    - paragraph [ref=f6e1850]: 0-100
+                    - paragraph [ref=f6e1851]: 3.7s
+              - generic [ref=f6e1852]:
+                - button "Agregar al carrito" [ref=f6e1853]
+                - link "Explorar vehículo" [ref=f6e1859] [cursor=pointer]:
+                  - /url: /vehiculos/ford-f150-raptor-r
+          - article [ref=f6e1863]:
+            - generic [ref=f6e1864]:
+              - link "Ver detalles del Ford GT" [ref=f6e1865] [cursor=pointer]:
+                - /url: /vehiculos/ford-gt
+                - img "Ford GT 2023" [ref=f6e1867]
+              - generic: Superdeportivo
+              - generic [ref=f6e1868]:
+                - button "Añadir Ford GT al comparador" [ref=f6e1869]
+                - button "Añadir Ford GT a favoritos" [ref=f6e1877]
+              - link [ref=f6e1880] [cursor=pointer]:
+                - /url: /vehiculos/ford-gt
+                - paragraph [ref=f6e1881]: Ford
+                - heading "GT" [level=3] [ref=f6e1882]
+                - paragraph [ref=f6e1883]: 2023 · Superdeportivo
+            - generic [ref=f6e1884]:
+              - generic [ref=f6e1885]:
+                - generic [ref=f6e1886]:
+                  - paragraph [ref=f6e1887]: Precio
+                  - paragraph [ref=f6e1888]: 500.000 US$
+                - generic [ref=f6e1889]:
+                  - generic [ref=f6e1890]:
+                    - paragraph [ref=f6e1891]: Potencia
+                    - paragraph [ref=f6e1892]: 660 HP
+                  - generic [ref=f6e1896]:
+                    - paragraph [ref=f6e1897]: 0-100
+                    - paragraph [ref=f6e1898]: 2.8s
+              - generic [ref=f6e1899]:
+                - button "Agregar al carrito" [ref=f6e1900]
+                - link "Explorar vehículo" [ref=f6e1906] [cursor=pointer]:
+                  - /url: /vehiculos/ford-gt
+          - article [ref=f6e1910]:
+            - generic [ref=f6e1911]:
+              - link "Ver detalles del Ford Mustang GT" [ref=f6e1912] [cursor=pointer]:
+                - /url: /vehiculos/ford-mustang-gt
+                - img "Ford Mustang GT 2024" [ref=f6e1914]
+              - generic: Nuevo
+              - generic [ref=f6e1915]:
+                - button "Añadir Ford Mustang GT al comparador" [ref=f6e1916]
+                - button "Añadir Ford Mustang GT a favoritos" [ref=f6e1924]
+              - link [ref=f6e1927] [cursor=pointer]:
+                - /url: /vehiculos/ford-mustang-gt
+                - paragraph [ref=f6e1928]: Ford
+                - heading "Mustang GT" [level=3] [ref=f6e1929]
+                - paragraph [ref=f6e1930]: 2024 · Coupé
+            - generic [ref=f6e1931]:
+              - generic [ref=f6e1932]:
+                - generic [ref=f6e1933]:
+                  - paragraph [ref=f6e1934]: Precio
+                  - paragraph [ref=f6e1935]: 43.545 US$
+                - generic [ref=f6e1936]:
+                  - generic [ref=f6e1937]:
+                    - paragraph [ref=f6e1938]: Potencia
+                    - paragraph [ref=f6e1939]: 480 HP
+                  - generic [ref=f6e1943]:
+                    - paragraph [ref=f6e1944]: 0-100
+                    - paragraph [ref=f6e1945]: 4.2s
+              - generic [ref=f6e1946]:
+                - button "Agregar al carrito" [ref=f6e1947]
+                - link "Explorar vehículo" [ref=f6e1953] [cursor=pointer]:
+                  - /url: /vehiculos/ford-mustang-gt
+          - article [ref=f6e1957]:
+            - generic [ref=f6e1958]:
+              - link "Ver detalles del Honda Accord Sport" [ref=f6e1959] [cursor=pointer]:
+                - /url: /vehiculos/honda-accord
+                - img "Honda Accord Sport 2024" [ref=f6e1961]
+              - generic: Nuevo
+              - generic [ref=f6e1962]:
+                - button "Añadir Honda Accord Sport al comparador" [ref=f6e1963]
+                - button "Añadir Honda Accord Sport a favoritos" [ref=f6e1971]
+              - link [ref=f6e1974] [cursor=pointer]:
+                - /url: /vehiculos/honda-accord
+                - paragraph [ref=f6e1975]: Honda
+                - heading "Accord Sport" [level=3] [ref=f6e1976]
+                - paragraph [ref=f6e1977]: 2024 · Sedán
+            - generic [ref=f6e1978]:
+              - generic [ref=f6e1979]:
+                - generic [ref=f6e1980]:
+                  - paragraph [ref=f6e1981]: Precio
+                  - paragraph [ref=f6e1982]: 31.895 US$
+                - generic [ref=f6e1983]:
+                  - generic [ref=f6e1984]:
+                    - paragraph [ref=f6e1985]: Potencia
+                    - paragraph [ref=f6e1986]: 192 HP
+                  - generic [ref=f6e1990]:
+                    - paragraph [ref=f6e1991]: 0-100
+                    - paragraph [ref=f6e1992]: 7.2s
+              - generic [ref=f6e1993]:
+                - button "Agregar al carrito" [ref=f6e1994]
+                - link "Explorar vehículo" [ref=f6e2000] [cursor=pointer]:
+                  - /url: /vehiculos/honda-accord
+          - article [ref=f6e2004]:
+            - generic [ref=f6e2005]:
+              - link "Ver detalles del Honda Civic Type R" [ref=f6e2006] [cursor=pointer]:
+                - /url: /vehiculos/honda-civic-type-r
+                - img "Honda Civic Type R 2024" [ref=f6e2008]
+              - generic: Nuevo
+              - generic [ref=f6e2009]:
+                - button "Añadir Honda Civic Type R al comparador" [ref=f6e2010]
+                - button "Añadir Honda Civic Type R a favoritos" [ref=f6e2018]
+              - link [ref=f6e2021] [cursor=pointer]:
+                - /url: /vehiculos/honda-civic-type-r
+                - paragraph [ref=f6e2022]: Honda
+                - heading "Civic Type R" [level=3] [ref=f6e2023]
+                - paragraph [ref=f6e2024]: 2024 · Hatchback
+            - generic [ref=f6e2025]:
+              - generic [ref=f6e2026]:
+                - generic [ref=f6e2027]:
+                  - paragraph [ref=f6e2028]: Precio
+                  - paragraph [ref=f6e2029]: 44.990 US$
+                - generic [ref=f6e2030]:
+                  - generic [ref=f6e2031]:
+                    - paragraph [ref=f6e2032]: Potencia
+                    - paragraph [ref=f6e2033]: 315 HP
+                  - generic [ref=f6e2037]:
+                    - paragraph [ref=f6e2038]: 0-100
+                    - paragraph [ref=f6e2039]: 5.4s
+              - generic [ref=f6e2040]:
+                - button "Agregar al carrito" [ref=f6e2041]
+                - link "Explorar vehículo" [ref=f6e2047] [cursor=pointer]:
+                  - /url: /vehiculos/honda-civic-type-r
+          - article [ref=f6e2051]:
+            - generic [ref=f6e2052]:
+              - link "Ver detalles del Honda Integra Type S" [ref=f6e2053] [cursor=pointer]:
+                - /url: /vehiculos/honda-integra-types
+                - img "Honda Integra Type S 2024" [ref=f6e2055]
+              - generic: Nuevo
+              - generic [ref=f6e2056]:
+                - button "Añadir Honda Integra Type S al comparador" [ref=f6e2057]
+                - button "Añadir Honda Integra Type S a favoritos" [ref=f6e2065]
+              - link [ref=f6e2068] [cursor=pointer]:
+                - /url: /vehiculos/honda-integra-types
+                - paragraph [ref=f6e2069]: Honda
+                - heading "Integra Type S" [level=3] [ref=f6e2070]
+                - paragraph [ref=f6e2071]: 2024 · Sedán
+            - generic [ref=f6e2072]:
+              - generic [ref=f6e2073]:
+                - generic [ref=f6e2074]:
+                  - paragraph [ref=f6e2075]: Precio
+                  - paragraph [ref=f6e2076]: 51.900 US$
+                - generic [ref=f6e2077]:
+                  - generic [ref=f6e2078]:
+                    - paragraph [ref=f6e2079]: Potencia
+                    - paragraph [ref=f6e2080]: 320 HP
+                  - generic [ref=f6e2084]:
+                    - paragraph [ref=f6e2085]: 0-100
+                    - paragraph [ref=f6e2086]: 5.2s
+              - generic [ref=f6e2087]:
+                - button "Agregar al carrito" [ref=f6e2088]
+                - link "Explorar vehículo" [ref=f6e2094] [cursor=pointer]:
+                  - /url: /vehiculos/honda-integra-types
+          - article [ref=f6e2098]:
+            - generic [ref=f6e2099]:
+              - link "Ver detalles del Honda NSX Type S" [ref=f6e2100] [cursor=pointer]:
+                - /url: /vehiculos/honda-nsx-types
+                - img "Honda NSX Type S 2022" [ref=f6e2102]
+              - generic: Superdeportivo
+              - generic [ref=f6e2103]:
+                - button "Añadir Honda NSX Type S al comparador" [ref=f6e2104]
+                - button "Añadir Honda NSX Type S a favoritos" [ref=f6e2112]
+              - link [ref=f6e2115] [cursor=pointer]:
+                - /url: /vehiculos/honda-nsx-types
+                - paragraph [ref=f6e2116]: Honda
+                - heading "NSX Type S" [level=3] [ref=f6e2117]
+                - paragraph [ref=f6e2118]: 2022 · Superdeportivo
+            - generic [ref=f6e2119]:
+              - generic [ref=f6e2120]:
+                - generic [ref=f6e2121]:
+                  - paragraph [ref=f6e2122]: Precio
+                  - paragraph [ref=f6e2123]: 171.495 US$
+                - generic [ref=f6e2124]:
+                  - generic [ref=f6e2125]:
+                    - paragraph [ref=f6e2126]: Potencia
+                    - paragraph [ref=f6e2127]: 600 HP
+                  - generic [ref=f6e2131]:
+                    - paragraph [ref=f6e2132]: 0-100
+                    - paragraph [ref=f6e2133]: 3s
+              - generic [ref=f6e2134]:
+                - button "Agregar al carrito" [ref=f6e2135]
+                - link "Explorar vehículo" [ref=f6e2141] [cursor=pointer]:
+                  - /url: /vehiculos/honda-nsx-types
+          - article [ref=f6e2145]:
+            - generic [ref=f6e2146]:
+              - link "Ver detalles del Hyundai Ioniq 5 N" [ref=f6e2147] [cursor=pointer]:
+                - /url: /vehiculos/hyundai-ioniq5n
+                - img "Hyundai Ioniq 5 N 2024" [ref=f6e2149]
+              - generic: Eléctrico
+              - generic [ref=f6e2150]:
+                - button "Añadir Hyundai Ioniq 5 N al comparador" [ref=f6e2151]
+                - button "Añadir Hyundai Ioniq 5 N a favoritos" [ref=f6e2159]
+              - link [ref=f6e2162] [cursor=pointer]:
+                - /url: /vehiculos/hyundai-ioniq5n
+                - paragraph [ref=f6e2163]: Hyundai
+                - heading "Ioniq 5 N" [level=3] [ref=f6e2164]
+                - paragraph [ref=f6e2165]: 2024 · SUV
+            - generic [ref=f6e2166]:
+              - generic [ref=f6e2167]:
+                - generic [ref=f6e2168]:
+                  - paragraph [ref=f6e2169]: Precio
+                  - paragraph [ref=f6e2170]: 66.000 US$
+                - generic [ref=f6e2171]:
+                  - generic [ref=f6e2172]:
+                    - paragraph [ref=f6e2173]: Potencia
+                    - paragraph [ref=f6e2174]: 641 HP
+                  - generic [ref=f6e2178]:
+                    - paragraph [ref=f6e2179]: 0-100
+                    - paragraph [ref=f6e2180]: 3.4s
+              - generic [ref=f6e2181]:
+                - button "Agregar al carrito" [ref=f6e2182]
+                - link "Explorar vehículo" [ref=f6e2188] [cursor=pointer]:
+                  - /url: /vehiculos/hyundai-ioniq5n
+          - article [ref=f6e2192]:
+            - generic [ref=f6e2193]:
+              - link "Ver detalles del Jeep Grand Cherokee Trackhawk" [ref=f6e2194] [cursor=pointer]:
+                - /url: /vehiculos/jeep-grand-cherokee-trackhawk
+                - img "Jeep Grand Cherokee Trackhawk 2023" [ref=f6e2196]
+              - generic: Jeep
+              - generic [ref=f6e2197]:
+                - button "Añadir Jeep Grand Cherokee Trackhawk al comparador" [ref=f6e2198]
+                - button "Añadir Jeep Grand Cherokee Trackhawk a favoritos" [ref=f6e2206]
+              - link [ref=f6e2209] [cursor=pointer]:
+                - /url: /vehiculos/jeep-grand-cherokee-trackhawk
+                - paragraph [ref=f6e2210]: Jeep
+                - heading "Grand Cherokee Trackhawk" [level=3] [ref=f6e2211]
+                - paragraph [ref=f6e2212]: 2023 · SUV
+            - generic [ref=f6e2213]:
+              - generic [ref=f6e2214]:
+                - generic [ref=f6e2215]:
+                  - paragraph [ref=f6e2216]: Precio
+                  - paragraph [ref=f6e2217]: 89.000 US$
+                - generic [ref=f6e2218]:
+                  - generic [ref=f6e2219]:
+                    - paragraph [ref=f6e2220]: Potencia
+                    - paragraph [ref=f6e2221]: 707 HP
+                  - generic [ref=f6e2225]:
+                    - paragraph [ref=f6e2226]: 0-100
+                    - paragraph [ref=f6e2227]: 3.5s
+              - generic [ref=f6e2228]:
+                - button "Agregar al carrito" [ref=f6e2229]
+                - link "Explorar vehículo" [ref=f6e2235] [cursor=pointer]:
+                  - /url: /vehiculos/jeep-grand-cherokee-trackhawk
+          - article [ref=f6e2239]:
+            - generic [ref=f6e2240]:
+              - link "Ver detalles del Lamborghini Aventador SVJ" [ref=f6e2241] [cursor=pointer]:
+                - /url: /vehiculos/lamborghini-aventador-svj
+                - img "Lamborghini Aventador SVJ 2022" [ref=f6e2243]
+              - generic: Superdeportivo
+              - generic [ref=f6e2244]:
+                - button "Añadir Lamborghini Aventador SVJ al comparador" [ref=f6e2245]
+                - button "Añadir Lamborghini Aventador SVJ a favoritos" [ref=f6e2253]
+              - link [ref=f6e2256] [cursor=pointer]:
+                - /url: /vehiculos/lamborghini-aventador-svj
+                - paragraph [ref=f6e2257]: Lamborghini
+                - heading "Aventador SVJ" [level=3] [ref=f6e2258]
+                - paragraph [ref=f6e2259]: 2022 · Superdeportivo
+            - generic [ref=f6e2260]:
+              - generic [ref=f6e2261]:
+                - generic [ref=f6e2262]:
+                  - paragraph [ref=f6e2263]: Precio
+                  - paragraph [ref=f6e2264]: 517.770 US$
+                - generic [ref=f6e2265]:
+                  - generic [ref=f6e2266]:
+                    - paragraph [ref=f6e2267]: Potencia
+                    - paragraph [ref=f6e2268]: 759 HP
+                  - generic [ref=f6e2272]:
+                    - paragraph [ref=f6e2273]: 0-100
+                    - paragraph [ref=f6e2274]: 2.8s
+              - generic [ref=f6e2275]:
+                - button "Agregar al carrito" [ref=f6e2276]
+                - link "Explorar vehículo" [ref=f6e2282] [cursor=pointer]:
+                  - /url: /vehiculos/lamborghini-aventador-svj
+          - article [ref=f6e2286]:
+            - generic [ref=f6e2287]:
+              - link "Ver detalles del Lamborghini Urus Performante" [ref=f6e2288] [cursor=pointer]:
+                - /url: /vehiculos/lamborghini-urus-performante
+                - img "Lamborghini Urus Performante 2024" [ref=f6e2290]
+              - generic: Edición exclusiva
+              - generic [ref=f6e2291]:
+                - button "Añadir Lamborghini Urus Performante al comparador" [ref=f6e2292]
+                - button "Añadir Lamborghini Urus Performante a favoritos" [ref=f6e2300]
+              - link [ref=f6e2303] [cursor=pointer]:
+                - /url: /vehiculos/lamborghini-urus-performante
+                - paragraph [ref=f6e2304]: Lamborghini
+                - heading "Urus Performante" [level=3] [ref=f6e2305]
+                - paragraph [ref=f6e2306]: 2024 · SUV
+            - generic [ref=f6e2307]:
+              - generic [ref=f6e2308]:
+                - generic [ref=f6e2309]:
+                  - paragraph [ref=f6e2310]: Precio
+                  - paragraph [ref=f6e2311]: 260.000 US$
+                - generic [ref=f6e2312]:
+                  - generic [ref=f6e2313]:
+                    - paragraph [ref=f6e2314]: Potencia
+                    - paragraph [ref=f6e2315]: 657 HP
+                  - generic [ref=f6e2319]:
+                    - paragraph [ref=f6e2320]: 0-100
+                    - paragraph [ref=f6e2321]: 3.3s
+              - generic [ref=f6e2322]:
+                - button "Agregar al carrito" [ref=f6e2323]
+                - link "Explorar vehículo" [ref=f6e2329] [cursor=pointer]:
+                  - /url: /vehiculos/lamborghini-urus-performante
+          - article [ref=f6e2333]:
+            - generic [ref=f6e2334]:
+              - link "Ver detalles del Lexus LC 500" [ref=f6e2335] [cursor=pointer]:
+                - /url: /vehiculos/lexus-lc500
+                - img "Lexus LC 500 2024" [ref=f6e2337]
+              - generic: Nuevo
+              - generic [ref=f6e2338]:
+                - button "Añadir Lexus LC 500 al comparador" [ref=f6e2339]
+                - button "Añadir Lexus LC 500 a favoritos" [ref=f6e2347]
+              - link [ref=f6e2350] [cursor=pointer]:
+                - /url: /vehiculos/lexus-lc500
+                - paragraph [ref=f6e2351]: Lexus
+                - heading "LC 500" [level=3] [ref=f6e2352]
+                - paragraph [ref=f6e2353]: 2024 · Coupé
+            - generic [ref=f6e2354]:
+              - generic [ref=f6e2355]:
+                - generic [ref=f6e2356]:
+                  - paragraph [ref=f6e2357]: Precio
+                  - paragraph [ref=f6e2358]: 99.300 US$
+                - generic [ref=f6e2359]:
+                  - generic [ref=f6e2360]:
+                    - paragraph [ref=f6e2361]: Potencia
+                    - paragraph [ref=f6e2362]: 471 HP
+                  - generic [ref=f6e2366]:
+                    - paragraph [ref=f6e2367]: 0-100
+                    - paragraph [ref=f6e2368]: 4.4s
+              - generic [ref=f6e2369]:
+                - button "Agregar al carrito" [ref=f6e2370]
+                - link "Explorar vehículo" [ref=f6e2376] [cursor=pointer]:
+                  - /url: /vehiculos/lexus-lc500
+          - article [ref=f6e2380]:
+            - generic [ref=f6e2381]:
+              - link "Ver detalles del Lexus RX 450h+ F Sport" [ref=f6e2382] [cursor=pointer]:
+                - /url: /vehiculos/lexus-rx-fsport
+                - img "Lexus RX 450h+ F Sport 2024" [ref=f6e2384]
+              - generic: Nuevo
+              - generic [ref=f6e2385]:
+                - button "Añadir Lexus RX 450h+ F Sport al comparador" [ref=f6e2386]
+                - button "Añadir Lexus RX 450h+ F Sport a favoritos" [ref=f6e2394]
+              - link [ref=f6e2397] [cursor=pointer]:
+                - /url: /vehiculos/lexus-rx-fsport
+                - paragraph [ref=f6e2398]: Lexus
+                - heading "RX 450h+ F Sport" [level=3] [ref=f6e2399]
+                - paragraph [ref=f6e2400]: 2024 · SUV
+            - generic [ref=f6e2401]:
+              - generic [ref=f6e2402]:
+                - generic [ref=f6e2403]:
+                  - paragraph [ref=f6e2404]: Precio
+                  - paragraph [ref=f6e2405]: 73.000 US$
+                - generic [ref=f6e2406]:
+                  - generic [ref=f6e2407]:
+                    - paragraph [ref=f6e2408]: Potencia
+                    - paragraph [ref=f6e2409]: 309 HP
+                  - generic [ref=f6e2413]:
+                    - paragraph [ref=f6e2414]: 0-100
+                    - paragraph [ref=f6e2415]: 6.5s
+              - generic [ref=f6e2416]:
+                - button "Agregar al carrito" [ref=f6e2417]
+                - link "Explorar vehículo" [ref=f6e2423] [cursor=pointer]:
+                  - /url: /vehiculos/lexus-rx-fsport
+          - article [ref=f6e2427]:
+            - generic [ref=f6e2428]:
+              - link "Ver detalles del Mazda CX-5 2.5 Turbo" [ref=f6e2429] [cursor=pointer]:
+                - /url: /vehiculos/mazda-cx5
+                - img "Mazda CX-5 2.5 Turbo 2024" [ref=f6e2431]
+              - generic: Nuevo
+              - generic [ref=f6e2432]:
+                - button "Añadir Mazda CX-5 2.5 Turbo al comparador" [ref=f6e2433]
+                - button "Añadir Mazda CX-5 2.5 Turbo a favoritos" [ref=f6e2441]
+              - link [ref=f6e2444] [cursor=pointer]:
+                - /url: /vehiculos/mazda-cx5
+                - paragraph [ref=f6e2445]: Mazda
+                - heading "CX-5 2.5 Turbo" [level=3] [ref=f6e2446]
+                - paragraph [ref=f6e2447]: 2024 · SUV
+            - generic [ref=f6e2448]:
+              - generic [ref=f6e2449]:
+                - generic [ref=f6e2450]:
+                  - paragraph [ref=f6e2451]: Precio
+                  - paragraph [ref=f6e2452]: 38.000 US$
+                - generic [ref=f6e2453]:
+                  - generic [ref=f6e2454]:
+                    - paragraph [ref=f6e2455]: Potencia
+                    - paragraph [ref=f6e2456]: 256 HP
+                  - generic [ref=f6e2460]:
+                    - paragraph [ref=f6e2461]: 0-100
+                    - paragraph [ref=f6e2462]: 6.1s
+              - generic [ref=f6e2463]:
+                - button "Agregar al carrito" [ref=f6e2464]
+                - link "Explorar vehículo" [ref=f6e2470] [cursor=pointer]:
+                  - /url: /vehiculos/mazda-cx5
+          - article [ref=f6e2474]:
+            - generic [ref=f6e2475]:
+              - link "Ver detalles del Mazda MX-5 Miata" [ref=f6e2476] [cursor=pointer]:
+                - /url: /vehiculos/mazda-mx5-miata
+                - img "Mazda MX-5 Miata 2024" [ref=f6e2478]
+              - generic: Nuevo
+              - generic [ref=f6e2479]:
+                - button "Añadir Mazda MX-5 Miata al comparador" [ref=f6e2480]
+                - button "Añadir Mazda MX-5 Miata a favoritos" [ref=f6e2488]
+              - link [ref=f6e2491] [cursor=pointer]:
+                - /url: /vehiculos/mazda-mx5-miata
+                - paragraph [ref=f6e2492]: Mazda
+                - heading "MX-5 Miata" [level=3] [ref=f6e2493]
+                - paragraph [ref=f6e2494]: 2024 · Convertible
+            - generic [ref=f6e2495]:
+              - generic [ref=f6e2496]:
+                - generic [ref=f6e2497]:
+                  - paragraph [ref=f6e2498]: Precio
+                  - paragraph [ref=f6e2499]: 30.000 US$
+                - generic [ref=f6e2500]:
+                  - generic [ref=f6e2501]:
+                    - paragraph [ref=f6e2502]: Potencia
+                    - paragraph [ref=f6e2503]: 181 HP
+                  - generic [ref=f6e2507]:
+                    - paragraph [ref=f6e2508]: 0-100
+                    - paragraph [ref=f6e2509]: 6.5s
+              - generic [ref=f6e2510]:
+                - button "Agregar al carrito" [ref=f6e2511]
+                - link "Explorar vehículo" [ref=f6e2517] [cursor=pointer]:
+                  - /url: /vehiculos/mazda-mx5-miata
+          - article [ref=f6e2521]:
+            - generic [ref=f6e2522]:
+              - link "Ver detalles del McLaren 750S" [ref=f6e2523] [cursor=pointer]:
+                - /url: /vehiculos/mclaren-750s
+                - img "McLaren 750S 2024" [ref=f6e2525]
+              - generic: Superdeportivo
+              - generic [ref=f6e2526]:
+                - button "Añadir McLaren 750S al comparador" [ref=f6e2527]
+                - button "Añadir McLaren 750S a favoritos" [ref=f6e2535]
+              - link [ref=f6e2538] [cursor=pointer]:
+                - /url: /vehiculos/mclaren-750s
+                - paragraph [ref=f6e2539]: McLaren
+                - heading "750S" [level=3] [ref=f6e2540]
+                - paragraph [ref=f6e2541]: 2024 · Superdeportivo
+            - generic [ref=f6e2542]:
+              - generic [ref=f6e2543]:
+                - generic [ref=f6e2544]:
+                  - paragraph [ref=f6e2545]: Precio
+                  - paragraph [ref=f6e2546]: 324.000 US$
+                - generic [ref=f6e2547]:
+                  - generic [ref=f6e2548]:
+                    - paragraph [ref=f6e2549]: Potencia
+                    - paragraph [ref=f6e2550]: 740 HP
+                  - generic [ref=f6e2554]:
+                    - paragraph [ref=f6e2555]: 0-100
+                    - paragraph [ref=f6e2556]: 2.8s
+              - generic [ref=f6e2557]:
+                - button "Agregar al carrito" [ref=f6e2558]
+                - link "Explorar vehículo" [ref=f6e2564] [cursor=pointer]:
+                  - /url: /vehiculos/mclaren-750s
+          - article [ref=f6e2568]:
+            - generic [ref=f6e2569]:
+              - link "Ver detalles del McLaren Artura" [ref=f6e2570] [cursor=pointer]:
+                - /url: /vehiculos/mclaren-artura
+                - img "McLaren Artura 2024" [ref=f6e2572]
+              - generic: Superdeportivo
+              - generic [ref=f6e2573]:
+                - button "Añadir McLaren Artura al comparador" [ref=f6e2574]
+                - button "Añadir McLaren Artura a favoritos" [ref=f6e2582]
+              - link [ref=f6e2585] [cursor=pointer]:
+                - /url: /vehiculos/mclaren-artura
+                - paragraph [ref=f6e2586]: McLaren
+                - heading "Artura" [level=3] [ref=f6e2587]
+                - paragraph [ref=f6e2588]: 2024 · Superdeportivo
+            - generic [ref=f6e2589]:
+              - generic [ref=f6e2590]:
+                - generic [ref=f6e2591]:
+                  - paragraph [ref=f6e2592]: Precio
+                  - paragraph [ref=f6e2593]: 233.000 US$
+                - generic [ref=f6e2594]:
+                  - generic [ref=f6e2595]:
+                    - paragraph [ref=f6e2596]: Potencia
+                    - paragraph [ref=f6e2597]: 671 HP
+                  - generic [ref=f6e2601]:
+                    - paragraph [ref=f6e2602]: 0-100
+                    - paragraph [ref=f6e2603]: 3s
+              - generic [ref=f6e2604]:
+                - button "Agregar al carrito" [ref=f6e2605]
+                - link "Explorar vehículo" [ref=f6e2611] [cursor=pointer]:
+                  - /url: /vehiculos/mclaren-artura
+          - article [ref=f6e2615]:
+            - generic [ref=f6e2616]:
+              - link "Ver detalles del Mercedes-Benz AMG GLE 63 S" [ref=f6e2617] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-amg-gle63
+                - img "Mercedes-Benz AMG GLE 63 S 2024" [ref=f6e2619]
+              - generic: Nuevo
+              - generic [ref=f6e2620]:
+                - button "Añadir Mercedes-Benz AMG GLE 63 S al comparador" [ref=f6e2621]
+                - button "Añadir Mercedes-Benz AMG GLE 63 S a favoritos" [ref=f6e2629]
+              - link [ref=f6e2632] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-amg-gle63
+                - paragraph [ref=f6e2633]: Mercedes-Benz
+                - heading "AMG GLE 63 S" [level=3] [ref=f6e2634]
+                - paragraph [ref=f6e2635]: 2024 · SUV
+            - generic [ref=f6e2636]:
+              - generic [ref=f6e2637]:
+                - generic [ref=f6e2638]:
+                  - paragraph [ref=f6e2639]: Precio
+                  - paragraph [ref=f6e2640]: 130.000 US$
+                - generic [ref=f6e2641]:
+                  - generic [ref=f6e2642]:
+                    - paragraph [ref=f6e2643]: Potencia
+                    - paragraph [ref=f6e2644]: 603 HP
+                  - generic [ref=f6e2648]:
+                    - paragraph [ref=f6e2649]: 0-100
+                    - paragraph [ref=f6e2650]: 3.7s
+              - generic [ref=f6e2651]:
+                - button "Agregar al carrito" [ref=f6e2652]
+                - link "Explorar vehículo" [ref=f6e2658] [cursor=pointer]:
+                  - /url: /vehiculos/mercedes-amg-gle63
+          - article [ref=f6e2662]:
+            - generic [ref=f6e2663]:
+              - link "Ver detalles del Mercedes-Benz AMG GT 63 4-Door" [ref=f6e2664] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-amg-gt-63
+                - img "Mercedes-Benz AMG GT 63 4-Door 2024" [ref=f6e2666]
+              - generic: Nuevo
+              - generic [ref=f6e2667]:
+                - button "Añadir Mercedes-Benz AMG GT 63 4-Door al comparador" [ref=f6e2668]
+                - button "Añadir Mercedes-Benz AMG GT 63 4-Door a favoritos" [ref=f6e2676]
+              - link [ref=f6e2679] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-amg-gt-63
+                - paragraph [ref=f6e2680]: Mercedes-Benz
+                - heading "AMG GT 63 4-Door" [level=3] [ref=f6e2681]
+                - paragraph [ref=f6e2682]: 2024 · Sedán
+            - generic [ref=f6e2683]:
+              - generic [ref=f6e2684]:
+                - generic [ref=f6e2685]:
+                  - paragraph [ref=f6e2686]: Precio
+                  - paragraph [ref=f6e2687]: 136.000 US$
+                - generic [ref=f6e2688]:
+                  - generic [ref=f6e2689]:
+                    - paragraph [ref=f6e2690]: Potencia
+                    - paragraph [ref=f6e2691]: 577 HP
+                  - generic [ref=f6e2695]:
+                    - paragraph [ref=f6e2696]: 0-100
+                    - paragraph [ref=f6e2697]: 3.2s
+              - generic [ref=f6e2698]:
+                - button "Agregar al carrito" [ref=f6e2699]
+                - link "Explorar vehículo" [ref=f6e2705] [cursor=pointer]:
+                  - /url: /vehiculos/mercedes-amg-gt-63
+          - article [ref=f6e2709]:
+            - generic [ref=f6e2710]:
+              - link "Ver detalles del Mercedes-Benz C63 S AMG" [ref=f6e2711] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-c63-amg
+                - img "Mercedes-Benz C63 S AMG 2024" [ref=f6e2713]
+              - generic: Nuevo
+              - generic [ref=f6e2714]:
+                - button "Añadir Mercedes-Benz C63 S AMG al comparador" [ref=f6e2715]
+                - button "Añadir Mercedes-Benz C63 S AMG a favoritos" [ref=f6e2723]
+              - link [ref=f6e2726] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-c63-amg
+                - paragraph [ref=f6e2727]: Mercedes-Benz
+                - heading "C63 S AMG" [level=3] [ref=f6e2728]
+                - paragraph [ref=f6e2729]: 2024 · Sedán
+            - generic [ref=f6e2730]:
+              - generic [ref=f6e2731]:
+                - generic [ref=f6e2732]:
+                  - paragraph [ref=f6e2733]: Precio
+                  - paragraph [ref=f6e2734]: 85.000 US$
+                - generic [ref=f6e2735]:
+                  - generic [ref=f6e2736]:
+                    - paragraph [ref=f6e2737]: Potencia
+                    - paragraph [ref=f6e2738]: 671 HP
+                  - generic [ref=f6e2742]:
+                    - paragraph [ref=f6e2743]: 0-100
+                    - paragraph [ref=f6e2744]: 3.3s
+              - generic [ref=f6e2745]:
+                - button "Agregar al carrito" [ref=f6e2746]
+                - link "Explorar vehículo" [ref=f6e2752] [cursor=pointer]:
+                  - /url: /vehiculos/mercedes-c63-amg
+          - article [ref=f6e2756]:
+            - generic [ref=f6e2757]:
+              - link "Ver detalles del Mercedes-Benz G63 AMG" [ref=f6e2758] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-g63-amg
+                - img "Mercedes-Benz G63 AMG 2024" [ref=f6e2760]
+              - generic: Nuevo
+              - generic [ref=f6e2761]:
+                - button "Añadir Mercedes-Benz G63 AMG al comparador" [ref=f6e2762]
+                - button "Añadir Mercedes-Benz G63 AMG a favoritos" [ref=f6e2770]
+              - link [ref=f6e2773] [cursor=pointer]:
+                - /url: /vehiculos/mercedes-g63-amg
+                - paragraph [ref=f6e2774]: Mercedes-Benz
+                - heading "G63 AMG" [level=3] [ref=f6e2775]
+                - paragraph [ref=f6e2776]: 2024 · SUV
+            - generic [ref=f6e2777]:
+              - generic [ref=f6e2778]:
+                - generic [ref=f6e2779]:
+                  - paragraph [ref=f6e2780]: Precio
+                  - paragraph [ref=f6e2781]: 180.000 US$
+                - generic [ref=f6e2782]:
+                  - generic [ref=f6e2783]:
+                    - paragraph [ref=f6e2784]: Potencia
+                    - paragraph [ref=f6e2785]: 577 HP
+                  - generic [ref=f6e2789]:
+                    - paragraph [ref=f6e2790]: 0-100
+                    - paragraph [ref=f6e2791]: 3.6s
+              - generic [ref=f6e2792]:
+                - button "Agregar al carrito" [ref=f6e2793]
+                - link "Explorar vehículo" [ref=f6e2799] [cursor=pointer]:
+                  - /url: /vehiculos/mercedes-g63-amg
+          - article [ref=f6e2803]:
+            - generic [ref=f6e2804]:
+              - link "Ver detalles del Nissan Ariya" [ref=f6e2805] [cursor=pointer]:
+                - /url: /vehiculos/nissan-ariya
+                - img "Nissan Ariya 2024" [ref=f6e2807]
+              - generic: Eléctrico
+              - generic [ref=f6e2808]:
+                - button "Añadir Nissan Ariya al comparador" [ref=f6e2809]
+                - button "Añadir Nissan Ariya a favoritos" [ref=f6e2817]
+              - link [ref=f6e2820] [cursor=pointer]:
+                - /url: /vehiculos/nissan-ariya
+                - paragraph [ref=f6e2821]: Nissan
+                - heading "Ariya" [level=3] [ref=f6e2822]
+                - paragraph [ref=f6e2823]: 2024 · SUV
+            - generic [ref=f6e2824]:
+              - generic [ref=f6e2825]:
+                - generic [ref=f6e2826]:
+                  - paragraph [ref=f6e2827]: Precio
+                  - paragraph [ref=f6e2828]: 51.530 US$
+                - generic [ref=f6e2829]:
+                  - generic [ref=f6e2830]:
+                    - paragraph [ref=f6e2831]: Potencia
+                    - paragraph [ref=f6e2832]: 389 HP
+                  - generic [ref=f6e2836]:
+                    - paragraph [ref=f6e2837]: 0-100
+                    - paragraph [ref=f6e2838]: 5.1s
+              - generic [ref=f6e2839]:
+                - button "Agregar al carrito" [ref=f6e2840]
+                - link "Explorar vehículo" [ref=f6e2846] [cursor=pointer]:
+                  - /url: /vehiculos/nissan-ariya
+          - article [ref=f6e2850]:
+            - generic [ref=f6e2851]:
+              - link "Ver detalles del Nissan Frontier PRO-4X" [ref=f6e2852] [cursor=pointer]:
+                - /url: /vehiculos/nissan-frontier
+                - img "Nissan Frontier PRO-4X 2024" [ref=f6e2854]
+              - generic: Nuevo
+              - generic [ref=f6e2855]:
+                - button "Añadir Nissan Frontier PRO-4X al comparador" [ref=f6e2856]
+                - button "Añadir Nissan Frontier PRO-4X a favoritos" [ref=f6e2864]
+              - link [ref=f6e2867] [cursor=pointer]:
+                - /url: /vehiculos/nissan-frontier
+                - paragraph [ref=f6e2868]: Nissan
+                - heading "Frontier PRO-4X" [level=3] [ref=f6e2869]
+                - paragraph [ref=f6e2870]: 2024 · Pickup
+            - generic [ref=f6e2871]:
+              - generic [ref=f6e2872]:
+                - generic [ref=f6e2873]:
+                  - paragraph [ref=f6e2874]: Precio
+                  - paragraph [ref=f6e2875]: 39.120 US$
+                - generic [ref=f6e2876]:
+                  - generic [ref=f6e2877]:
+                    - paragraph [ref=f6e2878]: Potencia
+                    - paragraph [ref=f6e2879]: 310 HP
+                  - generic [ref=f6e2883]:
+                    - paragraph [ref=f6e2884]: 0-100
+                    - paragraph [ref=f6e2885]: 7s
+              - generic [ref=f6e2886]:
+                - button "Agregar al carrito" [ref=f6e2887]
+                - link "Explorar vehículo" [ref=f6e2893] [cursor=pointer]:
+                  - /url: /vehiculos/nissan-frontier
+          - article [ref=f6e2897]:
+            - generic [ref=f6e2898]:
+              - link "Ver detalles del Nissan GT-R Nismo" [ref=f6e2899] [cursor=pointer]:
+                - /url: /vehiculos/nissan-gtr-nismo
+                - img "Nissan GT-R Nismo 2023" [ref=f6e2901]
+              - generic: Superdeportivo
+              - generic [ref=f6e2902]:
+                - button "Añadir Nissan GT-R Nismo al comparador" [ref=f6e2903]
+                - button "Añadir Nissan GT-R Nismo a favoritos" [ref=f6e2911]
+              - link [ref=f6e2914] [cursor=pointer]:
+                - /url: /vehiculos/nissan-gtr-nismo
+                - paragraph [ref=f6e2915]: Nissan
+                - heading "GT-R Nismo" [level=3] [ref=f6e2916]
+                - paragraph [ref=f6e2917]: 2023 · Superdeportivo
+            - generic [ref=f6e2918]:
+              - generic [ref=f6e2919]:
+                - generic [ref=f6e2920]:
+                  - paragraph [ref=f6e2921]: Precio
+                  - paragraph [ref=f6e2922]: 215.000 US$
+                - generic [ref=f6e2923]:
+                  - generic [ref=f6e2924]:
+                    - paragraph [ref=f6e2925]: Potencia
+                    - paragraph [ref=f6e2926]: 600 HP
+                  - generic [ref=f6e2930]:
+                    - paragraph [ref=f6e2931]: 0-100
+                    - paragraph [ref=f6e2932]: 2.5s
+              - generic [ref=f6e2933]:
+                - button "Agregar al carrito" [ref=f6e2934]
+                - link "Explorar vehículo" [ref=f6e2940] [cursor=pointer]:
+                  - /url: /vehiculos/nissan-gtr-nismo
+          - article [ref=f6e2944]:
+            - generic [ref=f6e2945]:
+              - link "Ver detalles del Peugeot 308 GT" [ref=f6e2946] [cursor=pointer]:
+                - /url: /vehiculos/peugeot-308-gt
+                - img "Peugeot 308 GT 2024" [ref=f6e2948]
+              - generic: Nuevo
+              - generic [ref=f6e2949]:
+                - button "Añadir Peugeot 308 GT al comparador" [ref=f6e2950]
+                - button "Añadir Peugeot 308 GT a favoritos" [ref=f6e2958]
+              - link [ref=f6e2961] [cursor=pointer]:
+                - /url: /vehiculos/peugeot-308-gt
+                - paragraph [ref=f6e2962]: Peugeot
+                - heading "308 GT" [level=3] [ref=f6e2963]
+                - paragraph [ref=f6e2964]: 2024 · Hatchback
+            - generic [ref=f6e2965]:
+              - generic [ref=f6e2966]:
+                - generic [ref=f6e2967]:
+                  - paragraph [ref=f6e2968]: Precio
+                  - paragraph [ref=f6e2969]: 35.000 US$
+                - generic [ref=f6e2970]:
+                  - generic [ref=f6e2971]:
+                    - paragraph [ref=f6e2972]: Potencia
+                    - paragraph [ref=f6e2973]: 225 HP
+                  - generic [ref=f6e2977]:
+                    - paragraph [ref=f6e2978]: 0-100
+                    - paragraph [ref=f6e2979]: 7.5s
+              - generic [ref=f6e2980]:
+                - button "Agregar al carrito" [ref=f6e2981]
+                - link "Explorar vehículo" [ref=f6e2987] [cursor=pointer]:
+                  - /url: /vehiculos/peugeot-308-gt
+          - article [ref=f6e2991]:
+            - generic [ref=f6e2992]:
+              - link "Ver detalles del Peugeot 508 PSE" [ref=f6e2993] [cursor=pointer]:
+                - /url: /vehiculos/peugeot-508-peugeot-sport
+                - img "Peugeot 508 PSE 2024" [ref=f6e2995]
+              - generic: Nuevo
+              - generic [ref=f6e2996]:
+                - button "Añadir Peugeot 508 PSE al comparador" [ref=f6e2997]
+                - button "Añadir Peugeot 508 PSE a favoritos" [ref=f6e3005]
+              - link [ref=f6e3008] [cursor=pointer]:
+                - /url: /vehiculos/peugeot-508-peugeot-sport
+                - paragraph [ref=f6e3009]: Peugeot
+                - heading "508 PSE" [level=3] [ref=f6e3010]
+                - paragraph [ref=f6e3011]: 2024 · Sedán
+            - generic [ref=f6e3012]:
+              - generic [ref=f6e3013]:
+                - generic [ref=f6e3014]:
+                  - paragraph [ref=f6e3015]: Precio
+                  - paragraph [ref=f6e3016]: 62.000 US$
+                - generic [ref=f6e3017]:
+                  - generic [ref=f6e3018]:
+                    - paragraph [ref=f6e3019]: Potencia
+                    - paragraph [ref=f6e3020]: 360 HP
+                  - generic [ref=f6e3024]:
+                    - paragraph [ref=f6e3025]: 0-100
+                    - paragraph [ref=f6e3026]: 5.2s
+              - generic [ref=f6e3027]:
+                - button "Agregar al carrito" [ref=f6e3028]
+                - link "Explorar vehículo" [ref=f6e3034] [cursor=pointer]:
+                  - /url: /vehiculos/peugeot-508-peugeot-sport
+          - article [ref=f6e3038]:
+            - generic [ref=f6e3039]:
+              - link "Ver detalles del Porsche 718 Cayman GT4 RS" [ref=f6e3040] [cursor=pointer]:
+                - /url: /vehiculos/porsche-718-cayman-gt4
+                - img "Porsche 718 Cayman GT4 RS 2024" [ref=f6e3042]
+              - generic: Nuevo
+              - generic [ref=f6e3043]:
+                - button "Añadir Porsche 718 Cayman GT4 RS al comparador" [ref=f6e3044]
+                - button "Añadir Porsche 718 Cayman GT4 RS a favoritos" [ref=f6e3052]
+              - link [ref=f6e3055] [cursor=pointer]:
+                - /url: /vehiculos/porsche-718-cayman-gt4
+                - paragraph [ref=f6e3056]: Porsche
+                - heading "718 Cayman GT4 RS" [level=3] [ref=f6e3057]
+                - paragraph [ref=f6e3058]: 2024 · Coupé
+            - generic [ref=f6e3059]:
+              - generic [ref=f6e3060]:
+                - generic [ref=f6e3061]:
+                  - paragraph [ref=f6e3062]: Precio
+                  - paragraph [ref=f6e3063]: 149.600 US$
+                - generic [ref=f6e3064]:
+                  - generic [ref=f6e3065]:
+                    - paragraph [ref=f6e3066]: Potencia
+                    - paragraph [ref=f6e3067]: 493 HP
+                  - generic [ref=f6e3071]:
+                    - paragraph [ref=f6e3072]: 0-100
+                    - paragraph [ref=f6e3073]: 3.4s
+              - generic [ref=f6e3074]:
+                - button "Agregar al carrito" [ref=f6e3075]
+                - link "Explorar vehículo" [ref=f6e3081] [cursor=pointer]:
+                  - /url: /vehiculos/porsche-718-cayman-gt4
+          - article [ref=f6e3085]:
+            - generic [ref=f6e3086]:
+              - link "Ver detalles del Porsche 911 Carrera" [ref=f6e3087] [cursor=pointer]:
+                - /url: /vehiculos/porsche-911-carrera
+                - img "Porsche 911 Carrera 2024" [ref=f6e3089]
+              - generic: Nuevo
+              - generic [ref=f6e3090]:
+                - button "Añadir Porsche 911 Carrera al comparador" [ref=f6e3091]
+                - button "Añadir Porsche 911 Carrera a favoritos" [ref=f6e3099]
+              - link [ref=f6e3102] [cursor=pointer]:
+                - /url: /vehiculos/porsche-911-carrera
+                - paragraph [ref=f6e3103]: Porsche
+                - heading "911 Carrera" [level=3] [ref=f6e3104]
+                - paragraph [ref=f6e3105]: 2024 · Deportivo
+            - generic [ref=f6e3106]:
+              - generic [ref=f6e3107]:
+                - generic [ref=f6e3108]:
+                  - paragraph [ref=f6e3109]: Precio
+                  - paragraph [ref=f6e3110]: 114.400 US$
+                - generic [ref=f6e3111]:
+                  - generic [ref=f6e3112]:
+                    - paragraph [ref=f6e3113]: Potencia
+                    - paragraph [ref=f6e3114]: 379 HP
+                  - generic [ref=f6e3118]:
+                    - paragraph [ref=f6e3119]: 0-100
+                    - paragraph [ref=f6e3120]: 4s
+              - generic [ref=f6e3121]:
+                - button "Agregar al carrito" [ref=f6e3122]
+                - link "Explorar vehículo" [ref=f6e3128] [cursor=pointer]:
+                  - /url: /vehiculos/porsche-911-carrera
+          - article [ref=f6e3132]:
+            - generic [ref=f6e3133]:
+              - link "Ver detalles del Porsche Cayenne Turbo GT" [ref=f6e3134] [cursor=pointer]:
+                - /url: /vehiculos/porsche-cayenne-turbogt
+                - img "Porsche Cayenne Turbo GT 2024" [ref=f6e3136]
+              - generic: Nuevo
+              - generic [ref=f6e3137]:
+                - button "Añadir Porsche Cayenne Turbo GT al comparador" [ref=f6e3138]
+                - button "Añadir Porsche Cayenne Turbo GT a favoritos" [ref=f6e3146]
+              - link [ref=f6e3149] [cursor=pointer]:
+                - /url: /vehiculos/porsche-cayenne-turbogt
+                - paragraph [ref=f6e3150]: Porsche
+                - heading "Cayenne Turbo GT" [level=3] [ref=f6e3151]
+                - paragraph [ref=f6e3152]: 2024 · SUV
+            - generic [ref=f6e3153]:
+              - generic [ref=f6e3154]:
+                - generic [ref=f6e3155]:
+                  - paragraph [ref=f6e3156]: Precio
+                  - paragraph [ref=f6e3157]: 196.300 US$
+                - generic [ref=f6e3158]:
+                  - generic [ref=f6e3159]:
+                    - paragraph [ref=f6e3160]: Potencia
+                    - paragraph [ref=f6e3161]: 650 HP
+                  - generic [ref=f6e3165]:
+                    - paragraph [ref=f6e3166]: 0-100
+                    - paragraph [ref=f6e3167]: 3.2s
+              - generic [ref=f6e3168]:
+                - button "Agregar al carrito" [ref=f6e3169]
+                - link "Explorar vehículo" [ref=f6e3175] [cursor=pointer]:
+                  - /url: /vehiculos/porsche-cayenne-turbogt
+          - article [ref=f6e3179]:
+            - generic [ref=f6e3180]:
+              - link "Ver detalles del Porsche Taycan Turbo S" [ref=f6e3181] [cursor=pointer]:
+                - /url: /vehiculos/porsche-taycan-turbos
+                - img "Porsche Taycan Turbo S 2024" [ref=f6e3183]
+              - generic: Eléctrico
+              - generic [ref=f6e3184]:
+                - button "Añadir Porsche Taycan Turbo S al comparador" [ref=f6e3185]
+                - button "Añadir Porsche Taycan Turbo S a favoritos" [ref=f6e3193]
+              - link [ref=f6e3196] [cursor=pointer]:
+                - /url: /vehiculos/porsche-taycan-turbos
+                - paragraph [ref=f6e3197]: Porsche
+                - heading "Taycan Turbo S" [level=3] [ref=f6e3198]
+                - paragraph [ref=f6e3199]: 2024 · Sedán
+            - generic [ref=f6e3200]:
+              - generic [ref=f6e3201]:
+                - generic [ref=f6e3202]:
+                  - paragraph [ref=f6e3203]: Precio
+                  - paragraph [ref=f6e3204]: 192.900 US$
+                - generic [ref=f6e3205]:
+                  - generic [ref=f6e3206]:
+                    - paragraph [ref=f6e3207]: Potencia
+                    - paragraph [ref=f6e3208]: 750 HP
+                  - generic [ref=f6e3212]:
+                    - paragraph [ref=f6e3213]: 0-100
+                    - paragraph [ref=f6e3214]: 2.8s
+              - generic [ref=f6e3215]:
+                - button "Agregar al carrito" [ref=f6e3216]
+                - link "Explorar vehículo" [ref=f6e3222] [cursor=pointer]:
+                  - /url: /vehiculos/porsche-taycan-turbos
+          - article [ref=f6e3226]:
+            - generic [ref=f6e3227]:
+              - link "Ver detalles del Renault Arkana" [ref=f6e3228] [cursor=pointer]:
+                - /url: /vehiculos/renault-arkana
+                - img "Renault Arkana 2024" [ref=f6e3230]
+              - generic: Nuevo
+              - generic [ref=f6e3231]:
+                - button "Añadir Renault Arkana al comparador" [ref=f6e3232]
+                - button "Añadir Renault Arkana a favoritos" [ref=f6e3240]
+              - link [ref=f6e3243] [cursor=pointer]:
+                - /url: /vehiculos/renault-arkana
+                - paragraph [ref=f6e3244]: Renault
+                - heading "Arkana" [level=3] [ref=f6e3245]
+                - paragraph [ref=f6e3246]: 2024 · SUV
+            - generic [ref=f6e3247]:
+              - generic [ref=f6e3248]:
+                - generic [ref=f6e3249]:
+                  - paragraph [ref=f6e3250]: Precio
+                  - paragraph [ref=f6e3251]: 28.000 US$
+                - generic [ref=f6e3252]:
+                  - generic [ref=f6e3253]:
+                    - paragraph [ref=f6e3254]: Potencia
+                    - paragraph [ref=f6e3255]: 158 HP
+                  - generic [ref=f6e3259]:
+                    - paragraph [ref=f6e3260]: 0-100
+                    - paragraph [ref=f6e3261]: 9.5s
+              - generic [ref=f6e3262]:
+                - button "Agregar al carrito" [ref=f6e3263]
+                - link "Explorar vehículo" [ref=f6e3269] [cursor=pointer]:
+                  - /url: /vehiculos/renault-arkana
+          - article [ref=f6e3273]:
+            - generic [ref=f6e3274]:
+              - link "Ver detalles del Renault Mégane R.S. Ultime" [ref=f6e3275] [cursor=pointer]:
+                - /url: /vehiculos/renault-megane-rs
+                - img "Renault Mégane R.S. Ultime 2024" [ref=f6e3277]
+              - generic: Nuevo
+              - generic [ref=f6e3278]:
+                - button "Añadir Renault Mégane R.S. Ultime al comparador" [ref=f6e3279]
+                - button "Añadir Renault Mégane R.S. Ultime a favoritos" [ref=f6e3287]
+              - link [ref=f6e3290] [cursor=pointer]:
+                - /url: /vehiculos/renault-megane-rs
+                - paragraph [ref=f6e3291]: Renault
+                - heading "Mégane R.S. Ultime" [level=3] [ref=f6e3292]
+                - paragraph [ref=f6e3293]: 2024 · Hatchback
+            - generic [ref=f6e3294]:
+              - generic [ref=f6e3295]:
+                - generic [ref=f6e3296]:
+                  - paragraph [ref=f6e3297]: Precio
+                  - paragraph [ref=f6e3298]: 42.000 US$
+                - generic [ref=f6e3299]:
+                  - generic [ref=f6e3300]:
+                    - paragraph [ref=f6e3301]: Potencia
+                    - paragraph [ref=f6e3302]: 300 HP
+                  - generic [ref=f6e3306]:
+                    - paragraph [ref=f6e3307]: 0-100
+                    - paragraph [ref=f6e3308]: 5.4s
+              - generic [ref=f6e3309]:
+                - button "Agregar al carrito" [ref=f6e3310]
+                - link "Explorar vehículo" [ref=f6e3316] [cursor=pointer]:
+                  - /url: /vehiculos/renault-megane-rs
+          - article [ref=f6e3320]:
+            - generic [ref=f6e3321]:
+              - link "Ver detalles del Rivian R1S" [ref=f6e3322] [cursor=pointer]:
+                - /url: /vehiculos/rivian-r1s
+                - img "Rivian R1S 2024" [ref=f6e3324]
+              - generic: Eléctrico
+              - generic [ref=f6e3325]:
+                - button "Añadir Rivian R1S al comparador" [ref=f6e3326]
+                - button "Añadir Rivian R1S a favoritos" [ref=f6e3334]
+              - link [ref=f6e3337] [cursor=pointer]:
+                - /url: /vehiculos/rivian-r1s
+                - paragraph [ref=f6e3338]: Rivian
+                - heading "R1S" [level=3] [ref=f6e3339]
+                - paragraph [ref=f6e3340]: 2024 · SUV
+            - generic [ref=f6e3341]:
+              - generic [ref=f6e3342]:
+                - generic [ref=f6e3343]:
+                  - paragraph [ref=f6e3344]: Precio
+                  - paragraph [ref=f6e3345]: 75.700 US$
+                - generic [ref=f6e3346]:
+                  - generic [ref=f6e3347]:
+                    - paragraph [ref=f6e3348]: Potencia
+                    - paragraph [ref=f6e3349]: 835 HP
+                  - generic [ref=f6e3353]:
+                    - paragraph [ref=f6e3354]: 0-100
+                    - paragraph [ref=f6e3355]: 3s
+              - generic [ref=f6e3356]:
+                - button "Agregar al carrito" [ref=f6e3357]
+                - link "Explorar vehículo" [ref=f6e3363] [cursor=pointer]:
+                  - /url: /vehiculos/rivian-r1s
+          - article [ref=f6e3367]:
+            - generic [ref=f6e3368]:
+              - link "Ver detalles del Rivian R1T" [ref=f6e3369] [cursor=pointer]:
+                - /url: /vehiculos/rivian-r1t
+                - img "Rivian R1T 2024" [ref=f6e3371]
+              - generic: Eléctrico
+              - generic [ref=f6e3372]:
+                - button "Añadir Rivian R1T al comparador" [ref=f6e3373]
+                - button "Añadir Rivian R1T a favoritos" [ref=f6e3381]
+              - link [ref=f6e3384] [cursor=pointer]:
+                - /url: /vehiculos/rivian-r1t
+                - paragraph [ref=f6e3385]: Rivian
+                - heading "R1T" [level=3] [ref=f6e3386]
+                - paragraph [ref=f6e3387]: 2024 · Pickup
+            - generic [ref=f6e3388]:
+              - generic [ref=f6e3389]:
+                - generic [ref=f6e3390]:
+                  - paragraph [ref=f6e3391]: Precio
+                  - paragraph [ref=f6e3392]: 71.700 US$
+                - generic [ref=f6e3393]:
+                  - generic [ref=f6e3394]:
+                    - paragraph [ref=f6e3395]: Potencia
+                    - paragraph [ref=f6e3396]: 835 HP
+                  - generic [ref=f6e3400]:
+                    - paragraph [ref=f6e3401]: 0-100
+                    - paragraph [ref=f6e3402]: 3s
+              - generic [ref=f6e3403]:
+                - button "Agregar al carrito" [ref=f6e3404]
+                - link "Explorar vehículo" [ref=f6e3410] [cursor=pointer]:
+                  - /url: /vehiculos/rivian-r1t
+          - article [ref=f6e3414]:
+            - generic [ref=f6e3415]:
+              - link "Ver detalles del Rolls-Royce Cullinan" [ref=f6e3416] [cursor=pointer]:
+                - /url: /vehiculos/rolls-royce-cullinan
+                - img "Rolls-Royce Cullinan 2024" [ref=f6e3418]
+              - generic: Edición exclusiva
+              - generic [ref=f6e3419]:
+                - button "Añadir Rolls-Royce Cullinan al comparador" [ref=f6e3420]
+                - button "Añadir Rolls-Royce Cullinan a favoritos" [ref=f6e3428]
+              - link [ref=f6e3431] [cursor=pointer]:
+                - /url: /vehiculos/rolls-royce-cullinan
+                - paragraph [ref=f6e3432]: Rolls-Royce
+                - heading "Cullinan" [level=3] [ref=f6e3433]
+                - paragraph [ref=f6e3434]: 2024 · SUV
+            - generic [ref=f6e3435]:
+              - generic [ref=f6e3436]:
+                - generic [ref=f6e3437]:
+                  - paragraph [ref=f6e3438]: Precio
+                  - paragraph [ref=f6e3439]: 390.000 US$
+                - generic [ref=f6e3440]:
+                  - generic [ref=f6e3441]:
+                    - paragraph [ref=f6e3442]: Potencia
+                    - paragraph [ref=f6e3443]: 563 HP
+                  - generic [ref=f6e3447]:
+                    - paragraph [ref=f6e3448]: 0-100
+                    - paragraph [ref=f6e3449]: 5.2s
+              - generic [ref=f6e3450]:
+                - button "Agregar al carrito" [ref=f6e3451]
+                - link "Explorar vehículo" [ref=f6e3457] [cursor=pointer]:
+                  - /url: /vehiculos/rolls-royce-cullinan
+          - article [ref=f6e3461]:
+            - generic [ref=f6e3462]:
+              - link "Ver detalles del Rolls-Royce Ghost" [ref=f6e3463] [cursor=pointer]:
+                - /url: /vehiculos/rolls-royce-ghost
+                - img "Rolls-Royce Ghost 2024" [ref=f6e3465]
+              - generic: Edición exclusiva
+              - generic [ref=f6e3466]:
+                - button "Añadir Rolls-Royce Ghost al comparador" [ref=f6e3467]
+                - button "Añadir Rolls-Royce Ghost a favoritos" [ref=f6e3475]
+              - link [ref=f6e3478] [cursor=pointer]:
+                - /url: /vehiculos/rolls-royce-ghost
+                - paragraph [ref=f6e3479]: Rolls-Royce
+                - heading "Ghost" [level=3] [ref=f6e3480]
+                - paragraph [ref=f6e3481]: 2024 · Sedán
+            - generic [ref=f6e3482]:
+              - generic [ref=f6e3483]:
+                - generic [ref=f6e3484]:
+                  - paragraph [ref=f6e3485]: Precio
+                  - paragraph [ref=f6e3486]: 355.000 US$
+                - generic [ref=f6e3487]:
+                  - generic [ref=f6e3488]:
+                    - paragraph [ref=f6e3489]: Potencia
+                    - paragraph [ref=f6e3490]: 563 HP
+                  - generic [ref=f6e3494]:
+                    - paragraph [ref=f6e3495]: 0-100
+                    - paragraph [ref=f6e3496]: 4.7s
+              - generic [ref=f6e3497]:
+                - button "Agregar al carrito" [ref=f6e3498]
+                - link "Explorar vehículo" [ref=f6e3504] [cursor=pointer]:
+                  - /url: /vehiculos/rolls-royce-ghost
+          - article [ref=f6e3508]:
+            - generic [ref=f6e3509]:
+              - link "Ver detalles del Subaru Outback Wilderness" [ref=f6e3510] [cursor=pointer]:
+                - /url: /vehiculos/subaru-outback
+                - img "Subaru Outback Wilderness 2024" [ref=f6e3512]
+              - generic: Nuevo
+              - generic [ref=f6e3513]:
+                - button "Añadir Subaru Outback Wilderness al comparador" [ref=f6e3514]
+                - button "Añadir Subaru Outback Wilderness a favoritos" [ref=f6e3522]
+              - link [ref=f6e3525] [cursor=pointer]:
+                - /url: /vehiculos/subaru-outback
+                - paragraph [ref=f6e3526]: Subaru
+                - heading "Outback Wilderness" [level=3] [ref=f6e3527]
+                - paragraph [ref=f6e3528]: 2024 · Familiar
+            - generic [ref=f6e3529]:
+              - generic [ref=f6e3530]:
+                - generic [ref=f6e3531]:
+                  - paragraph [ref=f6e3532]: Precio
+                  - paragraph [ref=f6e3533]: 38.000 US$
+                - generic [ref=f6e3534]:
+                  - generic [ref=f6e3535]:
+                    - paragraph [ref=f6e3536]: Potencia
+                    - paragraph [ref=f6e3537]: 260 HP
+                  - generic [ref=f6e3541]:
+                    - paragraph [ref=f6e3542]: 0-100
+                    - paragraph [ref=f6e3543]: 5.9s
+              - generic [ref=f6e3544]:
+                - button "Agregar al carrito" [ref=f6e3545]
+                - link "Explorar vehículo" [ref=f6e3551] [cursor=pointer]:
+                  - /url: /vehiculos/subaru-outback
+          - article [ref=f6e3555]:
+            - generic [ref=f6e3556]:
+              - link "Ver detalles del Subaru WRX STI" [ref=f6e3557] [cursor=pointer]:
+                - /url: /vehiculos/subaru-wrx-sti
+                - img "Subaru WRX STI 2024" [ref=f6e3559]
+              - generic: Nuevo
+              - generic [ref=f6e3560]:
+                - button "Añadir Subaru WRX STI al comparador" [ref=f6e3561]
+                - button "Añadir Subaru WRX STI a favoritos" [ref=f6e3569]
+              - link [ref=f6e3572] [cursor=pointer]:
+                - /url: /vehiculos/subaru-wrx-sti
+                - paragraph [ref=f6e3573]: Subaru
+                - heading "WRX STI" [level=3] [ref=f6e3574]
+                - paragraph [ref=f6e3575]: 2024 · Sedán
+            - generic [ref=f6e3576]:
+              - generic [ref=f6e3577]:
+                - generic [ref=f6e3578]:
+                  - paragraph [ref=f6e3579]: Precio
+                  - paragraph [ref=f6e3580]: 45.000 US$
+                - generic [ref=f6e3581]:
+                  - generic [ref=f6e3582]:
+                    - paragraph [ref=f6e3583]: Potencia
+                    - paragraph [ref=f6e3584]: 310 HP
+                  - generic [ref=f6e3588]:
+                    - paragraph [ref=f6e3589]: 0-100
+                    - paragraph [ref=f6e3590]: 5.3s
+              - generic [ref=f6e3591]:
+                - button "Agregar al carrito" [ref=f6e3592]
+                - link "Explorar vehículo" [ref=f6e3598] [cursor=pointer]:
+                  - /url: /vehiculos/subaru-wrx-sti
+          - article [ref=f6e3602]:
+            - generic [ref=f6e3603]:
+              - link "Ver detalles del Suzuki Jimny" [ref=f6e3604] [cursor=pointer]:
+                - /url: /vehiculos/suzuki-jimny
+                - img "Suzuki Jimny 2024" [ref=f6e3606]
+              - generic: Nuevo
+              - generic [ref=f6e3607]:
+                - button "Añadir Suzuki Jimny al comparador" [ref=f6e3608]
+                - button "Añadir Suzuki Jimny a favoritos" [ref=f6e3616]
+              - link [ref=f6e3619] [cursor=pointer]:
+                - /url: /vehiculos/suzuki-jimny
+                - paragraph [ref=f6e3620]: Suzuki
+                - heading "Jimny" [level=3] [ref=f6e3621]
+                - paragraph [ref=f6e3622]: 2024 · SUV
+            - generic [ref=f6e3623]:
+              - generic [ref=f6e3624]:
+                - generic [ref=f6e3625]:
+                  - paragraph [ref=f6e3626]: Precio
+                  - paragraph [ref=f6e3627]: 25.000 US$
+                - generic [ref=f6e3628]:
+                  - generic [ref=f6e3629]:
+                    - paragraph [ref=f6e3630]: Potencia
+                    - paragraph [ref=f6e3631]: 102 HP
+                  - generic [ref=f6e3635]:
+                    - paragraph [ref=f6e3636]: 0-100
+                    - paragraph [ref=f6e3637]: 12s
+              - generic [ref=f6e3638]:
+                - button "Agregar al carrito" [ref=f6e3639]
+                - link "Explorar vehículo" [ref=f6e3645] [cursor=pointer]:
+                  - /url: /vehiculos/suzuki-jimny
+          - article [ref=f6e3649]:
+            - generic [ref=f6e3650]:
+              - link "Ver detalles del Tesla Cybertruck" [ref=f6e3651] [cursor=pointer]:
+                - /url: /vehiculos/tesla-cybertruck
+                - img "Tesla Cybertruck 2024" [ref=f6e3653]
+              - generic: Eléctrico
+              - generic [ref=f6e3654]:
+                - button "Añadir Tesla Cybertruck al comparador" [ref=f6e3655]
+                - button "Añadir Tesla Cybertruck a favoritos" [ref=f6e3663]
+              - link [ref=f6e3666] [cursor=pointer]:
+                - /url: /vehiculos/tesla-cybertruck
+                - paragraph [ref=f6e3667]: Tesla
+                - heading "Cybertruck" [level=3] [ref=f6e3668]
+                - paragraph [ref=f6e3669]: 2024 · Pickup
+            - generic [ref=f6e3670]:
+              - generic [ref=f6e3671]:
+                - generic [ref=f6e3672]:
+                  - paragraph [ref=f6e3673]: Precio
+                  - paragraph [ref=f6e3674]: 99.990 US$
+                - generic [ref=f6e3675]:
+                  - generic [ref=f6e3676]:
+                    - paragraph [ref=f6e3677]: Potencia
+                    - paragraph [ref=f6e3678]: 845 HP
+                  - generic [ref=f6e3682]:
+                    - paragraph [ref=f6e3683]: 0-100
+                    - paragraph [ref=f6e3684]: 2.7s
+              - generic [ref=f6e3685]:
+                - button "Agregar al carrito" [ref=f6e3686]
+                - link "Explorar vehículo" [ref=f6e3692] [cursor=pointer]:
+                  - /url: /vehiculos/tesla-cybertruck
+          - article [ref=f6e3696]:
+            - generic [ref=f6e3697]:
+              - link "Ver detalles del Tesla Model 3 Performance" [ref=f6e3698] [cursor=pointer]:
+                - /url: /vehiculos/tesla-model-3-performance
+                - img "Tesla Model 3 Performance 2024" [ref=f6e3700]
+              - generic: Eléctrico
+              - generic [ref=f6e3701]:
+                - button "Añadir Tesla Model 3 Performance al comparador" [ref=f6e3702]
+                - button "Añadir Tesla Model 3 Performance a favoritos" [ref=f6e3710]
+              - link [ref=f6e3713] [cursor=pointer]:
+                - /url: /vehiculos/tesla-model-3-performance
+                - paragraph [ref=f6e3714]: Tesla
+                - heading "Model 3 Performance" [level=3] [ref=f6e3715]
+                - paragraph [ref=f6e3716]: 2024 · Sedán
+            - generic [ref=f6e3717]:
+              - generic [ref=f6e3718]:
+                - generic [ref=f6e3719]:
+                  - paragraph [ref=f6e3720]: Precio
+                  - paragraph [ref=f6e3721]: 52.990 US$
+                - generic [ref=f6e3722]:
+                  - generic [ref=f6e3723]:
+                    - paragraph [ref=f6e3724]: Potencia
+                    - paragraph [ref=f6e3725]: 460 HP
+                  - generic [ref=f6e3729]:
+                    - paragraph [ref=f6e3730]: 0-100
+                    - paragraph [ref=f6e3731]: 3.1s
+              - generic [ref=f6e3732]:
+                - button "Agregar al carrito" [ref=f6e3733]
+                - link "Explorar vehículo" [ref=f6e3739] [cursor=pointer]:
+                  - /url: /vehiculos/tesla-model-3-performance
+          - article [ref=f6e3743]:
+            - generic [ref=f6e3744]:
+              - link "Ver detalles del Tesla Model X Plaid" [ref=f6e3745] [cursor=pointer]:
+                - /url: /vehiculos/tesla-model-x-plaid
+                - img "Tesla Model X Plaid 2024" [ref=f6e3747]
+              - generic: Eléctrico
+              - generic [ref=f6e3748]:
+                - button "Añadir Tesla Model X Plaid al comparador" [ref=f6e3749]
+                - button "Añadir Tesla Model X Plaid a favoritos" [ref=f6e3757]
+              - link [ref=f6e3760] [cursor=pointer]:
+                - /url: /vehiculos/tesla-model-x-plaid
+                - paragraph [ref=f6e3761]: Tesla
+                - heading "Model X Plaid" [level=3] [ref=f6e3762]
+                - paragraph [ref=f6e3763]: 2024 · SUV
+            - generic [ref=f6e3764]:
+              - generic [ref=f6e3765]:
+                - generic [ref=f6e3766]:
+                  - paragraph [ref=f6e3767]: Precio
+                  - paragraph [ref=f6e3768]: 99.990 US$
+                - generic [ref=f6e3769]:
+                  - generic [ref=f6e3770]:
+                    - paragraph [ref=f6e3771]: Potencia
+                    - paragraph [ref=f6e3772]: 1020 HP
+                  - generic [ref=f6e3776]:
+                    - paragraph [ref=f6e3777]: 0-100
+                    - paragraph [ref=f6e3778]: 2.5s
+              - generic [ref=f6e3779]:
+                - button "Agregar al carrito" [ref=f6e3780]
+                - link "Explorar vehículo" [ref=f6e3786] [cursor=pointer]:
+                  - /url: /vehiculos/tesla-model-x-plaid
+          - article [ref=f6e3790]:
+            - generic [ref=f6e3791]:
+              - link "Ver detalles del Toyota Camry TRD" [ref=f6e3792] [cursor=pointer]:
+                - /url: /vehiculos/toyota-camry-trd
+                - img "Toyota Camry TRD 2021" [ref=f6e3794]
+              - generic: Toyota
+              - generic [ref=f6e3795]:
+                - button "Añadir Toyota Camry TRD al comparador" [ref=f6e3796]
+                - button "Añadir Toyota Camry TRD a favoritos" [ref=f6e3804]
+              - link [ref=f6e3807] [cursor=pointer]:
+                - /url: /vehiculos/toyota-camry-trd
+                - paragraph [ref=f6e3808]: Toyota
+                - heading "Camry TRD" [level=3] [ref=f6e3809]
+                - paragraph [ref=f6e3810]: 2021 · Sedán
+            - generic [ref=f6e3811]:
+              - generic [ref=f6e3812]:
+                - generic [ref=f6e3813]:
+                  - paragraph [ref=f6e3814]: Precio
+                  - paragraph [ref=f6e3815]: 35.500 US$
+                - generic [ref=f6e3816]:
+                  - generic [ref=f6e3817]:
+                    - paragraph [ref=f6e3818]: Potencia
+                    - paragraph [ref=f6e3819]: 301 HP
+                  - generic [ref=f6e3823]:
+                    - paragraph [ref=f6e3824]: 0-100
+                    - paragraph [ref=f6e3825]: 5.8s
+              - generic [ref=f6e3826]:
+                - button "Agregar al carrito" [ref=f6e3827]
+                - link "Explorar vehículo" [ref=f6e3833] [cursor=pointer]:
+                  - /url: /vehiculos/toyota-camry-trd
+          - article [ref=f6e3837]:
+            - generic [ref=f6e3838]:
+              - link "Ver detalles del Toyota GR Corolla" [ref=f6e3839] [cursor=pointer]:
+                - /url: /vehiculos/toyota-gr-corolla
+                - img "Toyota GR Corolla 2024" [ref=f6e3841]
+              - generic: Nuevo
+              - generic [ref=f6e3842]:
+                - button "Añadir Toyota GR Corolla al comparador" [ref=f6e3843]
+                - button "Añadir Toyota GR Corolla a favoritos" [ref=f6e3851]
+              - link [ref=f6e3854] [cursor=pointer]:
+                - /url: /vehiculos/toyota-gr-corolla
+                - paragraph [ref=f6e3855]: Toyota
+                - heading "GR Corolla" [level=3] [ref=f6e3856]
+                - paragraph [ref=f6e3857]: 2024 · Hatchback
+            - generic [ref=f6e3858]:
+              - generic [ref=f6e3859]:
+                - generic [ref=f6e3860]:
+                  - paragraph [ref=f6e3861]: Precio
+                  - paragraph [ref=f6e3862]: 36.000 US$
+                - generic [ref=f6e3863]:
+                  - generic [ref=f6e3864]:
+                    - paragraph [ref=f6e3865]: Potencia
+                    - paragraph [ref=f6e3866]: 300 HP
+                  - generic [ref=f6e3870]:
+                    - paragraph [ref=f6e3871]: 0-100
+                    - paragraph [ref=f6e3872]: 4.9s
+              - generic [ref=f6e3873]:
+                - button "Agregar al carrito" [ref=f6e3874]
+                - link "Explorar vehículo" [ref=f6e3880] [cursor=pointer]:
+                  - /url: /vehiculos/toyota-gr-corolla
+          - article [ref=f6e3884]:
+            - generic [ref=f6e3885]:
+              - link "Ver detalles del Toyota GR Supra" [ref=f6e3886] [cursor=pointer]:
+                - /url: /vehiculos/toyota-gr-supra
+                - img "Toyota GR Supra 2024" [ref=f6e3888]
+              - generic: Nuevo
+              - generic [ref=f6e3889]:
+                - button "Añadir Toyota GR Supra al comparador" [ref=f6e3890]
+                - button "Añadir Toyota GR Supra a favoritos" [ref=f6e3898]
+              - link [ref=f6e3901] [cursor=pointer]:
+                - /url: /vehiculos/toyota-gr-supra
+                - paragraph [ref=f6e3902]: Toyota
+                - heading "GR Supra" [level=3] [ref=f6e3903]
+                - paragraph [ref=f6e3904]: 2024 · Coupé
+            - generic [ref=f6e3905]:
+              - generic [ref=f6e3906]:
+                - generic [ref=f6e3907]:
+                  - paragraph [ref=f6e3908]: Precio
+                  - paragraph [ref=f6e3909]: 56.545 US$
+                - generic [ref=f6e3910]:
+                  - generic [ref=f6e3911]:
+                    - paragraph [ref=f6e3912]: Potencia
+                    - paragraph [ref=f6e3913]: 382 HP
+                  - generic [ref=f6e3917]:
+                    - paragraph [ref=f6e3918]: 0-100
+                    - paragraph [ref=f6e3919]: 3.9s
+              - generic [ref=f6e3920]:
+                - button "Agregar al carrito" [ref=f6e3921]
+                - link "Explorar vehículo" [ref=f6e3927] [cursor=pointer]:
+                  - /url: /vehiculos/toyota-gr-supra
+          - article [ref=f6e3931]:
+            - generic [ref=f6e3932]:
+              - link "Ver detalles del Toyota Land Cruiser" [ref=f6e3933] [cursor=pointer]:
+                - /url: /vehiculos/toyota-land-cruiser
+                - img "Toyota Land Cruiser 2024" [ref=f6e3935]
+              - generic: Nuevo
+              - generic [ref=f6e3936]:
+                - button "Añadir Toyota Land Cruiser al comparador" [ref=f6e3937]
+                - button "Añadir Toyota Land Cruiser a favoritos" [ref=f6e3945]
+              - link [ref=f6e3948] [cursor=pointer]:
+                - /url: /vehiculos/toyota-land-cruiser
+                - paragraph [ref=f6e3949]: Toyota
+                - heading "Land Cruiser" [level=3] [ref=f6e3950]
+                - paragraph [ref=f6e3951]: 2024 · SUV
+            - generic [ref=f6e3952]:
+              - generic [ref=f6e3953]:
+                - generic [ref=f6e3954]:
+                  - paragraph [ref=f6e3955]: Precio
+                  - paragraph [ref=f6e3956]: 55.950 US$
+                - generic [ref=f6e3957]:
+                  - generic [ref=f6e3958]:
+                    - paragraph [ref=f6e3959]: Potencia
+                    - paragraph [ref=f6e3960]: 326 HP
+                  - generic [ref=f6e3964]:
+                    - paragraph [ref=f6e3965]: 0-100
+                    - paragraph [ref=f6e3966]: 6.5s
+              - generic [ref=f6e3967]:
+                - button "Agregar al carrito" [ref=f6e3968]
+                - link "Explorar vehículo" [ref=f6e3974] [cursor=pointer]:
+                  - /url: /vehiculos/toyota-land-cruiser
+          - article [ref=f6e3978]:
+            - generic [ref=f6e3979]:
+              - link "Ver detalles del Volkswagen Golf R" [ref=f6e3980] [cursor=pointer]:
+                - /url: /vehiculos/volkswagen-golf-r
+                - img "Volkswagen Golf R 2024" [ref=f6e3982]
+              - generic: Nuevo
+              - generic [ref=f6e3983]:
+                - button "Añadir Volkswagen Golf R al comparador" [ref=f6e3984]
+                - button "Añadir Volkswagen Golf R a favoritos" [ref=f6e3992]
+              - link [ref=f6e3995] [cursor=pointer]:
+                - /url: /vehiculos/volkswagen-golf-r
+                - paragraph [ref=f6e3996]: Volkswagen
+                - heading "Golf R" [level=3] [ref=f6e3997]
+                - paragraph [ref=f6e3998]: 2024 · Hatchback
+            - generic [ref=f6e3999]:
+              - generic [ref=f6e4000]:
+                - generic [ref=f6e4001]:
+                  - paragraph [ref=f6e4002]: Precio
+                  - paragraph [ref=f6e4003]: 46.000 US$
+                - generic [ref=f6e4004]:
+                  - generic [ref=f6e4005]:
+                    - paragraph [ref=f6e4006]: Potencia
+                    - paragraph [ref=f6e4007]: 329 HP
+                  - generic [ref=f6e4011]:
+                    - paragraph [ref=f6e4012]: 0-100
+                    - paragraph [ref=f6e4013]: 4.6s
+              - generic [ref=f6e4014]:
+                - button "Agregar al carrito" [ref=f6e4015]
+                - link "Explorar vehículo" [ref=f6e4021] [cursor=pointer]:
+                  - /url: /vehiculos/volkswagen-golf-r
+          - article [ref=f6e4025]:
+            - generic [ref=f6e4026]:
+              - link "Ver detalles del Volkswagen ID.4" [ref=f6e4027] [cursor=pointer]:
+                - /url: /vehiculos/volkswagen-id4
+                - img "Volkswagen ID.4 2024" [ref=f6e4029]
+              - generic: Eléctrico
+              - generic [ref=f6e4030]:
+                - button "Añadir Volkswagen ID.4 al comparador" [ref=f6e4031]
+                - button "Añadir Volkswagen ID.4 a favoritos" [ref=f6e4039]
+              - link [ref=f6e4042] [cursor=pointer]:
+                - /url: /vehiculos/volkswagen-id4
+                - paragraph [ref=f6e4043]: Volkswagen
+                - heading "ID.4" [level=3] [ref=f6e4044]
+                - paragraph [ref=f6e4045]: 2024 · SUV
+            - generic [ref=f6e4046]:
+              - generic [ref=f6e4047]:
+                - generic [ref=f6e4048]:
+                  - paragraph [ref=f6e4049]: Precio
+                  - paragraph [ref=f6e4050]: 41.000 US$
+                - generic [ref=f6e4051]:
+                  - generic [ref=f6e4052]:
+                    - paragraph [ref=f6e4053]: Potencia
+                    - paragraph [ref=f6e4054]: 295 HP
+                  - generic [ref=f6e4058]:
+                    - paragraph [ref=f6e4059]: 0-100
+                    - paragraph [ref=f6e4060]: 5.4s
+              - generic [ref=f6e4061]:
+                - button "Agregar al carrito" [ref=f6e4062]
+                - link "Explorar vehículo" [ref=f6e4068] [cursor=pointer]:
+                  - /url: /vehiculos/volkswagen-id4
+          - article [ref=f6e4072]:
+            - generic [ref=f6e4073]:
+              - link "Ver detalles del Volkswagen Touareg R" [ref=f6e4074] [cursor=pointer]:
+                - /url: /vehiculos/volkswagen-touareg
+                - img "Volkswagen Touareg R 2024" [ref=f6e4076]
+              - generic: Nuevo
+              - generic [ref=f6e4077]:
+                - button "Añadir Volkswagen Touareg R al comparador" [ref=f6e4078]
+                - button "Añadir Volkswagen Touareg R a favoritos" [ref=f6e4086]
+              - link [ref=f6e4089] [cursor=pointer]:
+                - /url: /vehiculos/volkswagen-touareg
+                - paragraph [ref=f6e4090]: Volkswagen
+                - heading "Touareg R" [level=3] [ref=f6e4091]
+                - paragraph [ref=f6e4092]: 2024 · SUV
+            - generic [ref=f6e4093]:
+              - generic [ref=f6e4094]:
+                - generic [ref=f6e4095]:
+                  - paragraph [ref=f6e4096]: Precio
+                  - paragraph [ref=f6e4097]: 85.000 US$
+                - generic [ref=f6e4098]:
+                  - generic [ref=f6e4099]:
+                    - paragraph [ref=f6e4100]: Potencia
+                    - paragraph [ref=f6e4101]: 462 HP
+                  - generic [ref=f6e4105]:
+                    - paragraph [ref=f6e4106]: 0-100
+                    - paragraph [ref=f6e4107]: 5.1s
+              - generic [ref=f6e4108]:
+                - button "Agregar al carrito" [ref=f6e4109]
+                - link "Explorar vehículo" [ref=f6e4115] [cursor=pointer]:
+                  - /url: /vehiculos/volkswagen-touareg
+          - article [ref=f6e4119]:
+            - generic [ref=f6e4120]:
+              - link "Ver detalles del Volvo XC60 B5" [ref=f6e4121] [cursor=pointer]:
+                - /url: /vehiculos/volvo-xc60
+                - img "Volvo XC60 B5 2024" [ref=f6e4123]
+              - generic: Nuevo
+              - generic [ref=f6e4124]:
+                - button "Añadir Volvo XC60 B5 al comparador" [ref=f6e4125]
+                - button "Añadir Volvo XC60 B5 a favoritos" [ref=f6e4133]
+              - link [ref=f6e4136] [cursor=pointer]:
+                - /url: /vehiculos/volvo-xc60
+                - paragraph [ref=f6e4137]: Volvo
+                - heading "XC60 B5" [level=3] [ref=f6e4138]
+                - paragraph [ref=f6e4139]: 2024 · SUV
+            - generic [ref=f6e4140]:
+              - generic [ref=f6e4141]:
+                - generic [ref=f6e4142]:
+                  - paragraph [ref=f6e4143]: Precio
+                  - paragraph [ref=f6e4144]: 47.000 US$
+                - generic [ref=f6e4145]:
+                  - generic [ref=f6e4146]:
+                    - paragraph [ref=f6e4147]: Potencia
+                    - paragraph [ref=f6e4148]: 247 HP
+                  - generic [ref=f6e4152]:
+                    - paragraph [ref=f6e4153]: 0-100
+                    - paragraph [ref=f6e4154]: 7.1s
+              - generic [ref=f6e4155]:
+                - button "Agregar al carrito" [ref=f6e4156]
+                - link "Explorar vehículo" [ref=f6e4162] [cursor=pointer]:
+                  - /url: /vehiculos/volvo-xc60
+          - article [ref=f6e4166]:
+            - generic [ref=f6e4167]:
+              - link "Ver detalles del Volvo XC90 Recharge" [ref=f6e4168] [cursor=pointer]:
+                - /url: /vehiculos/volvo-xc90-recharge
+                - img "Volvo XC90 Recharge 2024" [ref=f6e4170]
+              - generic: Nuevo
+              - generic [ref=f6e4171]:
+                - button "Añadir Volvo XC90 Recharge al comparador" [ref=f6e4172]
+                - button "Añadir Volvo XC90 Recharge a favoritos" [ref=f6e4180]
+              - link [ref=f6e4183] [cursor=pointer]:
+                - /url: /vehiculos/volvo-xc90-recharge
+                - paragraph [ref=f6e4184]: Volvo
+                - heading "XC90 Recharge" [level=3] [ref=f6e4185]
+                - paragraph [ref=f6e4186]: 2024 · SUV
+            - generic [ref=f6e4187]:
+              - generic [ref=f6e4188]:
+                - generic [ref=f6e4189]:
+                  - paragraph [ref=f6e4190]: Precio
+                  - paragraph [ref=f6e4191]: 71.900 US$
+                - generic [ref=f6e4192]:
+                  - generic [ref=f6e4193]:
+                    - paragraph [ref=f6e4194]: Potencia
+                    - paragraph [ref=f6e4195]: 455 HP
+                  - generic [ref=f6e4199]:
+                    - paragraph [ref=f6e4200]: 0-100
+                    - paragraph [ref=f6e4201]: 5.3s
+              - generic [ref=f6e4202]:
+                - button "Agregar al carrito" [ref=f6e4203]
+                - link "Explorar vehículo" [ref=f6e4209] [cursor=pointer]:
+                  - /url: /vehiculos/volvo-xc90-recharge
+  - generic [ref=f6e4214]:
+    - paragraph [ref=f6e4215]: Digital Marketplace · Vehículos de Alta Gama
+    - heading "Tu próximo vehículo te espera." [level=2] [ref=f6e4216]
+    - paragraph [ref=f6e4217]: Explora la colección, compara y reserva el modelo que siempre quisiste. Experiencia de compra premium, de principio a fin.
+    - generic [ref=f6e4218]:
+      - link "Explorar vehículos" [ref=f6e4219] [cursor=pointer]:
+        - /url: /marketplace
+      - link "Ver marcas" [ref=f6e4222] [cursor=pointer]:
+        - /url: /marcas
+  - contentinfo [ref=f6e4223]:
+    - generic [ref=f6e4224]:
+      - generic [ref=f6e4225]:
+        - link "Ir al inicio" [ref=f6e4227] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f6e4232]: Digital Marketplace
+        - navigation [ref=f6e4233]:
+          - generic [ref=f6e4234]:
+            - paragraph [ref=f6e4235]: Explorar
+            - link "Marketplace" [ref=f6e4236] [cursor=pointer]:
+              - /url: /marketplace
+            - link "Marcas" [ref=f6e4237] [cursor=pointer]:
+              - /url: /marcas
+            - link "Comparar" [ref=f6e4238] [cursor=pointer]:
+              - /url: /comparar
+          - generic [ref=f6e4239]:
+            - paragraph [ref=f6e4240]: Cuenta
+            - link "Favoritos" [ref=f6e4241] [cursor=pointer]:
+              - /url: /favoritos
+            - link "Mi Garaje" [ref=f6e4242] [cursor=pointer]:
+              - /url: /garaje
+            - link "Carrito" [ref=f6e4243] [cursor=pointer]:
+              - /url: /carrito
+          - generic [ref=f6e4244]:
+            - paragraph [ref=f6e4245]: Legal
+            - link "Privacidad" [ref=f6e4246] [cursor=pointer]:
+              - /url: /privacidad
+            - link "Términos" [ref=f6e4247] [cursor=pointer]:
+              - /url: /terminos
+      - generic [ref=f6e4248]:
+        - paragraph [ref=f6e4249]: © 2026 Digital Marketplace. Todos los derechos reservados.
+        - paragraph [ref=f6e4250]: Experiencia de compra simulada.
